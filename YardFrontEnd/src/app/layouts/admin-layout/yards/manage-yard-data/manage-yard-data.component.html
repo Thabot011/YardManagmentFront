@@ -1,0 +1,107 @@
+<mat-card class="example-card">
+    <mat-card-header>
+        <mat-card-title mat-dialog-title>
+            <div>
+                {{data==null?'Add provider':'Edit provider'}}
+            </div>
+        </mat-card-title>
+        <mat-card-subtitle></mat-card-subtitle>
+    </mat-card-header>
+    <form [formGroup]="form" (ngSubmit)="submitForm()" novalidate>
+        <mat-card-content>
+            <div mat-dialog-content>
+                <mat-form-field>
+                    <input matInput placeholder="Name" formControlName="name">
+                    <!-- error -->
+                    <mat-error *ngIf="errorHandling('name', 'required')">
+                        You must provide a<strong>name</strong>
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field>
+                    <mat-label>Select a country</mat-label>
+                    <mat-select formControlName="country" (change)="onChangeCountry($event.target.value)">
+                        <mat-option>None</mat-option>
+                        <mat-option [value]="country.id" *ngFor="let country of countries">
+                            {{country.country_name}}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="errorHandling('country','required')">
+                        You must provide a<strong>country</strong>
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field>
+                    <mat-label>Select a city</mat-label>
+                    <mat-select formControlName="city">
+                        <mat-option>None</mat-option>
+                        <mat-option [value]="city.id" *ngFor="let city of cities">
+                            {{city.state_name}}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="errorHandling('city','required')">
+                        You must provide a<strong>city</strong>
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field>
+                    <mat-chip-list #chipList>
+                        <mat-chip *ngFor="let point of points"
+                                  [removable]="removable" (removed)="remove(point)">
+                            {{point.name}}
+                            <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                            <mat-icon (click)="naviagteToMap()" matSuffix>add_location</mat-icon>
+
+                        </mat-chip>
+                        <input disabled placeholder="Points"
+                               [matChipInputFor]="chipList"
+                    </mat-chip-list>
+                </mat-form-field>
+
+
+                <mat-form-field>
+                    <input matInput disabled placeholder="Area" formControlName="area">
+                    <!-- error -->
+                    <mat-error *ngIf="errorHandling('area', 'required')">
+                        You must provide a<strong>area</strong>
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field>
+                    <input type="number" matInput placeholder="Capacity" formControlName="capacity">
+                    <!-- error -->
+                    <mat-error *ngIf="errorHandling('capacity', 'required')">
+                        You must provide a<strong>capacity</strong>
+                    </mat-error>
+
+                </mat-form-field>
+
+                <mat-form-field>
+                    <input type="number" matInput placeholder="Threshold capacity" formControlName="thresholdCapacity">
+                    <!-- error -->
+                    <mat-error *ngIf="errorHandling('thresholdCapacity', 'required')">
+                        You must provide a<strong>threshold capacity</strong>
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field>
+                    <input type="range" matInput placeholder="Working Hours" formControlName="workingHours">
+                    <mat-icon matSuffix>phone</mat-icon>
+                    <!-- error -->
+                    <mat-error *ngIf="errorHandling('workingHours', 'required')">
+                        You must provide a<strong>working hours</strong>
+                    </mat-error>
+                </mat-form-field>
+
+            </div>
+        </mat-card-content>
+        <mat-card-actions>
+            <button mat-button type="submit">Save</button>
+            <button mat-button color="warn" [mat-dialog-close]="false">Cancel</button>
+        </mat-card-actions>
+    </form>
+
+</mat-card>
+
+
+

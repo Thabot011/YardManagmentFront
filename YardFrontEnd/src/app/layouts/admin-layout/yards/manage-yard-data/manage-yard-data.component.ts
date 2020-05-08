@@ -1,9 +1,9 @@
-import { Component, OnInit, Inject, ElementRef, ViewChild } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { Router } from '@angular/router';
-import { Client } from '../../../../shared/service/appService';
+import { Client, CountryRecord, EmirateRecord, EmirateRequest } from '../../../../shared/service/appService';
+import { Options } from 'ng5-slider';
 
 @Component({
     selector: 'app-manage-yard-data',
@@ -11,14 +11,22 @@ import { Client } from '../../../../shared/service/appService';
     styleUrls: ['./manage-yard-data.component.css']
 })
 export class ManageYardDataComponent implements OnInit {
+    options: Options = {
+        floor: 0,
+        ceil: 200
+    };
 
+    slider: {
+        from: 0,
+        to:12
+    }
 
     form: FormGroup;
     visible = true;
     removable = true;
 
-    countries: {};
-    cities: {};
+    countries: CountryRecord[];
+    emirates: EmirateRecord[];
     points: any[];
 
     constructor(private fb: FormBuilder,
@@ -29,7 +37,9 @@ export class ManageYardDataComponent implements OnInit {
 
     ngOnInit(): void {
         this.reactiveForm();
-        this.appService.listProvider().subscribe()
+        this.appService.listCountry().subscribe(data => {
+            this.countries = data.data;
+        })
     }
 
     errorHandling = (control: string, error: string) => {
@@ -47,24 +57,29 @@ export class ManageYardDataComponent implements OnInit {
         this.form = this.fb.group({
             name: ['', [Validators.required]],
             country: ['', [Validators.required]],
-            city: ['', [Validators.required]],
+            emirate: ['', [Validators.required]],
             boundaries: [{ value: '', disabled: true }, [Validators.required]],
             area: [{ value: '', disabled: true }, [Validators.required]],
             capacity: ['', [Validators.required]],
             thresholdCapacity: ['', [Validators.required]],
-            workingHours: ['', [Validators.required]],
+            workingHoursFrom: ['', [Validators.required]],
+            workingHoursto: ['', [Validators.required]],
         });
     }
 
     onChangeCountry(countryId: number) {
         if (countryId) {
-            this.appService.listEmirate().subscribe(
+            this.appService.listEmirate(new EmirateRequest({
+                emirateRecord: {
+                    countryId: countryId
+                } 
+            })).subscribe(
                 data => {
-                    this.cities = data;
+                    this.emirates = data.data;
                 }
             );
         } else {
-            this.cities = null;
+            this.emirates = null;
         }
     }
 

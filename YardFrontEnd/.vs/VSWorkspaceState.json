@@ -4,7 +4,13 @@
     "\\src",
     "\\src\\app",
     "\\src\\app\\layouts",
-    "\\src\\app\\shared"
+    "\\src\\app\\layouts\\admin-layout\\beneficiaries\\contacts-list",
+    "\\src\\app\\layouts\\admin-layout\\beneficiaries\\list",
+    "\\src\\app\\layouts\\admin-layout\\beneficiaries\\manage-beneficiarie-contacts",
+    "\\src\\app\\layouts\\admin-layout\\providers\\list",
+    "\\src\\app\\layouts\\admin-layout\\providers\\manage-provider-contracts",
+    "\\src\\assets"
   ],
+  "SelectedNode": "\\src\\app\\notifications",
   "PreviewInSolutionExplorer": false
 }

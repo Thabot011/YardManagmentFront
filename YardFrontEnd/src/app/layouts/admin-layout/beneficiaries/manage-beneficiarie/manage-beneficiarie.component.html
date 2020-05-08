@@ -10,57 +10,61 @@
     <form [formGroup]="form" (ngSubmit)="submitForm()" novalidate>
         <mat-card-content>
             <div mat-dialog-content>
+                <input type="hidden" value="0" formControlName="id">
+
                 <mat-form-field>
-                    <input matInput placeholder="Arabic name" formControlName="arabicName">
+                    <input matInput placeholder="Arabic name" formControlName="nameAr">
                     <!-- error -->
-                    <mat-error *ngIf="errorHandling('arabicName', 'required')">
+                    <mat-error *ngIf="errorHandling('nameAr', 'required')">
                         You must provide a<strong>arabic name</strong>
                     </mat-error>
                 </mat-form-field>
                 <mat-form-field>
-                    <input matInput placeholder="English name" formControlName="englishName">
+                    <input matInput placeholder="English name" formControlName="nameEn">
                     <!-- error -->
-                    <mat-error *ngIf="errorHandling('englishName', 'required')">
+                    <mat-error *ngIf="errorHandling('nameEn', 'required')">
                         You must provide a<strong>english name</strong>
                     </mat-error>
                 </mat-form-field>
+
                 <mat-form-field>
-                    <mat-label>Select an option</mat-label>
-                    <mat-select formControlName="providerType">
+                    <mat-label>Select a Beneficiary type</mat-label>
+                    <mat-select formControlName="typeId">
                         <mat-option>None</mat-option>
-                        <mat-option [value]="type.value" *ngFor="let type of providerTypes">
+                        <mat-option [value]="type.id" *ngFor="let type of BeneficiaryTypes">
                             {{type.name}}
                         </mat-option>
                     </mat-select>
-                    <mat-error *ngIf="errorHandling('providerType','required')">
+                    <mat-error *ngIf="errorHandling('typeId','required')">
                         You must provide a<strong>provider type</strong>
                     </mat-error>
                 </mat-form-field>
                 <mat-form-field>
                     <mat-label>Select a country</mat-label>
-                    <mat-select formControlName="country" (change)="onChangeCountry($event.target.value)">
+                    <mat-select formControlName="countryId" (selectionChange)="onChangeCountry($event)">
                         <mat-option>None</mat-option>
                         <mat-option [value]="country.id" *ngFor="let country of countries">
-                            {{country.country_name}}
+                            {{country.name}}
                         </mat-option>
                     </mat-select>
-                    <mat-error *ngIf="errorHandling('country','required')">
+                    <mat-error *ngIf="errorHandling('countryId','required')">
                         You must provide a<strong>country</strong>
                     </mat-error>
                 </mat-form-field>
 
                 <mat-form-field>
-                    <mat-label>Select a city</mat-label>
-                    <mat-select formControlName="city">
+                    <mat-label>Select a emirate</mat-label>
+                    <mat-select formControlName="emirateId">
                         <mat-option>None</mat-option>
-                        <mat-option [value]="city.id" *ngFor="let city of cities">
-                            {{city.state_name}}
+                        <mat-option [value]="emirate.id" *ngFor="let emirate of emirates">
+                            {{emirate.name}}
                         </mat-option>
                     </mat-select>
-                    <mat-error *ngIf="errorHandling('city','required')">
+                    <mat-error *ngIf="errorHandling('emirateId','required')">
                         You must provide a<strong>city</strong>
                     </mat-error>
                 </mat-form-field>
+
 
 
                 <mat-form-field>
@@ -83,19 +87,18 @@
                 </mat-form-field>
 
                 <mat-form-field>
-                    <input type="number" matInput placeholder="Landline number" formControlName="landlineNumber">
+                    <input type="number" matInput placeholder="Landline number" formControlName="landline">
                 </mat-form-field>
 
-               
 
                 <mat-form-field>
                     <input type="url" matInput placeholder="Website" formControlName="website">
                 </mat-form-field>
 
                 <mat-form-field>
-                    <input type="number" matInput placeholder="TRN" formControlName="TRN">
+                    <input matInput placeholder="TRN" formControlName="trn">
                     <!-- error -->
-                    <mat-error *ngIf="errorHandling('TRN', 'required')">
+                    <mat-error *ngIf="errorHandling('trn', 'required')">
                         You must provide a<strong>TRN</strong>
                     </mat-error>
                 </mat-form-field>

@@ -15,18 +15,25 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { MatChipsModule } from '@angular/material/chips';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatExpansionModule } from '@angular/material/expansion';
+
+import { Ng5SliderModule } from 'ng5-slider';
 
 
 import { ReactiveFormsModule } from '@angular/forms';
+import { LoaderComponent } from './component/loader/loader.component';
+import { RouterModule } from '@angular/router';
 
 
 
 
 
 @NgModule({
-    declarations: [TableComponent],
+    declarations: [TableComponent, LoaderComponent],
     imports: [
         CommonModule,
+        RouterModule,
         ReactiveFormsModule,
         MatTableModule,
         MatProgressSpinnerModule,
@@ -41,7 +48,10 @@ import { ReactiveFormsModule } from '@angular/forms';
         MatFormFieldModule,
         MatSelectModule,
         MatInputModule,
-        MatChipsModule
+        MatChipsModule,
+        MatSnackBarModule,
+        MatExpansionModule,
+        Ng5SliderModule,
     ],
     exports: [
         ReactiveFormsModule,
@@ -59,7 +69,10 @@ import { ReactiveFormsModule } from '@angular/forms';
         MatFormFieldModule,
         MatSelectModule,
         MatInputModule,
-        MatChipsModule
+        MatChipsModule,
+        MatSnackBarModule,
+        MatExpansionModule,
+        Ng5SliderModule
     ]
 })
 export class SharedModule { }

@@ -1,7 +1,7 @@
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 
 import { AppRoutingModule } from './app.routing';
@@ -12,6 +12,10 @@ import { SidebarModule } from './sidebar/sidebar.module';
 import { AppComponent } from './app.component';
 
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
+import { API_BASE_URL } from './shared/service/appService';
+import { environment } from '../environments/environment';
+import { LoaderService } from './shared/service/loader.service';
+import { LoaderInterceptor } from './shared/interceptor/loader.interceptor';
 
 
 @NgModule({
@@ -30,7 +34,10 @@ import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.compon
         AppComponent,
         AdminLayoutComponent,
     ],
-    providers: [],
+    providers: [{ provide: API_BASE_URL, useValue: environment.apiUrl },
+        LoaderService,
+    { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true }
+    ],
     bootstrap: [AppComponent]
 })
 export class AppModule { }

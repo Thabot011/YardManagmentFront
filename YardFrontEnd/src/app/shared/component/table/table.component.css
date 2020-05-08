@@ -10,6 +10,10 @@
     overflow: auto;
 }
 
+.example-expanded-table-container {
+    width: 100%;
+}
+
 table {
     width: 100%;
 }
@@ -27,9 +31,7 @@ table {
     justify-content: center;
 }
 
-table {
-    width: 100%;
-}
+
 
 tr.example-detail-row {
     height: 0;
@@ -61,11 +63,7 @@ tr.example-element-row:not(.example-expanded-row):active {
     height: 104px;
 }
 
-.example-element-symbol {
-    font-weight: bold;
-    font-size: 40px;
-    line-height: normal;
-}
+
 
 .example-element-description {
     padding: 16px;
@@ -76,3 +74,10 @@ tr.example-element-row:not(.example-expanded-row):active {
 }
 
 
+.mat-column-action {
+    text-align: center !important;
+}
+
+.black-icon {
+    color: red;
+}

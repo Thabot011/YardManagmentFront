@@ -19,55 +19,202 @@ export interface IClient {
      * @param body (optional) 
      * @return Success
      */
-    listCountry(body?: CountryRequest | undefined): Observable<SwaggerResponse<void>>;
+    listBeneficiary(body?: BeneficiaryRequest | undefined): Observable<BeneficiaryResponse>;
     /**
      * @param body (optional) 
      * @return Success
      */
-    listEmirate(body?: EmirateRequest | undefined): Observable<SwaggerResponse<void>>;
+    addBeneficiary(body?: BeneficiaryRequest | undefined): Observable<BeneficiaryResponse>;
     /**
      * @param body (optional) 
      * @return Success
      */
-    listProvider(body?: ProviderRequest | undefined): Observable<SwaggerResponse<void>>;
+    editBeneficiary(body?: BeneficiaryRequest | undefined): Observable<BeneficiaryResponse>;
     /**
      * @param body (optional) 
      * @return Success
      */
-    addProvider(body?: ProviderRequest | undefined): Observable<SwaggerResponse<void>>;
+    activateBeneficiary(body?: BeneficiaryRequest | undefined): Observable<BeneficiaryResponse>;
     /**
      * @param body (optional) 
      * @return Success
      */
-    editProvider(body?: ProviderRequest | undefined): Observable<SwaggerResponse<void>>;
+    deActivateBeneficiary(body?: BeneficiaryRequest | undefined): Observable<BeneficiaryResponse>;
     /**
      * @param body (optional) 
      * @return Success
      */
-    activateProvider(body?: ProviderRequest | undefined): Observable<SwaggerResponse<void>>;
+    listBeneficiaryContact(body?: BeneficiaryContactRequest | undefined): Observable<BeneficiaryContactResponse>;
     /**
      * @param body (optional) 
      * @return Success
      */
-    deActivateProvider(body?: ProviderRequest | undefined): Observable<SwaggerResponse<void>>;
+    addBeneficiaryContact(body?: BeneficiaryContactRequest | undefined): Observable<BeneficiaryContactResponse>;
     /**
      * @param body (optional) 
      * @return Success
      */
-    listProviderType(body?: ProviderTypeRequest | undefined): Observable<SwaggerResponse<void>>;
+    editBeneficiaryContact(body?: BeneficiaryContactRequest | undefined): Observable<BeneficiaryContactResponse>;
     /**
      * @param body (optional) 
      * @return Success
      */
-    login(body?: UserRecord | undefined): Observable<SwaggerResponse<void>>;
+    activateBeneficiaryContact(body?: BeneficiaryContactRequest | undefined): Observable<BeneficiaryContactResponse>;
     /**
      * @param body (optional) 
      * @return Success
      */
-    listUser(body?: UserRequest | undefined): Observable<SwaggerResponse<void>>;
+    deActivateBeneficiaryContact(body?: BeneficiaryContactRequest | undefined): Observable<BeneficiaryContactResponse>;
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    listBeneficiaryType(body?: BeneficiaryTypeRequest | undefined): Observable<BeneficiaryTypeResponse>;
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    listCountry(body?: CountryRequest | undefined): Observable<CountryResponse>;
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    listEmirate(body?: EmirateRequest | undefined): Observable<EmirateResponse>;
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    listProvider(body?: ProviderRequest | undefined): Observable<ProviderResponse>;
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    addProvider(body?: ProviderRequest | undefined): Observable<ProviderResponse>;
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    editProvider(body?: ProviderRequest | undefined): Observable<ProviderResponse>;
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    activateProvider(body?: ProviderRequest | undefined): Observable<ProviderResponse>;
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    deActivateProvider(body?: ProviderRequest | undefined): Observable<ProviderResponse>;
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    listProviderContact(body?: ProviderContactRequest | undefined): Observable<ProviderContactResponse>;
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    addProviderContact(body?: ProviderContactRequest | undefined): Observable<ProviderContactResponse>;
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    editProviderContact(body?: ProviderContactRequest | undefined): Observable<ProviderContactResponse>;
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    activateProviderContact(body?: ProviderContactRequest | undefined): Observable<ProviderContactResponse>;
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    deActivateProviderContact(body?: ProviderContactRequest | undefined): Observable<ProviderContactResponse>;
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    listProviderType(body?: ProviderTypeRequest | undefined): Observable<ProviderTypeResponse>;
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    login(body?: UserRecord | undefined): Observable<void>;
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    listUser(body?: UserRequest | undefined): Observable<UserResponse>;
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    listYard(body?: YardRequest | undefined): Observable<YardResponse>;
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    addYard(body?: YardRequest | undefined): Observable<YardResponse>;
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    editYard(body?: YardRequest | undefined): Observable<YardResponse>;
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    activateYard(body?: YardRequest | undefined): Observable<YardResponse>;
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    deActivateYard(body?: YardRequest | undefined): Observable<YardResponse>;
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    approveYard(body?: YardRequest | undefined): Observable<YardResponse>;
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    listYardToUpdate(body?: YardRequest | undefined): Observable<YardResponse>;
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    approveYardToUpdate(body?: YardRequest | undefined): Observable<YardResponse>;
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    listZone(body?: ZoneRequest | undefined): Observable<ZoneResponse>;
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    addZone(body?: ZoneRequest | undefined): Observable<ZoneResponse>;
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    editZone(body?: ZoneRequest | undefined): Observable<ZoneResponse>;
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    activateZone(body?: ZoneRequest | undefined): Observable<ZoneResponse>;
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    deActivateZone(body?: ZoneRequest | undefined): Observable<ZoneResponse>;
 }
 
-@Injectable()
+@Injectable({
+    providedIn: 'root'
+})
 export class Client implements IClient {
     private http: HttpClient;
     private baseUrl: string;
@@ -82,7 +229,634 @@ export class Client implements IClient {
      * @param body (optional) 
      * @return Success
      */
-    listCountry(body?: CountryRequest | undefined): Observable<SwaggerResponse<void>> {
+    listBeneficiary(body?: BeneficiaryRequest | undefined): Observable<BeneficiaryResponse> {
+        let url_ = this.baseUrl + "/api/Beneficiary/ListBeneficiary";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json",
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processListBeneficiary(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processListBeneficiary(<any>response_);
+                } catch (e) {
+                    return <Observable<BeneficiaryResponse>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<BeneficiaryResponse>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processListBeneficiary(response: HttpResponseBase): Observable<BeneficiaryResponse> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        let _mappings: { source: any, target: any }[] = [];
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : jsonParse(_responseText, this.jsonParseReviver);
+            result200 = BeneficiaryResponse.fromJS(resultData200, _mappings);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<BeneficiaryResponse>(<any>null);
+    }
+
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    addBeneficiary(body?: BeneficiaryRequest | undefined): Observable<BeneficiaryResponse> {
+        let url_ = this.baseUrl + "/api/Beneficiary/AddBeneficiary";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json",
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processAddBeneficiary(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processAddBeneficiary(<any>response_);
+                } catch (e) {
+                    return <Observable<BeneficiaryResponse>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<BeneficiaryResponse>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processAddBeneficiary(response: HttpResponseBase): Observable<BeneficiaryResponse> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        let _mappings: { source: any, target: any }[] = [];
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : jsonParse(_responseText, this.jsonParseReviver);
+            result200 = BeneficiaryResponse.fromJS(resultData200, _mappings);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<BeneficiaryResponse>(<any>null);
+    }
+
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    editBeneficiary(body?: BeneficiaryRequest | undefined): Observable<BeneficiaryResponse> {
+        let url_ = this.baseUrl + "/api/Beneficiary/EditBeneficiary";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json",
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processEditBeneficiary(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processEditBeneficiary(<any>response_);
+                } catch (e) {
+                    return <Observable<BeneficiaryResponse>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<BeneficiaryResponse>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processEditBeneficiary(response: HttpResponseBase): Observable<BeneficiaryResponse> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        let _mappings: { source: any, target: any }[] = [];
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : jsonParse(_responseText, this.jsonParseReviver);
+            result200 = BeneficiaryResponse.fromJS(resultData200, _mappings);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<BeneficiaryResponse>(<any>null);
+    }
+
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    activateBeneficiary(body?: BeneficiaryRequest | undefined): Observable<BeneficiaryResponse> {
+        let url_ = this.baseUrl + "/api/Beneficiary/ActivateBeneficiary";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json",
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processActivateBeneficiary(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processActivateBeneficiary(<any>response_);
+                } catch (e) {
+                    return <Observable<BeneficiaryResponse>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<BeneficiaryResponse>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processActivateBeneficiary(response: HttpResponseBase): Observable<BeneficiaryResponse> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        let _mappings: { source: any, target: any }[] = [];
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : jsonParse(_responseText, this.jsonParseReviver);
+            result200 = BeneficiaryResponse.fromJS(resultData200, _mappings);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<BeneficiaryResponse>(<any>null);
+    }
+
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    deActivateBeneficiary(body?: BeneficiaryRequest | undefined): Observable<BeneficiaryResponse> {
+        let url_ = this.baseUrl + "/api/Beneficiary/DeActivateBeneficiary";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json",
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processDeActivateBeneficiary(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processDeActivateBeneficiary(<any>response_);
+                } catch (e) {
+                    return <Observable<BeneficiaryResponse>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<BeneficiaryResponse>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processDeActivateBeneficiary(response: HttpResponseBase): Observable<BeneficiaryResponse> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        let _mappings: { source: any, target: any }[] = [];
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : jsonParse(_responseText, this.jsonParseReviver);
+            result200 = BeneficiaryResponse.fromJS(resultData200, _mappings);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<BeneficiaryResponse>(<any>null);
+    }
+
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    listBeneficiaryContact(body?: BeneficiaryContactRequest | undefined): Observable<BeneficiaryContactResponse> {
+        let url_ = this.baseUrl + "/api/BeneficiaryContact/ListBeneficiaryContact";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json",
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processListBeneficiaryContact(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processListBeneficiaryContact(<any>response_);
+                } catch (e) {
+                    return <Observable<BeneficiaryContactResponse>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<BeneficiaryContactResponse>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processListBeneficiaryContact(response: HttpResponseBase): Observable<BeneficiaryContactResponse> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        let _mappings: { source: any, target: any }[] = [];
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : jsonParse(_responseText, this.jsonParseReviver);
+            result200 = BeneficiaryContactResponse.fromJS(resultData200, _mappings);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<BeneficiaryContactResponse>(<any>null);
+    }
+
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    addBeneficiaryContact(body?: BeneficiaryContactRequest | undefined): Observable<BeneficiaryContactResponse> {
+        let url_ = this.baseUrl + "/api/BeneficiaryContact/AddBeneficiaryContact";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json",
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processAddBeneficiaryContact(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processAddBeneficiaryContact(<any>response_);
+                } catch (e) {
+                    return <Observable<BeneficiaryContactResponse>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<BeneficiaryContactResponse>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processAddBeneficiaryContact(response: HttpResponseBase): Observable<BeneficiaryContactResponse> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        let _mappings: { source: any, target: any }[] = [];
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : jsonParse(_responseText, this.jsonParseReviver);
+            result200 = BeneficiaryContactResponse.fromJS(resultData200, _mappings);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<BeneficiaryContactResponse>(<any>null);
+    }
+
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    editBeneficiaryContact(body?: BeneficiaryContactRequest | undefined): Observable<BeneficiaryContactResponse> {
+        let url_ = this.baseUrl + "/api/BeneficiaryContact/EditBeneficiaryContact";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json",
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processEditBeneficiaryContact(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processEditBeneficiaryContact(<any>response_);
+                } catch (e) {
+                    return <Observable<BeneficiaryContactResponse>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<BeneficiaryContactResponse>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processEditBeneficiaryContact(response: HttpResponseBase): Observable<BeneficiaryContactResponse> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        let _mappings: { source: any, target: any }[] = [];
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : jsonParse(_responseText, this.jsonParseReviver);
+            result200 = BeneficiaryContactResponse.fromJS(resultData200, _mappings);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<BeneficiaryContactResponse>(<any>null);
+    }
+
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    activateBeneficiaryContact(body?: BeneficiaryContactRequest | undefined): Observable<BeneficiaryContactResponse> {
+        let url_ = this.baseUrl + "/api/BeneficiaryContact/ActivateBeneficiaryContact";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json",
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processActivateBeneficiaryContact(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processActivateBeneficiaryContact(<any>response_);
+                } catch (e) {
+                    return <Observable<BeneficiaryContactResponse>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<BeneficiaryContactResponse>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processActivateBeneficiaryContact(response: HttpResponseBase): Observable<BeneficiaryContactResponse> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        let _mappings: { source: any, target: any }[] = [];
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : jsonParse(_responseText, this.jsonParseReviver);
+            result200 = BeneficiaryContactResponse.fromJS(resultData200, _mappings);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<BeneficiaryContactResponse>(<any>null);
+    }
+
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    deActivateBeneficiaryContact(body?: BeneficiaryContactRequest | undefined): Observable<BeneficiaryContactResponse> {
+        let url_ = this.baseUrl + "/api/BeneficiaryContact/DeActivateBeneficiaryContact";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json",
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processDeActivateBeneficiaryContact(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processDeActivateBeneficiaryContact(<any>response_);
+                } catch (e) {
+                    return <Observable<BeneficiaryContactResponse>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<BeneficiaryContactResponse>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processDeActivateBeneficiaryContact(response: HttpResponseBase): Observable<BeneficiaryContactResponse> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        let _mappings: { source: any, target: any }[] = [];
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : jsonParse(_responseText, this.jsonParseReviver);
+            result200 = BeneficiaryContactResponse.fromJS(resultData200, _mappings);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<BeneficiaryContactResponse>(<any>null);
+    }
+
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    listBeneficiaryType(body?: BeneficiaryTypeRequest | undefined): Observable<BeneficiaryTypeResponse> {
+        let url_ = this.baseUrl + "/api/BeneficiaryType/ListBeneficiaryType";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json",
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processListBeneficiaryType(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processListBeneficiaryType(<any>response_);
+                } catch (e) {
+                    return <Observable<BeneficiaryTypeResponse>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<BeneficiaryTypeResponse>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processListBeneficiaryType(response: HttpResponseBase): Observable<BeneficiaryTypeResponse> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        let _mappings: { source: any, target: any }[] = [];
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : jsonParse(_responseText, this.jsonParseReviver);
+            result200 = BeneficiaryTypeResponse.fromJS(resultData200, _mappings);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<BeneficiaryTypeResponse>(<any>null);
+    }
+
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    listCountry(body?: CountryRequest | undefined): Observable<CountryResponse> {
         let url_ = this.baseUrl + "/api/Country/ListCountry";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -94,6 +868,7 @@ export class Client implements IClient {
             responseType: "blob",
             headers: new HttpHeaders({
                 "Content-Type": "application/json-patch+json",
+                "Accept": "text/plain"
             })
         };
 
@@ -104,37 +879,41 @@ export class Client implements IClient {
                 try {
                     return this.processListCountry(<any>response_);
                 } catch (e) {
-                    return <Observable<SwaggerResponse<void>>><any>_observableThrow(e);
+                    return <Observable<CountryResponse>><any>_observableThrow(e);
                 }
             } else
-                return <Observable<SwaggerResponse<void>>><any>_observableThrow(response_);
+                return <Observable<CountryResponse>><any>_observableThrow(response_);
         }));
     }
 
-    protected processListCountry(response: HttpResponseBase): Observable<SwaggerResponse<void>> {
+    protected processListCountry(response: HttpResponseBase): Observable<CountryResponse> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        let _mappings: { source: any, target: any }[] = [];
         if (status === 200) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return _observableOf<SwaggerResponse<void>>(new SwaggerResponse(status, _headers, <any>null));
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : jsonParse(_responseText, this.jsonParseReviver);
+            result200 = CountryResponse.fromJS(resultData200, _mappings);
+            return _observableOf(result200);
             }));
         } else if (status !== 200 && status !== 204) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<SwaggerResponse<void>>(new SwaggerResponse(status, _headers, <any>null));
+        return _observableOf<CountryResponse>(<any>null);
     }
 
     /**
      * @param body (optional) 
      * @return Success
      */
-    listEmirate(body?: EmirateRequest | undefined): Observable<SwaggerResponse<void>> {
+    listEmirate(body?: EmirateRequest | undefined): Observable<EmirateResponse> {
         let url_ = this.baseUrl + "/api/Emirate/ListEmirate";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -146,6 +925,7 @@ export class Client implements IClient {
             responseType: "blob",
             headers: new HttpHeaders({
                 "Content-Type": "application/json-patch+json",
+                "Accept": "text/plain"
             })
         };
 
@@ -156,37 +936,41 @@ export class Client implements IClient {
                 try {
                     return this.processListEmirate(<any>response_);
                 } catch (e) {
-                    return <Observable<SwaggerResponse<void>>><any>_observableThrow(e);
+                    return <Observable<EmirateResponse>><any>_observableThrow(e);
                 }
             } else
-                return <Observable<SwaggerResponse<void>>><any>_observableThrow(response_);
+                return <Observable<EmirateResponse>><any>_observableThrow(response_);
         }));
     }
 
-    protected processListEmirate(response: HttpResponseBase): Observable<SwaggerResponse<void>> {
+    protected processListEmirate(response: HttpResponseBase): Observable<EmirateResponse> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        let _mappings: { source: any, target: any }[] = [];
         if (status === 200) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return _observableOf<SwaggerResponse<void>>(new SwaggerResponse(status, _headers, <any>null));
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : jsonParse(_responseText, this.jsonParseReviver);
+            result200 = EmirateResponse.fromJS(resultData200, _mappings);
+            return _observableOf(result200);
             }));
         } else if (status !== 200 && status !== 204) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<SwaggerResponse<void>>(new SwaggerResponse(status, _headers, <any>null));
+        return _observableOf<EmirateResponse>(<any>null);
     }
 
     /**
      * @param body (optional) 
      * @return Success
      */
-    listProvider(body?: ProviderRequest | undefined): Observable<SwaggerResponse<void>> {
+    listProvider(body?: ProviderRequest | undefined): Observable<ProviderResponse> {
         let url_ = this.baseUrl + "/api/Provider/ListProvider";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -198,6 +982,7 @@ export class Client implements IClient {
             responseType: "blob",
             headers: new HttpHeaders({
                 "Content-Type": "application/json-patch+json",
+                "Accept": "text/plain"
             })
         };
 
@@ -208,37 +993,41 @@ export class Client implements IClient {
                 try {
                     return this.processListProvider(<any>response_);
                 } catch (e) {
-                    return <Observable<SwaggerResponse<void>>><any>_observableThrow(e);
+                    return <Observable<ProviderResponse>><any>_observableThrow(e);
                 }
             } else
-                return <Observable<SwaggerResponse<void>>><any>_observableThrow(response_);
+                return <Observable<ProviderResponse>><any>_observableThrow(response_);
         }));
     }
 
-    protected processListProvider(response: HttpResponseBase): Observable<SwaggerResponse<void>> {
+    protected processListProvider(response: HttpResponseBase): Observable<ProviderResponse> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        let _mappings: { source: any, target: any }[] = [];
         if (status === 200) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return _observableOf<SwaggerResponse<void>>(new SwaggerResponse(status, _headers, <any>null));
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : jsonParse(_responseText, this.jsonParseReviver);
+            result200 = ProviderResponse.fromJS(resultData200, _mappings);
+            return _observableOf(result200);
             }));
         } else if (status !== 200 && status !== 204) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<SwaggerResponse<void>>(new SwaggerResponse(status, _headers, <any>null));
+        return _observableOf<ProviderResponse>(<any>null);
     }
 
     /**
      * @param body (optional) 
      * @return Success
      */
-    addProvider(body?: ProviderRequest | undefined): Observable<SwaggerResponse<void>> {
+    addProvider(body?: ProviderRequest | undefined): Observable<ProviderResponse> {
         let url_ = this.baseUrl + "/api/Provider/AddProvider";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -250,6 +1039,7 @@ export class Client implements IClient {
             responseType: "blob",
             headers: new HttpHeaders({
                 "Content-Type": "application/json-patch+json",
+                "Accept": "text/plain"
             })
         };
 
@@ -260,37 +1050,41 @@ export class Client implements IClient {
                 try {
                     return this.processAddProvider(<any>response_);
                 } catch (e) {
-                    return <Observable<SwaggerResponse<void>>><any>_observableThrow(e);
+                    return <Observable<ProviderResponse>><any>_observableThrow(e);
                 }
             } else
-                return <Observable<SwaggerResponse<void>>><any>_observableThrow(response_);
+                return <Observable<ProviderResponse>><any>_observableThrow(response_);
         }));
     }
 
-    protected processAddProvider(response: HttpResponseBase): Observable<SwaggerResponse<void>> {
+    protected processAddProvider(response: HttpResponseBase): Observable<ProviderResponse> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        let _mappings: { source: any, target: any }[] = [];
         if (status === 200) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return _observableOf<SwaggerResponse<void>>(new SwaggerResponse(status, _headers, <any>null));
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : jsonParse(_responseText, this.jsonParseReviver);
+            result200 = ProviderResponse.fromJS(resultData200, _mappings);
+            return _observableOf(result200);
             }));
         } else if (status !== 200 && status !== 204) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<SwaggerResponse<void>>(new SwaggerResponse(status, _headers, <any>null));
+        return _observableOf<ProviderResponse>(<any>null);
     }
 
     /**
      * @param body (optional) 
      * @return Success
      */
-    editProvider(body?: ProviderRequest | undefined): Observable<SwaggerResponse<void>> {
+    editProvider(body?: ProviderRequest | undefined): Observable<ProviderResponse> {
         let url_ = this.baseUrl + "/api/Provider/EditProvider";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -302,6 +1096,7 @@ export class Client implements IClient {
             responseType: "blob",
             headers: new HttpHeaders({
                 "Content-Type": "application/json-patch+json",
+                "Accept": "text/plain"
             })
         };
 
@@ -312,37 +1107,41 @@ export class Client implements IClient {
                 try {
                     return this.processEditProvider(<any>response_);
                 } catch (e) {
-                    return <Observable<SwaggerResponse<void>>><any>_observableThrow(e);
+                    return <Observable<ProviderResponse>><any>_observableThrow(e);
                 }
             } else
-                return <Observable<SwaggerResponse<void>>><any>_observableThrow(response_);
+                return <Observable<ProviderResponse>><any>_observableThrow(response_);
         }));
     }
 
-    protected processEditProvider(response: HttpResponseBase): Observable<SwaggerResponse<void>> {
+    protected processEditProvider(response: HttpResponseBase): Observable<ProviderResponse> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        let _mappings: { source: any, target: any }[] = [];
         if (status === 200) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return _observableOf<SwaggerResponse<void>>(new SwaggerResponse(status, _headers, <any>null));
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : jsonParse(_responseText, this.jsonParseReviver);
+            result200 = ProviderResponse.fromJS(resultData200, _mappings);
+            return _observableOf(result200);
             }));
         } else if (status !== 200 && status !== 204) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<SwaggerResponse<void>>(new SwaggerResponse(status, _headers, <any>null));
+        return _observableOf<ProviderResponse>(<any>null);
     }
 
     /**
      * @param body (optional) 
      * @return Success
      */
-    activateProvider(body?: ProviderRequest | undefined): Observable<SwaggerResponse<void>> {
+    activateProvider(body?: ProviderRequest | undefined): Observable<ProviderResponse> {
         let url_ = this.baseUrl + "/api/Provider/ActivateProvider";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -354,6 +1153,7 @@ export class Client implements IClient {
             responseType: "blob",
             headers: new HttpHeaders({
                 "Content-Type": "application/json-patch+json",
+                "Accept": "text/plain"
             })
         };
 
@@ -364,37 +1164,41 @@ export class Client implements IClient {
                 try {
                     return this.processActivateProvider(<any>response_);
                 } catch (e) {
-                    return <Observable<SwaggerResponse<void>>><any>_observableThrow(e);
+                    return <Observable<ProviderResponse>><any>_observableThrow(e);
                 }
             } else
-                return <Observable<SwaggerResponse<void>>><any>_observableThrow(response_);
+                return <Observable<ProviderResponse>><any>_observableThrow(response_);
         }));
     }
 
-    protected processActivateProvider(response: HttpResponseBase): Observable<SwaggerResponse<void>> {
+    protected processActivateProvider(response: HttpResponseBase): Observable<ProviderResponse> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        let _mappings: { source: any, target: any }[] = [];
         if (status === 200) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return _observableOf<SwaggerResponse<void>>(new SwaggerResponse(status, _headers, <any>null));
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : jsonParse(_responseText, this.jsonParseReviver);
+            result200 = ProviderResponse.fromJS(resultData200, _mappings);
+            return _observableOf(result200);
             }));
         } else if (status !== 200 && status !== 204) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<SwaggerResponse<void>>(new SwaggerResponse(status, _headers, <any>null));
+        return _observableOf<ProviderResponse>(<any>null);
     }
 
     /**
      * @param body (optional) 
      * @return Success
      */
-    deActivateProvider(body?: ProviderRequest | undefined): Observable<SwaggerResponse<void>> {
+    deActivateProvider(body?: ProviderRequest | undefined): Observable<ProviderResponse> {
         let url_ = this.baseUrl + "/api/Provider/DeActivateProvider";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -406,6 +1210,7 @@ export class Client implements IClient {
             responseType: "blob",
             headers: new HttpHeaders({
                 "Content-Type": "application/json-patch+json",
+                "Accept": "text/plain"
             })
         };
 
@@ -416,37 +1221,326 @@ export class Client implements IClient {
                 try {
                     return this.processDeActivateProvider(<any>response_);
                 } catch (e) {
-                    return <Observable<SwaggerResponse<void>>><any>_observableThrow(e);
+                    return <Observable<ProviderResponse>><any>_observableThrow(e);
                 }
             } else
-                return <Observable<SwaggerResponse<void>>><any>_observableThrow(response_);
+                return <Observable<ProviderResponse>><any>_observableThrow(response_);
         }));
     }
 
-    protected processDeActivateProvider(response: HttpResponseBase): Observable<SwaggerResponse<void>> {
+    protected processDeActivateProvider(response: HttpResponseBase): Observable<ProviderResponse> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        let _mappings: { source: any, target: any }[] = [];
         if (status === 200) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return _observableOf<SwaggerResponse<void>>(new SwaggerResponse(status, _headers, <any>null));
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : jsonParse(_responseText, this.jsonParseReviver);
+            result200 = ProviderResponse.fromJS(resultData200, _mappings);
+            return _observableOf(result200);
             }));
         } else if (status !== 200 && status !== 204) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<SwaggerResponse<void>>(new SwaggerResponse(status, _headers, <any>null));
+        return _observableOf<ProviderResponse>(<any>null);
     }
 
     /**
      * @param body (optional) 
      * @return Success
      */
-    listProviderType(body?: ProviderTypeRequest | undefined): Observable<SwaggerResponse<void>> {
+    listProviderContact(body?: ProviderContactRequest | undefined): Observable<ProviderContactResponse> {
+        let url_ = this.baseUrl + "/api/ProviderContact/ListProviderContact";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json",
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processListProviderContact(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processListProviderContact(<any>response_);
+                } catch (e) {
+                    return <Observable<ProviderContactResponse>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<ProviderContactResponse>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processListProviderContact(response: HttpResponseBase): Observable<ProviderContactResponse> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        let _mappings: { source: any, target: any }[] = [];
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : jsonParse(_responseText, this.jsonParseReviver);
+            result200 = ProviderContactResponse.fromJS(resultData200, _mappings);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<ProviderContactResponse>(<any>null);
+    }
+
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    addProviderContact(body?: ProviderContactRequest | undefined): Observable<ProviderContactResponse> {
+        let url_ = this.baseUrl + "/api/ProviderContact/AddProviderContact";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json",
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processAddProviderContact(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processAddProviderContact(<any>response_);
+                } catch (e) {
+                    return <Observable<ProviderContactResponse>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<ProviderContactResponse>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processAddProviderContact(response: HttpResponseBase): Observable<ProviderContactResponse> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        let _mappings: { source: any, target: any }[] = [];
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : jsonParse(_responseText, this.jsonParseReviver);
+            result200 = ProviderContactResponse.fromJS(resultData200, _mappings);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<ProviderContactResponse>(<any>null);
+    }
+
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    editProviderContact(body?: ProviderContactRequest | undefined): Observable<ProviderContactResponse> {
+        let url_ = this.baseUrl + "/api/ProviderContact/EditProviderContact";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json",
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processEditProviderContact(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processEditProviderContact(<any>response_);
+                } catch (e) {
+                    return <Observable<ProviderContactResponse>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<ProviderContactResponse>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processEditProviderContact(response: HttpResponseBase): Observable<ProviderContactResponse> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        let _mappings: { source: any, target: any }[] = [];
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : jsonParse(_responseText, this.jsonParseReviver);
+            result200 = ProviderContactResponse.fromJS(resultData200, _mappings);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<ProviderContactResponse>(<any>null);
+    }
+
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    activateProviderContact(body?: ProviderContactRequest | undefined): Observable<ProviderContactResponse> {
+        let url_ = this.baseUrl + "/api/ProviderContact/ActivateProviderContact";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json",
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processActivateProviderContact(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processActivateProviderContact(<any>response_);
+                } catch (e) {
+                    return <Observable<ProviderContactResponse>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<ProviderContactResponse>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processActivateProviderContact(response: HttpResponseBase): Observable<ProviderContactResponse> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        let _mappings: { source: any, target: any }[] = [];
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : jsonParse(_responseText, this.jsonParseReviver);
+            result200 = ProviderContactResponse.fromJS(resultData200, _mappings);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<ProviderContactResponse>(<any>null);
+    }
+
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    deActivateProviderContact(body?: ProviderContactRequest | undefined): Observable<ProviderContactResponse> {
+        let url_ = this.baseUrl + "/api/ProviderContact/DeActivateProviderContact";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json",
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processDeActivateProviderContact(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processDeActivateProviderContact(<any>response_);
+                } catch (e) {
+                    return <Observable<ProviderContactResponse>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<ProviderContactResponse>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processDeActivateProviderContact(response: HttpResponseBase): Observable<ProviderContactResponse> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        let _mappings: { source: any, target: any }[] = [];
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : jsonParse(_responseText, this.jsonParseReviver);
+            result200 = ProviderContactResponse.fromJS(resultData200, _mappings);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<ProviderContactResponse>(<any>null);
+    }
+
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    listProviderType(body?: ProviderTypeRequest | undefined): Observable<ProviderTypeResponse> {
         let url_ = this.baseUrl + "/api/ProviderType/ListProviderType";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -458,6 +1552,7 @@ export class Client implements IClient {
             responseType: "blob",
             headers: new HttpHeaders({
                 "Content-Type": "application/json-patch+json",
+                "Accept": "text/plain"
             })
         };
 
@@ -468,37 +1563,41 @@ export class Client implements IClient {
                 try {
                     return this.processListProviderType(<any>response_);
                 } catch (e) {
-                    return <Observable<SwaggerResponse<void>>><any>_observableThrow(e);
+                    return <Observable<ProviderTypeResponse>><any>_observableThrow(e);
                 }
             } else
-                return <Observable<SwaggerResponse<void>>><any>_observableThrow(response_);
+                return <Observable<ProviderTypeResponse>><any>_observableThrow(response_);
         }));
     }
 
-    protected processListProviderType(response: HttpResponseBase): Observable<SwaggerResponse<void>> {
+    protected processListProviderType(response: HttpResponseBase): Observable<ProviderTypeResponse> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        let _mappings: { source: any, target: any }[] = [];
         if (status === 200) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return _observableOf<SwaggerResponse<void>>(new SwaggerResponse(status, _headers, <any>null));
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : jsonParse(_responseText, this.jsonParseReviver);
+            result200 = ProviderTypeResponse.fromJS(resultData200, _mappings);
+            return _observableOf(result200);
             }));
         } else if (status !== 200 && status !== 204) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<SwaggerResponse<void>>(new SwaggerResponse(status, _headers, <any>null));
+        return _observableOf<ProviderTypeResponse>(<any>null);
     }
 
     /**
      * @param body (optional) 
      * @return Success
      */
-    login(body?: UserRecord | undefined): Observable<SwaggerResponse<void>> {
+    login(body?: UserRecord | undefined): Observable<void> {
         let url_ = this.baseUrl + "/api/User/Login";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -520,14 +1619,14 @@ export class Client implements IClient {
                 try {
                     return this.processLogin(<any>response_);
                 } catch (e) {
-                    return <Observable<SwaggerResponse<void>>><any>_observableThrow(e);
+                    return <Observable<void>><any>_observableThrow(e);
                 }
             } else
-                return <Observable<SwaggerResponse<void>>><any>_observableThrow(response_);
+                return <Observable<void>><any>_observableThrow(response_);
         }));
     }
 
-    protected processLogin(response: HttpResponseBase): Observable<SwaggerResponse<void>> {
+    protected processLogin(response: HttpResponseBase): Observable<void> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -536,21 +1635,21 @@ export class Client implements IClient {
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
         if (status === 200) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return _observableOf<SwaggerResponse<void>>(new SwaggerResponse(status, _headers, <any>null));
+            return _observableOf<void>(<any>null);
             }));
         } else if (status !== 200 && status !== 204) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<SwaggerResponse<void>>(new SwaggerResponse(status, _headers, <any>null));
+        return _observableOf<void>(<any>null);
     }
 
     /**
      * @param body (optional) 
      * @return Success
      */
-    listUser(body?: UserRequest | undefined): Observable<SwaggerResponse<void>> {
+    listUser(body?: UserRequest | undefined): Observable<UserResponse> {
         let url_ = this.baseUrl + "/api/User/ListUser";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -562,6 +1661,7 @@ export class Client implements IClient {
             responseType: "blob",
             headers: new HttpHeaders({
                 "Content-Type": "application/json-patch+json",
+                "Accept": "text/plain"
             })
         };
 
@@ -572,43 +1672,798 @@ export class Client implements IClient {
                 try {
                     return this.processListUser(<any>response_);
                 } catch (e) {
-                    return <Observable<SwaggerResponse<void>>><any>_observableThrow(e);
+                    return <Observable<UserResponse>><any>_observableThrow(e);
                 }
             } else
-                return <Observable<SwaggerResponse<void>>><any>_observableThrow(response_);
+                return <Observable<UserResponse>><any>_observableThrow(response_);
         }));
     }
 
-    protected processListUser(response: HttpResponseBase): Observable<SwaggerResponse<void>> {
+    protected processListUser(response: HttpResponseBase): Observable<UserResponse> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        let _mappings: { source: any, target: any }[] = [];
         if (status === 200) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return _observableOf<SwaggerResponse<void>>(new SwaggerResponse(status, _headers, <any>null));
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : jsonParse(_responseText, this.jsonParseReviver);
+            result200 = UserResponse.fromJS(resultData200, _mappings);
+            return _observableOf(result200);
             }));
         } else if (status !== 200 && status !== 204) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<SwaggerResponse<void>>(new SwaggerResponse(status, _headers, <any>null));
+        return _observableOf<UserResponse>(<any>null);
+    }
+
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    listYard(body?: YardRequest | undefined): Observable<YardResponse> {
+        let url_ = this.baseUrl + "/api/Yard/ListYard";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json",
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processListYard(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processListYard(<any>response_);
+                } catch (e) {
+                    return <Observable<YardResponse>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<YardResponse>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processListYard(response: HttpResponseBase): Observable<YardResponse> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        let _mappings: { source: any, target: any }[] = [];
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : jsonParse(_responseText, this.jsonParseReviver);
+            result200 = YardResponse.fromJS(resultData200, _mappings);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<YardResponse>(<any>null);
+    }
+
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    addYard(body?: YardRequest | undefined): Observable<YardResponse> {
+        let url_ = this.baseUrl + "/api/Yard/AddYard";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json",
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processAddYard(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processAddYard(<any>response_);
+                } catch (e) {
+                    return <Observable<YardResponse>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<YardResponse>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processAddYard(response: HttpResponseBase): Observable<YardResponse> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        let _mappings: { source: any, target: any }[] = [];
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : jsonParse(_responseText, this.jsonParseReviver);
+            result200 = YardResponse.fromJS(resultData200, _mappings);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<YardResponse>(<any>null);
+    }
+
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    editYard(body?: YardRequest | undefined): Observable<YardResponse> {
+        let url_ = this.baseUrl + "/api/Yard/EditYard";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json",
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processEditYard(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processEditYard(<any>response_);
+                } catch (e) {
+                    return <Observable<YardResponse>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<YardResponse>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processEditYard(response: HttpResponseBase): Observable<YardResponse> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        let _mappings: { source: any, target: any }[] = [];
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : jsonParse(_responseText, this.jsonParseReviver);
+            result200 = YardResponse.fromJS(resultData200, _mappings);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<YardResponse>(<any>null);
+    }
+
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    activateYard(body?: YardRequest | undefined): Observable<YardResponse> {
+        let url_ = this.baseUrl + "/api/Yard/ActivateYard";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json",
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processActivateYard(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processActivateYard(<any>response_);
+                } catch (e) {
+                    return <Observable<YardResponse>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<YardResponse>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processActivateYard(response: HttpResponseBase): Observable<YardResponse> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        let _mappings: { source: any, target: any }[] = [];
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : jsonParse(_responseText, this.jsonParseReviver);
+            result200 = YardResponse.fromJS(resultData200, _mappings);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<YardResponse>(<any>null);
+    }
+
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    deActivateYard(body?: YardRequest | undefined): Observable<YardResponse> {
+        let url_ = this.baseUrl + "/api/Yard/DeActivateYard";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json",
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processDeActivateYard(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processDeActivateYard(<any>response_);
+                } catch (e) {
+                    return <Observable<YardResponse>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<YardResponse>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processDeActivateYard(response: HttpResponseBase): Observable<YardResponse> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        let _mappings: { source: any, target: any }[] = [];
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : jsonParse(_responseText, this.jsonParseReviver);
+            result200 = YardResponse.fromJS(resultData200, _mappings);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<YardResponse>(<any>null);
+    }
+
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    approveYard(body?: YardRequest | undefined): Observable<YardResponse> {
+        let url_ = this.baseUrl + "/api/Yard/ApproveYard";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json",
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processApproveYard(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processApproveYard(<any>response_);
+                } catch (e) {
+                    return <Observable<YardResponse>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<YardResponse>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processApproveYard(response: HttpResponseBase): Observable<YardResponse> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        let _mappings: { source: any, target: any }[] = [];
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : jsonParse(_responseText, this.jsonParseReviver);
+            result200 = YardResponse.fromJS(resultData200, _mappings);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<YardResponse>(<any>null);
+    }
+
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    listYardToUpdate(body?: YardRequest | undefined): Observable<YardResponse> {
+        let url_ = this.baseUrl + "/api/Yard/ListYardToUpdate";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json",
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processListYardToUpdate(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processListYardToUpdate(<any>response_);
+                } catch (e) {
+                    return <Observable<YardResponse>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<YardResponse>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processListYardToUpdate(response: HttpResponseBase): Observable<YardResponse> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        let _mappings: { source: any, target: any }[] = [];
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : jsonParse(_responseText, this.jsonParseReviver);
+            result200 = YardResponse.fromJS(resultData200, _mappings);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<YardResponse>(<any>null);
+    }
+
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    approveYardToUpdate(body?: YardRequest | undefined): Observable<YardResponse> {
+        let url_ = this.baseUrl + "/api/Yard/ApproveYardToUpdate";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json",
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processApproveYardToUpdate(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processApproveYardToUpdate(<any>response_);
+                } catch (e) {
+                    return <Observable<YardResponse>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<YardResponse>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processApproveYardToUpdate(response: HttpResponseBase): Observable<YardResponse> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        let _mappings: { source: any, target: any }[] = [];
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : jsonParse(_responseText, this.jsonParseReviver);
+            result200 = YardResponse.fromJS(resultData200, _mappings);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<YardResponse>(<any>null);
+    }
+
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    listZone(body?: ZoneRequest | undefined): Observable<ZoneResponse> {
+        let url_ = this.baseUrl + "/api/Zone/ListZone";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json",
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processListZone(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processListZone(<any>response_);
+                } catch (e) {
+                    return <Observable<ZoneResponse>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<ZoneResponse>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processListZone(response: HttpResponseBase): Observable<ZoneResponse> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        let _mappings: { source: any, target: any }[] = [];
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : jsonParse(_responseText, this.jsonParseReviver);
+            result200 = ZoneResponse.fromJS(resultData200, _mappings);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<ZoneResponse>(<any>null);
+    }
+
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    addZone(body?: ZoneRequest | undefined): Observable<ZoneResponse> {
+        let url_ = this.baseUrl + "/api/Zone/AddZone";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json",
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processAddZone(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processAddZone(<any>response_);
+                } catch (e) {
+                    return <Observable<ZoneResponse>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<ZoneResponse>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processAddZone(response: HttpResponseBase): Observable<ZoneResponse> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        let _mappings: { source: any, target: any }[] = [];
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : jsonParse(_responseText, this.jsonParseReviver);
+            result200 = ZoneResponse.fromJS(resultData200, _mappings);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<ZoneResponse>(<any>null);
+    }
+
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    editZone(body?: ZoneRequest | undefined): Observable<ZoneResponse> {
+        let url_ = this.baseUrl + "/api/Zone/EditZone";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json",
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processEditZone(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processEditZone(<any>response_);
+                } catch (e) {
+                    return <Observable<ZoneResponse>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<ZoneResponse>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processEditZone(response: HttpResponseBase): Observable<ZoneResponse> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        let _mappings: { source: any, target: any }[] = [];
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : jsonParse(_responseText, this.jsonParseReviver);
+            result200 = ZoneResponse.fromJS(resultData200, _mappings);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<ZoneResponse>(<any>null);
+    }
+
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    activateZone(body?: ZoneRequest | undefined): Observable<ZoneResponse> {
+        let url_ = this.baseUrl + "/api/Zone/ActivateZone";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json",
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processActivateZone(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processActivateZone(<any>response_);
+                } catch (e) {
+                    return <Observable<ZoneResponse>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<ZoneResponse>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processActivateZone(response: HttpResponseBase): Observable<ZoneResponse> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        let _mappings: { source: any, target: any }[] = [];
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : jsonParse(_responseText, this.jsonParseReviver);
+            result200 = ZoneResponse.fromJS(resultData200, _mappings);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<ZoneResponse>(<any>null);
+    }
+
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    deActivateZone(body?: ZoneRequest | undefined): Observable<ZoneResponse> {
+        let url_ = this.baseUrl + "/api/Zone/DeActivateZone";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json",
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processDeActivateZone(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processDeActivateZone(<any>response_);
+                } catch (e) {
+                    return <Observable<ZoneResponse>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<ZoneResponse>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processDeActivateZone(response: HttpResponseBase): Observable<ZoneResponse> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        let _mappings: { source: any, target: any }[] = [];
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : jsonParse(_responseText, this.jsonParseReviver);
+            result200 = ZoneResponse.fromJS(resultData200, _mappings);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<ZoneResponse>(<any>null);
     }
 }
 
-export class CountryRecord implements ICountryRecord {
+export class BeneficiaryRecord implements IBeneficiaryRecord {
     id?: number;
-    createdAt?: Date;
-    isDeleted?: boolean;
-    modifiedAt?: Date | undefined;
-    name!: string;
+    nameEn?: string | undefined;
+    nameAr?: string | undefined;
+    typeId?: number | undefined;
+    emirateId?: number | undefined;
+    address?: string | undefined;
+    email?: string | undefined;
+    landline?: string | undefined;
+    mobile?: string | undefined;
+    website?: string | undefined;
+    trn?: string | undefined;
     isActive?: boolean | undefined;
-    code?: string | undefined;
+    name?: string | undefined;
+    emirateName?: string | undefined;
+    typeName?: string | undefined;
+    countryId?: number | undefined;
+    countryName?: string | undefined;
 
-    constructor(data?: ICountryRecord) {
+    constructor(data?: IBeneficiaryRecord) {
         if (data) {
             for (var property in data) {
                 if (data.hasOwnProperty(property))
@@ -619,42 +2474,79 @@ export class CountryRecord implements ICountryRecord {
 
     init(_data?: any, _mappings?: any) {
         if (_data) {
-            this.id = _data["Id"];
-            this.createdAt = _data["CreatedAt"] ? new Date(_data["CreatedAt"].toString()) : <any>undefined;
-            this.isDeleted = _data["IsDeleted"];
-            this.modifiedAt = _data["ModifiedAt"] ? new Date(_data["ModifiedAt"].toString()) : <any>undefined;
-            this.name = _data["Name"];
-            this.isActive = _data["IsActive"];
-            this.code = _data["Code"];
+            this.id = _data["id"];
+            this.nameEn = _data["nameEn"];
+            this.nameAr = _data["nameAr"];
+            this.typeId = _data["typeId"];
+            this.emirateId = _data["emirateId"];
+            this.address = _data["address"];
+            this.email = _data["email"];
+            this.landline = _data["landline"];
+            this.mobile = _data["mobile"];
+            this.website = _data["website"];
+            this.trn = _data["trn"];
+            this.isActive = _data["isActive"];
+            this.name = _data["name"];
+            this.emirateName = _data["emirateName"];
+            this.typeName = _data["typeName"];
+            this.countryId = _data["countryId"];
+            this.countryName = _data["countryName"];
         }
     }
 
-    static fromJS(data: any, _mappings?: any): CountryRecord {
+    static fromJS(data: any, _mappings?: any): BeneficiaryRecord {
         data = typeof data === 'object' ? data : {};
-        return createInstance<CountryRecord>(data, _mappings, CountryRecord);
+        return createInstance<BeneficiaryRecord>(data, _mappings, BeneficiaryRecord);
     }
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data["Id"] = this.id;
-        data["CreatedAt"] = this.createdAt ? this.createdAt.toISOString() : <any>undefined;
-        data["IsDeleted"] = this.isDeleted;
-        data["ModifiedAt"] = this.modifiedAt ? this.modifiedAt.toISOString() : <any>undefined;
-        data["Name"] = this.name;
-        data["IsActive"] = this.isActive;
-        data["Code"] = this.code;
+        data["id"] = this.id;
+        data["nameEn"] = this.nameEn;
+        data["nameAr"] = this.nameAr;
+        data["typeId"] = this.typeId;
+        data["emirateId"] = this.emirateId;
+        data["address"] = this.address;
+        data["email"] = this.email;
+        data["landline"] = this.landline;
+        data["mobile"] = this.mobile;
+        data["website"] = this.website;
+        data["trn"] = this.trn;
+        data["isActive"] = this.isActive;
+        data["name"] = this.name;
+        data["emirateName"] = this.emirateName;
+        data["typeName"] = this.typeName;
+        data["countryId"] = this.countryId;
+        data["countryName"] = this.countryName;
         return data; 
+    }
+
+    clone(): BeneficiaryRecord {
+        const json = this.toJSON();
+        let result = new BeneficiaryRecord();
+        result.init(json);
+        return result;
     }
 }
 
-export interface ICountryRecord {
+export interface IBeneficiaryRecord {
     id?: number;
-    createdAt?: Date;
-    isDeleted?: boolean;
-    modifiedAt?: Date | undefined;
-    name: string;
+    nameEn?: string | undefined;
+    nameAr?: string | undefined;
+    typeId?: number | undefined;
+    emirateId?: number | undefined;
+    address?: string | undefined;
+    email?: string | undefined;
+    landline?: string | undefined;
+    mobile?: string | undefined;
+    website?: string | undefined;
+    trn?: string | undefined;
     isActive?: boolean | undefined;
-    code?: string | undefined;
+    name?: string | undefined;
+    emirateName?: string | undefined;
+    typeName?: string | undefined;
+    countryId?: number | undefined;
+    countryName?: string | undefined;
 }
 
 export class MailSender implements IMailSender {
@@ -680,9 +2572,652 @@ export class MailSender implements IMailSender {
         data = typeof data === 'object' ? data : {};
         return data; 
     }
+
+    clone(): MailSender {
+        const json = this.toJSON();
+        let result = new MailSender();
+        result.init(json);
+        return result;
+    }
 }
 
 export interface IMailSender {
+}
+
+export class BeneficiaryRequest implements IBeneficiaryRequest {
+    beneficiaryRecord?: BeneficiaryRecord;
+    isDesc?: boolean;
+    orderByColumn?: string | undefined;
+    pageSize?: number;
+    pageIndex?: number;
+    createdBy?: number;
+    roleID?: number;
+    languageId?: number;
+    yardId?: number;
+    baseUrl?: string | undefined;
+    name?: string | undefined;
+    mailSender?: MailSender;
+
+    constructor(data?: IBeneficiaryRequest) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+            this.beneficiaryRecord = data.beneficiaryRecord && !(<any>data.beneficiaryRecord).toJSON ? new BeneficiaryRecord(data.beneficiaryRecord) : <BeneficiaryRecord>this.beneficiaryRecord; 
+            this.mailSender = data.mailSender && !(<any>data.mailSender).toJSON ? new MailSender(data.mailSender) : <MailSender>this.mailSender; 
+        }
+    }
+
+    init(_data?: any, _mappings?: any) {
+        if (_data) {
+            this.beneficiaryRecord = _data["beneficiaryRecord"] ? BeneficiaryRecord.fromJS(_data["beneficiaryRecord"], _mappings) : <any>undefined;
+            this.isDesc = _data["isDesc"];
+            this.orderByColumn = _data["orderByColumn"];
+            this.pageSize = _data["pageSize"];
+            this.pageIndex = _data["pageIndex"];
+            this.createdBy = _data["createdBy"];
+            this.roleID = _data["roleID"];
+            this.languageId = _data["languageId"];
+            this.yardId = _data["yardId"];
+            this.baseUrl = _data["baseUrl"];
+            this.name = _data["name"];
+            this.mailSender = _data["mailSender"] ? MailSender.fromJS(_data["mailSender"], _mappings) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any, _mappings?: any): BeneficiaryRequest {
+        data = typeof data === 'object' ? data : {};
+        return createInstance<BeneficiaryRequest>(data, _mappings, BeneficiaryRequest);
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["beneficiaryRecord"] = this.beneficiaryRecord ? this.beneficiaryRecord.toJSON() : <any>undefined;
+        data["isDesc"] = this.isDesc;
+        data["orderByColumn"] = this.orderByColumn;
+        data["pageSize"] = this.pageSize;
+        data["pageIndex"] = this.pageIndex;
+        data["createdBy"] = this.createdBy;
+        data["roleID"] = this.roleID;
+        data["languageId"] = this.languageId;
+        data["yardId"] = this.yardId;
+        data["baseUrl"] = this.baseUrl;
+        data["name"] = this.name;
+        data["mailSender"] = this.mailSender ? this.mailSender.toJSON() : <any>undefined;
+        return data; 
+    }
+
+    clone(): BeneficiaryRequest {
+        const json = this.toJSON();
+        let result = new BeneficiaryRequest();
+        result.init(json);
+        return result;
+    }
+}
+
+export interface IBeneficiaryRequest {
+    beneficiaryRecord?: IBeneficiaryRecord;
+    isDesc?: boolean;
+    orderByColumn?: string | undefined;
+    pageSize?: number;
+    pageIndex?: number;
+    createdBy?: number;
+    roleID?: number;
+    languageId?: number;
+    yardId?: number;
+    baseUrl?: string | undefined;
+    name?: string | undefined;
+    mailSender?: IMailSender;
+}
+
+export class BeneficiaryResponse implements IBeneficiaryResponse {
+    data?: BeneficiaryRecord[] | undefined;
+    message?: string | undefined;
+    success?: boolean;
+    totalCount?: number;
+
+    constructor(data?: IBeneficiaryResponse) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+            if (data.data) {
+                this.data = [];
+                for (let i = 0; i < data.data.length; i++) {
+                    let item = data.data[i];
+                    this.data[i] = item && !(<any>item).toJSON ? new BeneficiaryRecord(item) : <BeneficiaryRecord>item;
+                }
+            }
+        }
+    }
+
+    init(_data?: any, _mappings?: any) {
+        if (_data) {
+            if (Array.isArray(_data["Data"])) {
+                this.data = [] as any;
+                for (let item of _data["Data"])
+                    this.data!.push(BeneficiaryRecord.fromJS(item, _mappings));
+            }
+            this.message = _data["message"];
+            this.success = _data["success"];
+            this.totalCount = _data["totalCount"];
+        }
+    }
+
+    static fromJS(data: any, _mappings?: any): BeneficiaryResponse {
+        data = typeof data === 'object' ? data : {};
+        return createInstance<BeneficiaryResponse>(data, _mappings, BeneficiaryResponse);
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        if (Array.isArray(this.data)) {
+            data["Data"] = [];
+            for (let item of this.data)
+                data["Data"].push(item.toJSON());
+        }
+        data["message"] = this.message;
+        data["success"] = this.success;
+        data["totalCount"] = this.totalCount;
+        return data; 
+    }
+
+    clone(): BeneficiaryResponse {
+        const json = this.toJSON();
+        let result = new BeneficiaryResponse();
+        result.init(json);
+        return result;
+    }
+}
+
+export interface IBeneficiaryResponse {
+    data?: IBeneficiaryRecord[] | undefined;
+    message?: string | undefined;
+    success?: boolean;
+    totalCount?: number;
+}
+
+export class BeneficiaryContactRecord implements IBeneficiaryContactRecord {
+    id?: number;
+    name?: string | undefined;
+    email?: string | undefined;
+    mobile?: string | undefined;
+    landline?: string | undefined;
+    isActive?: boolean | undefined;
+    beneficiaryId?: number;
+    beneficiaryName?: string | undefined;
+
+    constructor(data?: IBeneficiaryContactRecord) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any, _mappings?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.name = _data["name"];
+            this.email = _data["email"];
+            this.mobile = _data["mobile"];
+            this.landline = _data["landline"];
+            this.isActive = _data["isActive"];
+            this.beneficiaryId = _data["beneficiaryId"];
+            this.beneficiaryName = _data["beneficiaryName"];
+        }
+    }
+
+    static fromJS(data: any, _mappings?: any): BeneficiaryContactRecord {
+        data = typeof data === 'object' ? data : {};
+        return createInstance<BeneficiaryContactRecord>(data, _mappings, BeneficiaryContactRecord);
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["name"] = this.name;
+        data["email"] = this.email;
+        data["mobile"] = this.mobile;
+        data["landline"] = this.landline;
+        data["isActive"] = this.isActive;
+        data["beneficiaryId"] = this.beneficiaryId;
+        data["beneficiaryName"] = this.beneficiaryName;
+        return data; 
+    }
+
+    clone(): BeneficiaryContactRecord {
+        const json = this.toJSON();
+        let result = new BeneficiaryContactRecord();
+        result.init(json);
+        return result;
+    }
+}
+
+export interface IBeneficiaryContactRecord {
+    id?: number;
+    name?: string | undefined;
+    email?: string | undefined;
+    mobile?: string | undefined;
+    landline?: string | undefined;
+    isActive?: boolean | undefined;
+    beneficiaryId?: number;
+    beneficiaryName?: string | undefined;
+}
+
+export class BeneficiaryContactRequest implements IBeneficiaryContactRequest {
+    beneficiaryContactRecord?: BeneficiaryContactRecord;
+    isDesc?: boolean;
+    orderByColumn?: string | undefined;
+    pageSize?: number;
+    pageIndex?: number;
+    createdBy?: number;
+    roleID?: number;
+    languageId?: number;
+    yardId?: number;
+    baseUrl?: string | undefined;
+    name?: string | undefined;
+    mailSender?: MailSender;
+
+    constructor(data?: IBeneficiaryContactRequest) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+            this.beneficiaryContactRecord = data.beneficiaryContactRecord && !(<any>data.beneficiaryContactRecord).toJSON ? new BeneficiaryContactRecord(data.beneficiaryContactRecord) : <BeneficiaryContactRecord>this.beneficiaryContactRecord; 
+            this.mailSender = data.mailSender && !(<any>data.mailSender).toJSON ? new MailSender(data.mailSender) : <MailSender>this.mailSender; 
+        }
+    }
+
+    init(_data?: any, _mappings?: any) {
+        if (_data) {
+            this.beneficiaryContactRecord = _data["beneficiaryContactRecord"] ? BeneficiaryContactRecord.fromJS(_data["beneficiaryContactRecord"], _mappings) : <any>undefined;
+            this.isDesc = _data["isDesc"];
+            this.orderByColumn = _data["orderByColumn"];
+            this.pageSize = _data["pageSize"];
+            this.pageIndex = _data["pageIndex"];
+            this.createdBy = _data["createdBy"];
+            this.roleID = _data["roleID"];
+            this.languageId = _data["languageId"];
+            this.yardId = _data["yardId"];
+            this.baseUrl = _data["baseUrl"];
+            this.name = _data["name"];
+            this.mailSender = _data["mailSender"] ? MailSender.fromJS(_data["mailSender"], _mappings) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any, _mappings?: any): BeneficiaryContactRequest {
+        data = typeof data === 'object' ? data : {};
+        return createInstance<BeneficiaryContactRequest>(data, _mappings, BeneficiaryContactRequest);
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["beneficiaryContactRecord"] = this.beneficiaryContactRecord ? this.beneficiaryContactRecord.toJSON() : <any>undefined;
+        data["isDesc"] = this.isDesc;
+        data["orderByColumn"] = this.orderByColumn;
+        data["pageSize"] = this.pageSize;
+        data["pageIndex"] = this.pageIndex;
+        data["createdBy"] = this.createdBy;
+        data["roleID"] = this.roleID;
+        data["languageId"] = this.languageId;
+        data["yardId"] = this.yardId;
+        data["baseUrl"] = this.baseUrl;
+        data["name"] = this.name;
+        data["mailSender"] = this.mailSender ? this.mailSender.toJSON() : <any>undefined;
+        return data; 
+    }
+
+    clone(): BeneficiaryContactRequest {
+        const json = this.toJSON();
+        let result = new BeneficiaryContactRequest();
+        result.init(json);
+        return result;
+    }
+}
+
+export interface IBeneficiaryContactRequest {
+    beneficiaryContactRecord?: IBeneficiaryContactRecord;
+    isDesc?: boolean;
+    orderByColumn?: string | undefined;
+    pageSize?: number;
+    pageIndex?: number;
+    createdBy?: number;
+    roleID?: number;
+    languageId?: number;
+    yardId?: number;
+    baseUrl?: string | undefined;
+    name?: string | undefined;
+    mailSender?: IMailSender;
+}
+
+export class BeneficiaryContactResponse implements IBeneficiaryContactResponse {
+    data?: BeneficiaryContactRecord[] | undefined;
+    message?: string | undefined;
+    success?: boolean;
+    totalCount?: number;
+
+    constructor(data?: IBeneficiaryContactResponse) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+            if (data.data) {
+                this.data = [];
+                for (let i = 0; i < data.data.length; i++) {
+                    let item = data.data[i];
+                    this.data[i] = item && !(<any>item).toJSON ? new BeneficiaryContactRecord(item) : <BeneficiaryContactRecord>item;
+                }
+            }
+        }
+    }
+
+    init(_data?: any, _mappings?: any) {
+        if (_data) {
+            if (Array.isArray(_data["Data"])) {
+                this.data = [] as any;
+                for (let item of _data["Data"])
+                    this.data!.push(BeneficiaryContactRecord.fromJS(item, _mappings));
+            }
+            this.message = _data["message"];
+            this.success = _data["success"];
+            this.totalCount = _data["totalCount"];
+        }
+    }
+
+    static fromJS(data: any, _mappings?: any): BeneficiaryContactResponse {
+        data = typeof data === 'object' ? data : {};
+        return createInstance<BeneficiaryContactResponse>(data, _mappings, BeneficiaryContactResponse);
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        if (Array.isArray(this.data)) {
+            data["Data"] = [];
+            for (let item of this.data)
+                data["Data"].push(item.toJSON());
+        }
+        data["message"] = this.message;
+        data["success"] = this.success;
+        data["totalCount"] = this.totalCount;
+        return data; 
+    }
+
+    clone(): BeneficiaryContactResponse {
+        const json = this.toJSON();
+        let result = new BeneficiaryContactResponse();
+        result.init(json);
+        return result;
+    }
+}
+
+export interface IBeneficiaryContactResponse {
+    data?: IBeneficiaryContactRecord[] | undefined;
+    message?: string | undefined;
+    success?: boolean;
+    totalCount?: number;
+}
+
+export class BeneficiaryTypeRecord implements IBeneficiaryTypeRecord {
+    id?: number;
+    name!: string;
+    isActive?: boolean | undefined;
+
+    constructor(data?: IBeneficiaryTypeRecord) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any, _mappings?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.name = _data["name"];
+            this.isActive = _data["isActive"];
+        }
+    }
+
+    static fromJS(data: any, _mappings?: any): BeneficiaryTypeRecord {
+        data = typeof data === 'object' ? data : {};
+        return createInstance<BeneficiaryTypeRecord>(data, _mappings, BeneficiaryTypeRecord);
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["name"] = this.name;
+        data["isActive"] = this.isActive;
+        return data; 
+    }
+
+    clone(): BeneficiaryTypeRecord {
+        const json = this.toJSON();
+        let result = new BeneficiaryTypeRecord();
+        result.init(json);
+        return result;
+    }
+}
+
+export interface IBeneficiaryTypeRecord {
+    id?: number;
+    name: string;
+    isActive?: boolean | undefined;
+}
+
+export class BeneficiaryTypeRequest implements IBeneficiaryTypeRequest {
+    beneficiaryTypeRecord?: BeneficiaryTypeRecord;
+    isDesc?: boolean;
+    orderByColumn?: string | undefined;
+    pageSize?: number;
+    pageIndex?: number;
+    createdBy?: number;
+    roleID?: number;
+    languageId?: number;
+    yardId?: number;
+    baseUrl?: string | undefined;
+    name?: string | undefined;
+    mailSender?: MailSender;
+
+    constructor(data?: IBeneficiaryTypeRequest) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+            this.beneficiaryTypeRecord = data.beneficiaryTypeRecord && !(<any>data.beneficiaryTypeRecord).toJSON ? new BeneficiaryTypeRecord(data.beneficiaryTypeRecord) : <BeneficiaryTypeRecord>this.beneficiaryTypeRecord; 
+            this.mailSender = data.mailSender && !(<any>data.mailSender).toJSON ? new MailSender(data.mailSender) : <MailSender>this.mailSender; 
+        }
+    }
+
+    init(_data?: any, _mappings?: any) {
+        if (_data) {
+            this.beneficiaryTypeRecord = _data["beneficiaryTypeRecord"] ? BeneficiaryTypeRecord.fromJS(_data["beneficiaryTypeRecord"], _mappings) : <any>undefined;
+            this.isDesc = _data["isDesc"];
+            this.orderByColumn = _data["orderByColumn"];
+            this.pageSize = _data["pageSize"];
+            this.pageIndex = _data["pageIndex"];
+            this.createdBy = _data["createdBy"];
+            this.roleID = _data["roleID"];
+            this.languageId = _data["languageId"];
+            this.yardId = _data["yardId"];
+            this.baseUrl = _data["baseUrl"];
+            this.name = _data["name"];
+            this.mailSender = _data["mailSender"] ? MailSender.fromJS(_data["mailSender"], _mappings) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any, _mappings?: any): BeneficiaryTypeRequest {
+        data = typeof data === 'object' ? data : {};
+        return createInstance<BeneficiaryTypeRequest>(data, _mappings, BeneficiaryTypeRequest);
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["beneficiaryTypeRecord"] = this.beneficiaryTypeRecord ? this.beneficiaryTypeRecord.toJSON() : <any>undefined;
+        data["isDesc"] = this.isDesc;
+        data["orderByColumn"] = this.orderByColumn;
+        data["pageSize"] = this.pageSize;
+        data["pageIndex"] = this.pageIndex;
+        data["createdBy"] = this.createdBy;
+        data["roleID"] = this.roleID;
+        data["languageId"] = this.languageId;
+        data["yardId"] = this.yardId;
+        data["baseUrl"] = this.baseUrl;
+        data["name"] = this.name;
+        data["mailSender"] = this.mailSender ? this.mailSender.toJSON() : <any>undefined;
+        return data; 
+    }
+
+    clone(): BeneficiaryTypeRequest {
+        const json = this.toJSON();
+        let result = new BeneficiaryTypeRequest();
+        result.init(json);
+        return result;
+    }
+}
+
+export interface IBeneficiaryTypeRequest {
+    beneficiaryTypeRecord?: IBeneficiaryTypeRecord;
+    isDesc?: boolean;
+    orderByColumn?: string | undefined;
+    pageSize?: number;
+    pageIndex?: number;
+    createdBy?: number;
+    roleID?: number;
+    languageId?: number;
+    yardId?: number;
+    baseUrl?: string | undefined;
+    name?: string | undefined;
+    mailSender?: IMailSender;
+}
+
+export class BeneficiaryTypeResponse implements IBeneficiaryTypeResponse {
+    data?: BeneficiaryTypeRecord[] | undefined;
+    message?: string | undefined;
+    success?: boolean;
+    totalCount?: number;
+
+    constructor(data?: IBeneficiaryTypeResponse) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+            if (data.data) {
+                this.data = [];
+                for (let i = 0; i < data.data.length; i++) {
+                    let item = data.data[i];
+                    this.data[i] = item && !(<any>item).toJSON ? new BeneficiaryTypeRecord(item) : <BeneficiaryTypeRecord>item;
+                }
+            }
+        }
+    }
+
+    init(_data?: any, _mappings?: any) {
+        if (_data) {
+            if (Array.isArray(_data["Data"])) {
+                this.data = [] as any;
+                for (let item of _data["Data"])
+                    this.data!.push(BeneficiaryTypeRecord.fromJS(item, _mappings));
+            }
+            this.message = _data["message"];
+            this.success = _data["success"];
+            this.totalCount = _data["totalCount"];
+        }
+    }
+
+    static fromJS(data: any, _mappings?: any): BeneficiaryTypeResponse {
+        data = typeof data === 'object' ? data : {};
+        return createInstance<BeneficiaryTypeResponse>(data, _mappings, BeneficiaryTypeResponse);
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        if (Array.isArray(this.data)) {
+            data["Data"] = [];
+            for (let item of this.data)
+                data["Data"].push(item.toJSON());
+        }
+        data["message"] = this.message;
+        data["success"] = this.success;
+        data["totalCount"] = this.totalCount;
+        return data; 
+    }
+
+    clone(): BeneficiaryTypeResponse {
+        const json = this.toJSON();
+        let result = new BeneficiaryTypeResponse();
+        result.init(json);
+        return result;
+    }
+}
+
+export interface IBeneficiaryTypeResponse {
+    data?: IBeneficiaryTypeRecord[] | undefined;
+    message?: string | undefined;
+    success?: boolean;
+    totalCount?: number;
+}
+
+export class CountryRecord implements ICountryRecord {
+    id?: number;
+    name!: string;
+    isActive?: boolean | undefined;
+    code?: string | undefined;
+
+    constructor(data?: ICountryRecord) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any, _mappings?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.name = _data["name"];
+            this.isActive = _data["isActive"];
+            this.code = _data["code"];
+        }
+    }
+
+    static fromJS(data: any, _mappings?: any): CountryRecord {
+        data = typeof data === 'object' ? data : {};
+        return createInstance<CountryRecord>(data, _mappings, CountryRecord);
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["name"] = this.name;
+        data["isActive"] = this.isActive;
+        data["code"] = this.code;
+        return data; 
+    }
+
+    clone(): CountryRecord {
+        const json = this.toJSON();
+        let result = new CountryRecord();
+        result.init(json);
+        return result;
+    }
+}
+
+export interface ICountryRecord {
+    id?: number;
+    name: string;
+    isActive?: boolean | undefined;
+    code?: string | undefined;
 }
 
 export class CountryRequest implements ICountryRequest {
@@ -712,18 +3247,18 @@ export class CountryRequest implements ICountryRequest {
 
     init(_data?: any, _mappings?: any) {
         if (_data) {
-            this.countryRecord = _data["CountryRecord"] ? CountryRecord.fromJS(_data["CountryRecord"], _mappings) : <any>undefined;
-            this.isDesc = _data["IsDesc"];
-            this.orderByColumn = _data["OrderByColumn"];
-            this.pageSize = _data["PageSize"];
-            this.pageIndex = _data["PageIndex"];
-            this.createdBy = _data["CreatedBy"];
-            this.roleID = _data["RoleID"];
-            this.languageId = _data["LanguageId"];
-            this.yardId = _data["YardId"];
-            this.baseUrl = _data["BaseUrl"];
-            this.name = _data["Name"];
-            this.mailSender = _data["MailSender"] ? MailSender.fromJS(_data["MailSender"], _mappings) : <any>undefined;
+            this.countryRecord = _data["countryRecord"] ? CountryRecord.fromJS(_data["countryRecord"], _mappings) : <any>undefined;
+            this.isDesc = _data["isDesc"];
+            this.orderByColumn = _data["orderByColumn"];
+            this.pageSize = _data["pageSize"];
+            this.pageIndex = _data["pageIndex"];
+            this.createdBy = _data["createdBy"];
+            this.roleID = _data["roleID"];
+            this.languageId = _data["languageId"];
+            this.yardId = _data["yardId"];
+            this.baseUrl = _data["baseUrl"];
+            this.name = _data["name"];
+            this.mailSender = _data["mailSender"] ? MailSender.fromJS(_data["mailSender"], _mappings) : <any>undefined;
         }
     }
 
@@ -734,19 +3269,26 @@ export class CountryRequest implements ICountryRequest {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data["CountryRecord"] = this.countryRecord ? this.countryRecord.toJSON() : <any>undefined;
-        data["IsDesc"] = this.isDesc;
-        data["OrderByColumn"] = this.orderByColumn;
-        data["PageSize"] = this.pageSize;
-        data["PageIndex"] = this.pageIndex;
-        data["CreatedBy"] = this.createdBy;
-        data["RoleID"] = this.roleID;
-        data["LanguageId"] = this.languageId;
-        data["YardId"] = this.yardId;
-        data["BaseUrl"] = this.baseUrl;
-        data["Name"] = this.name;
-        data["MailSender"] = this.mailSender ? this.mailSender.toJSON() : <any>undefined;
+        data["countryRecord"] = this.countryRecord ? this.countryRecord.toJSON() : <any>undefined;
+        data["isDesc"] = this.isDesc;
+        data["orderByColumn"] = this.orderByColumn;
+        data["pageSize"] = this.pageSize;
+        data["pageIndex"] = this.pageIndex;
+        data["createdBy"] = this.createdBy;
+        data["roleID"] = this.roleID;
+        data["languageId"] = this.languageId;
+        data["yardId"] = this.yardId;
+        data["baseUrl"] = this.baseUrl;
+        data["name"] = this.name;
+        data["mailSender"] = this.mailSender ? this.mailSender.toJSON() : <any>undefined;
         return data; 
+    }
+
+    clone(): CountryRequest {
+        const json = this.toJSON();
+        let result = new CountryRequest();
+        result.init(json);
+        return result;
     }
 }
 
@@ -765,10 +3307,77 @@ export interface ICountryRequest {
     mailSender?: IMailSender;
 }
 
+export class CountryResponse implements ICountryResponse {
+    data?: CountryRecord[] | undefined;
+    message?: string | undefined;
+    success?: boolean;
+    totalCount?: number;
+
+    constructor(data?: ICountryResponse) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+            if (data.data) {
+                this.data = [];
+                for (let i = 0; i < data.data.length; i++) {
+                    let item = data.data[i];
+                    this.data[i] = item && !(<any>item).toJSON ? new CountryRecord(item) : <CountryRecord>item;
+                }
+            }
+        }
+    }
+
+    init(_data?: any, _mappings?: any) {
+        if (_data) {
+            if (Array.isArray(_data["Data"])) {
+                this.data = [] as any;
+                for (let item of _data["Data"])
+                    this.data!.push(CountryRecord.fromJS(item, _mappings));
+            }
+            this.message = _data["message"];
+            this.success = _data["success"];
+            this.totalCount = _data["totalCount"];
+        }
+    }
+
+    static fromJS(data: any, _mappings?: any): CountryResponse {
+        data = typeof data === 'object' ? data : {};
+        return createInstance<CountryResponse>(data, _mappings, CountryResponse);
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        if (Array.isArray(this.data)) {
+            data["Data"] = [];
+            for (let item of this.data)
+                data["Data"].push(item.toJSON());
+        }
+        data["message"] = this.message;
+        data["success"] = this.success;
+        data["totalCount"] = this.totalCount;
+        return data; 
+    }
+
+    clone(): CountryResponse {
+        const json = this.toJSON();
+        let result = new CountryResponse();
+        result.init(json);
+        return result;
+    }
+}
+
+export interface ICountryResponse {
+    data?: ICountryRecord[] | undefined;
+    message?: string | undefined;
+    success?: boolean;
+    totalCount?: number;
+}
+
 export class EmirateRecord implements IEmirateRecord {
     id?: number;
     name?: string | undefined;
-    createAt?: Date;
     code?: string | undefined;
     isGcc?: boolean;
     countryId?: number | undefined;
@@ -784,12 +3393,11 @@ export class EmirateRecord implements IEmirateRecord {
 
     init(_data?: any, _mappings?: any) {
         if (_data) {
-            this.id = _data["Id"];
-            this.name = _data["Name"];
-            this.createAt = _data["CreateAt"] ? new Date(_data["CreateAt"].toString()) : <any>undefined;
-            this.code = _data["Code"];
-            this.isGcc = _data["IsGcc"];
-            this.countryId = _data["CountryId"];
+            this.id = _data["id"];
+            this.name = _data["name"];
+            this.code = _data["code"];
+            this.isGcc = _data["isGcc"];
+            this.countryId = _data["countryId"];
         }
     }
 
@@ -800,20 +3408,25 @@ export class EmirateRecord implements IEmirateRecord {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data["Id"] = this.id;
-        data["Name"] = this.name;
-        data["CreateAt"] = this.createAt ? this.createAt.toISOString() : <any>undefined;
-        data["Code"] = this.code;
-        data["IsGcc"] = this.isGcc;
-        data["CountryId"] = this.countryId;
+        data["id"] = this.id;
+        data["name"] = this.name;
+        data["code"] = this.code;
+        data["isGcc"] = this.isGcc;
+        data["countryId"] = this.countryId;
         return data; 
+    }
+
+    clone(): EmirateRecord {
+        const json = this.toJSON();
+        let result = new EmirateRecord();
+        result.init(json);
+        return result;
     }
 }
 
 export interface IEmirateRecord {
     id?: number;
     name?: string | undefined;
-    createAt?: Date;
     code?: string | undefined;
     isGcc?: boolean;
     countryId?: number | undefined;
@@ -846,18 +3459,18 @@ export class EmirateRequest implements IEmirateRequest {
 
     init(_data?: any, _mappings?: any) {
         if (_data) {
-            this.emirateRecord = _data["EmirateRecord"] ? EmirateRecord.fromJS(_data["EmirateRecord"], _mappings) : <any>undefined;
-            this.isDesc = _data["IsDesc"];
-            this.orderByColumn = _data["OrderByColumn"];
-            this.pageSize = _data["PageSize"];
-            this.pageIndex = _data["PageIndex"];
-            this.createdBy = _data["CreatedBy"];
-            this.roleID = _data["RoleID"];
-            this.languageId = _data["LanguageId"];
-            this.yardId = _data["YardId"];
-            this.baseUrl = _data["BaseUrl"];
-            this.name = _data["Name"];
-            this.mailSender = _data["MailSender"] ? MailSender.fromJS(_data["MailSender"], _mappings) : <any>undefined;
+            this.emirateRecord = _data["emirateRecord"] ? EmirateRecord.fromJS(_data["emirateRecord"], _mappings) : <any>undefined;
+            this.isDesc = _data["isDesc"];
+            this.orderByColumn = _data["orderByColumn"];
+            this.pageSize = _data["pageSize"];
+            this.pageIndex = _data["pageIndex"];
+            this.createdBy = _data["createdBy"];
+            this.roleID = _data["roleID"];
+            this.languageId = _data["languageId"];
+            this.yardId = _data["yardId"];
+            this.baseUrl = _data["baseUrl"];
+            this.name = _data["name"];
+            this.mailSender = _data["mailSender"] ? MailSender.fromJS(_data["mailSender"], _mappings) : <any>undefined;
         }
     }
 
@@ -868,19 +3481,26 @@ export class EmirateRequest implements IEmirateRequest {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data["EmirateRecord"] = this.emirateRecord ? this.emirateRecord.toJSON() : <any>undefined;
-        data["IsDesc"] = this.isDesc;
-        data["OrderByColumn"] = this.orderByColumn;
-        data["PageSize"] = this.pageSize;
-        data["PageIndex"] = this.pageIndex;
-        data["CreatedBy"] = this.createdBy;
-        data["RoleID"] = this.roleID;
-        data["LanguageId"] = this.languageId;
-        data["YardId"] = this.yardId;
-        data["BaseUrl"] = this.baseUrl;
-        data["Name"] = this.name;
-        data["MailSender"] = this.mailSender ? this.mailSender.toJSON() : <any>undefined;
+        data["emirateRecord"] = this.emirateRecord ? this.emirateRecord.toJSON() : <any>undefined;
+        data["isDesc"] = this.isDesc;
+        data["orderByColumn"] = this.orderByColumn;
+        data["pageSize"] = this.pageSize;
+        data["pageIndex"] = this.pageIndex;
+        data["createdBy"] = this.createdBy;
+        data["roleID"] = this.roleID;
+        data["languageId"] = this.languageId;
+        data["yardId"] = this.yardId;
+        data["baseUrl"] = this.baseUrl;
+        data["name"] = this.name;
+        data["mailSender"] = this.mailSender ? this.mailSender.toJSON() : <any>undefined;
         return data; 
+    }
+
+    clone(): EmirateRequest {
+        const json = this.toJSON();
+        let result = new EmirateRequest();
+        result.init(json);
+        return result;
     }
 }
 
@@ -899,11 +3519,78 @@ export interface IEmirateRequest {
     mailSender?: IMailSender;
 }
 
+export class EmirateResponse implements IEmirateResponse {
+    data?: EmirateRecord[] | undefined;
+    message?: string | undefined;
+    success?: boolean;
+    totalCount?: number;
+
+    constructor(data?: IEmirateResponse) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+            if (data.data) {
+                this.data = [];
+                for (let i = 0; i < data.data.length; i++) {
+                    let item = data.data[i];
+                    this.data[i] = item && !(<any>item).toJSON ? new EmirateRecord(item) : <EmirateRecord>item;
+                }
+            }
+        }
+    }
+
+    init(_data?: any, _mappings?: any) {
+        if (_data) {
+            if (Array.isArray(_data["Data"])) {
+                this.data = [] as any;
+                for (let item of _data["Data"])
+                    this.data!.push(EmirateRecord.fromJS(item, _mappings));
+            }
+            this.message = _data["message"];
+            this.success = _data["success"];
+            this.totalCount = _data["totalCount"];
+        }
+    }
+
+    static fromJS(data: any, _mappings?: any): EmirateResponse {
+        data = typeof data === 'object' ? data : {};
+        return createInstance<EmirateResponse>(data, _mappings, EmirateResponse);
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        if (Array.isArray(this.data)) {
+            data["Data"] = [];
+            for (let item of this.data)
+                data["Data"].push(item.toJSON());
+        }
+        data["message"] = this.message;
+        data["success"] = this.success;
+        data["totalCount"] = this.totalCount;
+        return data; 
+    }
+
+    clone(): EmirateResponse {
+        const json = this.toJSON();
+        let result = new EmirateResponse();
+        result.init(json);
+        return result;
+    }
+}
+
+export interface IEmirateResponse {
+    data?: IEmirateRecord[] | undefined;
+    message?: string | undefined;
+    success?: boolean;
+    totalCount?: number;
+}
+
 export class ProviderRecord implements IProviderRecord {
     id?: number;
     nameEn?: string | undefined;
     nameAr?: string | undefined;
-    createdAt?: Date;
     typeId?: number | undefined;
     emirateId?: number | undefined;
     address?: string | undefined;
@@ -912,12 +3599,12 @@ export class ProviderRecord implements IProviderRecord {
     mobile?: string | undefined;
     website?: string | undefined;
     trn?: string | undefined;
-    isDeleted?: boolean;
     isActive?: boolean | undefined;
     name?: string | undefined;
     emirateName?: string | undefined;
     typeName?: string | undefined;
-    modifiedAt?: Date | undefined;
+    countryId?: number | undefined;
+    countryName?: string | undefined;
 
     constructor(data?: IProviderRecord) {
         if (data) {
@@ -930,24 +3617,23 @@ export class ProviderRecord implements IProviderRecord {
 
     init(_data?: any, _mappings?: any) {
         if (_data) {
-            this.id = _data["Id"];
-            this.nameEn = _data["NameEn"];
-            this.nameAr = _data["NameAr"];
-            this.createdAt = _data["CreatedAt"] ? new Date(_data["CreatedAt"].toString()) : <any>undefined;
-            this.typeId = _data["TypeId"];
-            this.emirateId = _data["EmirateId"];
-            this.address = _data["Address"];
-            this.email = _data["Email"];
-            this.landline = _data["Landline"];
-            this.mobile = _data["Mobile"];
-            this.website = _data["Website"];
-            this.trn = _data["Trn"];
-            this.isDeleted = _data["IsDeleted"];
-            this.isActive = _data["IsActive"];
-            this.name = _data["Name"];
-            this.emirateName = _data["EmirateName"];
-            this.typeName = _data["TypeName"];
-            this.modifiedAt = _data["ModifiedAt"] ? new Date(_data["ModifiedAt"].toString()) : <any>undefined;
+            this.id = _data["id"];
+            this.nameEn = _data["nameEn"];
+            this.nameAr = _data["nameAr"];
+            this.typeId = _data["typeId"];
+            this.emirateId = _data["emirateId"];
+            this.address = _data["address"];
+            this.email = _data["email"];
+            this.landline = _data["landline"];
+            this.mobile = _data["mobile"];
+            this.website = _data["website"];
+            this.trn = _data["trn"];
+            this.isActive = _data["isActive"];
+            this.name = _data["name"];
+            this.emirateName = _data["emirateName"];
+            this.typeName = _data["typeName"];
+            this.countryId = _data["countryId"];
+            this.countryName = _data["countryName"];
         }
     }
 
@@ -958,25 +3644,31 @@ export class ProviderRecord implements IProviderRecord {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data["Id"] = this.id;
-        data["NameEn"] = this.nameEn;
-        data["NameAr"] = this.nameAr;
-        data["CreatedAt"] = this.createdAt ? this.createdAt.toISOString() : <any>undefined;
-        data["TypeId"] = this.typeId;
-        data["EmirateId"] = this.emirateId;
-        data["Address"] = this.address;
-        data["Email"] = this.email;
-        data["Landline"] = this.landline;
-        data["Mobile"] = this.mobile;
-        data["Website"] = this.website;
-        data["Trn"] = this.trn;
-        data["IsDeleted"] = this.isDeleted;
-        data["IsActive"] = this.isActive;
-        data["Name"] = this.name;
-        data["EmirateName"] = this.emirateName;
-        data["TypeName"] = this.typeName;
-        data["ModifiedAt"] = this.modifiedAt ? this.modifiedAt.toISOString() : <any>undefined;
+        data["id"] = this.id;
+        data["nameEn"] = this.nameEn;
+        data["nameAr"] = this.nameAr;
+        data["typeId"] = this.typeId;
+        data["emirateId"] = this.emirateId;
+        data["address"] = this.address;
+        data["email"] = this.email;
+        data["landline"] = this.landline;
+        data["mobile"] = this.mobile;
+        data["website"] = this.website;
+        data["trn"] = this.trn;
+        data["isActive"] = this.isActive;
+        data["name"] = this.name;
+        data["emirateName"] = this.emirateName;
+        data["typeName"] = this.typeName;
+        data["countryId"] = this.countryId;
+        data["countryName"] = this.countryName;
         return data; 
+    }
+
+    clone(): ProviderRecord {
+        const json = this.toJSON();
+        let result = new ProviderRecord();
+        result.init(json);
+        return result;
     }
 }
 
@@ -984,7 +3676,6 @@ export interface IProviderRecord {
     id?: number;
     nameEn?: string | undefined;
     nameAr?: string | undefined;
-    createdAt?: Date;
     typeId?: number | undefined;
     emirateId?: number | undefined;
     address?: string | undefined;
@@ -993,12 +3684,12 @@ export interface IProviderRecord {
     mobile?: string | undefined;
     website?: string | undefined;
     trn?: string | undefined;
-    isDeleted?: boolean;
     isActive?: boolean | undefined;
     name?: string | undefined;
     emirateName?: string | undefined;
     typeName?: string | undefined;
-    modifiedAt?: Date | undefined;
+    countryId?: number | undefined;
+    countryName?: string | undefined;
 }
 
 export class ProviderRequest implements IProviderRequest {
@@ -1028,18 +3719,18 @@ export class ProviderRequest implements IProviderRequest {
 
     init(_data?: any, _mappings?: any) {
         if (_data) {
-            this.providerRecord = _data["ProviderRecord"] ? ProviderRecord.fromJS(_data["ProviderRecord"], _mappings) : <any>undefined;
-            this.isDesc = _data["IsDesc"];
-            this.orderByColumn = _data["OrderByColumn"];
-            this.pageSize = _data["PageSize"];
-            this.pageIndex = _data["PageIndex"];
-            this.createdBy = _data["CreatedBy"];
-            this.roleID = _data["RoleID"];
-            this.languageId = _data["LanguageId"];
-            this.yardId = _data["YardId"];
-            this.baseUrl = _data["BaseUrl"];
-            this.name = _data["Name"];
-            this.mailSender = _data["MailSender"] ? MailSender.fromJS(_data["MailSender"], _mappings) : <any>undefined;
+            this.providerRecord = _data["providerRecord"] ? ProviderRecord.fromJS(_data["providerRecord"], _mappings) : <any>undefined;
+            this.isDesc = _data["isDesc"];
+            this.orderByColumn = _data["orderByColumn"];
+            this.pageSize = _data["pageSize"];
+            this.pageIndex = _data["pageIndex"];
+            this.createdBy = _data["createdBy"];
+            this.roleID = _data["roleID"];
+            this.languageId = _data["languageId"];
+            this.yardId = _data["yardId"];
+            this.baseUrl = _data["baseUrl"];
+            this.name = _data["name"];
+            this.mailSender = _data["mailSender"] ? MailSender.fromJS(_data["mailSender"], _mappings) : <any>undefined;
         }
     }
 
@@ -1050,19 +3741,26 @@ export class ProviderRequest implements IProviderRequest {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data["ProviderRecord"] = this.providerRecord ? this.providerRecord.toJSON() : <any>undefined;
-        data["IsDesc"] = this.isDesc;
-        data["OrderByColumn"] = this.orderByColumn;
-        data["PageSize"] = this.pageSize;
-        data["PageIndex"] = this.pageIndex;
-        data["CreatedBy"] = this.createdBy;
-        data["RoleID"] = this.roleID;
-        data["LanguageId"] = this.languageId;
-        data["YardId"] = this.yardId;
-        data["BaseUrl"] = this.baseUrl;
-        data["Name"] = this.name;
-        data["MailSender"] = this.mailSender ? this.mailSender.toJSON() : <any>undefined;
+        data["providerRecord"] = this.providerRecord ? this.providerRecord.toJSON() : <any>undefined;
+        data["isDesc"] = this.isDesc;
+        data["orderByColumn"] = this.orderByColumn;
+        data["pageSize"] = this.pageSize;
+        data["pageIndex"] = this.pageIndex;
+        data["createdBy"] = this.createdBy;
+        data["roleID"] = this.roleID;
+        data["languageId"] = this.languageId;
+        data["yardId"] = this.yardId;
+        data["baseUrl"] = this.baseUrl;
+        data["name"] = this.name;
+        data["mailSender"] = this.mailSender ? this.mailSender.toJSON() : <any>undefined;
         return data; 
+    }
+
+    clone(): ProviderRequest {
+        const json = this.toJSON();
+        let result = new ProviderRequest();
+        result.init(json);
+        return result;
     }
 }
 
@@ -1081,11 +3779,300 @@ export interface IProviderRequest {
     mailSender?: IMailSender;
 }
 
+export class ProviderResponse implements IProviderResponse {
+    data?: ProviderRecord[] | undefined;
+    message?: string | undefined;
+    success?: boolean;
+    totalCount?: number;
+
+    constructor(data?: IProviderResponse) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+            if (data.data) {
+                this.data = [];
+                for (let i = 0; i < data.data.length; i++) {
+                    let item = data.data[i];
+                    this.data[i] = item && !(<any>item).toJSON ? new ProviderRecord(item) : <ProviderRecord>item;
+                }
+            }
+        }
+    }
+
+    init(_data?: any, _mappings?: any) {
+        if (_data) {
+            if (Array.isArray(_data["Data"])) {
+                this.data = [] as any;
+                for (let item of _data["Data"])
+                    this.data!.push(ProviderRecord.fromJS(item, _mappings));
+            }
+            this.message = _data["message"];
+            this.success = _data["success"];
+            this.totalCount = _data["totalCount"];
+        }
+    }
+
+    static fromJS(data: any, _mappings?: any): ProviderResponse {
+        data = typeof data === 'object' ? data : {};
+        return createInstance<ProviderResponse>(data, _mappings, ProviderResponse);
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        if (Array.isArray(this.data)) {
+            data["Data"] = [];
+            for (let item of this.data)
+                data["Data"].push(item.toJSON());
+        }
+        data["message"] = this.message;
+        data["success"] = this.success;
+        data["totalCount"] = this.totalCount;
+        return data; 
+    }
+
+    clone(): ProviderResponse {
+        const json = this.toJSON();
+        let result = new ProviderResponse();
+        result.init(json);
+        return result;
+    }
+}
+
+export interface IProviderResponse {
+    data?: IProviderRecord[] | undefined;
+    message?: string | undefined;
+    success?: boolean;
+    totalCount?: number;
+}
+
+export class ProviderContactRecord implements IProviderContactRecord {
+    id?: number;
+    name?: string | undefined;
+    email?: string | undefined;
+    mobile?: string | undefined;
+    landline?: string | undefined;
+    isActive?: boolean | undefined;
+    providerId?: number;
+    providerName?: string | undefined;
+
+    constructor(data?: IProviderContactRecord) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any, _mappings?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.name = _data["name"];
+            this.email = _data["email"];
+            this.mobile = _data["mobile"];
+            this.landline = _data["landline"];
+            this.isActive = _data["isActive"];
+            this.providerId = _data["providerId"];
+            this.providerName = _data["providerName"];
+        }
+    }
+
+    static fromJS(data: any, _mappings?: any): ProviderContactRecord {
+        data = typeof data === 'object' ? data : {};
+        return createInstance<ProviderContactRecord>(data, _mappings, ProviderContactRecord);
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["name"] = this.name;
+        data["email"] = this.email;
+        data["mobile"] = this.mobile;
+        data["landline"] = this.landline;
+        data["isActive"] = this.isActive;
+        data["providerId"] = this.providerId;
+        data["providerName"] = this.providerName;
+        return data; 
+    }
+
+    clone(): ProviderContactRecord {
+        const json = this.toJSON();
+        let result = new ProviderContactRecord();
+        result.init(json);
+        return result;
+    }
+}
+
+export interface IProviderContactRecord {
+    id?: number;
+    name?: string | undefined;
+    email?: string | undefined;
+    mobile?: string | undefined;
+    landline?: string | undefined;
+    isActive?: boolean | undefined;
+    providerId?: number;
+    providerName?: string | undefined;
+}
+
+export class ProviderContactRequest implements IProviderContactRequest {
+    providerContactRecord?: ProviderContactRecord;
+    isDesc?: boolean;
+    orderByColumn?: string | undefined;
+    pageSize?: number;
+    pageIndex?: number;
+    createdBy?: number;
+    roleID?: number;
+    languageId?: number;
+    yardId?: number;
+    baseUrl?: string | undefined;
+    name?: string | undefined;
+    mailSender?: MailSender;
+
+    constructor(data?: IProviderContactRequest) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+            this.providerContactRecord = data.providerContactRecord && !(<any>data.providerContactRecord).toJSON ? new ProviderContactRecord(data.providerContactRecord) : <ProviderContactRecord>this.providerContactRecord; 
+            this.mailSender = data.mailSender && !(<any>data.mailSender).toJSON ? new MailSender(data.mailSender) : <MailSender>this.mailSender; 
+        }
+    }
+
+    init(_data?: any, _mappings?: any) {
+        if (_data) {
+            this.providerContactRecord = _data["providerContactRecord"] ? ProviderContactRecord.fromJS(_data["providerContactRecord"], _mappings) : <any>undefined;
+            this.isDesc = _data["isDesc"];
+            this.orderByColumn = _data["orderByColumn"];
+            this.pageSize = _data["pageSize"];
+            this.pageIndex = _data["pageIndex"];
+            this.createdBy = _data["createdBy"];
+            this.roleID = _data["roleID"];
+            this.languageId = _data["languageId"];
+            this.yardId = _data["yardId"];
+            this.baseUrl = _data["baseUrl"];
+            this.name = _data["name"];
+            this.mailSender = _data["mailSender"] ? MailSender.fromJS(_data["mailSender"], _mappings) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any, _mappings?: any): ProviderContactRequest {
+        data = typeof data === 'object' ? data : {};
+        return createInstance<ProviderContactRequest>(data, _mappings, ProviderContactRequest);
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["providerContactRecord"] = this.providerContactRecord ? this.providerContactRecord.toJSON() : <any>undefined;
+        data["isDesc"] = this.isDesc;
+        data["orderByColumn"] = this.orderByColumn;
+        data["pageSize"] = this.pageSize;
+        data["pageIndex"] = this.pageIndex;
+        data["createdBy"] = this.createdBy;
+        data["roleID"] = this.roleID;
+        data["languageId"] = this.languageId;
+        data["yardId"] = this.yardId;
+        data["baseUrl"] = this.baseUrl;
+        data["name"] = this.name;
+        data["mailSender"] = this.mailSender ? this.mailSender.toJSON() : <any>undefined;
+        return data; 
+    }
+
+    clone(): ProviderContactRequest {
+        const json = this.toJSON();
+        let result = new ProviderContactRequest();
+        result.init(json);
+        return result;
+    }
+}
+
+export interface IProviderContactRequest {
+    providerContactRecord?: IProviderContactRecord;
+    isDesc?: boolean;
+    orderByColumn?: string | undefined;
+    pageSize?: number;
+    pageIndex?: number;
+    createdBy?: number;
+    roleID?: number;
+    languageId?: number;
+    yardId?: number;
+    baseUrl?: string | undefined;
+    name?: string | undefined;
+    mailSender?: IMailSender;
+}
+
+export class ProviderContactResponse implements IProviderContactResponse {
+    data?: ProviderContactRecord[] | undefined;
+    message?: string | undefined;
+    success?: boolean;
+    totalCount?: number;
+
+    constructor(data?: IProviderContactResponse) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+            if (data.data) {
+                this.data = [];
+                for (let i = 0; i < data.data.length; i++) {
+                    let item = data.data[i];
+                    this.data[i] = item && !(<any>item).toJSON ? new ProviderContactRecord(item) : <ProviderContactRecord>item;
+                }
+            }
+        }
+    }
+
+    init(_data?: any, _mappings?: any) {
+        if (_data) {
+            if (Array.isArray(_data["Data"])) {
+                this.data = [] as any;
+                for (let item of _data["Data"])
+                    this.data!.push(ProviderContactRecord.fromJS(item, _mappings));
+            }
+            this.message = _data["message"];
+            this.success = _data["success"];
+            this.totalCount = _data["totalCount"];
+        }
+    }
+
+    static fromJS(data: any, _mappings?: any): ProviderContactResponse {
+        data = typeof data === 'object' ? data : {};
+        return createInstance<ProviderContactResponse>(data, _mappings, ProviderContactResponse);
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        if (Array.isArray(this.data)) {
+            data["Data"] = [];
+            for (let item of this.data)
+                data["Data"].push(item.toJSON());
+        }
+        data["message"] = this.message;
+        data["success"] = this.success;
+        data["totalCount"] = this.totalCount;
+        return data; 
+    }
+
+    clone(): ProviderContactResponse {
+        const json = this.toJSON();
+        let result = new ProviderContactResponse();
+        result.init(json);
+        return result;
+    }
+}
+
+export interface IProviderContactResponse {
+    data?: IProviderContactRecord[] | undefined;
+    message?: string | undefined;
+    success?: boolean;
+    totalCount?: number;
+}
+
 export class ProviderTypeRecord implements IProviderTypeRecord {
     id?: number;
-    createdAt?: Date;
-    isDeleted?: boolean;
-    modifiedAt?: Date | undefined;
     name!: string;
     isActive?: boolean | undefined;
 
@@ -1100,12 +4087,9 @@ export class ProviderTypeRecord implements IProviderTypeRecord {
 
     init(_data?: any, _mappings?: any) {
         if (_data) {
-            this.id = _data["Id"];
-            this.createdAt = _data["CreatedAt"] ? new Date(_data["CreatedAt"].toString()) : <any>undefined;
-            this.isDeleted = _data["IsDeleted"];
-            this.modifiedAt = _data["ModifiedAt"] ? new Date(_data["ModifiedAt"].toString()) : <any>undefined;
-            this.name = _data["Name"];
-            this.isActive = _data["IsActive"];
+            this.id = _data["id"];
+            this.name = _data["name"];
+            this.isActive = _data["isActive"];
         }
     }
 
@@ -1116,21 +4100,22 @@ export class ProviderTypeRecord implements IProviderTypeRecord {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data["Id"] = this.id;
-        data["CreatedAt"] = this.createdAt ? this.createdAt.toISOString() : <any>undefined;
-        data["IsDeleted"] = this.isDeleted;
-        data["ModifiedAt"] = this.modifiedAt ? this.modifiedAt.toISOString() : <any>undefined;
-        data["Name"] = this.name;
-        data["IsActive"] = this.isActive;
+        data["id"] = this.id;
+        data["name"] = this.name;
+        data["isActive"] = this.isActive;
         return data; 
+    }
+
+    clone(): ProviderTypeRecord {
+        const json = this.toJSON();
+        let result = new ProviderTypeRecord();
+        result.init(json);
+        return result;
     }
 }
 
 export interface IProviderTypeRecord {
     id?: number;
-    createdAt?: Date;
-    isDeleted?: boolean;
-    modifiedAt?: Date | undefined;
     name: string;
     isActive?: boolean | undefined;
 }
@@ -1162,18 +4147,18 @@ export class ProviderTypeRequest implements IProviderTypeRequest {
 
     init(_data?: any, _mappings?: any) {
         if (_data) {
-            this.providerTypeRecord = _data["ProviderTypeRecord"] ? ProviderTypeRecord.fromJS(_data["ProviderTypeRecord"], _mappings) : <any>undefined;
-            this.isDesc = _data["IsDesc"];
-            this.orderByColumn = _data["OrderByColumn"];
-            this.pageSize = _data["PageSize"];
-            this.pageIndex = _data["PageIndex"];
-            this.createdBy = _data["CreatedBy"];
-            this.roleID = _data["RoleID"];
-            this.languageId = _data["LanguageId"];
-            this.yardId = _data["YardId"];
-            this.baseUrl = _data["BaseUrl"];
-            this.name = _data["Name"];
-            this.mailSender = _data["MailSender"] ? MailSender.fromJS(_data["MailSender"], _mappings) : <any>undefined;
+            this.providerTypeRecord = _data["providerTypeRecord"] ? ProviderTypeRecord.fromJS(_data["providerTypeRecord"], _mappings) : <any>undefined;
+            this.isDesc = _data["isDesc"];
+            this.orderByColumn = _data["orderByColumn"];
+            this.pageSize = _data["pageSize"];
+            this.pageIndex = _data["pageIndex"];
+            this.createdBy = _data["createdBy"];
+            this.roleID = _data["roleID"];
+            this.languageId = _data["languageId"];
+            this.yardId = _data["yardId"];
+            this.baseUrl = _data["baseUrl"];
+            this.name = _data["name"];
+            this.mailSender = _data["mailSender"] ? MailSender.fromJS(_data["mailSender"], _mappings) : <any>undefined;
         }
     }
 
@@ -1184,19 +4169,26 @@ export class ProviderTypeRequest implements IProviderTypeRequest {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data["ProviderTypeRecord"] = this.providerTypeRecord ? this.providerTypeRecord.toJSON() : <any>undefined;
-        data["IsDesc"] = this.isDesc;
-        data["OrderByColumn"] = this.orderByColumn;
-        data["PageSize"] = this.pageSize;
-        data["PageIndex"] = this.pageIndex;
-        data["CreatedBy"] = this.createdBy;
-        data["RoleID"] = this.roleID;
-        data["LanguageId"] = this.languageId;
-        data["YardId"] = this.yardId;
-        data["BaseUrl"] = this.baseUrl;
-        data["Name"] = this.name;
-        data["MailSender"] = this.mailSender ? this.mailSender.toJSON() : <any>undefined;
+        data["providerTypeRecord"] = this.providerTypeRecord ? this.providerTypeRecord.toJSON() : <any>undefined;
+        data["isDesc"] = this.isDesc;
+        data["orderByColumn"] = this.orderByColumn;
+        data["pageSize"] = this.pageSize;
+        data["pageIndex"] = this.pageIndex;
+        data["createdBy"] = this.createdBy;
+        data["roleID"] = this.roleID;
+        data["languageId"] = this.languageId;
+        data["yardId"] = this.yardId;
+        data["baseUrl"] = this.baseUrl;
+        data["name"] = this.name;
+        data["mailSender"] = this.mailSender ? this.mailSender.toJSON() : <any>undefined;
         return data; 
+    }
+
+    clone(): ProviderTypeRequest {
+        const json = this.toJSON();
+        let result = new ProviderTypeRequest();
+        result.init(json);
+        return result;
     }
 }
 
@@ -1213,6 +4205,74 @@ export interface IProviderTypeRequest {
     baseUrl?: string | undefined;
     name?: string | undefined;
     mailSender?: IMailSender;
+}
+
+export class ProviderTypeResponse implements IProviderTypeResponse {
+    data?: ProviderTypeRecord[] | undefined;
+    message?: string | undefined;
+    success?: boolean;
+    totalCount?: number;
+
+    constructor(data?: IProviderTypeResponse) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+            if (data.data) {
+                this.data = [];
+                for (let i = 0; i < data.data.length; i++) {
+                    let item = data.data[i];
+                    this.data[i] = item && !(<any>item).toJSON ? new ProviderTypeRecord(item) : <ProviderTypeRecord>item;
+                }
+            }
+        }
+    }
+
+    init(_data?: any, _mappings?: any) {
+        if (_data) {
+            if (Array.isArray(_data["Data"])) {
+                this.data = [] as any;
+                for (let item of _data["Data"])
+                    this.data!.push(ProviderTypeRecord.fromJS(item, _mappings));
+            }
+            this.message = _data["message"];
+            this.success = _data["success"];
+            this.totalCount = _data["totalCount"];
+        }
+    }
+
+    static fromJS(data: any, _mappings?: any): ProviderTypeResponse {
+        data = typeof data === 'object' ? data : {};
+        return createInstance<ProviderTypeResponse>(data, _mappings, ProviderTypeResponse);
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        if (Array.isArray(this.data)) {
+            data["Data"] = [];
+            for (let item of this.data)
+                data["Data"].push(item.toJSON());
+        }
+        data["message"] = this.message;
+        data["success"] = this.success;
+        data["totalCount"] = this.totalCount;
+        return data; 
+    }
+
+    clone(): ProviderTypeResponse {
+        const json = this.toJSON();
+        let result = new ProviderTypeResponse();
+        result.init(json);
+        return result;
+    }
+}
+
+export interface IProviderTypeResponse {
+    data?: IProviderTypeRecord[] | undefined;
+    message?: string | undefined;
+    success?: boolean;
+    totalCount?: number;
 }
 
 export class UserRecord implements IUserRecord {
@@ -1240,18 +4300,18 @@ export class UserRecord implements IUserRecord {
 
     init(_data?: any, _mappings?: any) {
         if (_data) {
-            this.id = _data["Id"];
-            this.name = _data["Name"];
-            this.email = _data["Email"];
-            this.password = _data["Password"];
-            this.confirmPassword = _data["ConfirmPassword"];
-            this.roleID = _data["RoleID"];
-            this.roleName = _data["RoleName"];
-            this.lastLoginDate = _data["LastLoginDate"] ? new Date(_data["LastLoginDate"].toString()) : <any>undefined;
-            this.phoneNumber = _data["PhoneNumber"];
-            this.isLoggedIn = _data["IsLoggedIn"];
-            this.yardId = _data["YardId"];
-            this.isActive = _data["IsActive"];
+            this.id = _data["id"];
+            this.name = _data["name"];
+            this.email = _data["email"];
+            this.password = _data["password"];
+            this.confirmPassword = _data["confirmPassword"];
+            this.roleID = _data["roleID"];
+            this.roleName = _data["roleName"];
+            this.lastLoginDate = _data["lastLoginDate"] ? new Date(_data["lastLoginDate"].toString()) : <any>undefined;
+            this.phoneNumber = _data["phoneNumber"];
+            this.isLoggedIn = _data["isLoggedIn"];
+            this.yardId = _data["yardId"];
+            this.isActive = _data["isActive"];
         }
     }
 
@@ -1262,19 +4322,26 @@ export class UserRecord implements IUserRecord {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data["Id"] = this.id;
-        data["Name"] = this.name;
-        data["Email"] = this.email;
-        data["Password"] = this.password;
-        data["ConfirmPassword"] = this.confirmPassword;
-        data["RoleID"] = this.roleID;
-        data["RoleName"] = this.roleName;
-        data["LastLoginDate"] = this.lastLoginDate ? this.lastLoginDate.toISOString() : <any>undefined;
-        data["PhoneNumber"] = this.phoneNumber;
-        data["IsLoggedIn"] = this.isLoggedIn;
-        data["YardId"] = this.yardId;
-        data["IsActive"] = this.isActive;
+        data["id"] = this.id;
+        data["name"] = this.name;
+        data["email"] = this.email;
+        data["password"] = this.password;
+        data["confirmPassword"] = this.confirmPassword;
+        data["roleID"] = this.roleID;
+        data["roleName"] = this.roleName;
+        data["lastLoginDate"] = this.lastLoginDate ? this.lastLoginDate.toISOString() : <any>undefined;
+        data["phoneNumber"] = this.phoneNumber;
+        data["isLoggedIn"] = this.isLoggedIn;
+        data["yardId"] = this.yardId;
+        data["isActive"] = this.isActive;
         return data; 
+    }
+
+    clone(): UserRecord {
+        const json = this.toJSON();
+        let result = new UserRecord();
+        result.init(json);
+        return result;
     }
 }
 
@@ -1320,18 +4387,18 @@ export class UserRequest implements IUserRequest {
 
     init(_data?: any, _mappings?: any) {
         if (_data) {
-            this.userRecord = _data["UserRecord"] ? UserRecord.fromJS(_data["UserRecord"], _mappings) : <any>undefined;
-            this.isDesc = _data["IsDesc"];
-            this.orderByColumn = _data["OrderByColumn"];
-            this.pageSize = _data["PageSize"];
-            this.pageIndex = _data["PageIndex"];
-            this.createdBy = _data["CreatedBy"];
-            this.roleID = _data["RoleID"];
-            this.languageId = _data["LanguageId"];
-            this.yardId = _data["YardId"];
-            this.baseUrl = _data["BaseUrl"];
-            this.name = _data["Name"];
-            this.mailSender = _data["MailSender"] ? MailSender.fromJS(_data["MailSender"], _mappings) : <any>undefined;
+            this.userRecord = _data["userRecord"] ? UserRecord.fromJS(_data["userRecord"], _mappings) : <any>undefined;
+            this.isDesc = _data["isDesc"];
+            this.orderByColumn = _data["orderByColumn"];
+            this.pageSize = _data["pageSize"];
+            this.pageIndex = _data["pageIndex"];
+            this.createdBy = _data["createdBy"];
+            this.roleID = _data["roleID"];
+            this.languageId = _data["languageId"];
+            this.yardId = _data["yardId"];
+            this.baseUrl = _data["baseUrl"];
+            this.name = _data["name"];
+            this.mailSender = _data["mailSender"] ? MailSender.fromJS(_data["mailSender"], _mappings) : <any>undefined;
         }
     }
 
@@ -1342,19 +4409,26 @@ export class UserRequest implements IUserRequest {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data["UserRecord"] = this.userRecord ? this.userRecord.toJSON() : <any>undefined;
-        data["IsDesc"] = this.isDesc;
-        data["OrderByColumn"] = this.orderByColumn;
-        data["PageSize"] = this.pageSize;
-        data["PageIndex"] = this.pageIndex;
-        data["CreatedBy"] = this.createdBy;
-        data["RoleID"] = this.roleID;
-        data["LanguageId"] = this.languageId;
-        data["YardId"] = this.yardId;
-        data["BaseUrl"] = this.baseUrl;
-        data["Name"] = this.name;
-        data["MailSender"] = this.mailSender ? this.mailSender.toJSON() : <any>undefined;
+        data["userRecord"] = this.userRecord ? this.userRecord.toJSON() : <any>undefined;
+        data["isDesc"] = this.isDesc;
+        data["orderByColumn"] = this.orderByColumn;
+        data["pageSize"] = this.pageSize;
+        data["pageIndex"] = this.pageIndex;
+        data["createdBy"] = this.createdBy;
+        data["roleID"] = this.roleID;
+        data["languageId"] = this.languageId;
+        data["yardId"] = this.yardId;
+        data["baseUrl"] = this.baseUrl;
+        data["name"] = this.name;
+        data["mailSender"] = this.mailSender ? this.mailSender.toJSON() : <any>undefined;
         return data; 
+    }
+
+    clone(): UserRequest {
+        const json = this.toJSON();
+        let result = new UserRequest();
+        result.init(json);
+        return result;
     }
 }
 
@@ -1371,6 +4445,762 @@ export interface IUserRequest {
     baseUrl?: string | undefined;
     name?: string | undefined;
     mailSender?: IMailSender;
+}
+
+export class UserResponse implements IUserResponse {
+    data?: UserRecord[] | undefined;
+    message?: string | undefined;
+    success?: boolean;
+    totalCount?: number;
+
+    constructor(data?: IUserResponse) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+            if (data.data) {
+                this.data = [];
+                for (let i = 0; i < data.data.length; i++) {
+                    let item = data.data[i];
+                    this.data[i] = item && !(<any>item).toJSON ? new UserRecord(item) : <UserRecord>item;
+                }
+            }
+        }
+    }
+
+    init(_data?: any, _mappings?: any) {
+        if (_data) {
+            if (Array.isArray(_data["Data"])) {
+                this.data = [] as any;
+                for (let item of _data["Data"])
+                    this.data!.push(UserRecord.fromJS(item, _mappings));
+            }
+            this.message = _data["message"];
+            this.success = _data["success"];
+            this.totalCount = _data["totalCount"];
+        }
+    }
+
+    static fromJS(data: any, _mappings?: any): UserResponse {
+        data = typeof data === 'object' ? data : {};
+        return createInstance<UserResponse>(data, _mappings, UserResponse);
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        if (Array.isArray(this.data)) {
+            data["Data"] = [];
+            for (let item of this.data)
+                data["Data"].push(item.toJSON());
+        }
+        data["message"] = this.message;
+        data["success"] = this.success;
+        data["totalCount"] = this.totalCount;
+        return data; 
+    }
+
+    clone(): UserResponse {
+        const json = this.toJSON();
+        let result = new UserResponse();
+        result.init(json);
+        return result;
+    }
+}
+
+export interface IUserResponse {
+    data?: IUserRecord[] | undefined;
+    message?: string | undefined;
+    success?: boolean;
+    totalCount?: number;
+}
+
+export class YardBoundaryRecord implements IYardBoundaryRecord {
+    latitude?: number;
+    longitude?: number;
+
+    constructor(data?: IYardBoundaryRecord) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any, _mappings?: any) {
+        if (_data) {
+            this.latitude = _data["latitude"];
+            this.longitude = _data["longitude"];
+        }
+    }
+
+    static fromJS(data: any, _mappings?: any): YardBoundaryRecord {
+        data = typeof data === 'object' ? data : {};
+        return createInstance<YardBoundaryRecord>(data, _mappings, YardBoundaryRecord);
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["latitude"] = this.latitude;
+        data["longitude"] = this.longitude;
+        return data; 
+    }
+
+    clone(): YardBoundaryRecord {
+        const json = this.toJSON();
+        let result = new YardBoundaryRecord();
+        result.init(json);
+        return result;
+    }
+}
+
+export interface IYardBoundaryRecord {
+    latitude?: number;
+    longitude?: number;
+}
+
+export class YardRecord implements IYardRecord {
+    id?: number;
+    nameEn?: string | undefined;
+    nameAr?: string | undefined;
+    isActive?: boolean | undefined;
+    name?: string | undefined;
+    emirateName?: string | undefined;
+    countryId?: number | undefined;
+    countryName?: string | undefined;
+    gy?: string | undefined;
+    gx?: string | undefined;
+    distance?: number;
+    yardType?: number;
+    emirateId?: number;
+    maxFee?: number | undefined;
+    moveToAuctionPeriod?: number | undefined;
+    statusId?: number | undefined;
+    capacity?: number | undefined;
+    thresholdCapacity?: number | undefined;
+    workingFrom?: string | undefined;
+    workingTo?: string | undefined;
+    statusName?: string | undefined;
+    yardBoundaries?: YardBoundaryRecord[] | undefined;
+    yardId?: number;
+
+    constructor(data?: IYardRecord) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+            if (data.yardBoundaries) {
+                this.yardBoundaries = [];
+                for (let i = 0; i < data.yardBoundaries.length; i++) {
+                    let item = data.yardBoundaries[i];
+                    this.yardBoundaries[i] = item && !(<any>item).toJSON ? new YardBoundaryRecord(item) : <YardBoundaryRecord>item;
+                }
+            }
+        }
+    }
+
+    init(_data?: any, _mappings?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.nameEn = _data["nameEn"];
+            this.nameAr = _data["nameAr"];
+            this.isActive = _data["isActive"];
+            this.name = _data["name"];
+            this.emirateName = _data["emirateName"];
+            this.countryId = _data["countryId"];
+            this.countryName = _data["countryName"];
+            this.gy = _data["gy"];
+            this.gx = _data["gx"];
+            this.distance = _data["distance"];
+            this.yardType = _data["yardType"];
+            this.emirateId = _data["emirateId"];
+            this.maxFee = _data["maxFee"];
+            this.moveToAuctionPeriod = _data["moveToAuctionPeriod"];
+            this.statusId = _data["statusId"];
+            this.capacity = _data["capacity"];
+            this.thresholdCapacity = _data["thresholdCapacity"];
+            this.workingFrom = _data["workingFrom"];
+            this.workingTo = _data["workingTo"];
+            this.statusName = _data["statusName"];
+            if (Array.isArray(_data["yardBoundaries"])) {
+                this.yardBoundaries = [] as any;
+                for (let item of _data["yardBoundaries"])
+                    this.yardBoundaries!.push(YardBoundaryRecord.fromJS(item, _mappings));
+            }
+            this.yardId = _data["yardId"];
+        }
+    }
+
+    static fromJS(data: any, _mappings?: any): YardRecord {
+        data = typeof data === 'object' ? data : {};
+        return createInstance<YardRecord>(data, _mappings, YardRecord);
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["nameEn"] = this.nameEn;
+        data["nameAr"] = this.nameAr;
+        data["isActive"] = this.isActive;
+        data["name"] = this.name;
+        data["emirateName"] = this.emirateName;
+        data["countryId"] = this.countryId;
+        data["countryName"] = this.countryName;
+        data["gy"] = this.gy;
+        data["gx"] = this.gx;
+        data["distance"] = this.distance;
+        data["yardType"] = this.yardType;
+        data["emirateId"] = this.emirateId;
+        data["maxFee"] = this.maxFee;
+        data["moveToAuctionPeriod"] = this.moveToAuctionPeriod;
+        data["statusId"] = this.statusId;
+        data["capacity"] = this.capacity;
+        data["thresholdCapacity"] = this.thresholdCapacity;
+        data["workingFrom"] = this.workingFrom;
+        data["workingTo"] = this.workingTo;
+        data["statusName"] = this.statusName;
+        if (Array.isArray(this.yardBoundaries)) {
+            data["yardBoundaries"] = [];
+            for (let item of this.yardBoundaries)
+                data["yardBoundaries"].push(item.toJSON());
+        }
+        data["yardId"] = this.yardId;
+        return data; 
+    }
+
+    clone(): YardRecord {
+        const json = this.toJSON();
+        let result = new YardRecord();
+        result.init(json);
+        return result;
+    }
+}
+
+export interface IYardRecord {
+    id?: number;
+    nameEn?: string | undefined;
+    nameAr?: string | undefined;
+    isActive?: boolean | undefined;
+    name?: string | undefined;
+    emirateName?: string | undefined;
+    countryId?: number | undefined;
+    countryName?: string | undefined;
+    gy?: string | undefined;
+    gx?: string | undefined;
+    distance?: number;
+    yardType?: number;
+    emirateId?: number;
+    maxFee?: number | undefined;
+    moveToAuctionPeriod?: number | undefined;
+    statusId?: number | undefined;
+    capacity?: number | undefined;
+    thresholdCapacity?: number | undefined;
+    workingFrom?: string | undefined;
+    workingTo?: string | undefined;
+    statusName?: string | undefined;
+    yardBoundaries?: IYardBoundaryRecord[] | undefined;
+    yardId?: number;
+}
+
+export class YardRequest implements IYardRequest {
+    yardRecord?: YardRecord;
+    isDesc?: boolean;
+    orderByColumn?: string | undefined;
+    pageSize?: number;
+    pageIndex?: number;
+    createdBy?: number;
+    roleID?: number;
+    languageId?: number;
+    yardId?: number;
+    baseUrl?: string | undefined;
+    name?: string | undefined;
+    mailSender?: MailSender;
+
+    constructor(data?: IYardRequest) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+            this.yardRecord = data.yardRecord && !(<any>data.yardRecord).toJSON ? new YardRecord(data.yardRecord) : <YardRecord>this.yardRecord; 
+            this.mailSender = data.mailSender && !(<any>data.mailSender).toJSON ? new MailSender(data.mailSender) : <MailSender>this.mailSender; 
+        }
+    }
+
+    init(_data?: any, _mappings?: any) {
+        if (_data) {
+            this.yardRecord = _data["yardRecord"] ? YardRecord.fromJS(_data["yardRecord"], _mappings) : <any>undefined;
+            this.isDesc = _data["isDesc"];
+            this.orderByColumn = _data["orderByColumn"];
+            this.pageSize = _data["pageSize"];
+            this.pageIndex = _data["pageIndex"];
+            this.createdBy = _data["createdBy"];
+            this.roleID = _data["roleID"];
+            this.languageId = _data["languageId"];
+            this.yardId = _data["yardId"];
+            this.baseUrl = _data["baseUrl"];
+            this.name = _data["name"];
+            this.mailSender = _data["mailSender"] ? MailSender.fromJS(_data["mailSender"], _mappings) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any, _mappings?: any): YardRequest {
+        data = typeof data === 'object' ? data : {};
+        return createInstance<YardRequest>(data, _mappings, YardRequest);
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["yardRecord"] = this.yardRecord ? this.yardRecord.toJSON() : <any>undefined;
+        data["isDesc"] = this.isDesc;
+        data["orderByColumn"] = this.orderByColumn;
+        data["pageSize"] = this.pageSize;
+        data["pageIndex"] = this.pageIndex;
+        data["createdBy"] = this.createdBy;
+        data["roleID"] = this.roleID;
+        data["languageId"] = this.languageId;
+        data["yardId"] = this.yardId;
+        data["baseUrl"] = this.baseUrl;
+        data["name"] = this.name;
+        data["mailSender"] = this.mailSender ? this.mailSender.toJSON() : <any>undefined;
+        return data; 
+    }
+
+    clone(): YardRequest {
+        const json = this.toJSON();
+        let result = new YardRequest();
+        result.init(json);
+        return result;
+    }
+}
+
+export interface IYardRequest {
+    yardRecord?: IYardRecord;
+    isDesc?: boolean;
+    orderByColumn?: string | undefined;
+    pageSize?: number;
+    pageIndex?: number;
+    createdBy?: number;
+    roleID?: number;
+    languageId?: number;
+    yardId?: number;
+    baseUrl?: string | undefined;
+    name?: string | undefined;
+    mailSender?: IMailSender;
+}
+
+export class YardResponse implements IYardResponse {
+    data?: YardRecord[] | undefined;
+    message?: string | undefined;
+    success?: boolean;
+    totalCount?: number;
+
+    constructor(data?: IYardResponse) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+            if (data.data) {
+                this.data = [];
+                for (let i = 0; i < data.data.length; i++) {
+                    let item = data.data[i];
+                    this.data[i] = item && !(<any>item).toJSON ? new YardRecord(item) : <YardRecord>item;
+                }
+            }
+        }
+    }
+
+    init(_data?: any, _mappings?: any) {
+        if (_data) {
+            if (Array.isArray(_data["Data"])) {
+                this.data = [] as any;
+                for (let item of _data["Data"])
+                    this.data!.push(YardRecord.fromJS(item, _mappings));
+            }
+            this.message = _data["message"];
+            this.success = _data["success"];
+            this.totalCount = _data["totalCount"];
+        }
+    }
+
+    static fromJS(data: any, _mappings?: any): YardResponse {
+        data = typeof data === 'object' ? data : {};
+        return createInstance<YardResponse>(data, _mappings, YardResponse);
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        if (Array.isArray(this.data)) {
+            data["Data"] = [];
+            for (let item of this.data)
+                data["Data"].push(item.toJSON());
+        }
+        data["message"] = this.message;
+        data["success"] = this.success;
+        data["totalCount"] = this.totalCount;
+        return data; 
+    }
+
+    clone(): YardResponse {
+        const json = this.toJSON();
+        let result = new YardResponse();
+        result.init(json);
+        return result;
+    }
+}
+
+export interface IYardResponse {
+    data?: IYardRecord[] | undefined;
+    message?: string | undefined;
+    success?: boolean;
+    totalCount?: number;
+}
+
+export class ZoneProviderRecord implements IZoneProviderRecord {
+    providerId?: number;
+    providerName?: string | undefined;
+
+    constructor(data?: IZoneProviderRecord) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any, _mappings?: any) {
+        if (_data) {
+            this.providerId = _data["providerId"];
+            this.providerName = _data["providerName"];
+        }
+    }
+
+    static fromJS(data: any, _mappings?: any): ZoneProviderRecord {
+        data = typeof data === 'object' ? data : {};
+        return createInstance<ZoneProviderRecord>(data, _mappings, ZoneProviderRecord);
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["providerId"] = this.providerId;
+        data["providerName"] = this.providerName;
+        return data; 
+    }
+
+    clone(): ZoneProviderRecord {
+        const json = this.toJSON();
+        let result = new ZoneProviderRecord();
+        result.init(json);
+        return result;
+    }
+}
+
+export interface IZoneProviderRecord {
+    providerId?: number;
+    providerName?: string | undefined;
+}
+
+export class ZoneBeneficiaryRecord implements IZoneBeneficiaryRecord {
+    beneficiaryId?: number;
+    beneficiaryName?: string | undefined;
+
+    constructor(data?: IZoneBeneficiaryRecord) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any, _mappings?: any) {
+        if (_data) {
+            this.beneficiaryId = _data["beneficiaryId"];
+            this.beneficiaryName = _data["beneficiaryName"];
+        }
+    }
+
+    static fromJS(data: any, _mappings?: any): ZoneBeneficiaryRecord {
+        data = typeof data === 'object' ? data : {};
+        return createInstance<ZoneBeneficiaryRecord>(data, _mappings, ZoneBeneficiaryRecord);
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["beneficiaryId"] = this.beneficiaryId;
+        data["beneficiaryName"] = this.beneficiaryName;
+        return data; 
+    }
+
+    clone(): ZoneBeneficiaryRecord {
+        const json = this.toJSON();
+        let result = new ZoneBeneficiaryRecord();
+        result.init(json);
+        return result;
+    }
+}
+
+export interface IZoneBeneficiaryRecord {
+    beneficiaryId?: number;
+    beneficiaryName?: string | undefined;
+}
+
+export class ZoneRecord implements IZoneRecord {
+    id?: number;
+    title?: string | undefined;
+    capacity?: number;
+    yardId?: number;
+    isActive?: boolean | undefined;
+    yardName?: string | undefined;
+    zoneProviders?: ZoneProviderRecord[] | undefined;
+    zoneBeneficiarys?: ZoneBeneficiaryRecord[] | undefined;
+
+    constructor(data?: IZoneRecord) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+            if (data.zoneProviders) {
+                this.zoneProviders = [];
+                for (let i = 0; i < data.zoneProviders.length; i++) {
+                    let item = data.zoneProviders[i];
+                    this.zoneProviders[i] = item && !(<any>item).toJSON ? new ZoneProviderRecord(item) : <ZoneProviderRecord>item;
+                }
+            }
+            if (data.zoneBeneficiarys) {
+                this.zoneBeneficiarys = [];
+                for (let i = 0; i < data.zoneBeneficiarys.length; i++) {
+                    let item = data.zoneBeneficiarys[i];
+                    this.zoneBeneficiarys[i] = item && !(<any>item).toJSON ? new ZoneBeneficiaryRecord(item) : <ZoneBeneficiaryRecord>item;
+                }
+            }
+        }
+    }
+
+    init(_data?: any, _mappings?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.title = _data["title"];
+            this.capacity = _data["capacity"];
+            this.yardId = _data["yardId"];
+            this.isActive = _data["isActive"];
+            this.yardName = _data["yardName"];
+            if (Array.isArray(_data["zoneProviders"])) {
+                this.zoneProviders = [] as any;
+                for (let item of _data["zoneProviders"])
+                    this.zoneProviders!.push(ZoneProviderRecord.fromJS(item, _mappings));
+            }
+            if (Array.isArray(_data["zoneBeneficiarys"])) {
+                this.zoneBeneficiarys = [] as any;
+                for (let item of _data["zoneBeneficiarys"])
+                    this.zoneBeneficiarys!.push(ZoneBeneficiaryRecord.fromJS(item, _mappings));
+            }
+        }
+    }
+
+    static fromJS(data: any, _mappings?: any): ZoneRecord {
+        data = typeof data === 'object' ? data : {};
+        return createInstance<ZoneRecord>(data, _mappings, ZoneRecord);
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["title"] = this.title;
+        data["capacity"] = this.capacity;
+        data["yardId"] = this.yardId;
+        data["isActive"] = this.isActive;
+        data["yardName"] = this.yardName;
+        if (Array.isArray(this.zoneProviders)) {
+            data["zoneProviders"] = [];
+            for (let item of this.zoneProviders)
+                data["zoneProviders"].push(item.toJSON());
+        }
+        if (Array.isArray(this.zoneBeneficiarys)) {
+            data["zoneBeneficiarys"] = [];
+            for (let item of this.zoneBeneficiarys)
+                data["zoneBeneficiarys"].push(item.toJSON());
+        }
+        return data; 
+    }
+
+    clone(): ZoneRecord {
+        const json = this.toJSON();
+        let result = new ZoneRecord();
+        result.init(json);
+        return result;
+    }
+}
+
+export interface IZoneRecord {
+    id?: number;
+    title?: string | undefined;
+    capacity?: number;
+    yardId?: number;
+    isActive?: boolean | undefined;
+    yardName?: string | undefined;
+    zoneProviders?: IZoneProviderRecord[] | undefined;
+    zoneBeneficiarys?: IZoneBeneficiaryRecord[] | undefined;
+}
+
+export class ZoneRequest implements IZoneRequest {
+    zoneRecord?: ZoneRecord;
+    isDesc?: boolean;
+    orderByColumn?: string | undefined;
+    pageSize?: number;
+    pageIndex?: number;
+    createdBy?: number;
+    roleID?: number;
+    languageId?: number;
+    yardId?: number;
+    baseUrl?: string | undefined;
+    name?: string | undefined;
+    mailSender?: MailSender;
+
+    constructor(data?: IZoneRequest) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+            this.zoneRecord = data.zoneRecord && !(<any>data.zoneRecord).toJSON ? new ZoneRecord(data.zoneRecord) : <ZoneRecord>this.zoneRecord; 
+            this.mailSender = data.mailSender && !(<any>data.mailSender).toJSON ? new MailSender(data.mailSender) : <MailSender>this.mailSender; 
+        }
+    }
+
+    init(_data?: any, _mappings?: any) {
+        if (_data) {
+            this.zoneRecord = _data["zoneRecord"] ? ZoneRecord.fromJS(_data["zoneRecord"], _mappings) : <any>undefined;
+            this.isDesc = _data["isDesc"];
+            this.orderByColumn = _data["orderByColumn"];
+            this.pageSize = _data["pageSize"];
+            this.pageIndex = _data["pageIndex"];
+            this.createdBy = _data["createdBy"];
+            this.roleID = _data["roleID"];
+            this.languageId = _data["languageId"];
+            this.yardId = _data["yardId"];
+            this.baseUrl = _data["baseUrl"];
+            this.name = _data["name"];
+            this.mailSender = _data["mailSender"] ? MailSender.fromJS(_data["mailSender"], _mappings) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any, _mappings?: any): ZoneRequest {
+        data = typeof data === 'object' ? data : {};
+        return createInstance<ZoneRequest>(data, _mappings, ZoneRequest);
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["zoneRecord"] = this.zoneRecord ? this.zoneRecord.toJSON() : <any>undefined;
+        data["isDesc"] = this.isDesc;
+        data["orderByColumn"] = this.orderByColumn;
+        data["pageSize"] = this.pageSize;
+        data["pageIndex"] = this.pageIndex;
+        data["createdBy"] = this.createdBy;
+        data["roleID"] = this.roleID;
+        data["languageId"] = this.languageId;
+        data["yardId"] = this.yardId;
+        data["baseUrl"] = this.baseUrl;
+        data["name"] = this.name;
+        data["mailSender"] = this.mailSender ? this.mailSender.toJSON() : <any>undefined;
+        return data; 
+    }
+
+    clone(): ZoneRequest {
+        const json = this.toJSON();
+        let result = new ZoneRequest();
+        result.init(json);
+        return result;
+    }
+}
+
+export interface IZoneRequest {
+    zoneRecord?: IZoneRecord;
+    isDesc?: boolean;
+    orderByColumn?: string | undefined;
+    pageSize?: number;
+    pageIndex?: number;
+    createdBy?: number;
+    roleID?: number;
+    languageId?: number;
+    yardId?: number;
+    baseUrl?: string | undefined;
+    name?: string | undefined;
+    mailSender?: IMailSender;
+}
+
+export class ZoneResponse implements IZoneResponse {
+    data?: ZoneRecord[] | undefined;
+    message?: string | undefined;
+    success?: boolean;
+    totalCount?: number;
+
+    constructor(data?: IZoneResponse) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+            if (data.data) {
+                this.data = [];
+                for (let i = 0; i < data.data.length; i++) {
+                    let item = data.data[i];
+                    this.data[i] = item && !(<any>item).toJSON ? new ZoneRecord(item) : <ZoneRecord>item;
+                }
+            }
+        }
+    }
+
+    init(_data?: any, _mappings?: any) {
+        if (_data) {
+            if (Array.isArray(_data["Data"])) {
+                this.data = [] as any;
+                for (let item of _data["Data"])
+                    this.data!.push(ZoneRecord.fromJS(item, _mappings));
+            }
+            this.message = _data["message"];
+            this.success = _data["success"];
+            this.totalCount = _data["totalCount"];
+        }
+    }
+
+    static fromJS(data: any, _mappings?: any): ZoneResponse {
+        data = typeof data === 'object' ? data : {};
+        return createInstance<ZoneResponse>(data, _mappings, ZoneResponse);
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        if (Array.isArray(this.data)) {
+            data["Data"] = [];
+            for (let item of this.data)
+                data["Data"].push(item.toJSON());
+        }
+        data["message"] = this.message;
+        data["success"] = this.success;
+        data["totalCount"] = this.totalCount;
+        return data; 
+    }
+
+    clone(): ZoneResponse {
+        const json = this.toJSON();
+        let result = new ZoneResponse();
+        result.init(json);
+        return result;
+    }
+}
+
+export interface IZoneResponse {
+    data?: IZoneRecord[] | undefined;
+    message?: string | undefined;
+    success?: boolean;
+    totalCount?: number;
 }
 
 function jsonParse(json: any, reviver?: any) {
@@ -1431,19 +5261,6 @@ function createInstance<T>(data: any, mappings: any, type: any): T {
     return result;
 }
 
-export class SwaggerResponse<TResult> {
-    status: number;
-    headers: { [key: string]: any; };
-    result: TResult;
-
-    constructor(status: number, headers: { [key: string]: any; }, result: TResult)
-    {
-        this.status = status;
-        this.headers = headers;
-        this.result = result;
-    }
-}
-
 export class ApiException extends Error {
     message: string;
     status: number;
@@ -1469,7 +5286,10 @@ export class ApiException extends Error {
 }
 
 function throwException(message: string, status: number, response: string, headers: { [key: string]: any; }, result?: any): Observable<any> {
-    return _observableThrow(new ApiException(message, status, response, headers, result));
+    if (result !== null && result !== undefined)
+        return _observableThrow(result);
+    else
+        return _observableThrow(new ApiException(message, status, response, headers, null));
 }
 
 function blobToText(blob: any): Observable<string> {

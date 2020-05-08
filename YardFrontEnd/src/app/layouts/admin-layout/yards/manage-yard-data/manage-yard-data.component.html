@@ -32,14 +32,14 @@
                 </mat-form-field>
 
                 <mat-form-field>
-                    <mat-label>Select a city</mat-label>
-                    <mat-select formControlName="city">
+                    <mat-label>Select a emirate</mat-label>
+                    <mat-select formControlName="emirate">
                         <mat-option>None</mat-option>
-                        <mat-option [value]="city.id" *ngFor="let city of cities">
-                            {{city.state_name}}
+                        <mat-option [value]="emirate.id" *ngFor="let emirate of emirates">
+                            {{emirate.state_name}}
                         </mat-option>
                     </mat-select>
-                    <mat-error *ngIf="errorHandling('city','required')">
+                    <mat-error *ngIf="errorHandling('emirate','required')">
                         You must provide a<strong>city</strong>
                     </mat-error>
                 </mat-form-field>
@@ -85,14 +85,20 @@
                 </mat-form-field>
 
                 <mat-form-field>
-                    <input type="range" matInput placeholder="Working Hours" formControlName="workingHours">
-                    <mat-icon matSuffix>phone</mat-icon>
+                    <input type="number" [(ngModel)]="slider.from" matInput placeholder="Working hours from" formControlName="workingHoursFrom">
                     <!-- error -->
-                    <mat-error *ngIf="errorHandling('workingHours', 'required')">
-                        You must provide a<strong>working hours</strong>
+                    <mat-error *ngIf="errorHandling('workingHoursFrom', 'required')">
+                        You must provide a<strong>working hours from</strong>
                     </mat-error>
                 </mat-form-field>
-
+                <ng5-slider [(value)]="slider.from" [(highValue)]="slider.to" [options]="options"></ng5-slider>
+                <mat-form-field>
+                    <input type="number" [(ngModel)]="slider.to" matInput placeholder="Working hours to" formControlName="workingHoursto">
+                    <!-- error -->
+                    <mat-error *ngIf="errorHandling('workingHoursto', 'required')">
+                        You must provide a<strong>working hours to</strong>
+                    </mat-error>
+                </mat-form-field>
             </div>
         </mat-card-content>
         <mat-card-actions>

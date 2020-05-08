@@ -5,5 +5,7 @@ export interface Paging {
     pageSize: number;
     sortDirection: SortDirection;
     sortProperty: string;
+    id?: number;
+    filter: any;
 }
 

@@ -1,7 +1,7 @@
 
 <div class="sidebar-wrapper">
     <div class="logo">
-        <a routerLink="/dashboard" class="simple-text">
+        <a routerLink="/provider/list" class="simple-text">
             <div class="logo-img">
                 <img src="/assets/img/EALogo.png" />
             </div>
@@ -9,7 +9,7 @@
         </a>
     </div>
     <ul class="nav responsive-nav">
-        <li *ngIf="isMobileMenu()">
+        <!--<li *ngIf="isMobileMenu()">
             <a class="dropdown-toggle" data-toggle="dropdown">
                 <i class="fa fa-dashboard"></i>
 				<p class="hidden-lg hidden-md">Dashboard</p>
@@ -66,8 +66,8 @@
             <a>
                 <p>Log out</p>
             </a>
-        </li>
-        <li class="separator hidden-lg hidden-md" *ngIf="isMobileMenu()"></li>
+        </li>-->
+        <!--<li class="separator hidden-lg hidden-md" *ngIf="isMobileMenu()"></li>-->
         <li routerLinkActive="active" *ngFor="let menuItem of menuItems" class="{{menuItem.class}}">
             <a  [routerLink]="[menuItem.path]">
                 <i class="{{menuItem.icon}}"></i>

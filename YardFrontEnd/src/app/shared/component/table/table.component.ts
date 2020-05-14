@@ -1,4 +1,4 @@
-import { Component, ViewChild, AfterViewInit, Input, ChangeDetectorRef, Output, EventEmitter } from '@angular/core';
+import { Component, ViewChild, AfterViewInit, Input, ChangeDetectorRef } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { merge, Observable, of as observableOf } from 'rxjs';
@@ -9,7 +9,7 @@ import { Paging } from '../../Entity/Paging';
 import { ComponentType } from '@angular/cdk/portal';
 import { TooltipPosition } from '@angular/material/tooltip';
 import { KeyValue } from '@angular/common';
-import { MatTable, MatTableDataSource } from '@angular/material/table';
+import { MatTable } from '@angular/material/table';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { DialogResult } from '../../Entity/DialogResult';
 import { ProviderResponse } from '../../service/appService';
@@ -20,13 +20,7 @@ import { ActivatedRoute } from '@angular/router';
     selector: 'app-table',
     templateUrl: './table.component.html',
     styleUrls: ['./table.component.css'],
-    animations: [
-        trigger('detailExpand', [
-            state('collapsed', style({ height: '0px', minHeight: '0' })),
-            state('expanded', style({ height: '*' })),
-            transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
-        ]),
-    ],
+   
 })
 export class TableComponent implements AfterViewInit {
 
@@ -121,22 +115,22 @@ export class TableComponent implements AfterViewInit {
             this.parentId = parseInt(params.get('id'));
             if (this.parentId) {
                 let dialogRef = this.dialog.open(this.AddOrEditComponent, {
-                    height: '400px',
-                    width: '600px',
+                    height: '70%',
+                    width: '70%',
                     data: {
                         id: this.parentId
                     }
                 });
 
                 dialogRef.afterClosed().subscribe((result: DialogResult) => {
-                    if (result.isSuccess) {
+                    if (result?.isSuccess) {
                         this.hasResults = true;
                         this.dataSource.push(result.data);
                         this.resultsLength++;
                         this.ref.detectChanges();
                         this.table.renderRows();
+                        this.notify(result.message, "Adding");
                     }
-                    this.notify(result.message, "Adding");
                 });
             }
             else {
@@ -147,12 +141,12 @@ export class TableComponent implements AfterViewInit {
                 });
 
                 dialogRef.afterClosed().subscribe((result: DialogResult) => {
-                    if (result.isSuccess) {
+                    if (result?.isSuccess) {
                         this.dataSource.push(result.data);
                         this.resultsLength++;
                         this.table.renderRows();
+                        this.notify(result.message, "Adding");
                     }
-                    this.notify(result.message, "Adding");
                 });
             }
         });
@@ -167,13 +161,16 @@ export class TableComponent implements AfterViewInit {
     openEditDialog = (row: any) => {
 
         let dialogRef = this.dialog.open(this.AddOrEditComponent, {
-            height: '400px',
-            width: '600px',
             data: row,
+            autoFocus: true,
+            maxWidth: '100%',
+            maxHeight: '100%',
+            height: '100%',
+            width: '100%'
         });
 
         dialogRef.afterClosed().subscribe((result: DialogResult) => {
-            if (result.isSuccess) {
+            if (result?.isSuccess) {
                 this.dataSource = this.dataSource.filter((value, key) => {
                     if (value.id == result.data.id) {
                         for (var prop in result.data) {
@@ -182,8 +179,8 @@ export class TableComponent implements AfterViewInit {
                     }
                     return true;
                 });
+                this.notify(result.message, "Editing");
             }
-            this.notify(result.message, "Editing");
         });
     }
 

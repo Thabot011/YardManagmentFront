@@ -1,23 +1,22 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { DialogResult } from '../../../../shared/Entity/DialogResult';
 import { Client, BeneficiaryContactRecord, IBeneficiaryContactRecord, BeneficiaryContactRequest } from '../../../../shared/service/appService';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { BaseManagementClass } from '../../../../shared/class/base/base-management-class';
 
 @Component({
     selector: 'app-manage-beneficiarie-contacts',
     templateUrl: './manage-beneficiarie-contacts.component.html',
     styleUrls: ['./manage-beneficiarie-contacts.component.css']
 })
-export class ManageBeneficiarieContactsComponent implements OnInit {
-
-    form: FormGroup;
-
+export class ManageBeneficiarieContactsComponent extends BaseManagementClass implements OnInit {
 
 
     constructor(private fb: FormBuilder,
         private dialogRef: MatDialogRef<ManageBeneficiarieContactsComponent, DialogResult>,
         @Inject(MAT_DIALOG_DATA) public data: BeneficiaryContactRecord, private appService: Client) {
+        super();
     }
 
     ngOnInit(): void {
@@ -28,7 +27,7 @@ export class ManageBeneficiarieContactsComponent implements OnInit {
         return this.form.controls[control].hasError(error);
     }
 
-    submitForm() {
+    submitForm = () => {
         if (this.form.valid) {
             let beneficiaryContract: IBeneficiaryContactRecord = this.form.value;
 
@@ -79,7 +78,7 @@ export class ManageBeneficiarieContactsComponent implements OnInit {
         }
     }
 
-    reactiveForm() {
+    reactiveForm = () => {
         this.form = this.fb.group({
             id: [this.data.id, []],
             name: [this.data.name, [Validators.required]],

@@ -1,7 +1,7 @@
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 
 import { AppRoutingModule } from './app.routing';
@@ -16,7 +16,8 @@ import { API_BASE_URL } from './shared/service/appService';
 import { environment } from '../environments/environment';
 import { LoaderService } from './shared/service/loader.service';
 import { LoaderInterceptor } from './shared/interceptor/loader.interceptor';
-
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 @NgModule({
     imports: [
@@ -27,7 +28,14 @@ import { LoaderInterceptor } from './shared/interceptor/loader.interceptor';
         NavbarModule,
         FooterModule,
         SidebarModule,
-        AppRoutingModule
+        AppRoutingModule,
+        TranslateModule.forRoot({
+            loader: {
+                provide: TranslateLoader,
+                useFactory: HttpLoaderFactory,
+                deps: [HttpClient]
+            }
+        })
 
     ],
     declarations: [
@@ -41,3 +49,7 @@ import { LoaderInterceptor } from './shared/interceptor/loader.interceptor';
     bootstrap: [AppComponent]
 })
 export class AppModule { }
+
+export function HttpLoaderFactory(http: HttpClient) {
+    return new TranslateHttpLoader(http);
+}

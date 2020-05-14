@@ -1,18 +1,19 @@
+<div class="row">
+    <div *ngIf="hasBackLink">
+        <button matTooltip="Back"
+                [matTooltipPosition]="position"
+                mat-raised-button [routerLink]="[backLink]">
+            <mat-icon>arrow_back</mat-icon>
+        </button>
+    </div>
 
-<div class="d-flex justify-content-start bg-secondary mb-3" *ngIf="hasBackLink">
-    <button matTooltip="Back"
-            [matTooltipPosition]="position"
-            mat-raised-button [routerLink]="[backLink]">
-        <mat-icon>arrow_back</mat-icon>
-    </button>
-</div>
-
-<div class="d-flex justify-content-end bg-secondary mb-3">
-    <button matTooltip="Add"
-            [matTooltipPosition]="position"
-            (click)="openAddDialog()" mat-raised-button>
-        <mat-icon class="black-icon">add_circle_outline</mat-icon>
-    </button>
+    <div>
+        <button matTooltip="Add"
+                [matTooltipPosition]="position"
+                (click)="openAddDialog()" mat-raised-button>
+            <mat-icon>add_circle_outline</mat-icon>
+        </button>
+    </div>
 </div>
 
 <div class="row" *ngIf="hasResults">
@@ -49,7 +50,9 @@
                             <mat-icon> contacts</mat-icon>
                         </a>
 
-                        <mat-slide-toggle (toggleChange)="changeActivationStatus(element)"
+                        <mat-slide-toggle matTooltip="{{element.isActive?'De activate':'Activate'}}"
+                                          [matTooltipPosition]="position"
+                                          (toggleChange)="changeActivationStatus(element)"
                                           [color]="color"
                                           [checked]="element.isActive">
                         </mat-slide-toggle>
@@ -65,7 +68,7 @@
         <mat-paginator [length]="resultsLength" [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
     </div>
 </div>
-<div class="d-flex justify-content-center">
+<div class="row d-flex justify-content-center">
     <div *ngIf="!hasResults" class="d-flex align-items-center" id="noResults">
         <div class="thumbnail w-50 p-3 h-50 d-inline-block">
             <img src="/assets/img/noresults.jpg" class="img-thumbnail img-rounded" style="width:100%">

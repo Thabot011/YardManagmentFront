@@ -1,33 +1,29 @@
-import { Component, OnInit, ViewChild, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Client, ProviderContactRequest, ProviderContactRecord, ProviderRecord, IProviderContactRecord } from '../../../../shared/service/appService';
+import { Client, ProviderContactRequest, ProviderContactRecord, IProviderContactRecord } from '../../../../shared/service/appService';
 import { ComponentType } from '@angular/cdk/portal';
 import { ManageProviderContractsComponent } from '../manage-provider-contracts/manage-provider-contracts.component';
 import { KeyValue } from '@angular/common';
 import { Paging } from '../../../../shared/Entity/Paging';
 import { TooltipPosition } from '@angular/material/tooltip';
-import { TableComponent } from '../../../../shared/component/table/table.component';
-import { FormGroup, FormBuilder, Validators, ValidatorFn, ValidationErrors } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { BaseListClass } from '../../../../shared/class/base/base-list-class';
 
 @Component({
     selector: 'app-contacts-list',
     templateUrl: './contacts-list.component.html',
     styleUrls: ['./contacts-list.component.css']
 })
-export class ContactsListComponent implements OnInit {
-    @ViewChild(TableComponent) appTable: TableComponent;
+export class ContactsListComponent extends BaseListClass implements OnInit {
 
     parentId: number;
     parentName: string;
-    form: FormGroup;
-
-    filter: IProviderContactRecord;
-
 
     constructor(private route: ActivatedRoute, private appService: Client,
         private fb: FormBuilder,
         private _snackBar: MatSnackBar, private ref: ChangeDetectorRef) {
+        super();
         this.route.paramMap.subscribe(params => {
             this.parentId = parseInt(params.get('id'));
             this.parentName = params.get('name');
@@ -44,13 +40,14 @@ export class ContactsListComponent implements OnInit {
     AddOrEditComponent: ComponentType<ManageProviderContractsComponent>
         = ManageProviderContractsComponent;
 
-    reactiveForm() {
+    reactiveForm = () => {
         this.form = this.fb.group({
             name: [''],
             email: [''],
             mobile: [''],
             landline: [''],
-        }, { validator: atLeastOne(Validators.required) })
+            isActive:[''],
+        }, { validator: this.atLeastOne(Validators.required) })
     }
 
 
@@ -58,7 +55,7 @@ export class ContactsListComponent implements OnInit {
         this.reactiveForm();
     }
 
-    submitForm() {
+    submitForm = () => {
         if (this.form.valid) {
             let providerContact: IProviderContactRecord = this.form.value;
             providerContact.id = 0;
@@ -108,13 +105,4 @@ export class ContactsListComponent implements OnInit {
     }
 }
 
-export const atLeastOne = (validator: ValidatorFn) => (
-    group: FormGroup,
-): ValidationErrors | null => {
-    const hasAtLeastOne =
-        group &&
-        group.controls &&
-        Object.keys(group.controls).some(k => !validator(group.controls[k]));
 
-    return hasAtLeastOne ? null : { atLeastOne: true };
-};

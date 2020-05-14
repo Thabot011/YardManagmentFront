@@ -77,7 +77,3 @@ tr.example-element-row:not(.example-expanded-row):active {
 .mat-column-action {
     text-align: center !important;
 }
-
-.black-icon {
-    color: red;
-}

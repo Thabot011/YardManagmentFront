@@ -3,21 +3,19 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DialogResult } from '../../../../shared/Entity/DialogResult';
 import { Client, ProviderContactRecord, IProviderContactRecord, ProviderContactRequest } from '../../../../shared/service/appService';
+import { BaseManagementClass } from '../../../../shared/class/base/base-management-class';
 
 @Component({
     selector: 'app-manage-provider-contracts',
     templateUrl: './manage-provider-contracts.component.html',
     styleUrls: ['./manage-provider-contracts.component.css']
 })
-export class ManageProviderContractsComponent implements OnInit {
-
-    form: FormGroup;
-
-
+export class ManageProviderContractsComponent extends BaseManagementClass implements OnInit {
 
     constructor(private fb: FormBuilder,
         private dialogRef: MatDialogRef<ManageProviderContractsComponent, DialogResult>,
         @Inject(MAT_DIALOG_DATA) public data: ProviderContactRecord, private appService: Client) {
+        super();
     }
 
     ngOnInit(): void {
@@ -28,7 +26,7 @@ export class ManageProviderContractsComponent implements OnInit {
         return this.form.controls[control].hasError(error);
     }
 
-    submitForm() {
+    submitForm = () => {
         if (this.form.valid) {
             let providerContract: IProviderContactRecord = this.form.value;
 
@@ -79,7 +77,7 @@ export class ManageProviderContractsComponent implements OnInit {
         }
     }
 
-    reactiveForm() {
+    reactiveForm = () => {
         this.form = this.fb.group({
             id: [this.data.id, []],
             name: [this.data.name, [Validators.required]],

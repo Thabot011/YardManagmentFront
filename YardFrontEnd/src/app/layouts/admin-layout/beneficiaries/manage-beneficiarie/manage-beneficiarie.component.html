@@ -1,107 +1,142 @@
-<mat-card class="example-card">
+<mat-card>
     <mat-card-header>
         <mat-card-title mat-dialog-title>
             <div>
-                {{data==null?'Add beneficiarie':'Edit beneficiarie'}}
+                {{data.id==null?'Add beneficiarie':'Edit beneficiarie'}}
             </div>
         </mat-card-title>
         <mat-card-subtitle></mat-card-subtitle>
     </mat-card-header>
-    <form [formGroup]="form" (ngSubmit)="submitForm()" novalidate>
+    <form class="example-form" [formGroup]="form" (ngSubmit)="submitForm()" novalidate>
         <mat-card-content>
             <div mat-dialog-content>
                 <input type="hidden" value="0" formControlName="id">
 
-                <mat-form-field>
-                    <input matInput placeholder="Arabic name" formControlName="nameAr">
-                    <!-- error -->
-                    <mat-error *ngIf="errorHandling('nameAr', 'required')">
-                        You must provide a<strong>arabic name</strong>
-                    </mat-error>
-                </mat-form-field>
-                <mat-form-field>
-                    <input matInput placeholder="English name" formControlName="nameEn">
-                    <!-- error -->
-                    <mat-error *ngIf="errorHandling('nameEn', 'required')">
-                        You must provide a<strong>english name</strong>
-                    </mat-error>
-                </mat-form-field>
+                <table class="example-full-width" cellspacing="0">
+                    <tr>
+                        <td>
+                            <mat-form-field class="example-full-width">
+                                <input matInput placeholder="Arabic name" formControlName="nameAr">
+                                <!-- error -->
+                                <mat-error *ngIf="errorHandling('nameAr', 'required')">
+                                    You must provide a<strong>arabic name</strong>
+                                </mat-error>
+                            </mat-form-field>
+                        </td>
+                        <td>
+                            <mat-form-field class="example-full-width">
+                                <input matInput placeholder="English name" formControlName="nameEn">
+                                <!-- error -->
+                                <mat-error *ngIf="errorHandling('nameEn', 'required')">
+                                    You must provide a<strong>english name</strong>
+                                </mat-error>
+                            </mat-form-field>
+                        </td>
+                    </tr>
+                </table>
 
-                <mat-form-field>
-                    <mat-label>Select a Beneficiary type</mat-label>
-                    <mat-select formControlName="typeId">
-                        <mat-option>None</mat-option>
-                        <mat-option [value]="type.id" *ngFor="let type of BeneficiaryTypes">
-                            {{type.name}}
-                        </mat-option>
-                    </mat-select>
-                    <mat-error *ngIf="errorHandling('typeId','required')">
-                        You must provide a<strong>provider type</strong>
-                    </mat-error>
-                </mat-form-field>
-                <mat-form-field>
-                    <mat-label>Select a country</mat-label>
-                    <mat-select formControlName="countryId" (selectionChange)="onChangeCountry($event)">
-                        <mat-option>None</mat-option>
-                        <mat-option [value]="country.id" *ngFor="let country of countries">
-                            {{country.name}}
-                        </mat-option>
-                    </mat-select>
-                    <mat-error *ngIf="errorHandling('countryId','required')">
-                        You must provide a<strong>country</strong>
-                    </mat-error>
-                </mat-form-field>
+                <table class="example-full-width" cellspacing="0">
+                    <tr>
+                        <td>
+                            <mat-form-field class="example-full-width">
+                                <mat-label>Select a beneficiary type</mat-label>
+                                <mat-select formControlName="typeId">
+                                    <mat-option>None</mat-option>
+                                    <mat-option [value]="type.id" *ngFor="let type of BeneficiaryTypes">
+                                        {{type.name}}
+                                    </mat-option>
+                                </mat-select>
+                                <mat-error *ngIf="errorHandling('typeId','required')">
+                                    You must provide a<strong>beneficiary type</strong>
+                                </mat-error>
+                            </mat-form-field>
+                        </td>
+                        <td>
+                            <mat-form-field class="example-full-width">
+                                <mat-label>Select a country</mat-label>
+                                <mat-select formControlName="countryId" (selectionChange)="onChangeCountry($event)">
+                                    <mat-option>None</mat-option>
+                                    <mat-option [value]="country.id" *ngFor="let country of countries">
+                                        {{country.name}}
+                                    </mat-option>
+                                </mat-select>
+                                <mat-error *ngIf="errorHandling('countryId','required')">
+                                    You must provide a<strong>country</strong>
+                                </mat-error>
+                            </mat-form-field>
+                        </td>
+                    </tr>
+                </table>
 
-                <mat-form-field>
-                    <mat-label>Select a emirate</mat-label>
-                    <mat-select formControlName="emirateId">
-                        <mat-option>None</mat-option>
-                        <mat-option [value]="emirate.id" *ngFor="let emirate of emirates">
-                            {{emirate.name}}
-                        </mat-option>
-                    </mat-select>
-                    <mat-error *ngIf="errorHandling('emirateId','required')">
-                        You must provide a<strong>city</strong>
-                    </mat-error>
-                </mat-form-field>
+                <table class="example-full-width" cellspacing="0">
+                    <tr>
+                        <td>
+                            <mat-form-field class="example-full-width">
+                                <mat-label>Select a emirate</mat-label>
+                                <mat-select formControlName="emirateId">
+                                    <mat-option>None</mat-option>
+                                    <mat-option [value]="emirate.id" *ngFor="let emirate of emirates">
+                                        {{emirate.name}}
+                                    </mat-option>
+                                </mat-select>
+                                <mat-error *ngIf="errorHandling('emirateId','required')">
+                                    You must provide an <strong>emirate</strong>
+                                </mat-error>
+                            </mat-form-field>
+                        </td>
+                        <td>
+                            <mat-form-field class="example-full-width">
+                                <input matInput placeholder="Address" formControlName="address">
+                                <!-- error -->
+                                <mat-error *ngIf="errorHandling('address', 'required')">
+                                    You must provide a<strong>address</strong>
+                                </mat-error>
+                            </mat-form-field>
+                        </td>
+                    </tr>
+                </table>
 
+                <table class="example-full-width" cellspacing="0">
+                    <tr>
+                        <td>
+                            <mat-form-field class="example-full-width">
+                                <input type="email" matInput placeholder="Email" formControlName="email">
+                                <!-- error -->
+                                <mat-error *ngIf="errorHandling('email', 'required')">
+                                    You must provide a<strong>email</strong>
+                                </mat-error>
+                                <mat-error *ngIf="errorHandling('email', 'email')">
+                                    You must provide a<strong>valid email</strong>
+                                </mat-error>
+                            </mat-form-field>
+                        </td>
 
+                        <td>
+                            <mat-form-field class="example-full-width">
+                                <input type="number" matInput placeholder="Landline number" formControlName="landline">
+                            </mat-form-field>
+                        </td>
+                    </tr>
+                </table>
 
-                <mat-form-field>
-                    <input matInput placeholder="Address" formControlName="address">
-                    <!-- error -->
-                    <mat-error *ngIf="errorHandling('address', 'required')">
-                        You must provide a<strong>address</strong>
-                    </mat-error>
-                </mat-form-field>
-
-                <mat-form-field>
-                    <input type="email" matInput placeholder="Email" formControlName="email">
-                    <!-- error -->
-                    <mat-error *ngIf="errorHandling('email', 'required')">
-                        You must provide a<strong>email</strong>
-                    </mat-error>
-                    <mat-error *ngIf="errorHandling('email', 'email')">
-                        You must provide a<strong>valid email</strong>
-                    </mat-error>
-                </mat-form-field>
-
-                <mat-form-field>
-                    <input type="number" matInput placeholder="Landline number" formControlName="landline">
-                </mat-form-field>
-
-
-                <mat-form-field>
-                    <input type="url" matInput placeholder="Website" formControlName="website">
-                </mat-form-field>
-
-                <mat-form-field>
-                    <input matInput placeholder="TRN" formControlName="trn">
-                    <!-- error -->
-                    <mat-error *ngIf="errorHandling('trn', 'required')">
-                        You must provide a<strong>TRN</strong>
-                    </mat-error>
-                </mat-form-field>
+                <table class="example-full-width" cellspacing="0">
+                    <tr>
+                        <td>
+                            <mat-form-field class="example-full-width">
+                                <input type="url" matInput placeholder="Website" formControlName="website">
+                            </mat-form-field>
+                        </td>
+                        <td>
+                            <mat-form-field class="example-full-width">
+                                <input matInput placeholder="TRN" formControlName="trn">
+                                <!-- error -->
+                                <mat-error *ngIf="errorHandling('trn', 'required')">
+                                    You must provide a<strong>TRN</strong>
+                                </mat-error>
+                            </mat-form-field>
+                        </td>
+                    </tr>
+                </table>
             </div>
         </mat-card-content>
         <mat-card-actions>

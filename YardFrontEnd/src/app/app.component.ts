@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { LocationStrategy, PlatformLocation, Location } from '@angular/common';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-root',
@@ -8,7 +9,9 @@ import { LocationStrategy, PlatformLocation, Location } from '@angular/common';
 })
 export class AppComponent implements OnInit {
 
-     constructor(public location: Location) {}
+    constructor(public location: Location, private translate: TranslateService) {
+        translate.setDefaultLang('en');
+    }
 
     ngOnInit(){
     }

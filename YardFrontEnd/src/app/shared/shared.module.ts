@@ -17,8 +17,10 @@ import { MatInputModule } from '@angular/material/input';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
-import { Ng5SliderModule } from 'ng5-slider';
+
+import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 
 
 import { ReactiveFormsModule } from '@angular/forms';
@@ -51,7 +53,8 @@ import { RouterModule } from '@angular/router';
         MatChipsModule,
         MatSnackBarModule,
         MatExpansionModule,
-        Ng5SliderModule,
+        MatCheckboxModule,
+        NgxMaterialTimepickerModule
     ],
     exports: [
         ReactiveFormsModule,
@@ -72,7 +75,8 @@ import { RouterModule } from '@angular/router';
         MatChipsModule,
         MatSnackBarModule,
         MatExpansionModule,
-        Ng5SliderModule
+        MatCheckboxModule,
+        NgxMaterialTimepickerModule
     ]
 })
 export class SharedModule { }

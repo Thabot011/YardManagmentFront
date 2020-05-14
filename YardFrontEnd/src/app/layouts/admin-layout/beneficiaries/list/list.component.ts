@@ -1,21 +1,19 @@
-import { Component, OnInit, ViewChild, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Paging } from '../../../../shared/Entity/Paging';
 import { ManageBeneficiarieComponent } from '../manage-beneficiarie/manage-beneficiarie.component';
 import { ComponentType } from '@angular/cdk/portal';
-import { Client, BeneficiaryRequest, BeneficiaryRecord, ProviderTypeRecord, CountryRecord, EmirateRecord, IProviderRecord, CountryRequest, ProviderTypeRequest, IBeneficiaryRecord, EmirateRequest, BeneficiaryTypeRecord, BeneficiaryTypeRequest } from '../../../../shared/service/appService';
+import { Client, BeneficiaryRequest, BeneficiaryRecord, CountryRecord, EmirateRecord, CountryRequest, IBeneficiaryRecord, EmirateRequest, BeneficiaryTypeRecord, BeneficiaryTypeRequest } from '../../../../shared/service/appService';
 import { KeyValue } from '@angular/common';
-import { TableComponent } from '../../../../shared/component/table/table.component';
-import { FormGroup, FormBuilder, ValidatorFn, ValidationErrors, Validators } from '@angular/forms';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { FormBuilder, Validators } from '@angular/forms';
 import { MatSelectChange } from '@angular/material/select';
+import { BaseListClass } from '../../../../shared/class/base/base-list-class';
 
 @Component({
     selector: 'app-list',
     templateUrl: './list.component.html',
     styleUrls: ['./list.component.css']
 })
-export class ListComponent implements OnInit {
-    @ViewChild(TableComponent) appTable: TableComponent;
+export class ListComponent extends BaseListClass implements OnInit {
 
     displayColumns: KeyValue<string, string>[] = [
         { key: "name", value: "Name" },
@@ -26,19 +24,19 @@ export class ListComponent implements OnInit {
 
     ];
 
-    form: FormGroup;
     beneficiaryTypes: BeneficiaryTypeRecord[];
 
     countries: CountryRecord[];
     emirates: EmirateRecord[];
 
-    filter: IBeneficiaryRecord;
 
     AddOrEditComponent: ComponentType<ManageBeneficiarieComponent> = ManageBeneficiarieComponent;
     detailsLink: string = "beneficiarie/contactsList";
 
     constructor(private appService: Client, private fb: FormBuilder,
-        private _snackBar: MatSnackBar, private ref: ChangeDetectorRef) { }
+        private ref: ChangeDetectorRef) {
+        super();
+    }
 
     getAll = (pageing: Paging) => {
         return this.appService.listBeneficiary(new BeneficiaryRequest({
@@ -50,7 +48,7 @@ export class ListComponent implements OnInit {
         }));
     }
 
-    reactiveForm() {
+    reactiveForm = () => {
         this.form = this.fb.group({
             name: [''],
             typeId: [''],
@@ -61,7 +59,8 @@ export class ListComponent implements OnInit {
             landline: [''],
             website: [''],
             trn: [''],
-        }, { validator: atLeastOne(Validators.required) })
+            isActive: [''],
+        }, { validator: this.atLeastOne(Validators.required) })
     }
 
 
@@ -76,7 +75,7 @@ export class ListComponent implements OnInit {
         })
     }
 
-    submitForm() {
+    submitForm = () => {
         if (this.form.valid) {
             let beneficiary: IBeneficiaryRecord = this.form.value;
             beneficiary.id = 0;
@@ -125,23 +124,6 @@ export class ListComponent implements OnInit {
     }
 
 
-    notify = (message: string, label: string) => {
-        this._snackBar.open(message, label, {
-            horizontalPosition: "center",
-            verticalPosition: "bottom",
-            duration: 2000
-        });
-    }
 
 }
 
-export const atLeastOne = (validator: ValidatorFn) => (
-    group: FormGroup,
-): ValidationErrors | null => {
-    const hasAtLeastOne =
-        group &&
-        group.controls &&
-        Object.keys(group.controls).some(k => !validator(group.controls[k]));
-
-    return hasAtLeastOne ? null : { atLeastOne: true };
-};

@@ -3,9 +3,9 @@
         <div class="row">
             <mat-accordion>
                 <mat-expansion-panel>
-                    <mat-expansion-panel-header style="background-color:rgb(237, 95, 100)">
+                    <mat-expansion-panel-header>
                         <mat-panel-title>
-                            Provider search
+                            Beneficiary search
                         </mat-panel-title>
                         <mat-panel-description>
                             Click to search
@@ -13,7 +13,7 @@
                         </mat-panel-description>
                     </mat-expansion-panel-header>
 
-                    <mat-card class="example-card">
+                    <mat-card>
                         <mat-card-header>
                             <mat-card-title mat-dialog-title>
                                 <div>
@@ -26,64 +26,96 @@
                             <mat-card-content>
                                 <div mat-dialog-content>
 
+                                    <table class="example-full-width" cellspacing="0">
+                                        <tr>
+                                            <td>
+                                                <mat-form-field class="example-full-width">
+                                                    <input matInput placeholder="name" formControlName="name">
+                                                </mat-form-field>
+                                            </td>
+                                            <td>
+                                                <mat-form-field class="example-full-width">
+                                                    <mat-label>Select a beneficiary type</mat-label>
+                                                    <mat-select formControlName="typeId">
+                                                        <mat-option>None</mat-option>
+                                                        <mat-option [value]="type.id" *ngFor="let type of beneficiaryTypes">
+                                                            {{type.name}}
+                                                        </mat-option>
+                                                    </mat-select>
 
-                                    <mat-form-field>
-                                        <input matInput placeholder="name" formControlName="name">
-                                    </mat-form-field>
-                                    <mat-form-field>
-                                        <mat-label>Select a beneficiary type</mat-label>
-                                        <mat-select formControlName="typeId">
-                                            <mat-option>None</mat-option>
-                                            <mat-option [value]="type.id" *ngFor="let type of beneficiaryTypes">
-                                                {{type.name}}
-                                            </mat-option>
-                                        </mat-select>
+                                                </mat-form-field>
+                                            </td>
+                                            <td>
+                                                <mat-form-field class="example-full-width">
+                                                    <mat-label>Select a country</mat-label>
+                                                    <mat-select formControlName="countryId" (selectionChange)="onChangeCountry($event)">
+                                                        <mat-option>None</mat-option>
+                                                        <mat-option [value]="country.id" *ngFor="let country of countries">
+                                                            {{country.name}}
+                                                        </mat-option>
+                                                    </mat-select>
 
-                                    </mat-form-field>
-                                    <mat-form-field>
-                                        <mat-label>Select a country</mat-label>
-                                        <mat-select formControlName="countryId" (selectionChange)="onChangeCountry($event)">
-                                            <mat-option>None</mat-option>
-                                            <mat-option [value]="country.id" *ngFor="let country of countries">
-                                                {{country.name}}
-                                            </mat-option>
-                                        </mat-select>
+                                                </mat-form-field>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <table class="example-full-width" cellspacing="0">
+                                        <tr>
+                                            <td>
+                                                <mat-form-field class="example-full-width">
+                                                    <mat-label>Select a emirate</mat-label>
+                                                    <mat-select formControlName="emirateId">
+                                                        <mat-option>None</mat-option>
+                                                        <mat-option [value]="emirate.id" *ngFor="let emirate of emirates">
+                                                            {{emirate.name}}
+                                                        </mat-option>
+                                                    </mat-select>
 
-                                    </mat-form-field>
+                                                </mat-form-field>
+                                            </td>
+                                            <td>
+                                                <mat-form-field class="example-full-width">
+                                                    <input matInput placeholder="Address" formControlName="address">
+                                                    <!-- error -->
 
-                                    <mat-form-field>
-                                        <mat-label>Select a emirate</mat-label>
-                                        <mat-select formControlName="emirateId">
-                                            <mat-option>None</mat-option>
-                                            <mat-option [value]="emirate.id" *ngFor="let emirate of emirates">
-                                                {{emirate.name}}
-                                            </mat-option>
-                                        </mat-select>
+                                                </mat-form-field>
+                                            </td>
+                                            <td>
+                                                <mat-form-field class="example-full-width">
+                                                    <input type="email" matInput placeholder="Email" formControlName="email">
+                                                </mat-form-field>
+                                            </td>
+                                        </tr>
+                                    </table>
 
-                                    </mat-form-field>
+                                    <table class="example-full-width" cellspacing="0">
+                                        <tr>
+                                            <td>
+                                                <mat-form-field>
+                                                    <input type="number" matInput placeholder="Landline number" formControlName="landline">
+                                                </mat-form-field>
+                                            </td>
+                                            <td>
+                                                <mat-form-field>
+                                                    <input type="url" matInput placeholder="Website" formControlName="website">
+                                                </mat-form-field>
+                                            </td>
+                                            <td>
+                                                <mat-form-field>
+                                                    <input matInput placeholder="TRN" formControlName="trn">
 
-                                    <mat-form-field>
-                                        <input matInput placeholder="Address" formControlName="address">
-                                        <!-- error -->
+                                                </mat-form-field>
+                                            </td>
+                                        </tr>
+                                    </table>
 
-                                    </mat-form-field>
-
-                                    <mat-form-field>
-                                        <input type="email" matInput placeholder="Email" formControlName="email">
-                                    </mat-form-field>
-
-                                    <mat-form-field>
-                                        <input type="number" matInput placeholder="Landline number" formControlName="landline">
-                                    </mat-form-field>
-
-                                    <mat-form-field>
-                                        <input type="url" matInput placeholder="Website" formControlName="website">
-                                    </mat-form-field>
-
-                                    <mat-form-field>
-                                        <input matInput placeholder="TRN" formControlName="trn">
-
-                                    </mat-form-field>
+                                    <table class="example-full-width" cellspacing="0">
+                                        <tr>
+                                            <td>
+                                                <mat-checkbox formControlName="isActive" class="example-margin example-full-width">Is active</mat-checkbox>
+                                            </td>
+                                        </tr>
+                                    </table>
 
                                     <mat-error *ngIf=" form.touched &&!form.valid">
                                         You must provide at least one field
@@ -91,8 +123,8 @@
                                 </div>
                             </mat-card-content>
                             <mat-card-actions>
-                                <button mat-button type="submit">Save</button>
-                                <button mat-button color="warn" (click)="cancelSearch()">Cancel</button>
+                                <button mat-raised-button type="submit">Search</button>
+                                <button mat-raised-button color="warn" (click)="cancelSearch()">Reset</button>
                             </mat-card-actions>
                         </form>
 

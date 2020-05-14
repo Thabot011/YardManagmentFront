@@ -3,14 +3,14 @@
     "",
     "\\src",
     "\\src\\app",
-    "\\src\\app\\layouts",
-    "\\src\\app\\layouts\\admin-layout\\beneficiaries\\contacts-list",
-    "\\src\\app\\layouts\\admin-layout\\beneficiaries\\list",
-    "\\src\\app\\layouts\\admin-layout\\beneficiaries\\manage-beneficiarie-contacts",
-    "\\src\\app\\layouts\\admin-layout\\providers\\list",
-    "\\src\\app\\layouts\\admin-layout\\providers\\manage-provider-contracts",
-    "\\src\\assets"
+    "\\src\\app\\layouts\\admin-layout",
+    "\\src\\app\\layouts\\admin-layout\\yards",
+    "\\src\\app\\layouts\\admin-layout\\yards\\list",
+    "\\src\\app\\shared",
+    "\\src\\app\\shared\\component",
+    "\\src\\app\\shared\\component\\table",
+    "\\src\\app\\sidebar"
   ],
-  "SelectedNode": "\\src\\app\\notifications",
+  "SelectedNode": "\\src\\app\\sidebar\\sidebar.component.ts",
   "PreviewInSolutionExplorer": false
 }

@@ -4,15 +4,15 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Client, CountryRequest, CountryRecord, EmirateRequest, EmirateRecord, ProviderTypeRecord, ProviderRecord, ProviderTypeRequest, ProviderRequest, IProviderRecord } from '../../../../shared/service/appService';
 import { MatSelectChange } from '@angular/material/select';
 import { DialogResult } from '../../../../shared/Entity/DialogResult';
+import { BaseManagementClass } from '../../../../shared/class/base/base-management-class';
 
 @Component({
     selector: 'app-manage-providers',
     templateUrl: './manage-providers.component.html',
     styleUrls: ['./manage-providers.component.css']
 })
-export class ManageProvidersComponent implements OnInit {
+export class ManageProvidersComponent extends BaseManagementClass implements OnInit {
 
-    form: FormGroup;
     providerTypes: ProviderTypeRecord[];
 
     countries: CountryRecord[];
@@ -22,6 +22,7 @@ export class ManageProvidersComponent implements OnInit {
     constructor(private fb: FormBuilder,
         private dialogRef: MatDialogRef<ManageProvidersComponent, DialogResult>,
         @Inject(MAT_DIALOG_DATA) public data: ProviderRecord, private appService: Client) {
+        super();
     }
 
     ngOnInit(): void {
@@ -47,7 +48,7 @@ export class ManageProvidersComponent implements OnInit {
         return this.form.controls[control].hasError(error);
     }
 
-    submitForm() {
+    submitForm = () => {
         if (this.form.valid) {
             let provider: IProviderRecord = this.form.value;
 
@@ -108,7 +109,7 @@ export class ManageProvidersComponent implements OnInit {
         }
     }
 
-    reactiveForm() {
+    reactiveForm = () => {
         this.form = this.fb.group({
             id: [this.data.id, []],
             nameEn: [this.data.nameEn, [Validators.required]],

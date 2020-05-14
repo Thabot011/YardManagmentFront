@@ -1,19 +1,19 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Client, CountryRequest, BeneficiaryTypeRequest, BeneficiaryTypeRecord, CountryRecord, EmirateRecord, EmirateRequest, IBeneficiaryRecord, BeneficiaryRequest } from '../../../../shared/service/appService';
 import { DialogResult } from '../../../../shared/Entity/DialogResult';
 import { MatSelectChange } from '@angular/material/select';
+import { BaseManagementClass } from '../../../../shared/class/base/base-management-class';
 
 @Component({
     selector: 'app-manage-beneficiarie',
     templateUrl: './manage-beneficiarie.component.html',
     styleUrls: ['./manage-beneficiarie.component.css']
 })
-export class ManageBeneficiarieComponent implements OnInit {
+export class ManageBeneficiarieComponent extends BaseManagementClass implements OnInit {
 
 
-    form: FormGroup;
     BeneficiaryTypes: BeneficiaryTypeRecord[];
 
     countries: CountryRecord[];
@@ -23,6 +23,7 @@ export class ManageBeneficiarieComponent implements OnInit {
     constructor(private fb: FormBuilder,
         private dialogRef: MatDialogRef<ManageBeneficiarieComponent, DialogResult>,
         @Inject(MAT_DIALOG_DATA) public data: any, private appService: Client) {
+        super();
     }
 
     ngOnInit(): void {
@@ -48,7 +49,7 @@ export class ManageBeneficiarieComponent implements OnInit {
         return this.form.controls[control].hasError(error);
     }
 
-    submitForm() {
+    submitForm = () => {
         if (this.form.valid) {
             let Beneficiary: IBeneficiaryRecord = this.form.value;
 
@@ -109,7 +110,7 @@ export class ManageBeneficiarieComponent implements OnInit {
         }
     }
 
-    reactiveForm() {
+    reactiveForm = () => {
         this.form = this.fb.group({
             id: [this.data.id, []],
             nameEn: [this.data.nameEn, [Validators.required]],

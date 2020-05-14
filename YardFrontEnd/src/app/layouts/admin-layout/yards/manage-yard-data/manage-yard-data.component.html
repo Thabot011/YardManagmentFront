@@ -2,7 +2,7 @@
     <mat-card-header>
         <mat-card-title mat-dialog-title>
             <div>
-                {{data==null?'Add provider':'Edit provider'}}
+                {{data?'Add Yard':'Edit Yard'}}
             </div>
         </mat-card-title>
         <mat-card-subtitle></mat-card-subtitle>
@@ -50,19 +50,21 @@
                                   [removable]="removable" (removed)="remove(point)">
                             {{point.name}}
                             <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
-                            <mat-icon (click)="naviagteToMap()" matSuffix>add_location</mat-icon>
 
                         </mat-chip>
                         <input disabled placeholder="Points"
-                               [matChipInputFor]="chipList"
+                               [matChipInputFor]="chipList" />
+                        <button mat-icon-button matSuffix (click)="naviagteToMap()">
+                            <mat-icon>add_location</mat-icon>
+                        </button>
                     </mat-chip-list>
                 </mat-form-field>
 
 
                 <mat-form-field>
-                    <input matInput disabled placeholder="Area" formControlName="area">
+                    <input matInput placeholder="Area" formControlName="distance">
                     <!-- error -->
-                    <mat-error *ngIf="errorHandling('area', 'required')">
+                    <mat-error *ngIf="errorHandling('distance', 'required')">
                         You must provide a<strong>area</strong>
                     </mat-error>
                 </mat-form-field>
@@ -83,22 +85,16 @@
                         You must provide a<strong>threshold capacity</strong>
                     </mat-error>
                 </mat-form-field>
+                <mat-form-field>
+                    <input matInput placeholder="Working hours from" formControlName="workingFrom" [ngxTimepicker]="pickerFrom">
+                    <ngx-material-timepicker #pickerFrom></ngx-material-timepicker>
+                </mat-form-field>
 
                 <mat-form-field>
-                    <input type="number" [(ngModel)]="slider.from" matInput placeholder="Working hours from" formControlName="workingHoursFrom">
-                    <!-- error -->
-                    <mat-error *ngIf="errorHandling('workingHoursFrom', 'required')">
-                        You must provide a<strong>working hours from</strong>
-                    </mat-error>
+                    <input matInput placeholder="Working hours to" formControlName="workingTo" [ngxTimepicker]="pickerTo">
+                    <ngx-material-timepicker #pickerTo></ngx-material-timepicker>
                 </mat-form-field>
-                <ng5-slider [(value)]="slider.from" [(highValue)]="slider.to" [options]="options"></ng5-slider>
-                <mat-form-field>
-                    <input type="number" [(ngModel)]="slider.to" matInput placeholder="Working hours to" formControlName="workingHoursto">
-                    <!-- error -->
-                    <mat-error *ngIf="errorHandling('workingHoursto', 'required')">
-                        You must provide a<strong>working hours to</strong>
-                    </mat-error>
-                </mat-form-field>
+
             </div>
         </mat-card-content>
         <mat-card-actions>

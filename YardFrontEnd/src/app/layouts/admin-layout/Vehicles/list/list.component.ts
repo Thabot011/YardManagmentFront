@@ -4,7 +4,7 @@ import { ManageVehicleDataComponent } from '../manage-vehicle-data/manage-vehicl
 import { ComponentType } from '@angular/cdk/portal';
 import { Client, VehicleRequest, VehicleRecord, ProviderRequest, ProviderRecord, BeneficiaryRecord, BeneficiaryRequest, VehicleTypeRecord,VehicleTypeRequest, VehicleStatusRecord , VehicleStatusRequest, VehicleDataStatusRecord, VehicleDataStatusRequest, VehicleResponse, ImageRecord} from '../../../../shared/service/appService';
 import {  DatePipe } from '@angular/common';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, Validators, FormControl, FormGroup } from '@angular/forms';
 import { BaseListClass } from '../../../../shared/class/base/base-list-class';
 import { DisplayColumns } from 'app/shared/Entity/displayColumns';
 import { Observable } from 'rxjs';
@@ -12,6 +12,8 @@ import 'rxjs/add/operator/map'
 import 'rxjs/add/observable/fromPromise';
 import 'rxjs/add/operator/mergeMap'
 import { VehicleMergedRecord, VehicleMergedResponse } from 'app/shared/Entity/VehicleMergedRecord';
+import { MatOption } from '@angular/material/core';
+
 
 @Component({
     selector: 'app-list',
@@ -22,13 +24,13 @@ import { VehicleMergedRecord, VehicleMergedResponse } from 'app/shared/Entity/Ve
 export class ListComponent extends BaseListClass implements OnInit {
  
     displayColumns:DisplayColumns[] = [
-        { key: "assetId", value: "Asset Id"},
-        { key: "QRCodes", value: "qr Code" },
+        { key: "assetId", value: "AssetId"},
+        { key: "QRCodes", value: "QR Code" },
        // { key: "yardInDateStr", value: "yard In Date" },  
-        { key: "statusName", value: "status" },
+        { key: "statusName", value: "Status" },
         { key:"vehicleData",value:"Make/Model"},
-        { key: "vin", value: "vin"},
-        { key: "vehicleTypeName", value: "vehicle Type" },
+        { key: "vin", value: "Vin"},
+        { key: "vehicleTypeName", value: "Vehicle Type" },
         { key: "platesData", value: "plates"},
         { key: "vehicleImages", value: "Images"}
         // { key: "providerName", value: "provider" }, 
@@ -50,14 +52,15 @@ export class ListComponent extends BaseListClass implements OnInit {
     AddOrEditComponent: ComponentType<ManageVehicleDataComponent> = ManageVehicleDataComponent;
     detailsLink: string = "vehicle/list";
     imagesList:string[];
+   // @ViewChild('allSelected') private allSelected: MatOption;
+   // form: FormGroup;
+
     constructor(private appService: Client, private fb: FormBuilder,
         private ref: ChangeDetectorRef,
         public datepipe: DatePipe) {
         super();
     }
-
-
-     
+  
 
     getAll = (pageing: Paging) => {  
       return new Observable(subscriber=>
@@ -71,10 +74,8 @@ export class ListComponent extends BaseListClass implements OnInit {
 ).subscribe(res => {
         let vehicleMergedRecords:Array<VehicleMergedRecord> = new Array<VehicleMergedRecord>();
 
-        for (let i = 0; i < res.data.length; i++) { 
-        
-        let index = res.data[i]; 
-        
+        for (let i = 0; i < res.data.length; i++) {         
+        let index = res.data[i];       
         let vehicleMergedRecord:VehicleMergedRecord = new VehicleMergedRecord();  
         vehicleMergedRecord.platesData = [];
         vehicleMergedRecord.imagesData= [];
@@ -83,8 +84,8 @@ export class ListComponent extends BaseListClass implements OnInit {
         vehicleMergedRecord.vehicleTypeName = index.vehicleTypeName;
         let dateString = (this.datepipe.transform(index.yardInDate, 'yyyy/MM/dd'));
         vehicleMergedRecord.yardInDateStr = dateString;
-        vehicleMergedRecord.statusName = ((index.statusName)?index.statusName: "").concat(((index.dataStatusName)? ' / '+ index.dataStatusName: ""));
-        vehicleMergedRecord.assetId =  ((index.plates[0]?.id)? index.plates[0]?.id:0);
+        vehicleMergedRecord.statusName = ((index.statusName)?index.statusName : " ").concat(((index.dataStatusName)? ' / '+ index.dataStatusName : " "));
+        vehicleMergedRecord.assetId =  ((index.id)? index.id:0);
         vehicleMergedRecord.vehicleData = ((index.makeName)? index.makeName: "")+' '+((index.modelName)? index.modelName: "")+' '+((index.year)? index.year: "");
         
         for (let j = 0; j < index.plates.length; j++) {              
@@ -116,13 +117,7 @@ export class ListComponent extends BaseListClass implements OnInit {
     vehicleMergedResponse.message = res.message;
     return subscriber.next(vehicleMergedResponse);
  })})
-         
-        
-               
-      
-      
-       
-        
+                                       
     }
 
     reactiveForm = () => {
@@ -131,7 +126,7 @@ export class ListComponent extends BaseListClass implements OnInit {
             providerIdsFilter: [''],
             vehicleTypeIdsFilter: [''],
             statusIdsFilter: [''],
-            dataStatusId: [''],
+            dataStatusIdsFilter: [''],
             plateNumberFilter: '',
             idStrFilter: '',
             qrCodeFilter: '',
@@ -142,6 +137,9 @@ export class ListComponent extends BaseListClass implements OnInit {
 
     ngOnInit(): void {
         this.reactiveForm();
+        // this.form = this.fb.group({
+        //     statusIdsFilter: new FormControl('')});
+
         this.appService.listProvider(new ProviderRequest()).subscribe(data => {
             this.providers = data.data;
         });
@@ -185,4 +183,15 @@ export class ListComponent extends BaseListClass implements OnInit {
         this.ref.detectChanges();
         this.appTable.ngAfterViewInit();
     }
+
+    // toggleAllSelection() {
+    //     debugger;
+    //     if (this.allSelected.selected) {
+    //       this.form.controls.statusIdsFilter
+    //         .patchValue([...this.form.map(item => item.key), 0]);
+    //     } else {
+    //       this.form.controls.statusIdsFilter.patchValue([]);
+    //     }
+    //   }
+      
 }

@@ -184,7 +184,27 @@ export interface IClient {
      * @param body (optional) 
      * @return Success
      */
+    changeVehicleOwnership(body?: VehicleRequest | undefined): Observable<VehicleResponse>;
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    listVehicleAction(body?: VehicleActionRequest | undefined): Observable<VehicleActionResponse>;
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    listVehicleActionHistory(body?: VehicleActionHistoryRequest | undefined): Observable<VehicleActionHistoryResponse>;
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
     listVehicleDataStatus(body?: VehicleDataStatusRequest | undefined): Observable<VehicleDataStatusResponse>;
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    listVehicleOwnershipHistory(body?: VehicleOwnershipHistoryRequest | undefined): Observable<VehicleOwnershipHistoryResponse>;
     /**
      * @param body (optional) 
      * @return Success
@@ -229,12 +249,22 @@ export interface IClient {
      * @param body (optional) 
      * @return Success
      */
+    rejectYard(body?: YardRequest | undefined): Observable<YardResponse>;
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
     listYardToUpdate(body?: YardRequest | undefined): Observable<YardResponse>;
     /**
      * @param body (optional) 
      * @return Success
      */
     approveYardToUpdate(body?: YardRequest | undefined): Observable<YardResponse>;
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    rejectYardToUpdate(body?: YardRequest | undefined): Observable<YardResponse>;
     /**
      * @param body (optional) 
      * @return Success
@@ -260,6 +290,11 @@ export interface IClient {
      * @return Success
      */
     deActivateYardEmployee(body?: YardEmployeeRequest | undefined): Observable<YardEmployeeResponse>;
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    listYardStatus(body?: YardStatusRequest | undefined): Observable<YardStatusResponse>;
     /**
      * @param body (optional) 
      * @return Success
@@ -2179,6 +2214,177 @@ export class Client implements IClient {
      * @param body (optional) 
      * @return Success
      */
+    changeVehicleOwnership(body?: VehicleRequest | undefined): Observable<VehicleResponse> {
+        let url_ = this.baseUrl + "/api/Vehicle/ChangeVehicleOwnership";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json",
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processChangeVehicleOwnership(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processChangeVehicleOwnership(<any>response_);
+                } catch (e) {
+                    return <Observable<VehicleResponse>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<VehicleResponse>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processChangeVehicleOwnership(response: HttpResponseBase): Observable<VehicleResponse> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        let _mappings: { source: any, target: any }[] = [];
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : jsonParse(_responseText, this.jsonParseReviver);
+            result200 = VehicleResponse.fromJS(resultData200, _mappings);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<VehicleResponse>(<any>null);
+    }
+
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    listVehicleAction(body?: VehicleActionRequest | undefined): Observable<VehicleActionResponse> {
+        let url_ = this.baseUrl + "/api/VehicleAction/ListVehicleAction";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json",
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processListVehicleAction(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processListVehicleAction(<any>response_);
+                } catch (e) {
+                    return <Observable<VehicleActionResponse>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<VehicleActionResponse>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processListVehicleAction(response: HttpResponseBase): Observable<VehicleActionResponse> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        let _mappings: { source: any, target: any }[] = [];
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : jsonParse(_responseText, this.jsonParseReviver);
+            result200 = VehicleActionResponse.fromJS(resultData200, _mappings);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<VehicleActionResponse>(<any>null);
+    }
+
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    listVehicleActionHistory(body?: VehicleActionHistoryRequest | undefined): Observable<VehicleActionHistoryResponse> {
+        let url_ = this.baseUrl + "/api/VehicleActionHistory/ListVehicleActionHistory";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json",
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processListVehicleActionHistory(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processListVehicleActionHistory(<any>response_);
+                } catch (e) {
+                    return <Observable<VehicleActionHistoryResponse>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<VehicleActionHistoryResponse>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processListVehicleActionHistory(response: HttpResponseBase): Observable<VehicleActionHistoryResponse> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        let _mappings: { source: any, target: any }[] = [];
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : jsonParse(_responseText, this.jsonParseReviver);
+            result200 = VehicleActionHistoryResponse.fromJS(resultData200, _mappings);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<VehicleActionHistoryResponse>(<any>null);
+    }
+
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
     listVehicleDataStatus(body?: VehicleDataStatusRequest | undefined): Observable<VehicleDataStatusResponse> {
         let url_ = this.baseUrl + "/api/VehicleDataStatus/ListVehicleDataStatus";
         url_ = url_.replace(/[?&]$/, "");
@@ -2230,6 +2436,63 @@ export class Client implements IClient {
             }));
         }
         return _observableOf<VehicleDataStatusResponse>(<any>null);
+    }
+
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    listVehicleOwnershipHistory(body?: VehicleOwnershipHistoryRequest | undefined): Observable<VehicleOwnershipHistoryResponse> {
+        let url_ = this.baseUrl + "/api/VehicleOwnershipHistory/ListVehicleOwnershipHistory";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json",
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processListVehicleOwnershipHistory(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processListVehicleOwnershipHistory(<any>response_);
+                } catch (e) {
+                    return <Observable<VehicleOwnershipHistoryResponse>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<VehicleOwnershipHistoryResponse>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processListVehicleOwnershipHistory(response: HttpResponseBase): Observable<VehicleOwnershipHistoryResponse> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        let _mappings: { source: any, target: any }[] = [];
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : jsonParse(_responseText, this.jsonParseReviver);
+            result200 = VehicleOwnershipHistoryResponse.fromJS(resultData200, _mappings);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<VehicleOwnershipHistoryResponse>(<any>null);
     }
 
     /**
@@ -2692,6 +2955,63 @@ export class Client implements IClient {
      * @param body (optional) 
      * @return Success
      */
+    rejectYard(body?: YardRequest | undefined): Observable<YardResponse> {
+        let url_ = this.baseUrl + "/api/Yard/RejectYard";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json",
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processRejectYard(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processRejectYard(<any>response_);
+                } catch (e) {
+                    return <Observable<YardResponse>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<YardResponse>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processRejectYard(response: HttpResponseBase): Observable<YardResponse> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        let _mappings: { source: any, target: any }[] = [];
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : jsonParse(_responseText, this.jsonParseReviver);
+            result200 = YardResponse.fromJS(resultData200, _mappings);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<YardResponse>(<any>null);
+    }
+
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
     listYardToUpdate(body?: YardRequest | undefined): Observable<YardResponse> {
         let url_ = this.baseUrl + "/api/Yard/ListYardToUpdate";
         url_ = url_.replace(/[?&]$/, "");
@@ -2780,6 +3100,63 @@ export class Client implements IClient {
     }
 
     protected processApproveYardToUpdate(response: HttpResponseBase): Observable<YardResponse> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        let _mappings: { source: any, target: any }[] = [];
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : jsonParse(_responseText, this.jsonParseReviver);
+            result200 = YardResponse.fromJS(resultData200, _mappings);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<YardResponse>(<any>null);
+    }
+
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    rejectYardToUpdate(body?: YardRequest | undefined): Observable<YardResponse> {
+        let url_ = this.baseUrl + "/api/Yard/RejectYardToUpdate";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json",
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processRejectYardToUpdate(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processRejectYardToUpdate(<any>response_);
+                } catch (e) {
+                    return <Observable<YardResponse>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<YardResponse>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processRejectYardToUpdate(response: HttpResponseBase): Observable<YardResponse> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -3085,6 +3462,63 @@ export class Client implements IClient {
             }));
         }
         return _observableOf<YardEmployeeResponse>(<any>null);
+    }
+
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    listYardStatus(body?: YardStatusRequest | undefined): Observable<YardStatusResponse> {
+        let url_ = this.baseUrl + "/api/YardStatus/ListYardStatus";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json",
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processListYardStatus(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processListYardStatus(<any>response_);
+                } catch (e) {
+                    return <Observable<YardStatusResponse>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<YardStatusResponse>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processListYardStatus(response: HttpResponseBase): Observable<YardStatusResponse> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        let _mappings: { source: any, target: any }[] = [];
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : jsonParse(_responseText, this.jsonParseReviver);
+            result200 = YardStatusResponse.fromJS(resultData200, _mappings);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<YardStatusResponse>(<any>null);
     }
 
     /**
@@ -6167,6 +6601,8 @@ export class VehicleRecord implements IVehicleRecord {
     qrCodeFilter?: string | undefined;
     currentQrCode?: string | undefined;
     documents?: DocumentRecord[] | undefined;
+    ownershipStartDate?: Date | undefined;
+    dataStatusIdsFilter?: number[] | undefined;
 
     constructor(data?: IVehicleRecord) {
         if (data) {
@@ -6283,6 +6719,12 @@ export class VehicleRecord implements IVehicleRecord {
                 for (let item of _data["documents"])
                     this.documents!.push(DocumentRecord.fromJS(item, _mappings));
             }
+            this.ownershipStartDate = _data["ownershipStartDate"] ? new Date(_data["ownershipStartDate"].toString()) : <any>undefined;
+            if (Array.isArray(_data["dataStatusIdsFilter"])) {
+                this.dataStatusIdsFilter = [] as any;
+                for (let item of _data["dataStatusIdsFilter"])
+                    this.dataStatusIdsFilter!.push(item);
+            }
         }
     }
 
@@ -6362,6 +6804,12 @@ export class VehicleRecord implements IVehicleRecord {
             for (let item of this.documents)
                 data["documents"].push(item.toJSON());
         }
+        data["ownershipStartDate"] = this.ownershipStartDate ? this.ownershipStartDate.toISOString() : <any>undefined;
+        if (Array.isArray(this.dataStatusIdsFilter)) {
+            data["dataStatusIdsFilter"] = [];
+            for (let item of this.dataStatusIdsFilter)
+                data["dataStatusIdsFilter"].push(item);
+        }
         return data; 
     }
 
@@ -6407,6 +6855,8 @@ export interface IVehicleRecord {
     qrCodeFilter?: string | undefined;
     currentQrCode?: string | undefined;
     documents?: IDocumentRecord[] | undefined;
+    ownershipStartDate?: Date | undefined;
+    dataStatusIdsFilter?: number[] | undefined;
 }
 
 export class VehicleRequest implements IVehicleRequest {
@@ -6555,6 +7005,418 @@ export class VehicleResponse implements IVehicleResponse {
 
 export interface IVehicleResponse {
     data?: IVehicleRecord[] | undefined;
+    message?: string | undefined;
+    success?: boolean;
+    totalCount?: number;
+}
+
+export class VehicleActionRecord implements IVehicleActionRecord {
+    id?: number;
+    action!: string;
+
+    constructor(data?: IVehicleActionRecord) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any, _mappings?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.action = _data["action"];
+        }
+    }
+
+    static fromJS(data: any, _mappings?: any): VehicleActionRecord {
+        data = typeof data === 'object' ? data : {};
+        return createInstance<VehicleActionRecord>(data, _mappings, VehicleActionRecord);
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["action"] = this.action;
+        return data; 
+    }
+
+    clone(): VehicleActionRecord {
+        const json = this.toJSON();
+        let result = new VehicleActionRecord();
+        result.init(json);
+        return result;
+    }
+}
+
+export interface IVehicleActionRecord {
+    id?: number;
+    action: string;
+}
+
+export class VehicleActionRequest implements IVehicleActionRequest {
+    vehicleActionRecord?: VehicleActionRecord;
+    isDesc?: boolean;
+    orderByColumn?: string | undefined;
+    pageSize?: number;
+    pageIndex?: number;
+    createdBy?: number;
+    roleID?: number;
+    languageId?: number;
+    baseUrl?: string | undefined;
+    name?: string | undefined;
+    mailSender?: MailSender;
+
+    constructor(data?: IVehicleActionRequest) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+            this.vehicleActionRecord = data.vehicleActionRecord && !(<any>data.vehicleActionRecord).toJSON ? new VehicleActionRecord(data.vehicleActionRecord) : <VehicleActionRecord>this.vehicleActionRecord; 
+            this.mailSender = data.mailSender && !(<any>data.mailSender).toJSON ? new MailSender(data.mailSender) : <MailSender>this.mailSender; 
+        }
+    }
+
+    init(_data?: any, _mappings?: any) {
+        if (_data) {
+            this.vehicleActionRecord = _data["vehicleActionRecord"] ? VehicleActionRecord.fromJS(_data["vehicleActionRecord"], _mappings) : <any>undefined;
+            this.isDesc = _data["isDesc"];
+            this.orderByColumn = _data["orderByColumn"];
+            this.pageSize = _data["pageSize"];
+            this.pageIndex = _data["pageIndex"];
+            this.createdBy = _data["createdBy"];
+            this.roleID = _data["roleID"];
+            this.languageId = _data["languageId"];
+            this.baseUrl = _data["baseUrl"];
+            this.name = _data["name"];
+            this.mailSender = _data["mailSender"] ? MailSender.fromJS(_data["mailSender"], _mappings) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any, _mappings?: any): VehicleActionRequest {
+        data = typeof data === 'object' ? data : {};
+        return createInstance<VehicleActionRequest>(data, _mappings, VehicleActionRequest);
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["vehicleActionRecord"] = this.vehicleActionRecord ? this.vehicleActionRecord.toJSON() : <any>undefined;
+        data["isDesc"] = this.isDesc;
+        data["orderByColumn"] = this.orderByColumn;
+        data["pageSize"] = this.pageSize;
+        data["pageIndex"] = this.pageIndex;
+        data["createdBy"] = this.createdBy;
+        data["roleID"] = this.roleID;
+        data["languageId"] = this.languageId;
+        data["baseUrl"] = this.baseUrl;
+        data["name"] = this.name;
+        data["mailSender"] = this.mailSender ? this.mailSender.toJSON() : <any>undefined;
+        return data; 
+    }
+
+    clone(): VehicleActionRequest {
+        const json = this.toJSON();
+        let result = new VehicleActionRequest();
+        result.init(json);
+        return result;
+    }
+}
+
+export interface IVehicleActionRequest {
+    vehicleActionRecord?: IVehicleActionRecord;
+    isDesc?: boolean;
+    orderByColumn?: string | undefined;
+    pageSize?: number;
+    pageIndex?: number;
+    createdBy?: number;
+    roleID?: number;
+    languageId?: number;
+    baseUrl?: string | undefined;
+    name?: string | undefined;
+    mailSender?: IMailSender;
+}
+
+export class VehicleActionResponse implements IVehicleActionResponse {
+    data?: VehicleActionRecord[] | undefined;
+    message?: string | undefined;
+    success?: boolean;
+    totalCount?: number;
+
+    constructor(data?: IVehicleActionResponse) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+            if (data.data) {
+                this.data = [];
+                for (let i = 0; i < data.data.length; i++) {
+                    let item = data.data[i];
+                    this.data[i] = item && !(<any>item).toJSON ? new VehicleActionRecord(item) : <VehicleActionRecord>item;
+                }
+            }
+        }
+    }
+
+    init(_data?: any, _mappings?: any) {
+        if (_data) {
+            if (Array.isArray(_data["Data"])) {
+                this.data = [] as any;
+                for (let item of _data["Data"])
+                    this.data!.push(VehicleActionRecord.fromJS(item, _mappings));
+            }
+            this.message = _data["message"];
+            this.success = _data["success"];
+            this.totalCount = _data["totalCount"];
+        }
+    }
+
+    static fromJS(data: any, _mappings?: any): VehicleActionResponse {
+        data = typeof data === 'object' ? data : {};
+        return createInstance<VehicleActionResponse>(data, _mappings, VehicleActionResponse);
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        if (Array.isArray(this.data)) {
+            data["Data"] = [];
+            for (let item of this.data)
+                data["Data"].push(item.toJSON());
+        }
+        data["message"] = this.message;
+        data["success"] = this.success;
+        data["totalCount"] = this.totalCount;
+        return data; 
+    }
+
+    clone(): VehicleActionResponse {
+        const json = this.toJSON();
+        let result = new VehicleActionResponse();
+        result.init(json);
+        return result;
+    }
+}
+
+export interface IVehicleActionResponse {
+    data?: IVehicleActionRecord[] | undefined;
+    message?: string | undefined;
+    success?: boolean;
+    totalCount?: number;
+}
+
+export class VehicleActionHistoryRecord implements IVehicleActionHistoryRecord {
+    id?: number;
+    vehicleId?: number;
+    actionId?: number;
+    actionDate?: Date;
+    userId?: string | undefined;
+    notes?: string | undefined;
+    actionName?: string | undefined;
+
+    constructor(data?: IVehicleActionHistoryRecord) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any, _mappings?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.vehicleId = _data["vehicleId"];
+            this.actionId = _data["actionId"];
+            this.actionDate = _data["actionDate"] ? new Date(_data["actionDate"].toString()) : <any>undefined;
+            this.userId = _data["userId"];
+            this.notes = _data["notes"];
+            this.actionName = _data["actionName"];
+        }
+    }
+
+    static fromJS(data: any, _mappings?: any): VehicleActionHistoryRecord {
+        data = typeof data === 'object' ? data : {};
+        return createInstance<VehicleActionHistoryRecord>(data, _mappings, VehicleActionHistoryRecord);
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["vehicleId"] = this.vehicleId;
+        data["actionId"] = this.actionId;
+        data["actionDate"] = this.actionDate ? this.actionDate.toISOString() : <any>undefined;
+        data["userId"] = this.userId;
+        data["notes"] = this.notes;
+        data["actionName"] = this.actionName;
+        return data; 
+    }
+
+    clone(): VehicleActionHistoryRecord {
+        const json = this.toJSON();
+        let result = new VehicleActionHistoryRecord();
+        result.init(json);
+        return result;
+    }
+}
+
+export interface IVehicleActionHistoryRecord {
+    id?: number;
+    vehicleId?: number;
+    actionId?: number;
+    actionDate?: Date;
+    userId?: string | undefined;
+    notes?: string | undefined;
+    actionName?: string | undefined;
+}
+
+export class VehicleActionHistoryRequest implements IVehicleActionHistoryRequest {
+    vehicleActionHistoryRecord?: VehicleActionHistoryRecord;
+    isDesc?: boolean;
+    orderByColumn?: string | undefined;
+    pageSize?: number;
+    pageIndex?: number;
+    createdBy?: number;
+    roleID?: number;
+    languageId?: number;
+    baseUrl?: string | undefined;
+    name?: string | undefined;
+    mailSender?: MailSender;
+
+    constructor(data?: IVehicleActionHistoryRequest) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+            this.vehicleActionHistoryRecord = data.vehicleActionHistoryRecord && !(<any>data.vehicleActionHistoryRecord).toJSON ? new VehicleActionHistoryRecord(data.vehicleActionHistoryRecord) : <VehicleActionHistoryRecord>this.vehicleActionHistoryRecord; 
+            this.mailSender = data.mailSender && !(<any>data.mailSender).toJSON ? new MailSender(data.mailSender) : <MailSender>this.mailSender; 
+        }
+    }
+
+    init(_data?: any, _mappings?: any) {
+        if (_data) {
+            this.vehicleActionHistoryRecord = _data["vehicleActionHistoryRecord"] ? VehicleActionHistoryRecord.fromJS(_data["vehicleActionHistoryRecord"], _mappings) : <any>undefined;
+            this.isDesc = _data["isDesc"];
+            this.orderByColumn = _data["orderByColumn"];
+            this.pageSize = _data["pageSize"];
+            this.pageIndex = _data["pageIndex"];
+            this.createdBy = _data["createdBy"];
+            this.roleID = _data["roleID"];
+            this.languageId = _data["languageId"];
+            this.baseUrl = _data["baseUrl"];
+            this.name = _data["name"];
+            this.mailSender = _data["mailSender"] ? MailSender.fromJS(_data["mailSender"], _mappings) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any, _mappings?: any): VehicleActionHistoryRequest {
+        data = typeof data === 'object' ? data : {};
+        return createInstance<VehicleActionHistoryRequest>(data, _mappings, VehicleActionHistoryRequest);
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["vehicleActionHistoryRecord"] = this.vehicleActionHistoryRecord ? this.vehicleActionHistoryRecord.toJSON() : <any>undefined;
+        data["isDesc"] = this.isDesc;
+        data["orderByColumn"] = this.orderByColumn;
+        data["pageSize"] = this.pageSize;
+        data["pageIndex"] = this.pageIndex;
+        data["createdBy"] = this.createdBy;
+        data["roleID"] = this.roleID;
+        data["languageId"] = this.languageId;
+        data["baseUrl"] = this.baseUrl;
+        data["name"] = this.name;
+        data["mailSender"] = this.mailSender ? this.mailSender.toJSON() : <any>undefined;
+        return data; 
+    }
+
+    clone(): VehicleActionHistoryRequest {
+        const json = this.toJSON();
+        let result = new VehicleActionHistoryRequest();
+        result.init(json);
+        return result;
+    }
+}
+
+export interface IVehicleActionHistoryRequest {
+    vehicleActionHistoryRecord?: IVehicleActionHistoryRecord;
+    isDesc?: boolean;
+    orderByColumn?: string | undefined;
+    pageSize?: number;
+    pageIndex?: number;
+    createdBy?: number;
+    roleID?: number;
+    languageId?: number;
+    baseUrl?: string | undefined;
+    name?: string | undefined;
+    mailSender?: IMailSender;
+}
+
+export class VehicleActionHistoryResponse implements IVehicleActionHistoryResponse {
+    data?: VehicleActionHistoryRecord[] | undefined;
+    message?: string | undefined;
+    success?: boolean;
+    totalCount?: number;
+
+    constructor(data?: IVehicleActionHistoryResponse) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+            if (data.data) {
+                this.data = [];
+                for (let i = 0; i < data.data.length; i++) {
+                    let item = data.data[i];
+                    this.data[i] = item && !(<any>item).toJSON ? new VehicleActionHistoryRecord(item) : <VehicleActionHistoryRecord>item;
+                }
+            }
+        }
+    }
+
+    init(_data?: any, _mappings?: any) {
+        if (_data) {
+            if (Array.isArray(_data["Data"])) {
+                this.data = [] as any;
+                for (let item of _data["Data"])
+                    this.data!.push(VehicleActionHistoryRecord.fromJS(item, _mappings));
+            }
+            this.message = _data["message"];
+            this.success = _data["success"];
+            this.totalCount = _data["totalCount"];
+        }
+    }
+
+    static fromJS(data: any, _mappings?: any): VehicleActionHistoryResponse {
+        data = typeof data === 'object' ? data : {};
+        return createInstance<VehicleActionHistoryResponse>(data, _mappings, VehicleActionHistoryResponse);
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        if (Array.isArray(this.data)) {
+            data["Data"] = [];
+            for (let item of this.data)
+                data["Data"].push(item.toJSON());
+        }
+        data["message"] = this.message;
+        data["success"] = this.success;
+        data["totalCount"] = this.totalCount;
+        return data; 
+    }
+
+    clone(): VehicleActionHistoryResponse {
+        const json = this.toJSON();
+        let result = new VehicleActionHistoryResponse();
+        result.init(json);
+        return result;
+    }
+}
+
+export interface IVehicleActionHistoryResponse {
+    data?: IVehicleActionHistoryRecord[] | undefined;
     message?: string | undefined;
     success?: boolean;
     totalCount?: number;
@@ -6751,6 +7613,234 @@ export class VehicleDataStatusResponse implements IVehicleDataStatusResponse {
 
 export interface IVehicleDataStatusResponse {
     data?: IVehicleDataStatusRecord[] | undefined;
+    message?: string | undefined;
+    success?: boolean;
+    totalCount?: number;
+}
+
+export class VehicleOwnershipHistoryRecord implements IVehicleOwnershipHistoryRecord {
+    id?: number;
+    qrCode?: string | undefined;
+    vehicleId?: number;
+    beneficiaryId?: number | undefined;
+    providerId?: number | undefined;
+    startDate?: Date | undefined;
+    endDate?: Date | undefined;
+    notes?: string | undefined;
+    beneficiaryName?: string | undefined;
+    providerName?: string | undefined;
+
+    constructor(data?: IVehicleOwnershipHistoryRecord) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any, _mappings?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.qrCode = _data["qrCode"];
+            this.vehicleId = _data["vehicleId"];
+            this.beneficiaryId = _data["beneficiaryId"];
+            this.providerId = _data["providerId"];
+            this.startDate = _data["startDate"] ? new Date(_data["startDate"].toString()) : <any>undefined;
+            this.endDate = _data["endDate"] ? new Date(_data["endDate"].toString()) : <any>undefined;
+            this.notes = _data["notes"];
+            this.beneficiaryName = _data["beneficiaryName"];
+            this.providerName = _data["providerName"];
+        }
+    }
+
+    static fromJS(data: any, _mappings?: any): VehicleOwnershipHistoryRecord {
+        data = typeof data === 'object' ? data : {};
+        return createInstance<VehicleOwnershipHistoryRecord>(data, _mappings, VehicleOwnershipHistoryRecord);
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["qrCode"] = this.qrCode;
+        data["vehicleId"] = this.vehicleId;
+        data["beneficiaryId"] = this.beneficiaryId;
+        data["providerId"] = this.providerId;
+        data["startDate"] = this.startDate ? this.startDate.toISOString() : <any>undefined;
+        data["endDate"] = this.endDate ? this.endDate.toISOString() : <any>undefined;
+        data["notes"] = this.notes;
+        data["beneficiaryName"] = this.beneficiaryName;
+        data["providerName"] = this.providerName;
+        return data; 
+    }
+
+    clone(): VehicleOwnershipHistoryRecord {
+        const json = this.toJSON();
+        let result = new VehicleOwnershipHistoryRecord();
+        result.init(json);
+        return result;
+    }
+}
+
+export interface IVehicleOwnershipHistoryRecord {
+    id?: number;
+    qrCode?: string | undefined;
+    vehicleId?: number;
+    beneficiaryId?: number | undefined;
+    providerId?: number | undefined;
+    startDate?: Date | undefined;
+    endDate?: Date | undefined;
+    notes?: string | undefined;
+    beneficiaryName?: string | undefined;
+    providerName?: string | undefined;
+}
+
+export class VehicleOwnershipHistoryRequest implements IVehicleOwnershipHistoryRequest {
+    vehicleOwnershipHistoryRecord?: VehicleOwnershipHistoryRecord;
+    isDesc?: boolean;
+    orderByColumn?: string | undefined;
+    pageSize?: number;
+    pageIndex?: number;
+    createdBy?: number;
+    roleID?: number;
+    languageId?: number;
+    baseUrl?: string | undefined;
+    name?: string | undefined;
+    mailSender?: MailSender;
+
+    constructor(data?: IVehicleOwnershipHistoryRequest) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+            this.vehicleOwnershipHistoryRecord = data.vehicleOwnershipHistoryRecord && !(<any>data.vehicleOwnershipHistoryRecord).toJSON ? new VehicleOwnershipHistoryRecord(data.vehicleOwnershipHistoryRecord) : <VehicleOwnershipHistoryRecord>this.vehicleOwnershipHistoryRecord; 
+            this.mailSender = data.mailSender && !(<any>data.mailSender).toJSON ? new MailSender(data.mailSender) : <MailSender>this.mailSender; 
+        }
+    }
+
+    init(_data?: any, _mappings?: any) {
+        if (_data) {
+            this.vehicleOwnershipHistoryRecord = _data["vehicleOwnershipHistoryRecord"] ? VehicleOwnershipHistoryRecord.fromJS(_data["vehicleOwnershipHistoryRecord"], _mappings) : <any>undefined;
+            this.isDesc = _data["isDesc"];
+            this.orderByColumn = _data["orderByColumn"];
+            this.pageSize = _data["pageSize"];
+            this.pageIndex = _data["pageIndex"];
+            this.createdBy = _data["createdBy"];
+            this.roleID = _data["roleID"];
+            this.languageId = _data["languageId"];
+            this.baseUrl = _data["baseUrl"];
+            this.name = _data["name"];
+            this.mailSender = _data["mailSender"] ? MailSender.fromJS(_data["mailSender"], _mappings) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any, _mappings?: any): VehicleOwnershipHistoryRequest {
+        data = typeof data === 'object' ? data : {};
+        return createInstance<VehicleOwnershipHistoryRequest>(data, _mappings, VehicleOwnershipHistoryRequest);
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["vehicleOwnershipHistoryRecord"] = this.vehicleOwnershipHistoryRecord ? this.vehicleOwnershipHistoryRecord.toJSON() : <any>undefined;
+        data["isDesc"] = this.isDesc;
+        data["orderByColumn"] = this.orderByColumn;
+        data["pageSize"] = this.pageSize;
+        data["pageIndex"] = this.pageIndex;
+        data["createdBy"] = this.createdBy;
+        data["roleID"] = this.roleID;
+        data["languageId"] = this.languageId;
+        data["baseUrl"] = this.baseUrl;
+        data["name"] = this.name;
+        data["mailSender"] = this.mailSender ? this.mailSender.toJSON() : <any>undefined;
+        return data; 
+    }
+
+    clone(): VehicleOwnershipHistoryRequest {
+        const json = this.toJSON();
+        let result = new VehicleOwnershipHistoryRequest();
+        result.init(json);
+        return result;
+    }
+}
+
+export interface IVehicleOwnershipHistoryRequest {
+    vehicleOwnershipHistoryRecord?: IVehicleOwnershipHistoryRecord;
+    isDesc?: boolean;
+    orderByColumn?: string | undefined;
+    pageSize?: number;
+    pageIndex?: number;
+    createdBy?: number;
+    roleID?: number;
+    languageId?: number;
+    baseUrl?: string | undefined;
+    name?: string | undefined;
+    mailSender?: IMailSender;
+}
+
+export class VehicleOwnershipHistoryResponse implements IVehicleOwnershipHistoryResponse {
+    data?: VehicleOwnershipHistoryRecord[] | undefined;
+    message?: string | undefined;
+    success?: boolean;
+    totalCount?: number;
+
+    constructor(data?: IVehicleOwnershipHistoryResponse) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+            if (data.data) {
+                this.data = [];
+                for (let i = 0; i < data.data.length; i++) {
+                    let item = data.data[i];
+                    this.data[i] = item && !(<any>item).toJSON ? new VehicleOwnershipHistoryRecord(item) : <VehicleOwnershipHistoryRecord>item;
+                }
+            }
+        }
+    }
+
+    init(_data?: any, _mappings?: any) {
+        if (_data) {
+            if (Array.isArray(_data["Data"])) {
+                this.data = [] as any;
+                for (let item of _data["Data"])
+                    this.data!.push(VehicleOwnershipHistoryRecord.fromJS(item, _mappings));
+            }
+            this.message = _data["message"];
+            this.success = _data["success"];
+            this.totalCount = _data["totalCount"];
+        }
+    }
+
+    static fromJS(data: any, _mappings?: any): VehicleOwnershipHistoryResponse {
+        data = typeof data === 'object' ? data : {};
+        return createInstance<VehicleOwnershipHistoryResponse>(data, _mappings, VehicleOwnershipHistoryResponse);
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        if (Array.isArray(this.data)) {
+            data["Data"] = [];
+            for (let item of this.data)
+                data["Data"].push(item.toJSON());
+        }
+        data["message"] = this.message;
+        data["success"] = this.success;
+        data["totalCount"] = this.totalCount;
+        return data; 
+    }
+
+    clone(): VehicleOwnershipHistoryResponse {
+        const json = this.toJSON();
+        let result = new VehicleOwnershipHistoryResponse();
+        result.init(json);
+        return result;
+    }
+}
+
+export interface IVehicleOwnershipHistoryResponse {
+    data?: IVehicleOwnershipHistoryRecord[] | undefined;
     message?: string | undefined;
     success?: boolean;
     totalCount?: number;
@@ -7723,6 +8813,202 @@ export class YardEmployeeResponse implements IYardEmployeeResponse {
 
 export interface IYardEmployeeResponse {
     data?: IYardEmployeeRecord[] | undefined;
+    message?: string | undefined;
+    success?: boolean;
+    totalCount?: number;
+}
+
+export class YardStatusRecord implements IYardStatusRecord {
+    id?: number;
+    name!: string;
+
+    constructor(data?: IYardStatusRecord) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any, _mappings?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.name = _data["name"];
+        }
+    }
+
+    static fromJS(data: any, _mappings?: any): YardStatusRecord {
+        data = typeof data === 'object' ? data : {};
+        return createInstance<YardStatusRecord>(data, _mappings, YardStatusRecord);
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["name"] = this.name;
+        return data; 
+    }
+
+    clone(): YardStatusRecord {
+        const json = this.toJSON();
+        let result = new YardStatusRecord();
+        result.init(json);
+        return result;
+    }
+}
+
+export interface IYardStatusRecord {
+    id?: number;
+    name: string;
+}
+
+export class YardStatusRequest implements IYardStatusRequest {
+    yardStatusRecord?: YardStatusRecord;
+    isDesc?: boolean;
+    orderByColumn?: string | undefined;
+    pageSize?: number;
+    pageIndex?: number;
+    createdBy?: number;
+    roleID?: number;
+    languageId?: number;
+    baseUrl?: string | undefined;
+    name?: string | undefined;
+    mailSender?: MailSender;
+
+    constructor(data?: IYardStatusRequest) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+            this.yardStatusRecord = data.yardStatusRecord && !(<any>data.yardStatusRecord).toJSON ? new YardStatusRecord(data.yardStatusRecord) : <YardStatusRecord>this.yardStatusRecord; 
+            this.mailSender = data.mailSender && !(<any>data.mailSender).toJSON ? new MailSender(data.mailSender) : <MailSender>this.mailSender; 
+        }
+    }
+
+    init(_data?: any, _mappings?: any) {
+        if (_data) {
+            this.yardStatusRecord = _data["yardStatusRecord"] ? YardStatusRecord.fromJS(_data["yardStatusRecord"], _mappings) : <any>undefined;
+            this.isDesc = _data["isDesc"];
+            this.orderByColumn = _data["orderByColumn"];
+            this.pageSize = _data["pageSize"];
+            this.pageIndex = _data["pageIndex"];
+            this.createdBy = _data["createdBy"];
+            this.roleID = _data["roleID"];
+            this.languageId = _data["languageId"];
+            this.baseUrl = _data["baseUrl"];
+            this.name = _data["name"];
+            this.mailSender = _data["mailSender"] ? MailSender.fromJS(_data["mailSender"], _mappings) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any, _mappings?: any): YardStatusRequest {
+        data = typeof data === 'object' ? data : {};
+        return createInstance<YardStatusRequest>(data, _mappings, YardStatusRequest);
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["yardStatusRecord"] = this.yardStatusRecord ? this.yardStatusRecord.toJSON() : <any>undefined;
+        data["isDesc"] = this.isDesc;
+        data["orderByColumn"] = this.orderByColumn;
+        data["pageSize"] = this.pageSize;
+        data["pageIndex"] = this.pageIndex;
+        data["createdBy"] = this.createdBy;
+        data["roleID"] = this.roleID;
+        data["languageId"] = this.languageId;
+        data["baseUrl"] = this.baseUrl;
+        data["name"] = this.name;
+        data["mailSender"] = this.mailSender ? this.mailSender.toJSON() : <any>undefined;
+        return data; 
+    }
+
+    clone(): YardStatusRequest {
+        const json = this.toJSON();
+        let result = new YardStatusRequest();
+        result.init(json);
+        return result;
+    }
+}
+
+export interface IYardStatusRequest {
+    yardStatusRecord?: IYardStatusRecord;
+    isDesc?: boolean;
+    orderByColumn?: string | undefined;
+    pageSize?: number;
+    pageIndex?: number;
+    createdBy?: number;
+    roleID?: number;
+    languageId?: number;
+    baseUrl?: string | undefined;
+    name?: string | undefined;
+    mailSender?: IMailSender;
+}
+
+export class YardStatusResponse implements IYardStatusResponse {
+    data?: YardStatusRecord[] | undefined;
+    message?: string | undefined;
+    success?: boolean;
+    totalCount?: number;
+
+    constructor(data?: IYardStatusResponse) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+            if (data.data) {
+                this.data = [];
+                for (let i = 0; i < data.data.length; i++) {
+                    let item = data.data[i];
+                    this.data[i] = item && !(<any>item).toJSON ? new YardStatusRecord(item) : <YardStatusRecord>item;
+                }
+            }
+        }
+    }
+
+    init(_data?: any, _mappings?: any) {
+        if (_data) {
+            if (Array.isArray(_data["Data"])) {
+                this.data = [] as any;
+                for (let item of _data["Data"])
+                    this.data!.push(YardStatusRecord.fromJS(item, _mappings));
+            }
+            this.message = _data["message"];
+            this.success = _data["success"];
+            this.totalCount = _data["totalCount"];
+        }
+    }
+
+    static fromJS(data: any, _mappings?: any): YardStatusResponse {
+        data = typeof data === 'object' ? data : {};
+        return createInstance<YardStatusResponse>(data, _mappings, YardStatusResponse);
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        if (Array.isArray(this.data)) {
+            data["Data"] = [];
+            for (let item of this.data)
+                data["Data"].push(item.toJSON());
+        }
+        data["message"] = this.message;
+        data["success"] = this.success;
+        data["totalCount"] = this.totalCount;
+        return data; 
+    }
+
+    clone(): YardStatusResponse {
+        const json = this.toJSON();
+        let result = new YardStatusResponse();
+        result.init(json);
+        return result;
+    }
+}
+
+export interface IYardStatusResponse {
+    data?: IYardStatusRecord[] | undefined;
     message?: string | undefined;
     success?: boolean;
     totalCount?: number;

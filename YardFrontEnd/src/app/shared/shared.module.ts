@@ -26,13 +26,14 @@ import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 import { ReactiveFormsModule } from '@angular/forms';
 import { LoaderComponent } from './component/loader/loader.component';
 import { RouterModule } from '@angular/router';
+import { ImagesDialog } from './component/ImageDialog/image.component';
 
 
 
 
 
 @NgModule({
-    declarations: [TableComponent, LoaderComponent],
+    declarations: [TableComponent, LoaderComponent,ImagesDialog],
     imports: [
         CommonModule,
         RouterModule,
@@ -77,6 +78,7 @@ import { RouterModule } from '@angular/router';
         MatExpansionModule,
         MatCheckboxModule,
         NgxMaterialTimepickerModule
-    ]
+    ],
+    entryComponents:[ImagesDialog]
 })
 export class SharedModule { }

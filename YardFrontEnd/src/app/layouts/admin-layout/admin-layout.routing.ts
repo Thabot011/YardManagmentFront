@@ -29,5 +29,9 @@ export const AdminLayoutRoutes: Routes = [
     {
         path: 'yard', loadChildren:
             () => import('./yards/yards.module').then(m => m.YardsModule)
+    },
+    {
+        path: 'vehicle', loadChildren:
+            () => import('./Vehicles/vehicles.module').then(m => m.VehiclesModule)
     }
 ];

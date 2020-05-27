@@ -31,6 +31,7 @@
                                     <mat-form-field style="padding-right: 30px;">
                                         <mat-label>Select a provider</mat-label>
                                         <mat-select formControlName="providerIdsFilter" multiple>
+                                            <mat-option #providerAllSelected (click)="toggleAllSelection(this.form.controls.providerIdsFilter)" [value]="-1">All</mat-option> 
                                             <mat-option [value]="provider.id" *ngFor="let provider of providers">
                                                 {{provider.nameEn}}
                                             </mat-option>
@@ -41,6 +42,7 @@
                                     <mat-form-field style="padding-right: 30px;">
                                         <mat-label>Select a beneficiary</mat-label>
                                         <mat-select formControlName="beneficiaryIdsFilter" multiple>
+                                            <mat-option #beneficiaryAllSelected (click)="toggleAllSelection(this.form.controls.beneficiaryIdsFilter)" [value]="-1">All</mat-option> 
                                             <mat-option [value]="beneficiary.id" *ngFor="let beneficiary of beneficiaries">
                                                 {{beneficiary.nameEn}}
                                             </mat-option>
@@ -51,6 +53,7 @@
                                     <mat-form-field style="padding-right: 30px;">
                                         <mat-label>Select a vehicle type</mat-label>
                                         <mat-select formControlName="vehicleTypeIdsFilter" multiple>
+                                            <mat-option #vehicleTypeAllSelected (click)="toggleAllSelection(this.form.controls.vehicleTypeIdsFilter)" [value]="-1">All</mat-option> 
                                             <mat-option [value]="vehicleType.id" *ngFor="let vehicleType of vehicleTypes">
                                                 {{vehicleType.nameEn}}
                                             </mat-option>
@@ -61,6 +64,7 @@
                                     <mat-form-field style="padding-right: 30px;">
                                         <mat-label>Select a status</mat-label>
                                         <mat-select formControlName="statusIdsFilter" multiple>
+                                            <mat-option #statusAllSelected (click)="toggleAllSelection(this.form.controls.statusIdsFilter)" [value]="-1">All</mat-option> 
                                             <mat-option [value]="status.id" *ngFor="let status of vehicleStatus">
                                                 {{status.title}}
                                             </mat-option>
@@ -71,6 +75,7 @@
                                     <mat-form-field>
                                         <mat-label>Select a data status</mat-label>
                                         <mat-select formControlName="dataStatusIdsFilter" multiple>
+                                            <mat-option #dataStatusAllSelected (click)="toggleAllSelection(this.form.controls.dataStatusIdsFilter)" [value]="-1">All</mat-option> 
                                             <mat-option [value]="dataStatus.id" *ngFor="let dataStatus of vehiclesDataStatus">
                                                 {{dataStatus.name}}
                                             </mat-option>

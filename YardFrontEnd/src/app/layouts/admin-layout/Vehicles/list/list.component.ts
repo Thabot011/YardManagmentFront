@@ -52,13 +52,18 @@ export class ListComponent extends BaseListClass implements OnInit {
     AddOrEditComponent: ComponentType<ManageVehicleDataComponent> = ManageVehicleDataComponent;
     detailsLink: string = "vehicle/list";
     imagesList:string[];
-   // @ViewChild('allSelected') private allSelected: MatOption;
-   // form: FormGroup;
+    @ViewChild('beneficiaryAllSelected') private beneficiaryAllSelected: MatOption;
+    @ViewChild('dataStatusAllSelected') private dataStatusAllSelected: MatOption;
+    @ViewChild('statusAllSelected') private statusAllSelected: MatOption;
+    @ViewChild('providerAllSelected') private providerAllSelected: MatOption;
+    @ViewChild('vehicleTypeAllSelected') private vehicleTypeAllSelected: MatOption;
+
 
     constructor(private appService: Client, private fb: FormBuilder,
         private ref: ChangeDetectorRef,
         public datepipe: DatePipe) {
         super();
+
     }
   
 
@@ -72,6 +77,7 @@ export class ListComponent extends BaseListClass implements OnInit {
         vehicleRecord: pageing.filter
     })
 ).subscribe(res => {
+    debugger;
         let vehicleMergedRecords:Array<VehicleMergedRecord> = new Array<VehicleMergedRecord>();
 
         for (let i = 0; i < res.data.length; i++) {         
@@ -137,8 +143,6 @@ export class ListComponent extends BaseListClass implements OnInit {
 
     ngOnInit(): void {
         this.reactiveForm();
-        // this.form = this.fb.group({
-        //     statusIdsFilter: new FormControl('')});
 
         this.appService.listProvider(new ProviderRequest()).subscribe(data => {
             this.providers = data.data;
@@ -184,14 +188,48 @@ export class ListComponent extends BaseListClass implements OnInit {
         this.appTable.ngAfterViewInit();
     }
 
-    // toggleAllSelection() {
-    //     debugger;
-    //     if (this.allSelected.selected) {
-    //       this.form.controls.statusIdsFilter
-    //         .patchValue([...this.form.map(item => item.key), 0]);
-    //     } else {
-    //       this.form.controls.statusIdsFilter.patchValue([]);
-    //     }
-    //   }
+    toggleAllSelection(filterControl) {
+        if(filterControl == this.form.controls.statusIdsFilter){
+        if (this.statusAllSelected.selected) {
+          this.form.controls.statusIdsFilter
+           .patchValue([...this.vehicleStatus.map(item => item.id),-1]);
+        } else {
+            this.form.controls.statusIdsFilter.patchValue([]);
+        }
+    }
+    else if(filterControl ==  this.form.controls.dataStatusIdsFilter){
+        if (this.dataStatusAllSelected.selected) {
+         this.form.controls.dataStatusIdsFilter
+          .patchValue([...this.vehiclesDataStatus.map(item => item.id),-1]);
+        } else {
+            this.form.controls.dataStatusIdsFilter.patchValue([]);
+        }
+    }
+    else if(filterControl ==  this.form.controls.providerIdsFilter){
+        if (this.providerAllSelected.selected) {
+          this.form.controls.providerIdsFilter
+          .patchValue([...this.providers.map(item => item.id),-1]);
+        } else {
+            this.form.controls.providerIdsFilter.patchValue([]);
+        }
+    }
+    else if(filterControl ==  this.form.controls.vehicleTypeIdsFilter){
+        if (this.vehicleTypeAllSelected.selected) {
+          this.form.controls.vehicleTypeIdsFilter
+          .patchValue([...this.vehicleTypes.map(item => item.id),-1]);
+        } else {
+            this.form.controls.vehicleTypeIdsFilter.patchValue([]);
+        }
+    }
+    else {
+        if (this.beneficiaryAllSelected.selected) {
+          this.form.controls.beneficiaryIdsFilter
+          .patchValue([...this.beneficiaries.map(item => item.id),-1]);
+        } else {
+            this.form.controls.beneficiaryIdsFilter.patchValue([]);
+        }
+    }
+      }
+   
       
 }

@@ -2,7 +2,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { Client, CountryRecord, EmirateRecord, EmirateRequest, IVehicleRecord, VehicleRequest } from '../../../../shared/service/appService';
+import { Client, CountryRecord, EmirateRecord, EmirateRequest, IVehicleRecord, VehicleRequest, ProviderRecord, ProviderRequest, MakeRequest, MakeRecord, ModelRequest, ModelRecord, CountryRequest, PlateTypeRequest, PlateTypeRecord, BeneficiaryRequest, BeneficiaryRecord, VehicleStatusRequest, VehicleDataStatusRequest, VehicleStatusRecord, VehicleDataStatusRecord } from '../../../../shared/service/appService';
 import { BaseManagementClass } from '../../../../shared/class/base/base-management-class';
 import { DialogResult } from '../../../../shared/Entity/DialogResult';
 import { MatSelectChange } from '@angular/material/select';
@@ -18,9 +18,15 @@ export class ManageVehicleDataComponent extends BaseManagementClass implements O
     visible = true;
     removable = true;
 
+    vehicleStatus: VehicleStatusRecord[];
+    vehiclesDataStatus: VehicleDataStatusRecord[];
+    makes: MakeRecord[];
+    providers: ProviderRecord[];
+    models: ModelRecord[];
     countries: CountryRecord[];
     emirates: EmirateRecord[];
-    points: any[];
+    plateTypes: PlateTypeRecord[];
+    beneficiaries: BeneficiaryRecord[];
 
     constructor(private fb: FormBuilder,
         private dialogRef: MatDialogRef<ManageVehicleDataComponent, DialogResult>,
@@ -30,12 +36,42 @@ export class ManageVehicleDataComponent extends BaseManagementClass implements O
     }
 
     ngOnInit(): void {
+        debugger;
         this.reactiveForm();
-        this.appService.listCountry().subscribe(data => {
-            this.countries = data.data;
-        })
-
+      
         if (this.data.id) {
+            this.appService.listVehicleStatus(new VehicleStatusRequest()).subscribe(data => {
+                this.vehicleStatus = data.data;
+            });
+    
+            this.appService.listVehicleDataStatus(new VehicleDataStatusRequest()).subscribe(data => {
+                this.vehiclesDataStatus = data.data;
+            });
+            this.appService.listProvider(new ProviderRequest()).subscribe(data => {
+                this.providers = data.data;
+            });
+
+            this.appService.listMake(new MakeRequest()).subscribe(data => {
+                this.makes = data.data;
+            });
+
+            this.appService.listModel(new ModelRequest({
+                modelRecord: { makeId: this.data.makeId }})).subscribe(data => {
+                this.models = data.data;
+            });
+
+            this.appService.listPlateType(new PlateTypeRequest()).subscribe(data => {
+                this.plateTypes = data.data;
+            });
+
+            this.appService.listBeneficiary(new BeneficiaryRequest()).subscribe(data => {
+                this.beneficiaries = data.data;
+            });
+
+            this.appService.listCountry(new CountryRequest()).subscribe(data => {
+                this.countries = data.data;
+            });
+            
             this.appService.listEmirate(new EmirateRequest({
                 emirateRecord: { countryId: this.data.countryId }
             })).subscribe(data => {
@@ -77,20 +113,25 @@ export class ManageVehicleDataComponent extends BaseManagementClass implements O
 
     reactiveForm = () => {
         this.form = this.fb.group({
-            name: ['', [Validators.required]],
-            country: ['', [Validators.required]],
-            emirate: ['', [Validators.required]],
-            boundaries: [{ value: '', disabled: true }, [Validators.required]],
-            distance: [{ value: '', disabled: true }, [Validators.required]],
-            capacity: ['', [Validators.required]],
-            thresholdCapacity: ['', [Validators.required]],
-            workingFrom: ['', [Validators.required]],
-            workingTo: ['', [Validators.required]],
+            id: [this.data.id, []],
+            vin: [this.data.vin, [Validators.required]],
+            providerId: [this.data.providerId, [Validators.required]],
+            beneficiaryId: [this.data.beneficiaryId, [Validators.required]],
+            year: [this.data.year, [Validators.required]],
+            makeId: [this.data.makeId, [Validators.required]],
+            modelId: [this.data.modelId, [Validators.required]],
+            countryId: [this.data.countryId, [Validators.required]],
+            emirateId: [this.data.emirateId, [Validators.required]],
+            number: [this.data.number, [Validators.required]],
+            code: [this.data.code, [Validators.required]],
+            plateTypeId: [this.data.plateTypeId, [Validators.required]],
+            currentQrCode: [this.data.currentQrCode, [Validators.required]],
+            dataStatusId: [this.data.dataStatusId, [Validators.required]],
+            statusId: [this.data.statusId, [Validators.required]],
         });
     }
 
-
-
+    
     onChangeCountry(e: MatSelectChange) {
         if (e.value) {
             this.appService.listEmirate(new EmirateRequest({
@@ -108,17 +149,7 @@ export class ManageVehicleDataComponent extends BaseManagementClass implements O
     }
 
 
-    remove = (point: any) => {
-        const index = this.points.indexOf(point);
 
-        if (index >= 0) {
-            this.points.splice(index, 1);
-        }
-    }
-
-    naviagteToMap = () => {
-        this.dialogRef.close();
-        this.router.navigate(['/manageMap']);
-    }
+   
 
 }

@@ -2,7 +2,7 @@
     <mat-card-header>
         <mat-card-title mat-dialog-title>
             <div>
-               Edit Vehicle
+               {{data.id!=null && (data.dataStatusName=='Pending Data Completion') ?'Complete Vehicle':'Edit Vehicle'}}
             </div>
         </mat-card-title>
         <mat-card-subtitle></mat-card-subtitle>
@@ -10,9 +10,195 @@
     <form [formGroup]="form" (ngSubmit)="submitForm()" novalidate>
         <mat-card-content>
             <div mat-dialog-content>
-               
-            
+                <input type="hidden" value="0" formControlName="id">
+                <table class="example-full-width" cellspacing="0">
+                    <tr>
+                        <td>
+                <mat-form-field>
+                    <input matInput placeholder="Vin" formControlName="vin">
+                     <mat-error *ngIf="errorHandling('vin', 'required')">
+                        You must provide a<strong>vin</strong>
+                    </mat-error> 
+                </mat-form-field>
+                        </td>
+                <td>
+                <mat-form-field>
+                    <input matInput placeholder="Year" formControlName="year">
+                     <mat-error *ngIf="errorHandling('year', 'required')">
+                        You must provide a<strong>year</strong>
+                    </mat-error> 
+                </mat-form-field>
+            </td>
 
+            <td *ngIf="data.checkEditOrComplete== false">
+                <mat-form-field>
+                    <mat-label>Select a data status</mat-label>
+                    <mat-select formControlName="dataStatusId">
+                        <mat-option>None</mat-option>
+                        <mat-option [value]="dataStatus.id" *ngFor="let dataStatus of vehiclesDataStatus">
+                            {{dataStatus.name}}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="errorHandling('dataStatusId','required')">
+                        You must provide a<strong>data Status</strong>
+                    </mat-error>
+                </mat-form-field> 
+            </td>
+                    </tr>
+                    <tr>
+                        <td *ngIf="data.dataStatusName!='Pending Data Completion'">
+                            <mat-form-field>
+                                <mat-label>Select a status</mat-label>
+                                <mat-select formControlName="statusId">
+                                    <mat-option>None</mat-option>
+                                    <mat-option [value]="status.id" *ngFor="let status of vehicleStatus">
+                                        {{status.title}}
+                                    </mat-option>
+                                </mat-select>
+                                <mat-error *ngIf="errorHandling('statusId','required')">
+                                    You must provide a<strong>Status</strong>
+                                </mat-error>
+                            </mat-form-field> 
+                        </td>
+                        <td>
+                 <mat-form-field>
+                    <mat-label>Select a make</mat-label>
+                    <mat-select formControlName="makeId">
+                        <mat-option>None</mat-option>
+                        <mat-option [value]="make.id" *ngFor="let make of makes">
+                            {{make.name}}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="errorHandling('makeId','required')">
+                        You must provide a<strong>make</strong>
+                    </mat-error>
+                </mat-form-field> 
+            </td>
+
+            <td>
+                <mat-form-field>
+                    <mat-label>Select a model</mat-label>
+                    <mat-select formControlName="modelId">
+                        <mat-option>None</mat-option>
+                        <mat-option [value]="model.id" *ngFor="let model of models">
+                            {{model.name}}
+                        </mat-option>
+                    </mat-select>
+                     <mat-error *ngIf="errorHandling('modelId','required')">
+                        You must provide a<strong>model</strong>
+                    </mat-error> 
+                </mat-form-field>
+                </td>
+                    </tr>
+                <tr>
+                 <td>
+                <mat-form-field>
+                    <mat-label>Select a provider</mat-label>
+                    <mat-select formControlName="providerId">
+                        <mat-option>None</mat-option>
+                        <mat-option [value]="provider.id" *ngFor="let provider of providers">
+                            {{provider.nameEn}}
+                        </mat-option>
+                    </mat-select>
+                     <mat-error *ngIf="errorHandling('providerId','required')">
+                        You must provide a<strong>provider</strong>
+                    </mat-error> 
+                </mat-form-field>
+                </td>
+
+                <td>
+                    <mat-form-field>
+                        <mat-label>Select a beneficiary</mat-label>
+                        <mat-select formControlName="beneficiaryId">
+                            <mat-option>None</mat-option>
+                            <mat-option [value]="beneficiary.id" *ngFor="let beneficiary of beneficiaries">
+                                {{beneficiary.nameEn}}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="errorHandling('beneficiaryId','required')">
+                            You must provide a<strong>beneficiary</strong>
+                        </mat-error> 
+                    </mat-form-field>
+                </td>
+
+                <td>
+                    <mat-form-field>
+                        <input matInput placeholder="qr code" formControlName="currentQrCode">
+                         <mat-error *ngIf="errorHandling('currentQrCode', 'required')">
+                            You must provide a<strong>qr code</strong>
+                        </mat-error> 
+                    </mat-form-field>
+                            </td>
+
+               
+                    </tr>
+                    <tr>
+                        <td>
+                            <mat-form-field class="example-full-width">
+                                <mat-label>Select a country</mat-label>
+                                <mat-select formControlName="countryId" (selectionChange)="onChangeCountry($event)">
+                                    <mat-option>None</mat-option>
+                                    <mat-option [value]="country.id" *ngFor="let country of countries">
+                                        {{country.name}}
+                                    </mat-option>
+                                </mat-select>
+                                <mat-error *ngIf="errorHandling('countryId','required')">
+                                    You must provide a<strong>country</strong>
+                                </mat-error>
+                            </mat-form-field>
+                        </td>
+
+                        <td>
+                            <mat-form-field class="example-full-width">
+                                <mat-label>Select a emirate</mat-label>
+                                <mat-select formControlName="emirateId">
+                                    <mat-option>None</mat-option>
+                                    <mat-option [value]="emirate.id" *ngFor="let emirate of emirates">
+                                        {{emirate.name}}
+                                    </mat-option>
+                                </mat-select>
+                                <mat-error *ngIf="errorHandling('emirateId','required')">
+                                    You must provide an <strong>emirate</strong>
+                                </mat-error>
+                            </mat-form-field>
+                        </td>
+                        <td>
+                            <mat-form-field class="example-full-width">
+                                <mat-label>Select a plate type</mat-label>
+                                <mat-select formControlName="plateTypeId">
+                                    <mat-option>None</mat-option>
+                                    <mat-option [value]="plateType.id" *ngFor="let plateType of plateTypes">
+                                        {{plateType.name}}
+                                    </mat-option>
+                                </mat-select>
+                                <mat-error *ngIf="errorHandling('plateTypeId','required')">
+                                    You must provide an <strong>plate type</strong>
+                                </mat-error>
+                            </mat-form-field>
+                        </td>
+                    </tr>
+                     <tr>
+                            <td>
+                    <mat-form-field>
+                        <input matInput placeholder="plate Number" formControlName="number">
+                         <mat-error *ngIf="errorHandling('number', 'required')">
+                            You must provide a<strong>plate number</strong>
+                        </mat-error> 
+                    </mat-form-field>
+                            </td>
+
+                            <td>
+                                <mat-form-field>
+                                    <input matInput placeholder="plate code" formControlName="code">
+                                     <mat-error *ngIf="errorHandling('code', 'required')">
+                                        You must provide a<strong>plate code</strong>
+                                    </mat-error> 
+                                </mat-form-field>
+                            </td>
+                                       
+                        </tr> 
+                    
+                </table>
             </div>
         </mat-card-content>
         <mat-card-actions>

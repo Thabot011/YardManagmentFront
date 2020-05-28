@@ -45,7 +45,9 @@ export class TableComponent implements AfterViewInit {
 
     @Input() hasDetails: boolean = false;
     @Input() VehicleDetails: boolean = false;
-
+   // @Input() CompleteVehicle: boolean = false;
+    //@Input() checkDataStatus: boolean = false;
+    
 
     @Input() backLink: string;
 
@@ -167,7 +169,6 @@ export class TableComponent implements AfterViewInit {
 
 
     openEditDialog = (row: any) => {
-
         let dialogRef = this.dialog.open(this.AddOrEditComponent, {
             data: row,
             autoFocus: true,

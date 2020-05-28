@@ -28,15 +28,13 @@ export class ListComponent extends BaseListClass implements OnInit {
         { key: "QRCodes", value: "QR Code" },
        // { key: "yardInDateStr", value: "yard In Date" },  
         { key: "statusName", value: "Status" },
+        { key: "dataStatusName", value: "DataStatus" },
         { key:"vehicleData",value:"Make/Model"},
         { key: "vin", value: "Vin"},
         { key: "vehicleTypeName", value: "Vehicle Type" },
         { key: "platesData", value: "plates"},
-        { key: "vehicleImages", value: "Images"}
-        // { key: "providerName", value: "provider" }, 
-        //{ key: "beneficiaryName", value: "beneficiary" },
-     
-
+        { key: "vehicleImages", value: "Images"} 
+        
     ];
 
 
@@ -57,7 +55,7 @@ export class ListComponent extends BaseListClass implements OnInit {
     @ViewChild('statusAllSelected') private statusAllSelected: MatOption;
     @ViewChild('providerAllSelected') private providerAllSelected: MatOption;
     @ViewChild('vehicleTypeAllSelected') private vehicleTypeAllSelected: MatOption;
-
+    checkDataStatus:boolean;
 
     constructor(private appService: Client, private fb: FormBuilder,
         private ref: ChangeDetectorRef,
@@ -81,16 +79,45 @@ export class ListComponent extends BaseListClass implements OnInit {
         let vehicleMergedRecords:Array<VehicleMergedRecord> = new Array<VehicleMergedRecord>();
 
         for (let i = 0; i < res.data.length; i++) {         
-        let index = res.data[i];       
+        let index = res.data[i];        
+
         let vehicleMergedRecord:VehicleMergedRecord = new VehicleMergedRecord();  
+        if(index.dataStatusName == "Pending Data Completion" && index.dataStatusId == 1){
+            vehicleMergedRecord.checkEditOrComplete = true;
+        }
+        else{ vehicleMergedRecord.checkEditOrComplete = false;}
         vehicleMergedRecord.platesData = [];
         vehicleMergedRecord.imagesData= [];
         vehicleMergedRecord.QRCodes= [];
+        vehicleMergedRecord.id= index.id;
+        vehicleMergedRecord.statusId = index.statusId;
+        vehicleMergedRecord.dataStatusId = index.dataStatusId;
+        vehicleMergedRecord.makeId= index.makeId;
+        vehicleMergedRecord.makeName=index.makeName;
+        vehicleMergedRecord.modelId= index.modelId;
+        vehicleMergedRecord.modelName=index.modelName;
+        vehicleMergedRecord.year= index.year;
+        vehicleMergedRecord.providerId=index.providerId;
+        vehicleMergedRecord.providerName= index.providerName;
+        vehicleMergedRecord.beneficiaryId=index.beneficiaryId;
+        vehicleMergedRecord.beneficiaryName= index.beneficiaryName;  
+        vehicleMergedRecord.emirateId=index.plates[0]?.emirateId;
+        vehicleMergedRecord.emirateName=index.plates[0]?.emirateName;
+        vehicleMergedRecord.plateCodeId=index.plates[0]?.plateCodeId;
+        vehicleMergedRecord.code=index.plates[0]?.code;
+        vehicleMergedRecord.plateTypeId=index.plates[0]?.plateTypeId;
+        vehicleMergedRecord.plateTypeName=index.plates[0]?.plateTypeName;
+        vehicleMergedRecord.number=index.plates[0]?.number;
+        vehicleMergedRecord.currentQrCode=index.currentQrCode;
+
+
         vehicleMergedRecord.vin = index.vin;
         vehicleMergedRecord.vehicleTypeName = index.vehicleTypeName;
         let dateString = (this.datepipe.transform(index.yardInDate, 'yyyy/MM/dd'));
         vehicleMergedRecord.yardInDateStr = dateString;
-        vehicleMergedRecord.statusName = ((index.statusName)?index.statusName : " ").concat(((index.dataStatusName)? ' / '+ index.dataStatusName : " "));
+        vehicleMergedRecord.statusName = index.statusName;
+        vehicleMergedRecord.dataStatusName = index.dataStatusName;
+        //vehicleMergedRecord.statusName = ((index.statusName)?index.statusName : " ").concat(((index.dataStatusName)? ' / '+ index.dataStatusName : " "));
         vehicleMergedRecord.assetId =  ((index.id)? index.id:0);
         vehicleMergedRecord.vehicleData = ((index.makeName)? index.makeName: "")+' '+((index.modelName)? index.modelName: "")+' '+((index.year)? index.year: "");
         

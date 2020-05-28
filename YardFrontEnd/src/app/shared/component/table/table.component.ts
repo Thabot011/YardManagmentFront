@@ -56,7 +56,9 @@ export class TableComponent implements AfterViewInit {
 
     @Input() hasDetails: boolean = false;
     @Input() VehicleDetails: boolean = false;
-
+   // @Input() CompleteVehicle: boolean = false;
+    //@Input() checkDataStatus: boolean = false;
+    
 
     @Input() backLink: string;
 

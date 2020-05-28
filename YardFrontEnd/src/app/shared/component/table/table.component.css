@@ -15,7 +15,8 @@
 }
 
 table {
-    width: 100%;
+     width: max-content;
+     min-width: 100%;
 }
 
 .example-loading-shade {

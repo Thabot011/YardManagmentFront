@@ -112,6 +112,13 @@
                            [routerLink]="['/'+detailsLink]">
                             <mat-icon>info</mat-icon>
                         </a>
+                        
+                        <a *ngIf="element.dataStatusName == 'Pending Data Completion'" matTooltip="Complete Vehicle Data"
+                        [matTooltipPosition]="position"
+                        mat-button
+                        (click)="openEditDialog(element)">
+                         <mat-icon>check_box</mat-icon>
+                     </a>
 
                         <mat-slide-toggle  *ngIf="hasActiveStatus" matTooltip="{{element.isActive?'De activate':'Activate'}}"
                                           [matTooltipPosition]="position"

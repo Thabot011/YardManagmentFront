@@ -4,7 +4,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Client, CountryRecord, EmirateRecord, EmirateRequest, IVehicleRecord, VehicleRequest, ProviderRecord, ProviderRequest, MakeRequest, MakeRecord, ModelRequest, ModelRecord, CountryRequest, PlateTypeRequest, PlateTypeRecord, BeneficiaryRequest, BeneficiaryRecord, VehicleStatusRequest, VehicleDataStatusRequest, VehicleStatusRecord, VehicleDataStatusRecord } from '../../../../shared/service/appService';
 import { BaseManagementClass } from '../../../../shared/class/base/base-management-class';
-import { DialogResult } from '../../../../shared/Entity/DialogResult';
+import { IDialogResult } from '../../../../shared/Entity/DialogResult';
 import { MatSelectChange } from '@angular/material/select';
 
 @Component({
@@ -29,7 +29,7 @@ export class ManageVehicleDataComponent extends BaseManagementClass implements O
     beneficiaries: BeneficiaryRecord[];
 
     constructor(private fb: FormBuilder,
-        private dialogRef: MatDialogRef<ManageVehicleDataComponent, DialogResult>,
+        private dialogRef: MatDialogRef<ManageVehicleDataComponent, IDialogResult>,
         @Inject(MAT_DIALOG_DATA) public data: any, private router: Router,
         private appService: Client) {
         super();
@@ -92,7 +92,7 @@ export class ManageVehicleDataComponent extends BaseManagementClass implements O
                     vehicleRecord: vehicle
                 })).subscribe(data => {
                     if (data.success) {
-                     
+
                         this.dialogRef.close({
                             data: vehicle,
                             isSuccess: true,
@@ -107,7 +107,7 @@ export class ManageVehicleDataComponent extends BaseManagementClass implements O
                         });
                     }
                 });
-            }         
+            }
         }
     }
 

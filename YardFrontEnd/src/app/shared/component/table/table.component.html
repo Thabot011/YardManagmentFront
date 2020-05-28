@@ -26,18 +26,18 @@
         <div class="example-table-container">
             <table #table mat-table [dataSource]="dataSource" multiTemplateDataRows
                    matSort matSortDisableClear matSortDirection="desc">
-                   <ng-container *ngFor="let column of coulmns"  matColumnDef="{{column.key}}">
+                <ng-container *ngFor="let column of coulmns" matColumnDef="{{column.key}}">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header style="padding-right: 25px;">{{column.value}}</th>
                     <td mat-cell *matCellDef="let row" style="padding-right: 25px;">
-                      <span *ngIf="column.key!='vehicleImages'"> {{row[column.key]}} </span> 
-                    <div *ngIf="column.key=='vehicleImages'" >       
-                       <img src={{row[column.key]}} height="80" width="100" /> 
-                      <div>
-                     <a (click)="openImagesDialog(row)" target="_blank" style="font-size: 13px; cursor: pointer;">Manage Images</a>
-                      </div>  
-                    </div>  
+                        <span *ngIf="column.key!='vehicleImages'"> {{row[column.key]}} </span>
+                        <div *ngIf="column.key=='vehicleImages'">
+                            <img src={{row[column.key]}} height="80" width="100" />
+                            <div>
+                                <a (click)="openImagesDialog(row)" target="_blank" style="font-size: 13px; cursor: pointer;">Manage Images</a>
+                            </div>
+                        </div>
                     </td>
-                     
+
                 </ng-container>
 
                 <!-- <div *ngIf="_mergedColumns.length>0">
@@ -46,43 +46,64 @@
                             <th mat-header-cell *matHeaderCellDef mat-sort-header>{{column.value}}</th>
                             <td mat-cell *matCellDef="let row">{{row[column.key]}}</td>
                         </div>
-     
+
                     </ng-container>
                 </div> -->
-            <!-- <div *ngFor="let column of coulmns">
-                <div *ngIf="!column.innerColumns">
-                <ng-container  matColumnDef="{{column.key}}">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header>{{column.value}}</th>
-                    <td mat-cell *matCellDef="let row">{{row[column.key]}}</td>
-                     
-                </ng-container>
-            </div>
+                <!-- <div *ngFor="let column of coulmns">
+                    <div *ngIf="!column.innerColumns">
+                    <ng-container  matColumnDef="{{column.key}}">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>{{column.value}}</th>
+                        <td mat-cell *matCellDef="let row">{{row[column.key]}}</td>
 
-                <div *ngIf="column.innerColumns">
-                    <ng-container *ngFor="let inner of column.innerColumns"  matColumnDef="{{inner.key}}">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header>{{inner.value}}</th>
-                        <td mat-cell *matCellDef="let row">{{row[column.key][inner.key]}}</td>
-                         
-                    </ng-container> 
+                    </ng-container>
                 </div>
-            </div> -->
 
+                    <div *ngIf="column.innerColumns">
+                        <ng-container *ngFor="let inner of column.innerColumns"  matColumnDef="{{inner.key}}">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>{{inner.value}}</th>
+                            <td mat-cell *matCellDef="let row">{{row[column.key][inner.key]}}</td>
+
+                        </ng-container>
+                    </div>
+                </div> -->
                 <!-- Action Column -->
                 <ng-container matColumnDef="action">
                     <th mat-header-cell *matHeaderCellDef> Action </th>
                     <td mat-cell *matCellDef="let element">
-                        <button matTooltip="Edit"
+
+                        <button matTooltip="View"
+                                [matTooltipPosition]="position"
+                                mat-button
+                                (click)="openViewDialog(element)">
+                            <mat-icon>remove_red_eye</mat-icon>
+                        </button>
+
+                        <button *ngIf="!(hasApprove || element.statusId && element.statusId==1)" matTooltip="Edit"
                                 [matTooltipPosition]="position"
                                 mat-button
                                 (click)="openEditDialog(element)">
                             <mat-icon>edit</mat-icon>
                         </button>
 
-                        <a *ngIf="hasDetails" matTooltip="View contacts"
+                        <a *ngIf="hasApprove || (element.statusId && element.statusId==1)" matTooltip="approve"
+                           [matTooltipPosition]="position"
+                           mat-button
+                           (click)="approve(element)">
+                            <mat-icon>done</mat-icon>
+                        </a>
+
+                        <a *ngIf="hasDetails" matTooltip="{{detailsLinkName}}"
                            [matTooltipPosition]="position"
                            mat-button
                            [routerLink]="['/'+detailsLink,element.id,element.name]">
                             <mat-icon> contacts</mat-icon>
+                        </a>
+
+                        <a *ngIf="hasZones" matTooltip="View yard zones"
+                           [matTooltipPosition]="position"
+                           mat-button
+                           [routerLink]="['/'+zoneLink,element.id,element.name]">
+                            <mat-icon>layers</mat-icon>
                         </a>
 
                         <a *ngIf="VehicleDetails" matTooltip="View Vehicle Details"

@@ -20,12 +20,10 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 
 
-import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
-
-
 import { ReactiveFormsModule } from '@angular/forms';
 import { LoaderComponent } from './component/loader/loader.component';
 import { RouterModule } from '@angular/router';
+import { ConfirmComponent } from './component/confirm/confirm.component';
 import { ImagesDialog } from './component/ImageDialog/image.component';
 
 
@@ -33,7 +31,7 @@ import { ImagesDialog } from './component/ImageDialog/image.component';
 
 
 @NgModule({
-    declarations: [TableComponent, LoaderComponent,ImagesDialog],
+    declarations: [TableComponent, LoaderComponent, ConfirmComponent, ImagesDialog],
     imports: [
         CommonModule,
         RouterModule,
@@ -55,7 +53,7 @@ import { ImagesDialog } from './component/ImageDialog/image.component';
         MatSnackBarModule,
         MatExpansionModule,
         MatCheckboxModule,
-        NgxMaterialTimepickerModule
+
     ],
     exports: [
         ReactiveFormsModule,
@@ -77,7 +75,6 @@ import { ImagesDialog } from './component/ImageDialog/image.component';
         MatSnackBarModule,
         MatExpansionModule,
         MatCheckboxModule,
-        NgxMaterialTimepickerModule
     ],
     entryComponents:[ImagesDialog]
 })

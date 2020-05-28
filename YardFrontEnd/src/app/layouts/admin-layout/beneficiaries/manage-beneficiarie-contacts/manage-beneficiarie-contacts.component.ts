@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { DialogResult } from '../../../../shared/Entity/DialogResult';
+import { IDialogResult } from '../../../../shared/Entity/DialogResult';
 import { Client, BeneficiaryContactRecord, IBeneficiaryContactRecord, BeneficiaryContactRequest } from '../../../../shared/service/appService';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { BaseManagementClass } from '../../../../shared/class/base/base-management-class';
@@ -14,8 +14,8 @@ export class ManageBeneficiarieContactsComponent extends BaseManagementClass imp
 
 
     constructor(private fb: FormBuilder,
-        private dialogRef: MatDialogRef<ManageBeneficiarieContactsComponent, DialogResult>,
-        @Inject(MAT_DIALOG_DATA) public data: BeneficiaryContactRecord, private appService: Client) {
+        private dialogRef: MatDialogRef<ManageBeneficiarieContactsComponent, IDialogResult>,
+        @Inject(MAT_DIALOG_DATA) public data: any, private appService: Client) {
         super();
     }
 
@@ -30,8 +30,9 @@ export class ManageBeneficiarieContactsComponent extends BaseManagementClass imp
     submitForm = () => {
         if (this.form.valid) {
             let beneficiaryContract: IBeneficiaryContactRecord = this.form.value;
-
-            if (this.data.beneficiaryId) {
+            beneficiaryContract.beneficiaryId = this.data.parentId;
+            if (this.data.id) {
+                beneficiaryContract.isActive = this.data.isActive;
                 this.appService.editBeneficiaryContact(new BeneficiaryContactRequest({
                     beneficiaryContactRecord: beneficiaryContract
                 })).subscribe(data => {
@@ -52,7 +53,7 @@ export class ManageBeneficiarieContactsComponent extends BaseManagementClass imp
                 });
             }
             else {
-                beneficiaryContract.beneficiaryId = this.data.id;
+
                 beneficiaryContract.id = 0;
                 beneficiaryContract.isActive = true;
 
@@ -81,10 +82,10 @@ export class ManageBeneficiarieContactsComponent extends BaseManagementClass imp
     reactiveForm = () => {
         this.form = this.fb.group({
             id: [this.data.id, []],
-            name: [this.data.name, [Validators.required]],
-            email: [this.data.email, [Validators.required, Validators.email]],
-            landline: [this.data.landline, []],
-            mobile: [this.data.mobile, [Validators.required]],
+            name: [{ value: this.data.name, disabled: this.data.onlyView }, [Validators.required]],
+            email: [{ value: this.data.email, disabled: this.data.onlyView }, [Validators.required, Validators.email]],
+            landline: [{ value: this.data.landline, disabled: this.data.onlyView }, []],
+            mobile: [{ value: this.data.mobile, disabled: this.data.onlyView }, [Validators.required]],
         })
     }
 

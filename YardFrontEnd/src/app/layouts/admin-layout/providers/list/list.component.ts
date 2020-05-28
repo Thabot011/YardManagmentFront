@@ -3,11 +3,11 @@ import { Paging } from '../../../../shared/Entity/Paging';
 import { ComponentType } from '@angular/cdk/portal';
 import { ManageProvidersComponent } from '../manage-providers/manage-providers.component';
 import { Client, ProviderRequest, ProviderRecord, ProviderTypeRecord, CountryRecord, EmirateRecord, EmirateRequest, IProviderRecord, CountryRequest, ProviderTypeRequest } from '../../../../shared/service/appService';
-import { KeyValue } from '@angular/common';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MatSelectChange } from '@angular/material/select';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 import { BaseListClass } from '../../../../shared/class/base/base-list-class';
+import { DisplayColumns } from '../../../../shared/Entity/displayColumns';
 
 @Component({
     selector: 'app-list',
@@ -17,7 +17,7 @@ import { BaseListClass } from '../../../../shared/class/base/base-list-class';
 export class ListComponent extends BaseListClass implements OnInit {
 
 
-    displayColumns: KeyValue<string, string>[] = [
+    displayColumns: DisplayColumns[] = [
         { key: "name", value: "Name" },
         { key: "typeName", value: "Type name" },
         { key: "countryName", value: "Country name" },
@@ -34,10 +34,11 @@ export class ListComponent extends BaseListClass implements OnInit {
 
     AddOrEditComponent: ComponentType<ManageProvidersComponent> = ManageProvidersComponent;
     detailsLink: string = "provider/contactsList";
-
+    detailsLinkName: string = "View Contacts";
     constructor(private appService: Client, private fb: FormBuilder,
         private ref: ChangeDetectorRef) {
         super();
+
     }
 
     getAll = (pageing: Paging) => {
@@ -53,16 +54,16 @@ export class ListComponent extends BaseListClass implements OnInit {
     reactiveForm = () => {
         this.form = this.fb.group({
             name: [''],
-            typeId: [''],
-            countryId: [''],
-            emirateId: [''],
+            typeId: [undefined],
+            countryId: [undefined],
+            emirateId: [undefined],
             address: [''],
             email: [''],
-            landline: [''],
+            landline: [undefined],
             mobile: [''],
             website: [''],
             trn: [''],
-            isActive:[''],
+            isActive: [undefined],
         }, { validator: this.atLeastOne(Validators.required) })
     }
 
@@ -83,10 +84,12 @@ export class ListComponent extends BaseListClass implements OnInit {
     submitForm = () => {
         if (this.form.valid) {
             let provider: IProviderRecord = this.form.value;
-
             provider.id = 0;
             this.filter = provider;
             this.ref.detectChanges();
+            if (this.appTable.paginator) {
+                this.appTable.paginator.firstPage();
+            }
             this.appTable.ngAfterViewInit();
         }
 
@@ -117,6 +120,7 @@ export class ListComponent extends BaseListClass implements OnInit {
             );
         } else {
             this.emirates = null;
+            this.form.patchValue({ emirateId: null })
         }
     }
 

@@ -2,12 +2,15 @@ import { Component, OnInit, ChangeDetectorRef, ViewChild } from '@angular/core';
 import { Paging } from '../../../../shared/Entity/Paging';
 import { ManageYardDataComponent } from '../manage-yard-data/manage-yard-data.component';
 import { ComponentType } from '@angular/cdk/portal';
-import { Client, IYardRecord, YardRequest, YardRecord, CountryRecord, EmirateRecord, CountryRequest, EmirateRequest } from '../../../../shared/service/appService';
-import { trigger, state, style, transition, animate } from '@angular/animations';
+import { Client, IYardRecord, YardRequest, YardRecord, CountryRecord, EmirateRecord, CountryRequest, EmirateRequest, IYardBoundaryRecord } from '../../../../shared/service/appService';
 import { KeyValue } from '@angular/common';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MatSelectChange } from '@angular/material/select';
 import { BaseListClass } from '../../../../shared/class/base/base-list-class';
+import { ActivatedRoute, Router, NavigationEnd, NavigationStart } from '@angular/router';
+import { pairwise, filter } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
+import { DisplayColumns } from '../../../../shared/Entity/displayColumns';
 
 @Component({
     selector: 'app-list',
@@ -15,29 +18,61 @@ import { BaseListClass } from '../../../../shared/class/base/base-list-class';
     styleUrls: ['./list.component.css'],
 })
 export class ListComponent extends BaseListClass implements OnInit {
-
-    displayColumns: KeyValue<string, string>[] = [
+    yard: IYardRecord;
+    displayColumns: DisplayColumns[] = [
         { key: "name", value: "Name" },
         { key: "capacity", value: "Capacity" },
         { key: "countryName", value: "Country name" },
         { key: "emirateName", value: "Emirate name" },
-        { key: "distance", value: "Distance" },
         { key: "statusName", value: "Status name" }
     ];
-
+    subscription: Subscription;
     countries: CountryRecord[];
     emirates: EmirateRecord[];
+    detailsLink: string = "yard/employee";
+    zoneLink: string = "yard/zoneList";
+    detailsLinkName: string = "View yard employees";
 
     AddOrEditComponent: ComponentType<ManageYardDataComponent> = ManageYardDataComponent;
+    browserRefresh: boolean;
 
     constructor(private appService: Client, private fb: FormBuilder,
-        private ref: ChangeDetectorRef) {
+        private ref: ChangeDetectorRef, private activatedRoute: ActivatedRoute,
+        router: Router) {
         super();
+
+
+        this.subscription = router.events
+            .pipe(filter((rs): rs is NavigationEnd => rs instanceof NavigationEnd))
+            .subscribe(event => {
+                if (
+                    event.id === 1 &&
+                    event.url === event.urlAfterRedirects
+                ) {
+
+                    this.yard = null;
+                }
+            });
+
+        if (history.state.data?.yard) {
+            this.yard = history.state.data?.yard || localStorage.getItem("yard");
+            localStorage.setItem("yard", JSON.stringify(this.yard))
+        }
     }
 
 
 
     getAll = (pageing: Paging) => {
+        if (pageing.filter) {
+            pageing.filter.statusId = 2;
+        }
+        else {
+            pageing.filter = {};
+            pageing.filter.statusId = 2;
+        }
+
+
+        pageing.filter.statusId = 2;
         return this.appService.listYard(new YardRequest({
             pageIndex: pageing.pageNum,
             pageSize: pageing.pageSize,
@@ -50,20 +85,37 @@ export class ListComponent extends BaseListClass implements OnInit {
     reactiveForm = () => {
         this.form = this.fb.group({
             name: [''],
-            countryId: [''],
-            emirateId: [''],
-            boundaries: [''],
-            capacity: [''],
-            distance: [''],
-            thresholdCapacity: [''],
-            workingFrom: [''],
-            workingTo: [''],
+            countryId: [undefined],
+            emirateId: [undefined],
+            capacity: [undefined],
+            area: [undefined],
+            thresholdCapacity: [undefined],
+            workingFrom: [undefined],
+            workingTo: [undefined],
+            isActive: [undefined],
         }, { validator: this.atLeastOne(Validators.required) })
     }
 
+    ngAfterViewInit() {
+
+        if (this.yard) {
+            if (this.yard.id) {
+                this.appTable.openEditDialog(this.yard)
+            }
+            if (!this.yard.id) {
+                this.appTable.openAddDialogAfterNavigate(this.yard);
+            }
+        }
+    }
+
+    ngOnDestroy() {
+        this.subscription.unsubscribe();
+        localStorage.clear();
+    }
+
+
     ngOnInit(): void {
         this.reactiveForm();
-
         this.appService.listCountry(new CountryRequest()).subscribe(data => {
             this.countries = data.data;
         });
@@ -73,11 +125,19 @@ export class ListComponent extends BaseListClass implements OnInit {
 
     submitForm = () => {
         if (this.form.valid) {
-            let provider: IYardRecord = this.form.value;
-
-            provider.id = 0;
-            this.filter = provider;
+            let yard: IYardRecord = this.form.value;
+            for (var key in yard) {
+                if (!yard[key]) {
+                    yard[key] = undefined;
+                }
+            }
+            yard.id = 0;
+            yard.isActive = this.form.controls.isActive.value;
+            this.filter = yard;
             this.ref.detectChanges();
+            if (this.appTable.paginator) {
+                this.appTable.paginator.firstPage();
+            }
             this.appTable.ngAfterViewInit();
         }
 
@@ -110,6 +170,7 @@ export class ListComponent extends BaseListClass implements OnInit {
             );
         } else {
             this.emirates = null;
+            this.form.patchValue({ emirateId: null })
         }
     }
 
@@ -119,4 +180,6 @@ export class ListComponent extends BaseListClass implements OnInit {
         this.ref.detectChanges();
         this.appTable.ngAfterViewInit();
     }
+
+
 }

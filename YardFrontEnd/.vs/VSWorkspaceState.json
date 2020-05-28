@@ -2,15 +2,16 @@
   "ExpandedNodes": [
     "",
     "\\src",
-    "\\src\\app",
+    "\\src\\app\\layouts",
     "\\src\\app\\layouts\\admin-layout",
     "\\src\\app\\layouts\\admin-layout\\yards",
-    "\\src\\app\\layouts\\admin-layout\\yards\\list",
+    "\\src\\app\\layouts\\admin-layout\\yards\\yard-managent",
     "\\src\\app\\shared",
-    "\\src\\app\\shared\\component",
-    "\\src\\app\\shared\\component\\table",
-    "\\src\\app\\sidebar"
+    "\\src\\app\\shared\\navbar",
+    "\\src\\app\\sidebar",
+    "\\src\\assets",
+    "\\src\\assets\\sass",
+    "\\src\\assets\\sass\\lbd"
   ],
-  "SelectedNode": "\\src\\app\\sidebar\\sidebar.component.ts",
   "PreviewInSolutionExplorer": false
 }

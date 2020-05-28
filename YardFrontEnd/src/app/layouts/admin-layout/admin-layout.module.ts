@@ -4,7 +4,6 @@ import { CommonModule, DatePipe } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { LbdModule } from '../../lbd/lbd.module';
-import { NguiMapModule } from '@ngui/map';
 
 import { AdminLayoutRoutes } from './admin-layout.routing';
 
@@ -29,7 +28,6 @@ import { Client } from '../../shared/service/appService';
         RouterModule.forChild(AdminLayoutRoutes),
         FormsModule,
         LbdModule,
-        NguiMapModule.forRoot({ apiUrl: 'https://maps.google.com/maps/api/js?key=YOUR_KEY_HERE' }),
         ProvidersModule,
         BeneficiariesModule,
         YardsModule,

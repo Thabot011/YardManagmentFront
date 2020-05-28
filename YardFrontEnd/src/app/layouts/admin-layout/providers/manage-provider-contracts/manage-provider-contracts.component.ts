@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { DialogResult } from '../../../../shared/Entity/DialogResult';
+import { IDialogResult } from '../../../../shared/Entity/DialogResult';
 import { Client, ProviderContactRecord, IProviderContactRecord, ProviderContactRequest } from '../../../../shared/service/appService';
 import { BaseManagementClass } from '../../../../shared/class/base/base-management-class';
 
@@ -13,8 +13,8 @@ import { BaseManagementClass } from '../../../../shared/class/base/base-manageme
 export class ManageProviderContractsComponent extends BaseManagementClass implements OnInit {
 
     constructor(private fb: FormBuilder,
-        private dialogRef: MatDialogRef<ManageProviderContractsComponent, DialogResult>,
-        @Inject(MAT_DIALOG_DATA) public data: ProviderContactRecord, private appService: Client) {
+        private dialogRef: MatDialogRef<ManageProviderContractsComponent, IDialogResult>,
+        @Inject(MAT_DIALOG_DATA) public data: any, private appService: Client) {
         super();
     }
 
@@ -29,8 +29,10 @@ export class ManageProviderContractsComponent extends BaseManagementClass implem
     submitForm = () => {
         if (this.form.valid) {
             let providerContract: IProviderContactRecord = this.form.value;
+            providerContract.providerId = this.data.parentId;
 
-            if (this.data.providerId) {
+            if (this.data.id) {
+                providerContract.isActive = this.data.isActive;
                 this.appService.editProviderContact(new ProviderContactRequest({
                     providerContactRecord: providerContract
                 })).subscribe(data => {
@@ -51,7 +53,6 @@ export class ManageProviderContractsComponent extends BaseManagementClass implem
                 });
             }
             else {
-                providerContract.providerId = this.data.id;
                 providerContract.id = 0;
                 providerContract.isActive = true;
 
@@ -80,10 +81,10 @@ export class ManageProviderContractsComponent extends BaseManagementClass implem
     reactiveForm = () => {
         this.form = this.fb.group({
             id: [this.data.id, []],
-            name: [this.data.name, [Validators.required]],
-            email: [this.data.email, [Validators.required, Validators.email]],
-            landline: [this.data.landline, []],
-            mobile: [this.data.mobile, [Validators.required]],
+            name: [{ value: this.data.name, disabled: this.data.onlyView }, [Validators.required]],
+            email: [{ value: this.data.email, disabled: this.data.onlyView }, [Validators.required, Validators.email]],
+            landline: [{ value: this.data.landline, disabled: this.data.onlyView }, []],
+            mobile: [{ value: this.data.mobile, disabled: this.data.onlyView }, [Validators.required]],
         })
     }
 

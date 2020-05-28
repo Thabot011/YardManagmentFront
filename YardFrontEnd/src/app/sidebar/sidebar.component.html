@@ -12,44 +12,26 @@
         <!--<li *ngIf="isMobileMenu()">
             <a class="dropdown-toggle" data-toggle="dropdown">
                 <i class="fa fa-dashboard"></i>
-				<p class="hidden-lg hidden-md">Dashboard</p>
+                <p class="hidden-lg hidden-md">Dashboard</p>
             </a>
-        </li>
-        <li class="dropdown" *ngIf="isMobileMenu()">
-              <a class="dropdown-toggle" data-toggle="dropdown">
-                    <i class="fa fa-globe"></i>
-                    <b class="caret hidden-sm hidden-xs"></b>
-                    <span class="notification hidden-sm hidden-xs">5</span>
-					<p class="hidden-lg hidden-md">
-						5 Notifications
-						<b class="caret"></b>
-					</p>
-              </a>
-              <ul class="dropdown-menu">
-                <li><a href="#">Notification 1</a></li>
-                <li><a href="#">Notification 2</a></li>
-                <li><a href="#">Notification 3</a></li>
-                <li><a href="#">Notification 4</a></li>
-                <li><a href="#">Another notification</a></li>
-              </ul>
-        </li>
-        <li *ngIf="isMobileMenu()">
+        </li>-->
+        <!--<li *ngIf="isMobileMenu()">
            <a>
                 <i class="fa fa-search"></i>
-				<p class="hidden-lg hidden-md">Search</p>
+                <p class="hidden-lg hidden-md">Search</p>
             </a>
-        </li>
-        <li *ngIf="isMobileMenu()">
+        </li>-->
+        <!--<li *ngIf="isMobileMenu()">
            <a href="">
                <p>Account</p>
             </a>
-        </li>
-        <li class="dropdown" *ngIf="isMobileMenu()">
+        </li>-->
+        <!--<li class="dropdown" *ngIf="isMobileMenu()">
               <a class="dropdown-toggle" data-toggle="dropdown">
                     <p>
-    					Dropdown
-    					<b class="caret"></b>
-    				</p>
+                        Dropdown
+                        <b class="caret"></b>
+                    </p>
 
               </a>
               <ul class="dropdown-menu">
@@ -61,18 +43,39 @@
                 <li class="divider"></li>
                 <li><a href="#">Separated link</a></li>
               </ul>
-        </li>
-        <li *ngIf="isMobileMenu()">
+        </li>-->
+        <!--<li *ngIf="isMobileMenu()">
             <a>
                 <p>Log out</p>
             </a>
         </li>-->
         <!--<li class="separator hidden-lg hidden-md" *ngIf="isMobileMenu()"></li>-->
-        <li routerLinkActive="active" *ngFor="let menuItem of menuItems" class="{{menuItem.class}}">
-            <a  [routerLink]="[menuItem.path]">
-                <i class="{{menuItem.icon}}"></i>
-                <p>{{menuItem.title}}</p>
-            </a>
-        </li>
+        <ng-container *ngFor="let menuItem of menuItems">
+            <li *ngIf="!menuItem.children" routerLinkActive="active" class="{{menuItem.class}}">
+                <a [routerLink]="[menuItem.path]">
+                    <i class="{{menuItem.icon}}"></i>
+                    <p>{{menuItem.title}}</p>
+                </a>
+            </li>
+
+            <li *ngIf="menuItem.children" class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown">
+                    <i class="{{menuItem.icon}}"></i>
+                    <p>
+                        {{menuItem.title}}
+                        <b class="caret"></b>
+                    </p>
+
+                </a>
+                <ul (click)="listClick($event)" class="dropdown-menu">
+                    <li ng-class="{ active: isActive(child.path)}" routerLinkActive="active" *ngFor="let child of menuItem.children">
+                        <a [routerLink]="[child.path]">
+                            <i class="{{child.icon}}"></i>
+                            {{child.title}}
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </ng-container>
     </ul>
 </div>

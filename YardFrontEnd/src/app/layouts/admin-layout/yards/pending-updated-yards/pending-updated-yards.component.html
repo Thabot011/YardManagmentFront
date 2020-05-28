@@ -1,0 +1,131 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <mat-accordion>
+                <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            Pending updated yard search
+                        </mat-panel-title>
+                        <mat-panel-description>
+                            Click to search
+                            <mat-icon>search</mat-icon>
+                        </mat-panel-description>
+                    </mat-expansion-panel-header>
+
+                    <mat-card class="example-card">
+                        <mat-card-header>
+                            <mat-card-title mat-dialog-title>
+                                <div>
+                                    Search
+                                </div>
+                            </mat-card-title>
+                            <mat-card-subtitle></mat-card-subtitle>
+                        </mat-card-header>
+                        <form #formDir="ngForm" class="example-form" [formGroup]="form" (ngSubmit)="submitForm()" novalidate>
+                            <mat-card-content>
+                                <div mat-dialog-content>
+
+                                    <table class="example-full-width" cellspacing="0">
+                                        <tr>
+                                            <td>
+                                                <mat-form-field class="example-full-width">
+                                                    <input matInput placeholder="name" formControlName="name">
+                                                </mat-form-field>
+                                            </td>
+                                            <td>
+                                                <mat-form-field class="example-full-width">
+                                                    <mat-label>Select a country</mat-label>
+                                                    <mat-select formControlName="countryId" (selectionChange)="onChangeCountry($event)">
+                                                        <mat-option>None</mat-option>
+                                                        <mat-option [value]="country.id" *ngFor="let country of countries">
+                                                            {{country.name}}
+                                                        </mat-option>
+                                                    </mat-select>
+
+                                                </mat-form-field>
+                                            </td>
+                                            <td>
+                                                <mat-form-field class="example-full-width">
+                                                    <mat-label>Select a emirate</mat-label>
+                                                    <mat-select formControlName="emirateId">
+                                                        <mat-option>None</mat-option>
+                                                        <mat-option [value]="emirate.id" *ngFor="let emirate of emirates">
+                                                            {{emirate.name}}
+                                                        </mat-option>
+                                                    </mat-select>
+                                                </mat-form-field>
+                                            </td>
+                                        </tr>
+                                    </table>
+
+                                    <table class="example-full-width" cellspacing="0">
+                                        <tr>
+                                            <td>
+
+                                                <mat-form-field class="example-full-width">
+                                                    <input matInput type="number" placeholder="Area" formControlName="area">
+                                                </mat-form-field>
+                                            </td>
+                                            <td>
+                                                <mat-form-field class="example-full-width">
+                                                    <input matInput type="time" placeholder="Working hours from" formControlName="workingFrom">
+
+                                                </mat-form-field>
+                                            </td>
+                                            <td>
+                                                <mat-form-field class="example-full-width">
+                                                    <input matInput type="time" placeholder="Working hours to" formControlName="workingTo">
+                                                </mat-form-field>
+                                            </td>
+                                        </tr>
+                                    </table>
+
+                                    <table class="example-full-width" cellspacing="0">
+                                        <tr>
+
+                                            <td>
+                                                <mat-form-field class="example-full-width">
+                                                    <input type="number" matInput placeholder="Threshold capacity" formControlName="thresholdCapacity">
+                                                </mat-form-field>
+                                            </td>
+                                            <td>
+                                                <mat-checkbox formControlName="isActive" class="example-margin example-full-width">Is active</mat-checkbox>
+                                            </td>
+
+
+
+                                        </tr>
+                                    </table>
+
+
+
+                                    <mat-error *ngIf="(!form.valid && formDir.submitted)||(!form.valid && form.touched)">
+                                        You must provide at least one field
+                                    </mat-error>
+
+                                </div>
+                            </mat-card-content>
+                            <mat-card-actions>
+                                <button mat-raised-button type="submit">Search</button>
+                                <button mat-raised-button color="warn" (click)="cancelSearch()">Reset</button>
+                            </mat-card-actions>
+                        </form>
+
+                    </mat-card>
+
+                </mat-expansion-panel>
+
+            </mat-accordion>
+        </div>
+        <br />
+
+        <br />
+        <app-table [inputColumns]="displayColumns"
+                   [getAll]="getAll"
+                   [filter]="filter"
+                   [hasApprove]="true"
+                   [approveElement]="approve"
+                   [rejectElement]="reject"></app-table>
+    </div>
+</div>

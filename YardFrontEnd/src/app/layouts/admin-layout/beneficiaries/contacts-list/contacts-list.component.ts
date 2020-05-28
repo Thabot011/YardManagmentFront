@@ -44,8 +44,8 @@ export class ContactsListComponent extends BaseListClass implements OnInit {
             name: [''],
             email: [''],
             mobile: [''],
-            landline: [''],
-            isActive: [''],
+            landline: [undefined],
+            isActive: [undefined],
         }, { validator: this.atLeastOne(Validators.required) })
     }
 
@@ -62,6 +62,9 @@ export class ContactsListComponent extends BaseListClass implements OnInit {
             beneficiaryContact.beneficiaryId = this.parentId;
             this.filter = beneficiaryContact;
             this.ref.detectChanges();
+            if (this.appTable.paginator) {
+                this.appTable.paginator.firstPage();
+            }
             this.appTable.ngAfterViewInit();
 
 

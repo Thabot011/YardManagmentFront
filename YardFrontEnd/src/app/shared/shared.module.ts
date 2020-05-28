@@ -20,19 +20,17 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 
 
-import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
-
-
 import { ReactiveFormsModule } from '@angular/forms';
 import { LoaderComponent } from './component/loader/loader.component';
 import { RouterModule } from '@angular/router';
+import { ConfirmComponent } from './component/confirm/confirm.component';
 
 
 
 
 
 @NgModule({
-    declarations: [TableComponent, LoaderComponent],
+    declarations: [TableComponent, LoaderComponent, ConfirmComponent],
     imports: [
         CommonModule,
         RouterModule,
@@ -54,7 +52,7 @@ import { RouterModule } from '@angular/router';
         MatSnackBarModule,
         MatExpansionModule,
         MatCheckboxModule,
-        NgxMaterialTimepickerModule
+
     ],
     exports: [
         ReactiveFormsModule,
@@ -76,7 +74,7 @@ import { RouterModule } from '@angular/router';
         MatSnackBarModule,
         MatExpansionModule,
         MatCheckboxModule,
-        NgxMaterialTimepickerModule
+
     ]
 })
 export class SharedModule { }

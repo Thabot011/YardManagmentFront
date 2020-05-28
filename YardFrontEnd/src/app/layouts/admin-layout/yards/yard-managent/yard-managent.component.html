@@ -1,8 +1,13 @@
 <div class="main-content">
     <div class="container-fluid">
-        <div>
-            <agm-map [latitude]="center.lat" [longitude]="center.lng" (mapReady)="onMapReady($event)">
-            </agm-map>
-        </div>
+        <agm-map  [latitude]="lat" [longitude]="lng" (mapReady)="onMapReady($event)">
+        </agm-map>
+
+
+        <button mat-raised-button (click)="save()">Save</button>
+        <button mat-raised-button color="accent" (click)="cancel()">Cancel</button>
+        <button mat-raised-button color="warn" *ngIf="!isDeleted || !isZoneDeleted" (click)="deleteRect()">Delete boundaries</button>
+        <button mat-raised-button color="primary" *ngIf="isRectangleExists || isZoneRectangleExists" (click)="gotoRectOnMap()">Locate boundaries</button>
+
     </div>
 </div>

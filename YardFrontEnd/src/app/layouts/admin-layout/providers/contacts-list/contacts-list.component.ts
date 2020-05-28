@@ -7,7 +7,6 @@ import { KeyValue } from '@angular/common';
 import { Paging } from '../../../../shared/Entity/Paging';
 import { TooltipPosition } from '@angular/material/tooltip';
 import { FormBuilder, Validators } from '@angular/forms';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { BaseListClass } from '../../../../shared/class/base/base-list-class';
 
 @Component({
@@ -22,7 +21,7 @@ export class ContactsListComponent extends BaseListClass implements OnInit {
 
     constructor(private route: ActivatedRoute, private appService: Client,
         private fb: FormBuilder,
-        private _snackBar: MatSnackBar, private ref: ChangeDetectorRef) {
+        private ref: ChangeDetectorRef) {
         super();
         this.route.paramMap.subscribe(params => {
             this.parentId = parseInt(params.get('id'));
@@ -45,8 +44,8 @@ export class ContactsListComponent extends BaseListClass implements OnInit {
             name: [''],
             email: [''],
             mobile: [''],
-            landline: [''],
-            isActive:[''],
+            landline: [undefined],
+            isActive: [undefined],
         }, { validator: this.atLeastOne(Validators.required) })
     }
 
@@ -62,6 +61,9 @@ export class ContactsListComponent extends BaseListClass implements OnInit {
             providerContact.providerId = this.parentId;
             this.filter = providerContact;
             this.ref.detectChanges();
+            if (this.appTable.paginator) {
+                this.appTable.paginator.firstPage();
+            }
             this.appTable.ngAfterViewInit();
         }
 

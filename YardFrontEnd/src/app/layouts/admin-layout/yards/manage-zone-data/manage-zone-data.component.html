@@ -1,0 +1,100 @@
+<mat-card>
+    <mat-card-header>
+        <mat-card-title mat-dialog-title>
+            <div>
+                {{data.id==null?'Add zone':'Edit zone'}}
+            </div>
+        </mat-card-title>
+        <mat-card-subtitle></mat-card-subtitle>
+    </mat-card-header>
+    <form class="example-form" [formGroup]="form" (ngSubmit)="submitForm()" novalidate>
+        <mat-card-content>
+            <div mat-dialog-content>
+                <input type="hidden" value="0" formControlName="id">
+
+                <table class="example-full-width" cellspacing="0">
+                    <tr>
+                        <td>
+                            <mat-form-field class="example-full-width">
+                                <input matInput placeholder="Title" formControlName="title">
+                                <!-- error -->
+                                <mat-error *ngIf="errorHandling('title', 'required')">
+                                    You must provide a <strong>title</strong>
+                                </mat-error>
+                            </mat-form-field>
+                        </td>
+                        <td>
+                            <mat-form-field class="example-full-width">
+                                <mat-chip-list ngDefaultControl formControlName="zoneBoundaries" #chipList>
+                                    <mat-chip *ngFor="let point of points"
+                                              [removable]="removable" (removed)="remove(point)">
+                                        {{point}}
+                                        <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+
+                                    </mat-chip>
+
+                                    <mat-icon matTooltip="Manage yard points" class="openMap"
+                                              [matTooltipPosition]="position"
+                                              matSuffix (click)="naviagteToMap()">add_location</mat-icon>
+                                    <mat-error *ngIf="errorHandling('zoneBoundaries','required')">
+                                        You must provide a<strong> boundaries</strong>
+                                    </mat-error>
+                                </mat-chip-list>
+
+                            </mat-form-field>
+                        </td>
+                    </tr>
+                </table>
+
+                <table class="example-full-width" cellspacing="0">
+                    <tr>
+                        <td>
+                            <mat-form-field class="example-full-width">
+                                <input matInput placeholder="Capacity" formControlName="capacity">
+                                <!-- error -->
+                                <mat-error *ngIf="errorHandling('capacity', 'required')">
+                                    You must provide a <strong>capacity</strong>
+                                </mat-error>
+                            </mat-form-field>
+                        </td>
+
+                        <td>
+                            <div class="example-full-width">
+                                <label>Select providers</label>
+                                <angular2-multiselect [data]="providersDropdown"
+                                                      [settings]="dropdownSettings "
+                                                      formControlName="zoneProviders">
+                                </angular2-multiselect>
+
+                            </div>
+                        </td>
+
+                    </tr>
+                </table>
+                <table class="example-full-width" cellspacing="0">
+                    <tr>
+                        <td>
+                            <div class="example-full-width">
+                                <label>Select beneficiaries</label>
+                                <angular2-multiselect [data]="BeneficiariesDropdown"
+                                                      [settings]="dropdownSettings "
+                                                      formControlName="zoneBeneficiarys">
+                                </angular2-multiselect>
+
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+
+
+            </div>
+        </mat-card-content>
+        <mat-card-actions>
+            <button mat-button *ngIf="!data.onlyView" type="submit">Save</button>
+            <button mat-button color="warn" [mat-dialog-close]="false">
+                {{data.onlyView?'Close':'Cancel'}}
+            </button>
+        </mat-card-actions>
+    </form>
+
+</mat-card>

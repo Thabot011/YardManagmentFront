@@ -11,16 +11,18 @@ import { TooltipPosition } from '@angular/material/tooltip';
 import { KeyValue } from '@angular/common';
 import { MatTable } from '@angular/material/table';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { DialogResult } from '../../Entity/DialogResult';
+import { IDialogResult } from '../../Entity/DialogResult';
 import { ProviderResponse } from '../../service/appService';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { ActivatedRoute } from '@angular/router';
+import { ConfirmComponent } from '../confirm/confirm.component';
+import { Confirm } from '../../enum/Confirm';
 
 @Component({
     selector: 'app-table',
     templateUrl: './table.component.html',
     styleUrls: ['./table.component.css'],
-   
+
 })
 export class TableComponent implements AfterViewInit {
 
@@ -36,9 +38,20 @@ export class TableComponent implements AfterViewInit {
 
     @Input() changeActivation: (row: any) => Observable<any>;
 
+    @Input() approveElement: (row: any) => Observable<any>;
+
+    @Input() rejectElement: (row: any) => Observable<any>;
+
+
     @Input() AddOrEditComponent: ComponentType<any>;
 
     @Input() detailsLink: string;
+
+    @Input() zoneLink: string;
+
+
+    @Input() detailsLinkName: string;
+
 
     @Input() hasDetails: boolean = false;
 
@@ -46,6 +59,11 @@ export class TableComponent implements AfterViewInit {
 
     @Input() hasBackLink: boolean = false;
 
+    @Input() hasApprove: boolean = false;
+
+    @Input() hasZones: boolean = false;
+
+    @Input() hasActivateToggle: boolean = true;
 
     color: ThemePalette = 'warn';
     resultsLength = 0;
@@ -106,91 +124,235 @@ export class TableComponent implements AfterViewInit {
     }
 
 
+    openViewDialog = (row: any) => {
+        row.onlyView = true;
+        let dialogRef = this.dialog.open(this.AddOrEditComponent, {
+            data: row,
+            autoFocus: true,
+            maxWidth: '50%',
+            maxHeight: '90%',
+            height: '90%',
+            width: '50%',
+            closeOnNavigation: true
+        });
 
+        dialogRef.afterClosed().subscribe((result: IDialogResult) => {
+
+        });
+
+    }
 
 
     openAddDialog = () => {
 
         this.route.paramMap.subscribe(params => {
-            this.parentId = parseInt(params.get('id'));
+            this.parentId = parseInt(params.get('id')) || parseInt(localStorage.getItem("id"));
             if (this.parentId) {
                 let dialogRef = this.dialog.open(this.AddOrEditComponent, {
-                    height: '70%',
-                    width: '70%',
+                    maxWidth: '50%',
+                    maxHeight: '90%',
+                    height: '90%',
+                    width: '50%',
+                    autoFocus: true,
+                    closeOnNavigation: true,
                     data: {
-                        id: this.parentId
+                        parentId: this.parentId,
+                        onlyView: false
                     }
                 });
 
-                dialogRef.afterClosed().subscribe((result: DialogResult) => {
+                dialogRef.afterClosed().subscribe((result: IDialogResult) => {
                     if (result?.isSuccess) {
                         this.hasResults = true;
-                        this.dataSource.push(result.data);
-                        this.resultsLength++;
-                        this.ref.detectChanges();
-                        this.table.renderRows();
+                        if (result.data) {
+                            this.dataSource.push(result.data);
+                            this.resultsLength++;
+                            this.ref.detectChanges();
+                            this.table.renderRows();
+                        }
                         this.notify(result.message, "Adding");
+                    }
+
+
+
+                });
+            }
+            else {
+                let dialogRef = this.dialog.open(this.AddOrEditComponent, {
+                    maxWidth: '50%',
+                    maxHeight: '90%',
+                    height: '90%',
+                    width: '50%',
+                    autoFocus: true,
+                    closeOnNavigation: true,
+                    data: {}
+                });
+
+                dialogRef.afterClosed().subscribe((result: IDialogResult) => {
+                    if (result?.isSuccess) {
+                        if (result.data) {
+                            this.dataSource.push(result.data);
+                            this.resultsLength++;
+                            this.table.renderRows();
+                        }
+                        this.notify(result.message, "Adding");
+                    }
+                });
+            }
+        });
+
+
+
+    }
+
+    openAddDialogAfterNavigate = (row: any) => {
+        row.onlyView = false;
+
+        let dialogRef = this.dialog.open(this.AddOrEditComponent, {
+            data: row,
+            autoFocus: true,
+            maxWidth: '50%',
+            maxHeight: '90%',
+            height: '90%',
+            width: '50%',
+            closeOnNavigation: true
+        });
+
+        dialogRef.afterClosed().subscribe((result: IDialogResult) => {
+            if (result?.isSuccess) {
+                if (result.data) {
+                    this.dataSource.push(result.data);
+                    this.resultsLength++;
+                    this.table.renderRows();
+                }
+                this.notify(result.message, "Adding");
+            }
+        });
+    }
+
+    openEditDialog = (row: any) => {
+        row.onlyView = false;
+
+        this.route.paramMap.subscribe(params => {
+            this.parentId = parseInt(params.get('id')) || parseInt(localStorage.getItem("id"));
+            if (this.parentId) {
+                row.parentId = this.parentId;
+                let dialogRef = this.dialog.open(this.AddOrEditComponent, {
+                    data: row,
+                    autoFocus: true,
+                    maxWidth: '50%',
+                    maxHeight: '90%',
+                    height: '90%',
+                    width: '50%',
+                    closeOnNavigation: true
+                });
+
+                dialogRef.afterClosed().subscribe((result: IDialogResult) => {
+                    if (result?.isSuccess) {
+                        if (result.data) {
+                            this.dataSource = this.dataSource.filter((value, key) => {
+                                if (value.id == result.data.id) {
+                                    for (var prop in result.data) {
+                                        value[prop] = result.data[prop];
+                                    }
+                                }
+                                return true;
+                            });
+                        }
+                        else {
+                            this.dataSource = this.dataSource.filter((value, key) => {
+                                return value.id != row.id;
+                            });
+                        }
+                        this.notify(result.message, "Editing");
                     }
                 });
             }
             else {
                 let dialogRef = this.dialog.open(this.AddOrEditComponent, {
-                    height: '400px',
-                    width: '600px',
-                    data: {}
+                    data: row,
+                    autoFocus: true,
+                    maxWidth: '50%',
+                    maxHeight: '90%',
+                    height: '90%',
+                    width: '50%',
+                    closeOnNavigation: true
                 });
 
-                dialogRef.afterClosed().subscribe((result: DialogResult) => {
+                dialogRef.afterClosed().subscribe((result: IDialogResult) => {
                     if (result?.isSuccess) {
-                        this.dataSource.push(result.data);
-                        this.resultsLength++;
-                        this.table.renderRows();
-                        this.notify(result.message, "Adding");
-                    }
-                });
-            }
-        });
-
-
-
-    }
-
-
-
-
-    openEditDialog = (row: any) => {
-
-        let dialogRef = this.dialog.open(this.AddOrEditComponent, {
-            data: row,
-            autoFocus: true,
-            maxWidth: '100%',
-            maxHeight: '100%',
-            height: '100%',
-            width: '100%'
-        });
-
-        dialogRef.afterClosed().subscribe((result: DialogResult) => {
-            if (result?.isSuccess) {
-                this.dataSource = this.dataSource.filter((value, key) => {
-                    if (value.id == result.data.id) {
-                        for (var prop in result.data) {
-                            value[prop] = result.data[prop];
+                        if (result.data) {
+                            this.dataSource = this.dataSource.filter((value, key) => {
+                                if (value.id == result.data.id) {
+                                    for (var prop in result.data) {
+                                        value[prop] = result.data[prop];
+                                    }
+                                }
+                                return true;
+                            });
                         }
+                        else {
+                            this.dataSource = this.dataSource.filter((value, key) => {
+                                return value.id != row.id;
+                            });
+                        }
+                        this.notify(result.message, "Editing");
                     }
-                    return true;
                 });
-                this.notify(result.message, "Editing");
             }
         });
     }
 
 
+    approve = (row: any) => {
+
+        let dialogRef = this.dialog.open(ConfirmComponent, {
+            maxWidth: '30%',
+            maxHeight: '55%',
+            height: '55%',
+            width: '30%',
+            autoFocus: true,
+            closeOnNavigation: true,
+            data: { message: "Yard Confirm" }
+        });
+
+        dialogRef.afterClosed().subscribe((result: IDialogResult) => {
+            if (result.data.message == Confirm.approve) {
+                this.approveElement(row).subscribe(result => {
+                    if (result?.success) {
+                        this.dataSource = this.dataSource.filter((value, key) => {
+                            return value.id != row.id;
+                        });
+
+                        this.notify("Approved successfully ", "Approval");
+                    }
+                    else {
+                        this.notify(result.message, "Approval");
+                    }
+                })
+            }
+            else {
+                this.rejectElement(row).subscribe(result => {
+                    if (result?.success) {
+                        this.dataSource = this.dataSource.filter((value, key) => {
+                            return value.id != row.id;
+                        });
+
+                        this.notify("Rejected successfully ", "Rejection");
+                    }
+                    else {
+                        this.notify(result.message, "Rejection");
+                    }
+                })
+            }
+        });
 
 
+    }
 
     changeActivationStatus = (row: any) => {
-        this.changeActivation(row).subscribe((result: ProviderResponse) => {
-            if (result.success) {
+        this.changeActivation(row).subscribe((result: any) => {
+            if (result?.success) {
                 this.notify("Activation changed successfully", "Change activation");
             }
             else {

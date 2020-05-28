@@ -7,7 +7,7 @@
         </button>
     </div>
 
-    <div>
+    <div *ngIf="!hasApprove">
         <button matTooltip="Add"
                 [matTooltipPosition]="position"
                 (click)="openAddDialog()" mat-raised-button>
@@ -36,21 +36,43 @@
                 <ng-container matColumnDef="action">
                     <th mat-header-cell *matHeaderCellDef> Action </th>
                     <td mat-cell *matCellDef="let element">
-                        <button matTooltip="Edit"
+
+                        <button matTooltip="View"
+                                [matTooltipPosition]="position"
+                                mat-button
+                                (click)="openViewDialog(element)">
+                            <mat-icon>remove_red_eye</mat-icon>
+                        </button>
+
+                        <button *ngIf="!(hasApprove || element.statusId && element.statusId==1)" matTooltip="Edit"
                                 [matTooltipPosition]="position"
                                 mat-button
                                 (click)="openEditDialog(element)">
                             <mat-icon>edit</mat-icon>
                         </button>
 
-                        <a *ngIf="hasDetails" matTooltip="View contacts"
+                        <a *ngIf="hasApprove || (element.statusId && element.statusId==1)" matTooltip="approve"
+                           [matTooltipPosition]="position"
+                           mat-button
+                           (click)="approve(element)">
+                            <mat-icon>done</mat-icon>
+                        </a>
+
+                        <a *ngIf="hasDetails" matTooltip="{{detailsLinkName}}"
                            [matTooltipPosition]="position"
                            mat-button
                            [routerLink]="['/'+detailsLink,element.id,element.name]">
                             <mat-icon> contacts</mat-icon>
                         </a>
 
-                        <mat-slide-toggle matTooltip="{{element.isActive?'De activate':'Activate'}}"
+                        <a *ngIf="hasZones" matTooltip="View yard zones"
+                           [matTooltipPosition]="position"
+                           mat-button
+                           [routerLink]="['/'+zoneLink,element.id,element.name]">
+                            <mat-icon>layers</mat-icon>
+                        </a>
+
+                        <mat-slide-toggle *ngIf="hasActivateToggle && !hasEditApprove" matTooltip="{{element.isActive?'De activate':'Activate'}}"
                                           [matTooltipPosition]="position"
                                           (toggleChange)="changeActivationStatus(element)"
                                           [color]="color"

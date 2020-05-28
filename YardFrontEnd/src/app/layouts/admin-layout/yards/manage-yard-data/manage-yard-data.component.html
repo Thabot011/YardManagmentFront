@@ -1,4 +1,4 @@
-<mat-card class="example-card">
+<mat-card>
     <mat-card-header>
         <mat-card-title mat-dialog-title>
             <div>
@@ -7,99 +7,147 @@
         </mat-card-title>
         <mat-card-subtitle></mat-card-subtitle>
     </mat-card-header>
-    <form [formGroup]="form" (ngSubmit)="submitForm()" novalidate>
+    <form class="example-form" [formGroup]="form" (ngSubmit)="submitForm()" novalidate>
         <mat-card-content>
             <div mat-dialog-content>
-                <mat-form-field>
-                    <input matInput placeholder="Name" formControlName="name">
-                    <!-- error -->
-                    <mat-error *ngIf="errorHandling('name', 'required')">
-                        You must provide a<strong>name</strong>
-                    </mat-error>
-                </mat-form-field>
+                <input type="hidden" value="0" formControlName="id">
+                <table class="example-full-width" cellspacing="0">
+                    <tr>
+                        <td>
+                            <mat-form-field class="example-full-width">
+                                <input matInput placeholder="Arabic name" formControlName="nameAr">
+                                <!-- error -->
+                                <mat-error *ngIf="errorHandling('nameAr', 'required')">
+                                    You must provide a<strong>arabic name</strong>
+                                </mat-error>
+                            </mat-form-field>
+                        </td>
+                        <td>
+                            <mat-form-field class="example-full-width">
+                                <input matInput placeholder="English name" formControlName="nameEn">
+                                <!-- error -->
+                                <mat-error *ngIf="errorHandling('nameEn', 'required')">
+                                    You must provide a<strong>english name</strong>
+                                </mat-error>
+                            </mat-form-field>
+                        </td>
 
-                <mat-form-field>
-                    <mat-label>Select a country</mat-label>
-                    <mat-select formControlName="country" (change)="onChangeCountry($event.target.value)">
-                        <mat-option>None</mat-option>
-                        <mat-option [value]="country.id" *ngFor="let country of countries">
-                            {{country.country_name}}
-                        </mat-option>
-                    </mat-select>
-                    <mat-error *ngIf="errorHandling('country','required')">
-                        You must provide a<strong>country</strong>
-                    </mat-error>
-                </mat-form-field>
+                    </tr>
+                </table>
+                <table class="example-full-width" cellspacing="0">
+                    <tr>
+                        <td>
+                            <mat-form-field class="example-full-width">
+                                <mat-label>Select a country</mat-label>
+                                <mat-select formControlName="countryId" (selectionChange)="onChangeCountry($event)">
+                                    <mat-option>None</mat-option>
+                                    <mat-option [value]="country.id" *ngFor="let country of countries">
+                                        {{country.name}}
+                                    </mat-option>
+                                </mat-select>
+                                <mat-error *ngIf="errorHandling('countryId','required')">
+                                    You must provide a<strong>country</strong>
+                                </mat-error>
+                            </mat-form-field>
+                        </td>
+                        <td>
+                            <mat-form-field class="example-full-width">
+                                <mat-label>Select a emirate</mat-label>
+                                <mat-select formControlName="emirateId">
+                                    <mat-option>None</mat-option>
+                                    <mat-option [value]="emirate.id" *ngFor="let emirate of emirates">
+                                        {{emirate.name}}
+                                    </mat-option>
+                                </mat-select>
+                                <mat-error *ngIf="errorHandling('emirateId','required')">
+                                    You must provide an <strong>emirate</strong>
+                                </mat-error>
+                            </mat-form-field>
+                        </td>
 
-                <mat-form-field>
-                    <mat-label>Select a emirate</mat-label>
-                    <mat-select formControlName="emirate">
-                        <mat-option>None</mat-option>
-                        <mat-option [value]="emirate.id" *ngFor="let emirate of emirates">
-                            {{emirate.state_name}}
-                        </mat-option>
-                    </mat-select>
-                    <mat-error *ngIf="errorHandling('emirate','required')">
-                        You must provide a<strong>city</strong>
-                    </mat-error>
-                </mat-form-field>
+                    </tr>
+                </table>
+                <table class="example-full-width" cellspacing="0">
+                    <tr>
+                        <td>
+                            <mat-form-field class="example-full-width">
+                                <mat-chip-list ngDefaultControl formControlName="yardBoundaries" #chipList>
+                                    <mat-chip *ngFor="let point of points"
+                                              [removable]="removable" (removed)="remove(point)">
+                                        {{point}}
+                                        <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
 
-                <mat-form-field>
-                    <mat-chip-list #chipList>
-                        <mat-chip *ngFor="let point of points"
-                                  [removable]="removable" (removed)="remove(point)">
-                            {{point.name}}
-                            <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                                    </mat-chip>
 
-                        </mat-chip>
-                        <input disabled placeholder="Points"
-                               [matChipInputFor]="chipList" />
-                        <button mat-icon-button matSuffix (click)="naviagteToMap()">
-                            <mat-icon>add_location</mat-icon>
-                        </button>
-                    </mat-chip-list>
-                </mat-form-field>
+                                    <mat-icon matTooltip="Manage yard points" class="openMap"
+                                              [matTooltipPosition]="position"
+                                              matSuffix (click)="naviagteToMap()">add_location</mat-icon>
+                                    <mat-error *ngIf="errorHandling('yardBoundaries','required')">
+                                        You must provide a<strong> boundaries</strong>
+                                    </mat-error>
+                                </mat-chip-list>
 
+                            </mat-form-field>
+                        </td>
+                        <td>
+                            <mat-form-field class="example-full-width">
+                                <input matInput placeholder="Area" formControlName="area">
+                                <!-- error -->
+                                <mat-error *ngIf="errorHandling('area', 'required')">
+                                    You must provide a<strong>area</strong>
+                                </mat-error>
+                            </mat-form-field>
+                        </td>
 
-                <mat-form-field>
-                    <input matInput placeholder="Area" formControlName="distance">
-                    <!-- error -->
-                    <mat-error *ngIf="errorHandling('distance', 'required')">
-                        You must provide a<strong>area</strong>
-                    </mat-error>
-                </mat-form-field>
+                    </tr>
+                </table>
 
-                <mat-form-field>
-                    <input type="number" matInput placeholder="Capacity" formControlName="capacity">
-                    <!-- error -->
-                    <mat-error *ngIf="errorHandling('capacity', 'required')">
-                        You must provide a<strong>capacity</strong>
-                    </mat-error>
+                <table class="example-full-width" cellspacing="0">
+                    <tr>
+                        <td>
+                            <mat-form-field class="example-full-width">
+                                <input type="number" matInput placeholder="Capacity" formControlName="capacity">
+                                <!-- error -->
+                                <mat-error *ngIf="errorHandling('capacity', 'required')">
+                                    You must provide a<strong>capacity</strong>
+                                </mat-error>
 
-                </mat-form-field>
+                            </mat-form-field>
+                        </td>
+                        <td>
+                            <mat-form-field class="example-full-width">
+                                <input type="number" matInput placeholder="Threshold capacity" formControlName="thresholdCapacity">
+                                <!-- error -->
+                                <mat-error *ngIf="errorHandling('thresholdCapacity', 'required')">
+                                    You must provide a<strong>threshold capacity</strong>
+                                </mat-error>
+                            </mat-form-field>
+                        </td>
 
-                <mat-form-field>
-                    <input type="number" matInput placeholder="Threshold capacity" formControlName="thresholdCapacity">
-                    <!-- error -->
-                    <mat-error *ngIf="errorHandling('thresholdCapacity', 'required')">
-                        You must provide a<strong>threshold capacity</strong>
-                    </mat-error>
-                </mat-form-field>
-                <mat-form-field>
-                    <input matInput placeholder="Working hours from" formControlName="workingFrom" [ngxTimepicker]="pickerFrom">
-                    <ngx-material-timepicker #pickerFrom></ngx-material-timepicker>
-                </mat-form-field>
-
-                <mat-form-field>
-                    <input matInput placeholder="Working hours to" formControlName="workingTo" [ngxTimepicker]="pickerTo">
-                    <ngx-material-timepicker #pickerTo></ngx-material-timepicker>
-                </mat-form-field>
+                    </tr>
+                </table>
+                <table class="example-full-width" cellspacing="0">
+                    <tr>
+                        <td>
+                            <mat-form-field class="example-full-width">
+                                <input matInput type="time" placeholder="Working hours from" formControlName="workingFrom">
+                            </mat-form-field>
+                        </td>
+                        <td>
+                            <mat-form-field>
+                                <input matInput type="time" placeholder="Working hours to" formControlName="workingTo">
+                            </mat-form-field>
+                        </td>
+                    </tr>
+                </table>
 
             </div>
         </mat-card-content>
         <mat-card-actions>
-            <button mat-button type="submit">Save</button>
-            <button mat-button color="warn" [mat-dialog-close]="false">Cancel</button>
+            <button mat-button *ngIf="!data.onlyView" type="submit">Save</button>
+            <button mat-button color="warn" [mat-dialog-close]="false">
+                {{data.onlyView?'Close':'Cancel'}}
+            </button>
         </mat-card-actions>
     </form>
 

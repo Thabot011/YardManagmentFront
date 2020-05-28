@@ -22,7 +22,7 @@
                             </mat-card-title>
                             <mat-card-subtitle></mat-card-subtitle>
                         </mat-card-header>
-                        <form [formGroup]="form" (ngSubmit)="submitForm()" novalidate>
+                        <form #formDir="ngForm" [formGroup]="form" (ngSubmit)="submitForm()" novalidate>
                             <mat-card-content>
                                 <div mat-dialog-content>
 
@@ -117,7 +117,7 @@
                                         </tr>
                                     </table>
 
-                                    <mat-error *ngIf=" form.touched &&!form.valid">
+                                    <mat-error *ngIf="(!form.valid && formDir.submitted)||(!form.valid && form.touched)">
                                         You must provide at least one field
                                     </mat-error>
                                 </div>
@@ -141,6 +141,7 @@
                    [changeActivation]="changeActivation"
                    [hasDetails]="true"
                    [detailsLink]="detailsLink"
+                   [detailsLinkName]="detailsLinkName"
                    [filter]="filter"></app-table>
     </div>
 </div>

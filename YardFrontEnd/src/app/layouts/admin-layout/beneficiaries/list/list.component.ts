@@ -32,6 +32,8 @@ export class ListComponent extends BaseListClass implements OnInit {
 
     AddOrEditComponent: ComponentType<ManageBeneficiarieComponent> = ManageBeneficiarieComponent;
     detailsLink: string = "beneficiarie/contactsList";
+    detailsLinkName: string = "View Contacts";
+
 
     constructor(private appService: Client, private fb: FormBuilder,
         private ref: ChangeDetectorRef) {
@@ -51,15 +53,15 @@ export class ListComponent extends BaseListClass implements OnInit {
     reactiveForm = () => {
         this.form = this.fb.group({
             name: [''],
-            typeId: [''],
-            countryId: [''],
-            emirateId: [''],
+            typeId: [undefined],
+            countryId: [undefined],
+            emirateId: [undefined],
             address: [''],
             email: [''],
-            landline: [''],
+            landline: [undefined],
             website: [''],
             trn: [''],
-            isActive: [''],
+            isActive: [undefined],
         }, { validator: this.atLeastOne(Validators.required) })
     }
 
@@ -81,9 +83,10 @@ export class ListComponent extends BaseListClass implements OnInit {
             beneficiary.id = 0;
             this.filter = beneficiary;
             this.ref.detectChanges();
+            if (this.appTable.paginator) {
+                this.appTable.paginator.firstPage();
+            }
             this.appTable.ngAfterViewInit();
-
-
         }
 
     }
@@ -113,6 +116,7 @@ export class ListComponent extends BaseListClass implements OnInit {
             );
         } else {
             this.emirates = null;
+            this.form.patchValue({ emirateId: null })
         }
     }
 

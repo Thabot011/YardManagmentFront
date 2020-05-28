@@ -2,7 +2,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Client, CountryRequest, BeneficiaryTypeRequest, BeneficiaryTypeRecord, CountryRecord, EmirateRecord, EmirateRequest, IBeneficiaryRecord, BeneficiaryRequest } from '../../../../shared/service/appService';
-import { DialogResult } from '../../../../shared/Entity/DialogResult';
+import { IDialogResult } from '../../../../shared/Entity/DialogResult';
 import { MatSelectChange } from '@angular/material/select';
 import { BaseManagementClass } from '../../../../shared/class/base/base-management-class';
 
@@ -21,7 +21,7 @@ export class ManageBeneficiarieComponent extends BaseManagementClass implements 
 
 
     constructor(private fb: FormBuilder,
-        private dialogRef: MatDialogRef<ManageBeneficiarieComponent, DialogResult>,
+        private dialogRef: MatDialogRef<ManageBeneficiarieComponent, IDialogResult>,
         @Inject(MAT_DIALOG_DATA) public data: any, private appService: Client) {
         super();
     }
@@ -54,6 +54,8 @@ export class ManageBeneficiarieComponent extends BaseManagementClass implements 
             let Beneficiary: IBeneficiaryRecord = this.form.value;
 
             if (this.data.id) {
+                Beneficiary.isActive = this.data.isActive;
+
                 this.appService.editBeneficiary(new BeneficiaryRequest({
                     beneficiaryRecord: Beneficiary
                 })).subscribe(data => {
@@ -113,16 +115,16 @@ export class ManageBeneficiarieComponent extends BaseManagementClass implements 
     reactiveForm = () => {
         this.form = this.fb.group({
             id: [this.data.id, []],
-            nameEn: [this.data.nameEn, [Validators.required]],
-            nameAr: [this.data.nameAr, [Validators.required]],
-            typeId: [this.data.typeId, [Validators.required]],
-            countryId: [this.data.countryId, [Validators.required]],
-            emirateId: [this.data.emirateId, [Validators.required]],
-            address: [this.data.address, [Validators.required]],
-            email: [this.data.email, [Validators.required, Validators.email]],
-            landline: [this.data.landline, []],
-            website: [this.data.website, []],
-            trn: [this.data.trn, [Validators.required]],
+            nameEn: [{ value: this.data.nameEn, disabled: this.data.onlyView }, [Validators.required]],
+            nameAr: [{ value: this.data.nameAr, disabled: this.data.onlyView }, [Validators.required]],
+            typeId: [{ value: this.data.typeId, disabled: this.data.onlyView }, [Validators.required]],
+            countryId: [{ value: this.data.countryId, disabled: this.data.onlyView }, [Validators.required]],
+            emirateId: [{ value: this.data.emirateId, disabled: this.data.onlyView }, [Validators.required]],
+            address: [{ value: this.data.address, disabled: this.data.onlyView }, [Validators.required]],
+            email: [{ value: this.data.email, disabled: this.data.onlyView }, [Validators.required, Validators.email]],
+            landline: [{ value: this.data.landline, disabled: this.data.onlyView }, []],
+            website: [{ value: this.data.website, disabled: this.data.onlyView }, []],
+            trn: [{ value: this.data.trn, disabled: this.data.onlyView }, [Validators.required]],
         })
     }
 
@@ -139,6 +141,7 @@ export class ManageBeneficiarieComponent extends BaseManagementClass implements 
             );
         } else {
             this.emirates = null;
+            this.form.patchValue({ emirateId: null })
         }
     }
 

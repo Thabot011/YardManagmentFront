@@ -8,16 +8,16 @@ import { FormGroup, ValidatorFn, ValidationErrors } from "@angular/forms";
 
 export abstract class BaseListClass {
     abstract displayColumns: KeyValue<string, string>[];
-    abstract AddOrEditComponent: ComponentType<any>;
     abstract getAll: (paging: Paging) => Observable<any>
     abstract reactiveForm: () => void;
     abstract submitForm: () => void;
-    abstract changeActivation: (row: any) => Observable<any>;
+    changeActivation: (row: any) => Observable<any>;
     abstract cancelSearch: () => void;
 
     @ViewChild(TableComponent) appTable: TableComponent;
     form: FormGroup;
     filter: any;
+    AddOrEditComponent: ComponentType<any>;
 
     constructor() { }
 

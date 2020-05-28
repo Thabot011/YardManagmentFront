@@ -3,7 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Client, CountryRequest, CountryRecord, EmirateRequest, EmirateRecord, ProviderTypeRecord, ProviderRecord, ProviderTypeRequest, ProviderRequest, IProviderRecord } from '../../../../shared/service/appService';
 import { MatSelectChange } from '@angular/material/select';
-import { DialogResult } from '../../../../shared/Entity/DialogResult';
+import { IDialogResult } from '../../../../shared/Entity/DialogResult';
 import { BaseManagementClass } from '../../../../shared/class/base/base-management-class';
 
 @Component({
@@ -20,8 +20,8 @@ export class ManageProvidersComponent extends BaseManagementClass implements OnI
 
 
     constructor(private fb: FormBuilder,
-        private dialogRef: MatDialogRef<ManageProvidersComponent, DialogResult>,
-        @Inject(MAT_DIALOG_DATA) public data: ProviderRecord, private appService: Client) {
+        private dialogRef: MatDialogRef<ManageProvidersComponent, IDialogResult>,
+        @Inject(MAT_DIALOG_DATA) public data: any, private appService: Client) {
         super();
     }
 
@@ -53,6 +53,8 @@ export class ManageProvidersComponent extends BaseManagementClass implements OnI
             let provider: IProviderRecord = this.form.value;
 
             if (this.data.id) {
+                provider.isActive = this.data.isActive;
+
                 this.appService.editProvider(new ProviderRequest({
                     providerRecord: provider
                 })).subscribe(data => {
@@ -112,17 +114,17 @@ export class ManageProvidersComponent extends BaseManagementClass implements OnI
     reactiveForm = () => {
         this.form = this.fb.group({
             id: [this.data.id, []],
-            nameEn: [this.data.nameEn, [Validators.required]],
-            nameAr: [this.data.nameAr, [Validators.required]],
-            typeId: [this.data.typeId, [Validators.required]],
-            countryId: [this.data.countryId, [Validators.required]],
-            emirateId: [this.data.emirateId, [Validators.required]],
-            address: [this.data.address, [Validators.required]],
-            email: [this.data.email, [Validators.required, Validators.email]],
-            landline: [this.data.landline, []],
-            mobile: [this.data.mobile, [Validators.required]],
-            website: [this.data.website, []],
-            trn: [this.data.trn, [Validators.required]],
+            nameEn: [{ value: this.data.nameEn, disabled: this.data.onlyView }, [Validators.required]],
+            nameAr: [{ value: this.data.nameAr, disabled: this.data.onlyView }, [Validators.required]],
+            typeId: [{ value: this.data.typeId, disabled: this.data.onlyView }, [Validators.required]],
+            countryId: [{ value: this.data.countryId, disabled: this.data.onlyView }, [Validators.required]],
+            emirateId: [{ value: this.data.emirateId, disabled: this.data.onlyView }, [Validators.required]],
+            address: [{ value: this.data.address, disabled: this.data.onlyView }, [Validators.required]],
+            email: [{ value: this.data.email, disabled: this.data.onlyView }, [Validators.required, Validators.email]],
+            landline: [{ value: this.data.landline, disabled: this.data.onlyView }, []],
+            mobile: [{ value: this.data.mobile, disabled: this.data.onlyView }, [Validators.required]],
+            website: [{ value: this.data.website, disabled: this.data.onlyView }, []],
+            trn: [{ value: this.data.trn, disabled: this.data.onlyView }, [Validators.required]],
         })
     }
 
@@ -139,6 +141,7 @@ export class ManageProvidersComponent extends BaseManagementClass implements OnI
             );
         } else {
             this.emirates = null;
+            this.form.patchValue({ emirateId: null })
         }
     }
 

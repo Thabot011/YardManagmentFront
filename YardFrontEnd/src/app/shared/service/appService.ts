@@ -94,6 +94,21 @@ export interface IClient {
      * @param body (optional) 
      * @return Success
      */
+    listMake(body?: MakeRequest | undefined): Observable<MakeResponse>;
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    listModel(body?: ModelRequest | undefined): Observable<ModelResponse>;
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    listPlateType(body?: PlateTypeRequest | undefined): Observable<PlateTypeResponse>;
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
     listProvider(body?: ProviderRequest | undefined): Observable<ProviderResponse>;
     /**
      * @param body (optional) 
@@ -1188,6 +1203,177 @@ export class Client implements IClient {
             }));
         }
         return _observableOf<ImageTypeResponse>(<any>null);
+    }
+
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    listMake(body?: MakeRequest | undefined): Observable<MakeResponse> {
+        let url_ = this.baseUrl + "/api/Make/ListMake";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json",
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processListMake(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processListMake(<any>response_);
+                } catch (e) {
+                    return <Observable<MakeResponse>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<MakeResponse>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processListMake(response: HttpResponseBase): Observable<MakeResponse> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        let _mappings: { source: any, target: any }[] = [];
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : jsonParse(_responseText, this.jsonParseReviver);
+            result200 = MakeResponse.fromJS(resultData200, _mappings);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<MakeResponse>(<any>null);
+    }
+
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    listModel(body?: ModelRequest | undefined): Observable<ModelResponse> {
+        let url_ = this.baseUrl + "/api/Model/ListModel";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json",
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processListModel(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processListModel(<any>response_);
+                } catch (e) {
+                    return <Observable<ModelResponse>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<ModelResponse>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processListModel(response: HttpResponseBase): Observable<ModelResponse> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        let _mappings: { source: any, target: any }[] = [];
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : jsonParse(_responseText, this.jsonParseReviver);
+            result200 = ModelResponse.fromJS(resultData200, _mappings);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<ModelResponse>(<any>null);
+    }
+
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    listPlateType(body?: PlateTypeRequest | undefined): Observable<PlateTypeResponse> {
+        let url_ = this.baseUrl + "/api/PlateType/ListPlateType";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json",
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processListPlateType(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processListPlateType(<any>response_);
+                } catch (e) {
+                    return <Observable<PlateTypeResponse>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<PlateTypeResponse>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processListPlateType(response: HttpResponseBase): Observable<PlateTypeResponse> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        let _mappings: { source: any, target: any }[] = [];
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : jsonParse(_responseText, this.jsonParseReviver);
+            result200 = PlateTypeResponse.fromJS(resultData200, _mappings);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<PlateTypeResponse>(<any>null);
     }
 
     /**
@@ -5322,6 +5508,602 @@ export interface IImageTypeResponse {
     totalCount?: number;
 }
 
+export class MakeRecord implements IMakeRecord {
+    id?: number;
+    name?: string | undefined;
+
+    constructor(data?: IMakeRecord) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any, _mappings?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.name = _data["name"];
+        }
+    }
+
+    static fromJS(data: any, _mappings?: any): MakeRecord {
+        data = typeof data === 'object' ? data : {};
+        return createInstance<MakeRecord>(data, _mappings, MakeRecord);
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["name"] = this.name;
+        return data; 
+    }
+
+    clone(): MakeRecord {
+        const json = this.toJSON();
+        let result = new MakeRecord();
+        result.init(json);
+        return result;
+    }
+}
+
+export interface IMakeRecord {
+    id?: number;
+    name?: string | undefined;
+}
+
+export class MakeRequest implements IMakeRequest {
+    makeRecord?: MakeRecord;
+    isDesc?: boolean;
+    orderByColumn?: string | undefined;
+    pageSize?: number;
+    pageIndex?: number;
+    createdBy?: number;
+    roleID?: number;
+    languageId?: number;
+    baseUrl?: string | undefined;
+    name?: string | undefined;
+    mailSender?: MailSender;
+
+    constructor(data?: IMakeRequest) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+            this.makeRecord = data.makeRecord && !(<any>data.makeRecord).toJSON ? new MakeRecord(data.makeRecord) : <MakeRecord>this.makeRecord; 
+            this.mailSender = data.mailSender && !(<any>data.mailSender).toJSON ? new MailSender(data.mailSender) : <MailSender>this.mailSender; 
+        }
+    }
+
+    init(_data?: any, _mappings?: any) {
+        if (_data) {
+            this.makeRecord = _data["makeRecord"] ? MakeRecord.fromJS(_data["makeRecord"], _mappings) : <any>undefined;
+            this.isDesc = _data["isDesc"];
+            this.orderByColumn = _data["orderByColumn"];
+            this.pageSize = _data["pageSize"];
+            this.pageIndex = _data["pageIndex"];
+            this.createdBy = _data["createdBy"];
+            this.roleID = _data["roleID"];
+            this.languageId = _data["languageId"];
+            this.baseUrl = _data["baseUrl"];
+            this.name = _data["name"];
+            this.mailSender = _data["mailSender"] ? MailSender.fromJS(_data["mailSender"], _mappings) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any, _mappings?: any): MakeRequest {
+        data = typeof data === 'object' ? data : {};
+        return createInstance<MakeRequest>(data, _mappings, MakeRequest);
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["makeRecord"] = this.makeRecord ? this.makeRecord.toJSON() : <any>undefined;
+        data["isDesc"] = this.isDesc;
+        data["orderByColumn"] = this.orderByColumn;
+        data["pageSize"] = this.pageSize;
+        data["pageIndex"] = this.pageIndex;
+        data["createdBy"] = this.createdBy;
+        data["roleID"] = this.roleID;
+        data["languageId"] = this.languageId;
+        data["baseUrl"] = this.baseUrl;
+        data["name"] = this.name;
+        data["mailSender"] = this.mailSender ? this.mailSender.toJSON() : <any>undefined;
+        return data; 
+    }
+
+    clone(): MakeRequest {
+        const json = this.toJSON();
+        let result = new MakeRequest();
+        result.init(json);
+        return result;
+    }
+}
+
+export interface IMakeRequest {
+    makeRecord?: IMakeRecord;
+    isDesc?: boolean;
+    orderByColumn?: string | undefined;
+    pageSize?: number;
+    pageIndex?: number;
+    createdBy?: number;
+    roleID?: number;
+    languageId?: number;
+    baseUrl?: string | undefined;
+    name?: string | undefined;
+    mailSender?: IMailSender;
+}
+
+export class MakeResponse implements IMakeResponse {
+    data?: MakeRecord[] | undefined;
+    message?: string | undefined;
+    success?: boolean;
+    totalCount?: number;
+
+    constructor(data?: IMakeResponse) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+            if (data.data) {
+                this.data = [];
+                for (let i = 0; i < data.data.length; i++) {
+                    let item = data.data[i];
+                    this.data[i] = item && !(<any>item).toJSON ? new MakeRecord(item) : <MakeRecord>item;
+                }
+            }
+        }
+    }
+
+    init(_data?: any, _mappings?: any) {
+        if (_data) {
+            if (Array.isArray(_data["Data"])) {
+                this.data = [] as any;
+                for (let item of _data["Data"])
+                    this.data!.push(MakeRecord.fromJS(item, _mappings));
+            }
+            this.message = _data["message"];
+            this.success = _data["success"];
+            this.totalCount = _data["totalCount"];
+        }
+    }
+
+    static fromJS(data: any, _mappings?: any): MakeResponse {
+        data = typeof data === 'object' ? data : {};
+        return createInstance<MakeResponse>(data, _mappings, MakeResponse);
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        if (Array.isArray(this.data)) {
+            data["Data"] = [];
+            for (let item of this.data)
+                data["Data"].push(item.toJSON());
+        }
+        data["message"] = this.message;
+        data["success"] = this.success;
+        data["totalCount"] = this.totalCount;
+        return data; 
+    }
+
+    clone(): MakeResponse {
+        const json = this.toJSON();
+        let result = new MakeResponse();
+        result.init(json);
+        return result;
+    }
+}
+
+export interface IMakeResponse {
+    data?: IMakeRecord[] | undefined;
+    message?: string | undefined;
+    success?: boolean;
+    totalCount?: number;
+}
+
+export class ModelRecord implements IModelRecord {
+    id?: number;
+    name?: string | undefined;
+    makeId?: number | undefined;
+    makeName?: string | undefined;
+
+    constructor(data?: IModelRecord) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any, _mappings?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.name = _data["name"];
+            this.makeId = _data["makeId"];
+            this.makeName = _data["makeName"];
+        }
+    }
+
+    static fromJS(data: any, _mappings?: any): ModelRecord {
+        data = typeof data === 'object' ? data : {};
+        return createInstance<ModelRecord>(data, _mappings, ModelRecord);
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["name"] = this.name;
+        data["makeId"] = this.makeId;
+        data["makeName"] = this.makeName;
+        return data; 
+    }
+
+    clone(): ModelRecord {
+        const json = this.toJSON();
+        let result = new ModelRecord();
+        result.init(json);
+        return result;
+    }
+}
+
+export interface IModelRecord {
+    id?: number;
+    name?: string | undefined;
+    makeId?: number | undefined;
+    makeName?: string | undefined;
+}
+
+export class ModelRequest implements IModelRequest {
+    modelRecord?: ModelRecord;
+    isDesc?: boolean;
+    orderByColumn?: string | undefined;
+    pageSize?: number;
+    pageIndex?: number;
+    createdBy?: number;
+    roleID?: number;
+    languageId?: number;
+    baseUrl?: string | undefined;
+    name?: string | undefined;
+    mailSender?: MailSender;
+
+    constructor(data?: IModelRequest) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+            this.modelRecord = data.modelRecord && !(<any>data.modelRecord).toJSON ? new ModelRecord(data.modelRecord) : <ModelRecord>this.modelRecord; 
+            this.mailSender = data.mailSender && !(<any>data.mailSender).toJSON ? new MailSender(data.mailSender) : <MailSender>this.mailSender; 
+        }
+    }
+
+    init(_data?: any, _mappings?: any) {
+        if (_data) {
+            this.modelRecord = _data["modelRecord"] ? ModelRecord.fromJS(_data["modelRecord"], _mappings) : <any>undefined;
+            this.isDesc = _data["isDesc"];
+            this.orderByColumn = _data["orderByColumn"];
+            this.pageSize = _data["pageSize"];
+            this.pageIndex = _data["pageIndex"];
+            this.createdBy = _data["createdBy"];
+            this.roleID = _data["roleID"];
+            this.languageId = _data["languageId"];
+            this.baseUrl = _data["baseUrl"];
+            this.name = _data["name"];
+            this.mailSender = _data["mailSender"] ? MailSender.fromJS(_data["mailSender"], _mappings) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any, _mappings?: any): ModelRequest {
+        data = typeof data === 'object' ? data : {};
+        return createInstance<ModelRequest>(data, _mappings, ModelRequest);
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["modelRecord"] = this.modelRecord ? this.modelRecord.toJSON() : <any>undefined;
+        data["isDesc"] = this.isDesc;
+        data["orderByColumn"] = this.orderByColumn;
+        data["pageSize"] = this.pageSize;
+        data["pageIndex"] = this.pageIndex;
+        data["createdBy"] = this.createdBy;
+        data["roleID"] = this.roleID;
+        data["languageId"] = this.languageId;
+        data["baseUrl"] = this.baseUrl;
+        data["name"] = this.name;
+        data["mailSender"] = this.mailSender ? this.mailSender.toJSON() : <any>undefined;
+        return data; 
+    }
+
+    clone(): ModelRequest {
+        const json = this.toJSON();
+        let result = new ModelRequest();
+        result.init(json);
+        return result;
+    }
+}
+
+export interface IModelRequest {
+    modelRecord?: IModelRecord;
+    isDesc?: boolean;
+    orderByColumn?: string | undefined;
+    pageSize?: number;
+    pageIndex?: number;
+    createdBy?: number;
+    roleID?: number;
+    languageId?: number;
+    baseUrl?: string | undefined;
+    name?: string | undefined;
+    mailSender?: IMailSender;
+}
+
+export class ModelResponse implements IModelResponse {
+    data?: ModelRecord[] | undefined;
+    message?: string | undefined;
+    success?: boolean;
+    totalCount?: number;
+
+    constructor(data?: IModelResponse) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+            if (data.data) {
+                this.data = [];
+                for (let i = 0; i < data.data.length; i++) {
+                    let item = data.data[i];
+                    this.data[i] = item && !(<any>item).toJSON ? new ModelRecord(item) : <ModelRecord>item;
+                }
+            }
+        }
+    }
+
+    init(_data?: any, _mappings?: any) {
+        if (_data) {
+            if (Array.isArray(_data["Data"])) {
+                this.data = [] as any;
+                for (let item of _data["Data"])
+                    this.data!.push(ModelRecord.fromJS(item, _mappings));
+            }
+            this.message = _data["message"];
+            this.success = _data["success"];
+            this.totalCount = _data["totalCount"];
+        }
+    }
+
+    static fromJS(data: any, _mappings?: any): ModelResponse {
+        data = typeof data === 'object' ? data : {};
+        return createInstance<ModelResponse>(data, _mappings, ModelResponse);
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        if (Array.isArray(this.data)) {
+            data["Data"] = [];
+            for (let item of this.data)
+                data["Data"].push(item.toJSON());
+        }
+        data["message"] = this.message;
+        data["success"] = this.success;
+        data["totalCount"] = this.totalCount;
+        return data; 
+    }
+
+    clone(): ModelResponse {
+        const json = this.toJSON();
+        let result = new ModelResponse();
+        result.init(json);
+        return result;
+    }
+}
+
+export interface IModelResponse {
+    data?: IModelRecord[] | undefined;
+    message?: string | undefined;
+    success?: boolean;
+    totalCount?: number;
+}
+
+export class PlateTypeRecord implements IPlateTypeRecord {
+    id?: number;
+    name?: string | undefined;
+
+    constructor(data?: IPlateTypeRecord) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any, _mappings?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.name = _data["name"];
+        }
+    }
+
+    static fromJS(data: any, _mappings?: any): PlateTypeRecord {
+        data = typeof data === 'object' ? data : {};
+        return createInstance<PlateTypeRecord>(data, _mappings, PlateTypeRecord);
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["name"] = this.name;
+        return data; 
+    }
+
+    clone(): PlateTypeRecord {
+        const json = this.toJSON();
+        let result = new PlateTypeRecord();
+        result.init(json);
+        return result;
+    }
+}
+
+export interface IPlateTypeRecord {
+    id?: number;
+    name?: string | undefined;
+}
+
+export class PlateTypeRequest implements IPlateTypeRequest {
+    plateTypeRecord?: PlateTypeRecord;
+    isDesc?: boolean;
+    orderByColumn?: string | undefined;
+    pageSize?: number;
+    pageIndex?: number;
+    createdBy?: number;
+    roleID?: number;
+    languageId?: number;
+    baseUrl?: string | undefined;
+    name?: string | undefined;
+    mailSender?: MailSender;
+
+    constructor(data?: IPlateTypeRequest) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+            this.plateTypeRecord = data.plateTypeRecord && !(<any>data.plateTypeRecord).toJSON ? new PlateTypeRecord(data.plateTypeRecord) : <PlateTypeRecord>this.plateTypeRecord; 
+            this.mailSender = data.mailSender && !(<any>data.mailSender).toJSON ? new MailSender(data.mailSender) : <MailSender>this.mailSender; 
+        }
+    }
+
+    init(_data?: any, _mappings?: any) {
+        if (_data) {
+            this.plateTypeRecord = _data["plateTypeRecord"] ? PlateTypeRecord.fromJS(_data["plateTypeRecord"], _mappings) : <any>undefined;
+            this.isDesc = _data["isDesc"];
+            this.orderByColumn = _data["orderByColumn"];
+            this.pageSize = _data["pageSize"];
+            this.pageIndex = _data["pageIndex"];
+            this.createdBy = _data["createdBy"];
+            this.roleID = _data["roleID"];
+            this.languageId = _data["languageId"];
+            this.baseUrl = _data["baseUrl"];
+            this.name = _data["name"];
+            this.mailSender = _data["mailSender"] ? MailSender.fromJS(_data["mailSender"], _mappings) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any, _mappings?: any): PlateTypeRequest {
+        data = typeof data === 'object' ? data : {};
+        return createInstance<PlateTypeRequest>(data, _mappings, PlateTypeRequest);
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["plateTypeRecord"] = this.plateTypeRecord ? this.plateTypeRecord.toJSON() : <any>undefined;
+        data["isDesc"] = this.isDesc;
+        data["orderByColumn"] = this.orderByColumn;
+        data["pageSize"] = this.pageSize;
+        data["pageIndex"] = this.pageIndex;
+        data["createdBy"] = this.createdBy;
+        data["roleID"] = this.roleID;
+        data["languageId"] = this.languageId;
+        data["baseUrl"] = this.baseUrl;
+        data["name"] = this.name;
+        data["mailSender"] = this.mailSender ? this.mailSender.toJSON() : <any>undefined;
+        return data; 
+    }
+
+    clone(): PlateTypeRequest {
+        const json = this.toJSON();
+        let result = new PlateTypeRequest();
+        result.init(json);
+        return result;
+    }
+}
+
+export interface IPlateTypeRequest {
+    plateTypeRecord?: IPlateTypeRecord;
+    isDesc?: boolean;
+    orderByColumn?: string | undefined;
+    pageSize?: number;
+    pageIndex?: number;
+    createdBy?: number;
+    roleID?: number;
+    languageId?: number;
+    baseUrl?: string | undefined;
+    name?: string | undefined;
+    mailSender?: IMailSender;
+}
+
+export class PlateTypeResponse implements IPlateTypeResponse {
+    data?: PlateTypeRecord[] | undefined;
+    message?: string | undefined;
+    success?: boolean;
+    totalCount?: number;
+
+    constructor(data?: IPlateTypeResponse) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+            if (data.data) {
+                this.data = [];
+                for (let i = 0; i < data.data.length; i++) {
+                    let item = data.data[i];
+                    this.data[i] = item && !(<any>item).toJSON ? new PlateTypeRecord(item) : <PlateTypeRecord>item;
+                }
+            }
+        }
+    }
+
+    init(_data?: any, _mappings?: any) {
+        if (_data) {
+            if (Array.isArray(_data["Data"])) {
+                this.data = [] as any;
+                for (let item of _data["Data"])
+                    this.data!.push(PlateTypeRecord.fromJS(item, _mappings));
+            }
+            this.message = _data["message"];
+            this.success = _data["success"];
+            this.totalCount = _data["totalCount"];
+        }
+    }
+
+    static fromJS(data: any, _mappings?: any): PlateTypeResponse {
+        data = typeof data === 'object' ? data : {};
+        return createInstance<PlateTypeResponse>(data, _mappings, PlateTypeResponse);
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        if (Array.isArray(this.data)) {
+            data["Data"] = [];
+            for (let item of this.data)
+                data["Data"].push(item.toJSON());
+        }
+        data["message"] = this.message;
+        data["success"] = this.success;
+        data["totalCount"] = this.totalCount;
+        return data; 
+    }
+
+    clone(): PlateTypeResponse {
+        const json = this.toJSON();
+        let result = new PlateTypeResponse();
+        result.init(json);
+        return result;
+    }
+}
+
+export interface IPlateTypeResponse {
+    data?: IPlateTypeRecord[] | undefined;
+    message?: string | undefined;
+    success?: boolean;
+    totalCount?: number;
+}
+
 export class ProviderRecord implements IProviderRecord {
     id?: number;
     nameEn?: string | undefined;
@@ -8320,6 +9102,7 @@ export class YardRecord implements IYardRecord {
     yardBoundaries?: YardBoundaryRecord[] | undefined;
     yardId?: number;
     area?: string | undefined;
+    zoom?: number | undefined;
 
     constructor(data?: IYardRecord) {
         if (data) {
@@ -8367,6 +9150,7 @@ export class YardRecord implements IYardRecord {
             }
             this.yardId = _data["yardId"];
             this.area = _data["area"];
+            this.zoom = _data["zoom"];
         }
     }
 
@@ -8405,6 +9189,7 @@ export class YardRecord implements IYardRecord {
         }
         data["yardId"] = this.yardId;
         data["area"] = this.area;
+        data["zoom"] = this.zoom;
         return data; 
     }
 
@@ -8441,6 +9226,7 @@ export interface IYardRecord {
     yardBoundaries?: IYardBoundaryRecord[] | undefined;
     yardId?: number;
     area?: string | undefined;
+    zoom?: number | undefined;
 }
 
 export class YardRequest implements IYardRequest {
@@ -9159,6 +9945,7 @@ export class ZoneRecord implements IZoneRecord {
     zoneProviders?: ZoneProviderRecord[] | undefined;
     zoneBeneficiarys?: ZoneBeneficiaryRecord[] | undefined;
     zoneBoundaries?: ZoneBoundaryRecord[] | undefined;
+    zoom?: number | undefined;
 
     constructor(data?: IZoneRecord) {
         if (data) {
@@ -9213,6 +10000,7 @@ export class ZoneRecord implements IZoneRecord {
                 for (let item of _data["zoneBoundaries"])
                     this.zoneBoundaries!.push(ZoneBoundaryRecord.fromJS(item, _mappings));
             }
+            this.zoom = _data["zoom"];
         }
     }
 
@@ -9244,6 +10032,7 @@ export class ZoneRecord implements IZoneRecord {
             for (let item of this.zoneBoundaries)
                 data["zoneBoundaries"].push(item.toJSON());
         }
+        data["zoom"] = this.zoom;
         return data; 
     }
 
@@ -9265,6 +10054,7 @@ export interface IZoneRecord {
     zoneProviders?: IZoneProviderRecord[] | undefined;
     zoneBeneficiarys?: IZoneBeneficiaryRecord[] | undefined;
     zoneBoundaries?: IZoneBoundaryRecord[] | undefined;
+    zoom?: number | undefined;
 }
 
 export class ZoneRequest implements IZoneRequest {

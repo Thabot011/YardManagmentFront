@@ -71,7 +71,7 @@
                     <th mat-header-cell *matHeaderCellDef> Action </th>
                     <td mat-cell *matCellDef="let element">
 
-                        <button matTooltip="View"
+                        <button *ngIf="hasView" matTooltip="View"
                                 [matTooltipPosition]="position"
                                 mat-button
                                 (click)="openViewDialog(element)">

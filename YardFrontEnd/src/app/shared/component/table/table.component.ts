@@ -71,6 +71,9 @@ export class TableComponent implements AfterViewInit {
 
     @Input() hasActivateToggle: boolean = true;
 
+    @Input() hasView: boolean = true;
+
+
     color: ThemePalette = 'warn';
     resultsLength = 0;
     isLoadingResults = true;

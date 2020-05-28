@@ -9,6 +9,7 @@ import { ManageZoneDataComponent } from '../manage-zone-data/manage-zone-data.co
 import { Paging } from '../../../../shared/Entity/Paging';
 import { Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
+import { DisplayColumns } from '../../../../shared/Entity/displayColumns';
 
 @Component({
     selector: 'app-zone-list',
@@ -21,7 +22,7 @@ export class ZoneListComponent extends BaseListClass implements OnInit {
     subscription: Subscription;
     parentId: number;
     parentName: string;
-    displayColumns: KeyValue<string, string>[] = [
+    displayColumns: DisplayColumns[] = [
         { key: "title", value: "Title" },
         { key: "capacity", value: "Capacity" },
     ];

@@ -1,13 +1,13 @@
-import { KeyValue } from "@angular/common";
 import { ComponentType } from "@angular/cdk/portal";
 import { Paging } from "../../Entity/Paging";
 import { Observable } from "rxjs";
 import { ViewChild } from "@angular/core";
 import { TableComponent } from "../../component/table/table.component";
 import { FormGroup, ValidatorFn, ValidationErrors } from "@angular/forms";
+import { DisplayColumns } from "../../Entity/displayColumns";
 
 export abstract class BaseListClass {
-    abstract displayColumns: KeyValue<string, string>[];
+    abstract displayColumns: DisplayColumns[];
     abstract getAll: (paging: Paging) => Observable<any>
     abstract reactiveForm: () => void;
     abstract submitForm: () => void;

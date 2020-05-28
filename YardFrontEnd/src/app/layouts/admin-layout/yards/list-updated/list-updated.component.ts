@@ -1,10 +1,10 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { BaseListClass } from '../../../../shared/class/base/base-list-class';
 import { YardRecord, YardRequest, IYardRecord, CountryRecord, EmirateRecord, Client, CountryRequest, EmirateRequest } from '../../../../shared/service/appService';
-import { KeyValue } from '@angular/common';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Paging } from '../../../../shared/Entity/Paging';
 import { MatSelectChange } from '@angular/material/select';
+import { DisplayColumns } from '../../../../shared/Entity/displayColumns';
 
 @Component({
     selector: 'app-list-updated',
@@ -13,7 +13,7 @@ import { MatSelectChange } from '@angular/material/select';
 })
 export class ListUpdatedComponent extends BaseListClass implements OnInit {
 
-    displayColumns: KeyValue<string, string>[] = [
+    displayColumns: DisplayColumns[] = [
         { key: "name", value: "Name" },
         { key: "capacity", value: "Capacity" },
         { key: "countryName", value: "Country name" },

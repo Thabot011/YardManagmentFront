@@ -5,6 +5,7 @@ import { YardRecord, YardRequest, EmirateRequest, CountryRecord, EmirateRecord, 
 import { MatSelectChange } from '@angular/material/select';
 import { Validators, FormBuilder } from '@angular/forms';
 import { Paging } from '../../../../shared/Entity/Paging';
+import { DisplayColumns } from '../../../../shared/Entity/displayColumns';
 
 @Component({
     selector: 'app-pending-updated-yards',
@@ -13,7 +14,7 @@ import { Paging } from '../../../../shared/Entity/Paging';
 })
 export class PendingUpdatedYardsComponent extends BaseListClass implements OnInit {
 
-    displayColumns: KeyValue<string, string>[] = [
+    displayColumns: DisplayColumns[] = [
         { key: "name", value: "Name" },
         { key: "capacity", value: "Capacity" },
         { key: "countryName", value: "Country name" },

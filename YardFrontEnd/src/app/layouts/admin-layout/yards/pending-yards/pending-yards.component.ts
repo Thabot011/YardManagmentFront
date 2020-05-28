@@ -6,6 +6,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { BaseListClass } from '../../../../shared/class/base/base-list-class';
 import { KeyValue } from '@angular/common';
 import { Paging } from '../../../../shared/Entity/Paging';
+import { DisplayColumns } from '../../../../shared/Entity/displayColumns';
 
 @Component({
     selector: 'app-pending-yards',
@@ -14,7 +15,7 @@ import { Paging } from '../../../../shared/Entity/Paging';
 })
 export class PendingYardsComponent extends BaseListClass implements OnInit {
 
-    displayColumns: KeyValue<string, string>[] = [
+    displayColumns: DisplayColumns[] = [
         { key: "name", value: "Name" },
         { key: "capacity", value: "Capacity" },
         { key: "countryName", value: "Country name" },

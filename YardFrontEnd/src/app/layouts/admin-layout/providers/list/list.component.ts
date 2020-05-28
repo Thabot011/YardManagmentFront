@@ -3,11 +3,11 @@ import { Paging } from '../../../../shared/Entity/Paging';
 import { ComponentType } from '@angular/cdk/portal';
 import { ManageProvidersComponent } from '../manage-providers/manage-providers.component';
 import { Client, ProviderRequest, ProviderRecord, ProviderTypeRecord, CountryRecord, EmirateRecord, EmirateRequest, IProviderRecord, CountryRequest, ProviderTypeRequest } from '../../../../shared/service/appService';
-import { KeyValue } from '@angular/common';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MatSelectChange } from '@angular/material/select';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 import { BaseListClass } from '../../../../shared/class/base/base-list-class';
+import { DisplayColumns } from '../../../../shared/Entity/displayColumns';
 
 @Component({
     selector: 'app-list',
@@ -17,7 +17,7 @@ import { BaseListClass } from '../../../../shared/class/base/base-list-class';
 export class ListComponent extends BaseListClass implements OnInit {
 
 
-    displayColumns: KeyValue<string, string>[] = [
+    displayColumns: DisplayColumns[] = [
         { key: "name", value: "Name" },
         { key: "typeName", value: "Type name" },
         { key: "countryName", value: "Country name" },

@@ -7,6 +7,7 @@ import { Paging } from '../../../../shared/Entity/Paging';
 import { Validators, FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Client, YardEmployeeRequest, YardEmployeeRecord, IYardEmployeeRecord } from '../../../../shared/service/appService';
+import { DisplayColumns } from '../../../../shared/Entity/displayColumns';
 
 @Component({
     selector: 'app-yard-employees',
@@ -27,7 +28,7 @@ export class YardEmployeesComponent extends BaseListClass implements OnInit {
         });
     }
 
-    displayColumns: KeyValue<string, string>[] = [
+    displayColumns: DisplayColumns[] = [
         { key: "name", value: "Name" },
         { key: "email", value: "Email" },
         { key: "mobile", value: "Mobile" },

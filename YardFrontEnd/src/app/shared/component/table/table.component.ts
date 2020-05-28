@@ -8,11 +8,9 @@ import { MatDialog } from '@angular/material/dialog';
 import { Paging } from '../../Entity/Paging';
 import { ComponentType } from '@angular/cdk/portal';
 import { TooltipPosition } from '@angular/material/tooltip';
-import { KeyValue } from '@angular/common';
 import { MatTable } from '@angular/material/table';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { IDialogResult } from '../../Entity/DialogResult';
-import { ProviderResponse } from '../../service/appService';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { ActivatedRoute } from '@angular/router';
 import { ConfirmComponent } from '../confirm/confirm.component';
@@ -34,7 +32,7 @@ export class TableComponent implements AfterViewInit {
             .map(d => d.key);
         this.coulmns = columns;
     }
- 
+
 
     @Input() filter: any;
     @Input() getAll: (Paging: Paging) => Observable<any>;
@@ -65,7 +63,7 @@ export class TableComponent implements AfterViewInit {
     @Input() hasBackLink: boolean = false;
     @Input() hasAddLink: boolean = true;
     @Input() hasActiveStatus: boolean = true;
-    @Input() viewResultsSize: number ;
+    @Input() viewResultsSize: number;
 
     @Input() hasApprove: boolean = false;
 
@@ -82,8 +80,8 @@ export class TableComponent implements AfterViewInit {
     position: TooltipPosition = 'above'
     hasResults: boolean = true;
     parentId: number;
-    _mergedColumns:DisplayColumns[];
-    mergedColumnsColumnKey:string;
+    _mergedColumns: DisplayColumns[];
+    mergedColumnsColumnKey: string;
     @ViewChild(MatPaginator) paginator: MatPaginator;
     @ViewChild(MatSort) sort: MatSort;
     @ViewChild(MatTable) table: MatTable<any>;
@@ -355,24 +353,21 @@ export class TableComponent implements AfterViewInit {
                 })
             }
         });
+    }
 
-    openImagesDialog= (row: any) => {
+    openImagesDialog = (row: any) => {
         debugger;
-    const dialogRef = this.dialog.open(ImagesDialog, {
-        data: row.imagesData,
-        autoFocus: true,
-        maxWidth: '100%',
-        maxHeight: '100%',
-        height: '90%',
-        width: '70%'
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
-    });
-  }
- 
-
-
+        const dialogRef = this.dialog.open(ImagesDialog, {
+            data: row.imagesData,
+            autoFocus: true,
+            maxWidth: '100%',
+            maxHeight: '100%',
+            height: '90%',
+            width: '70%'
+        });
+        dialogRef.afterClosed().subscribe(result => {
+            console.log(`Dialog result: ${result}`);
+        });
     }
 
     changeActivationStatus = (row: any) => {
@@ -399,5 +394,9 @@ export class TableComponent implements AfterViewInit {
     }
 
 }
+
+
+
+
 
 

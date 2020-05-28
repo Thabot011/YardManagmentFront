@@ -10,6 +10,7 @@ import { BaseListClass } from '../../../../shared/class/base/base-list-class';
 import { ActivatedRoute, Router, NavigationEnd, NavigationStart } from '@angular/router';
 import { pairwise, filter } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
+import { DisplayColumns } from '../../../../shared/Entity/displayColumns';
 
 @Component({
     selector: 'app-list',
@@ -18,7 +19,7 @@ import { Subscription } from 'rxjs';
 })
 export class ListComponent extends BaseListClass implements OnInit {
     yard: IYardRecord;
-    displayColumns: KeyValue<string, string>[] = [
+    displayColumns: DisplayColumns[] = [
         { key: "name", value: "Name" },
         { key: "capacity", value: "Capacity" },
         { key: "countryName", value: "Country name" },

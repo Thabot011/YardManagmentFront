@@ -8,6 +8,7 @@ import { Paging } from '../../../../shared/Entity/Paging';
 import { TooltipPosition } from '@angular/material/tooltip';
 import { FormBuilder, Validators } from '@angular/forms';
 import { BaseListClass } from '../../../../shared/class/base/base-list-class';
+import { DisplayColumns } from '../../../../shared/Entity/displayColumns';
 
 @Component({
     selector: 'app-contacts-list',
@@ -30,7 +31,7 @@ export class ContactsListComponent extends BaseListClass implements OnInit {
     }
     position: TooltipPosition = 'above'
 
-    displayColumns: KeyValue<string, string>[] = [
+    displayColumns: DisplayColumns[] = [
         { key: "name", value: "Name" },
         { key: "email", value: "Email" },
         { key: "mobile", value: "Mobile" },

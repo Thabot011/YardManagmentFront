@@ -75,7 +75,6 @@ import { ImagesDialog } from './component/ImageDialog/image.component';
         MatSnackBarModule,
         MatExpansionModule,
         MatCheckboxModule,
-        NgxMaterialTimepickerModule
     ],
     entryComponents:[ImagesDialog]
 })

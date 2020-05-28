@@ -17,6 +17,8 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
 import { ActivatedRoute } from '@angular/router';
 import { ConfirmComponent } from '../confirm/confirm.component';
 import { Confirm } from '../../enum/Confirm';
+import { DisplayColumns } from 'app/shared/Entity/displayColumns';
+import { ImagesDialog } from '../ImageDialog/image.component';
 
 @Component({
     selector: 'app-table',
@@ -27,11 +29,12 @@ import { Confirm } from '../../enum/Confirm';
 export class TableComponent implements AfterViewInit {
 
     @Input()
-    set inputColumns(columns: KeyValue<string, string>[]) {
+    set inputColumns(columns: DisplayColumns[]) {
         this.displayedColumns = [...columns, { key: "action", value: "Action" }]
             .map(d => d.key);
         this.coulmns = columns;
     }
+ 
 
     @Input() filter: any;
     @Input() getAll: (Paging: Paging) => Observable<any>;
@@ -54,10 +57,15 @@ export class TableComponent implements AfterViewInit {
 
 
     @Input() hasDetails: boolean = false;
+    @Input() VehicleDetails: boolean = false;
+
 
     @Input() backLink: string;
 
     @Input() hasBackLink: boolean = false;
+    @Input() hasAddLink: boolean = true;
+    @Input() hasActiveStatus: boolean = true;
+    @Input() viewResultsSize: number ;
 
     @Input() hasApprove: boolean = false;
 
@@ -70,11 +78,12 @@ export class TableComponent implements AfterViewInit {
     isLoadingResults = true;
     dataSource: Array<any> = new Array<any>();
     displayedColumns: string[];
-    coulmns: KeyValue<string, string>[];
+    coulmns: DisplayColumns[];
     position: TooltipPosition = 'above'
     hasResults: boolean = true;
     parentId: number;
-
+    _mergedColumns:DisplayColumns[];
+    mergedColumnsColumnKey:string;
     @ViewChild(MatPaginator) paginator: MatPaginator;
     @ViewChild(MatSort) sort: MatSort;
     @ViewChild(MatTable) table: MatTable<any>;
@@ -346,6 +355,22 @@ export class TableComponent implements AfterViewInit {
                 })
             }
         });
+
+    openImagesDialog= (row: any) => {
+        debugger;
+    const dialogRef = this.dialog.open(ImagesDialog, {
+        data: row.imagesData,
+        autoFocus: true,
+        maxWidth: '100%',
+        maxHeight: '100%',
+        height: '90%',
+        width: '70%'
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
+  }
+ 
 
 
     }

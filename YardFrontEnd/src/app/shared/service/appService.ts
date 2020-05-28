@@ -8320,7 +8320,6 @@ export class YardRecord implements IYardRecord {
     yardBoundaries?: YardBoundaryRecord[] | undefined;
     yardId?: number;
     area?: string | undefined;
-    zoom?: number | undefined;
 
     constructor(data?: IYardRecord) {
         if (data) {
@@ -8368,7 +8367,6 @@ export class YardRecord implements IYardRecord {
             }
             this.yardId = _data["yardId"];
             this.area = _data["area"];
-            this.zoom = _data["zoom"];
         }
     }
 
@@ -8407,7 +8405,6 @@ export class YardRecord implements IYardRecord {
         }
         data["yardId"] = this.yardId;
         data["area"] = this.area;
-        data["zoom"] = this.zoom;
         return data; 
     }
 
@@ -8444,7 +8441,6 @@ export interface IYardRecord {
     yardBoundaries?: IYardBoundaryRecord[] | undefined;
     yardId?: number;
     area?: string | undefined;
-    zoom?: number | undefined;
 }
 
 export class YardRequest implements IYardRequest {
@@ -9163,7 +9159,6 @@ export class ZoneRecord implements IZoneRecord {
     zoneProviders?: ZoneProviderRecord[] | undefined;
     zoneBeneficiarys?: ZoneBeneficiaryRecord[] | undefined;
     zoneBoundaries?: ZoneBoundaryRecord[] | undefined;
-    zoom?: number | undefined;
 
     constructor(data?: IZoneRecord) {
         if (data) {
@@ -9218,7 +9213,6 @@ export class ZoneRecord implements IZoneRecord {
                 for (let item of _data["zoneBoundaries"])
                     this.zoneBoundaries!.push(ZoneBoundaryRecord.fromJS(item, _mappings));
             }
-            this.zoom = _data["zoom"];
         }
     }
 
@@ -9250,7 +9244,6 @@ export class ZoneRecord implements IZoneRecord {
             for (let item of this.zoneBoundaries)
                 data["zoneBoundaries"].push(item.toJSON());
         }
-        data["zoom"] = this.zoom;
         return data; 
     }
 
@@ -9272,7 +9265,6 @@ export interface IZoneRecord {
     zoneProviders?: IZoneProviderRecord[] | undefined;
     zoneBeneficiarys?: IZoneBeneficiaryRecord[] | undefined;
     zoneBoundaries?: IZoneBoundaryRecord[] | undefined;
-    zoom?: number | undefined;
 }
 
 export class ZoneRequest implements IZoneRequest {

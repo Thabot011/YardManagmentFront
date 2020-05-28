@@ -1,0 +1,27 @@
+<mat-card class="example-card">
+    <mat-card-header>
+        <mat-card-title mat-dialog-title>
+            <div>
+               Edit Vehicle
+            </div>
+        </mat-card-title>
+        <mat-card-subtitle></mat-card-subtitle>
+    </mat-card-header>
+    <form [formGroup]="form" (ngSubmit)="submitForm()" novalidate>
+        <mat-card-content>
+            <div mat-dialog-content>
+               
+            
+
+            </div>
+        </mat-card-content>
+        <mat-card-actions>
+            <button mat-button type="submit">Save</button>
+            <button mat-button color="warn" [mat-dialog-close]="false">Cancel</button>
+        </mat-card-actions>
+    </form>
+
+</mat-card>
+
+
+

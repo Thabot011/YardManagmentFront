@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { CommonModule, DatePipe } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { LbdModule } from '../../lbd/lbd.module';
 
@@ -18,6 +18,7 @@ import { UpgradeComponent } from '../../upgrade/upgrade.component';
 import { ProvidersModule } from './providers/providers.module';
 import { BeneficiariesModule } from './beneficiaries/beneficiaries.module';
 import { YardsModule } from './yards/yards.module';
+import { VehiclesModule } from './Vehicles/vehicles.module';
 import { Client } from '../../shared/service/appService';
 
 
@@ -29,7 +30,8 @@ import { Client } from '../../shared/service/appService';
         LbdModule,
         ProvidersModule,
         BeneficiariesModule,
-        YardsModule
+        YardsModule,
+        VehiclesModule
     ],
     declarations: [
         HomeComponent,
@@ -41,7 +43,7 @@ import { Client } from '../../shared/service/appService';
         NotificationsComponent,
         UpgradeComponent
     ],
-    providers: [Client]
+    providers: [Client, DatePipe]
 })
 
 export class AdminLayoutModule { }

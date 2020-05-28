@@ -7,7 +7,7 @@
         </button>
     </div>
 
-    <div *ngIf="!hasApprove">
+    <div *ngIf="hasAddLink">
         <button matTooltip="Add"
                 [matTooltipPosition]="position"
                 (click)="openAddDialog()" mat-raised-button>
@@ -26,11 +26,46 @@
         <div class="example-table-container">
             <table #table mat-table [dataSource]="dataSource" multiTemplateDataRows
                    matSort matSortDisableClear matSortDirection="desc">
+                   <ng-container *ngFor="let column of coulmns"  matColumnDef="{{column.key}}">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header style="padding-right: 25px;">{{column.value}}</th>
+                    <td mat-cell *matCellDef="let row" style="padding-right: 25px;">
+                      <span *ngIf="column.key!='vehicleImages'"> {{row[column.key]}} </span> 
+                    <div *ngIf="column.key=='vehicleImages'" >       
+                       <img src={{row[column.key]}} height="80" width="100" /> 
+                      <div>
+                     <a (click)="openImagesDialog(row)" target="_blank" style="font-size: 13px; cursor: pointer;">Manage Images</a>
+                      </div>  
+                    </div>  
+                    </td>
+                     
+                </ng-container>
 
-                <ng-container *ngFor="let column of coulmns" matColumnDef="{{column.key}}">
+                <!-- <div *ngIf="_mergedColumns.length>0">
+                    <ng-container   matColumnDef="{{column.key}}">
+                        <div *ngFor="let column of _mergedColumns">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>{{column.value}}</th>
+                            <td mat-cell *matCellDef="let row">{{row[column.key]}}</td>
+                        </div>
+     
+                    </ng-container>
+                </div> -->
+            <!-- <div *ngFor="let column of coulmns">
+                <div *ngIf="!column.innerColumns">
+                <ng-container  matColumnDef="{{column.key}}">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header>{{column.value}}</th>
                     <td mat-cell *matCellDef="let row">{{row[column.key]}}</td>
+                     
                 </ng-container>
+            </div>
+
+                <div *ngIf="column.innerColumns">
+                    <ng-container *ngFor="let inner of column.innerColumns"  matColumnDef="{{inner.key}}">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>{{inner.value}}</th>
+                        <td mat-cell *matCellDef="let row">{{row[column.key][inner.key]}}</td>
+                         
+                    </ng-container> 
+                </div>
+            </div> -->
 
                 <!-- Action Column -->
                 <ng-container matColumnDef="action">
@@ -73,6 +108,14 @@
                         </a>
 
                         <mat-slide-toggle *ngIf="hasActivateToggle && !hasEditApprove" matTooltip="{{element.isActive?'De activate':'Activate'}}"
+                        <a *ngIf="VehicleDetails" matTooltip="View Vehicle Details"
+                           [matTooltipPosition]="position"
+                           mat-button
+                           [routerLink]="['/'+detailsLink]">
+                            <mat-icon>info</mat-icon>
+                        </a>
+
+                        <mat-slide-toggle  *ngIf="hasActiveStatus" matTooltip="{{element.isActive?'De activate':'Activate'}}"
                                           [matTooltipPosition]="position"
                                           (toggleChange)="changeActivationStatus(element)"
                                           [color]="color"
@@ -87,7 +130,7 @@
         </div>
 
 
-        <mat-paginator [length]="resultsLength" [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+        <mat-paginator [pageSize]="viewResultsSize" [length]="resultsLength" [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
     </div>
 </div>
 <div class="row d-flex justify-content-center">

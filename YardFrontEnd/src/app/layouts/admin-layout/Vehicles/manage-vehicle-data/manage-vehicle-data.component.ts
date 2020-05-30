@@ -114,7 +114,7 @@ export class ManageVehicleDataComponent extends BaseManagementClass implements O
     reactiveForm = () => {
         this.form = this.fb.group({
             id: [this.data.id, []],
-            vin: [this.data.vin, [Validators.required]],
+            vin: [{ value: this.data.vin, disabled: this.data.onlyView }, [Validators.required]],
             providerId: [this.data.providerId, [Validators.required]],
             beneficiaryId: [this.data.beneficiaryId, [Validators.required]],
             year: [this.data.year, [Validators.required]],

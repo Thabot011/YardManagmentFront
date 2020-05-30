@@ -358,7 +358,6 @@ export class TableComponent implements AfterViewInit {
     }
 
     openImagesDialog = (row: any) => {
-        debugger;
         const dialogRef = this.dialog.open(ImagesDialog, {
             data: row.imagesData,
             autoFocus: true,

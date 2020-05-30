@@ -82,10 +82,10 @@ export class ListComponent extends BaseListClass implements OnInit {
         let index = res.data[i];        
 
         let vehicleMergedRecord:VehicleMergedRecord = new VehicleMergedRecord();  
-        if(index.dataStatusName == "Pending Data Completion" && index.dataStatusId == 1){
-            vehicleMergedRecord.checkEditOrComplete = true;
-        }
-        else{ vehicleMergedRecord.checkEditOrComplete = false;}
+        // if(index.dataStatusName == "Pending Data Completion" && index.dataStatusId == 1){
+        //     vehicleMergedRecord.checkEditOrComplete = true;
+        // }
+        // else{ vehicleMergedRecord.checkEditOrComplete = false;}
         vehicleMergedRecord.platesData = [];
         vehicleMergedRecord.imagesData= [];
         vehicleMergedRecord.QRCodes= [];

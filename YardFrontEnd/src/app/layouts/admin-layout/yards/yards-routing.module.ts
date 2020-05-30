@@ -3,7 +3,6 @@ import { Routes, RouterModule } from '@angular/router';
 import { ListComponent } from './list/list.component';
 import { YardManagentComponent } from './yard-managent/yard-managent.component';
 import { YardEmployeesComponent } from './yard-employees/yard-employees.component';
-import { ListUpdatedComponent } from './list-updated/list-updated.component';
 import { ZoneListComponent } from './zone-list/zone-list.component';
 import { PendingYardsComponent } from './pending-yards/pending-yards.component';
 import { PendingUpdatedYardsComponent } from './pending-updated-yards/pending-updated-yards.component';
@@ -14,9 +13,6 @@ const routes: Routes = [
 
     {
         path: "list", component: ListComponent
-    },
-    {
-        path: "listToupdate", component: ListUpdatedComponent
     },
     {
         path: "listPending", component: PendingYardsComponent

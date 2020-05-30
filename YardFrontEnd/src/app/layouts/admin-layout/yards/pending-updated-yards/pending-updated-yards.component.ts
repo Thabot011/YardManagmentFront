@@ -1,11 +1,12 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { BaseListClass } from '../../../../shared/class/base/base-list-class';
-import { KeyValue } from '@angular/common';
 import { YardRecord, YardRequest, EmirateRequest, CountryRecord, EmirateRecord, CountryRequest, IYardRecord, Client } from '../../../../shared/service/appService';
 import { MatSelectChange } from '@angular/material/select';
 import { Validators, FormBuilder } from '@angular/forms';
 import { Paging } from '../../../../shared/Entity/Paging';
 import { DisplayColumns } from '../../../../shared/Entity/displayColumns';
+import { ComponentType } from '@angular/cdk/portal';
+import { ManageYardDataComponent } from '../manage-yard-data/manage-yard-data.component';
 
 @Component({
     selector: 'app-pending-updated-yards',
@@ -21,6 +22,8 @@ export class PendingUpdatedYardsComponent extends BaseListClass implements OnIni
         { key: "emirateName", value: "Emirate name" },
         { key: "statusName", value: "Status name" }
     ];
+    AddOrEditComponent: ComponentType<ManageYardDataComponent> = ManageYardDataComponent;
+
 
     countries: CountryRecord[];
     emirates: EmirateRecord[];

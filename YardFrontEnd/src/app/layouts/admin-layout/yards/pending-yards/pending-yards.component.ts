@@ -7,6 +7,8 @@ import { BaseListClass } from '../../../../shared/class/base/base-list-class';
 import { KeyValue } from '@angular/common';
 import { Paging } from '../../../../shared/Entity/Paging';
 import { DisplayColumns } from '../../../../shared/Entity/displayColumns';
+import { ComponentType } from '@angular/cdk/portal';
+import { ManageYardDataComponent } from '../manage-yard-data/manage-yard-data.component';
 
 @Component({
     selector: 'app-pending-yards',
@@ -25,6 +27,7 @@ export class PendingYardsComponent extends BaseListClass implements OnInit {
     countries: CountryRecord[];
     emirates: EmirateRecord[];
 
+    AddOrEditComponent: ComponentType<ManageYardDataComponent> = ManageYardDataComponent;
 
 
 

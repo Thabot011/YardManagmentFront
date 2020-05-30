@@ -8,7 +8,6 @@ import { SharedModule } from '../../../shared/shared.module';
 import { AgmCoreModule } from '@agm/core';
 import { YardEmployeesComponent } from './yard-employees/yard-employees.component';
 import { ManageYardEmployeesComponent } from './manage-yard-employees/manage-yard-employees.component';
-import { ListUpdatedComponent } from './list-updated/list-updated.component';
 import { ZoneListComponent } from './zone-list/zone-list.component';
 import { ManageZoneDataComponent } from './manage-zone-data/manage-zone-data.component';
 import { PendingYardsComponent } from './pending-yards/pending-yards.component';
@@ -17,7 +16,7 @@ import { AngularMultiSelectModule } from 'angular2-multiselect-dropdown';
 
 
 @NgModule({
-    declarations: [ListComponent, YardManagentComponent, ManageYardDataComponent, YardEmployeesComponent, ManageYardEmployeesComponent, ListUpdatedComponent, ZoneListComponent, ManageZoneDataComponent, PendingYardsComponent, PendingUpdatedYardsComponent],
+    declarations: [ListComponent, YardManagentComponent, ManageYardDataComponent, YardEmployeesComponent, ManageYardEmployeesComponent, ZoneListComponent, ManageZoneDataComponent, PendingYardsComponent, PendingUpdatedYardsComponent],
     imports: [
         CommonModule,
         YardsRoutingModule,

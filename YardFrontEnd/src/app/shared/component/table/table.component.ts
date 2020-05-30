@@ -56,9 +56,9 @@ export class TableComponent implements AfterViewInit {
 
     @Input() hasDetails: boolean = false;
     @Input() VehicleDetails: boolean = false;
-   // @Input() CompleteVehicle: boolean = false;
+    // @Input() CompleteVehicle: boolean = false;
     //@Input() checkDataStatus: boolean = false;
-    
+
 
     @Input() backLink: string;
 
@@ -72,6 +72,9 @@ export class TableComponent implements AfterViewInit {
     @Input() hasZones: boolean = false;
 
     @Input() hasActivateToggle: boolean = true;
+
+    @Input() hasView: boolean = true;
+
 
     color: ThemePalette = 'warn';
     resultsLength = 0;
@@ -272,6 +275,9 @@ export class TableComponent implements AfterViewInit {
                             this.dataSource = this.dataSource.filter((value, key) => {
                                 return value.id != row.id;
                             });
+                            if (this.dataSource.length == 0) {
+                                this.hasResults = false;
+                            }
                         }
                         this.notify(result.message, "Editing");
                     }
@@ -304,6 +310,9 @@ export class TableComponent implements AfterViewInit {
                             this.dataSource = this.dataSource.filter((value, key) => {
                                 return value.id != row.id;
                             });
+                            if (this.dataSource.length == 0) {
+                                this.hasResults = false;
+                            }
                         }
                         this.notify(result.message, "Editing");
                     }
@@ -333,6 +342,10 @@ export class TableComponent implements AfterViewInit {
                             return value.id != row.id;
                         });
 
+                        if (this.dataSource.length == 0) {
+                            this.hasResults = false;
+                        }
+
                         this.notify("Approved successfully ", "Approval");
                     }
                     else {
@@ -346,6 +359,10 @@ export class TableComponent implements AfterViewInit {
                         this.dataSource = this.dataSource.filter((value, key) => {
                             return value.id != row.id;
                         });
+
+                        if (this.dataSource.length == 0) {
+                            this.hasResults = false;
+                        }
 
                         this.notify("Rejected successfully ", "Rejection");
                     }

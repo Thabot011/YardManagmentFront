@@ -13,11 +13,10 @@ export const ROUTES: RouteInfo[] = [
     //{ path: '/dashboard', title: 'Dashboard', icon: 'pe-7s-graph', class: '' },
     { path: '/provider/list', title: "Providers", icon: 'pe-7s-plug', class: '' },
     { path: '/beneficiarie/list', title: "Beneficiaries", icon: 'pe-7s-user', class: '' },
+    { path: '/yard/list', title: 'Yards', icon: 'pe-7s-map-marker', class: '' },
     {
-        path: 'yard', title: "Yards", icon: 'pe-7s-map-marker', class: '', children: [
-            { path: '/yard/list', title: 'Added aproved', icon: 'pe-7s-map-2', class: '' },
-            { path: '/yard/listPending', title: 'Added pending', icon: 'pe-7s-map-2', class: '' },
-            { path: '/yard/listToupdate', title: 'Updated approved', icon: 'pe-7s-map', class: '' },
+        path: 'yard', title: "Pending yards", icon: 'pe-7s-map-2', class: '', children: [
+            { path: '/yard/listPending', title: 'Added pending', icon: 'pe-7s-map', class: '' },
             { path: '/yard/listToupdatePending', title: 'updated pending', icon: 'pe-7s-map', class: '' },
 
         ]

@@ -78,14 +78,21 @@
                             <mat-icon>remove_red_eye</mat-icon>
                         </button>
 
-                        <button *ngIf="!(hasApprove || element.statusId && element.statusId==1)" matTooltip="Edit"
+                        <button *ngIf="(!(hasApprove || element.statusId && element.statusId==1)) && hasAddLink" matTooltip="Edit"
                                 [matTooltipPosition]="position"
                                 mat-button
                                 (click)="openEditDialog(element)">
                             <mat-icon>edit</mat-icon>
                         </button>
 
-                        <a *ngIf="hasApprove || (element.statusId && element.statusId==1)" matTooltip="approve"
+                        <button *ngIf="!hasAddLink"  matTooltip="Edit"
+                        [matTooltipPosition]="position"
+                        mat-button
+                        (click)="openEditDialog(element)">
+                    <mat-icon>edit</mat-icon>
+                </button>
+
+                        <a *ngIf="(hasApprove || (element.statusId && element.statusId==1)) && hasAddLink" matTooltip="approve"
                            [matTooltipPosition]="position"
                            mat-button
                            (click)="approve(element)">

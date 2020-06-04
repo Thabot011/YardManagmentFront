@@ -104,6 +104,11 @@ export interface IClient {
      * @param body (optional) 
      * @return Success
      */
+    listPlateCode(body?: PlateCodeRequest | undefined): Observable<PlateCodeResponse>;
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
     listPlateType(body?: PlateTypeRequest | undefined): Observable<PlateTypeResponse>;
     /**
      * @param body (optional) 
@@ -176,19 +181,10 @@ export interface IClient {
      */
     listVehicle(body?: VehicleRequest | undefined): Observable<VehicleResponse>;
     /**
-     * @param id (optional) 
-     * @param documentHash (optional) 
-     * @param documentName (optional) 
-     * @param documentType (optional) 
-     * @param title (optional) 
-     * @param description (optional) 
-     * @param createdAt (optional) 
-     * @param documentTypeName (optional) 
-     * @param docFile (optional) 
-     * @param docUrl (optional) 
+     * @param body (optional) 
      * @return Success
      */
-    testCDN(id?: number | undefined, documentHash?: string | null | undefined, documentName?: string | null | undefined, documentType?: number | undefined, title?: string | null | undefined, description?: string | null | undefined, createdAt?: Date | undefined, documentTypeName?: string | null | undefined, docFile?: FileParameter | null | undefined, docUrl?: string | null | undefined): Observable<string>;
+    testCDN(body?: DocumentRecord | undefined): Observable<string>;
     /**
      * @param body (optional) 
      * @return Success
@@ -1332,6 +1328,63 @@ export class Client implements IClient {
      * @param body (optional) 
      * @return Success
      */
+    listPlateCode(body?: PlateCodeRequest | undefined): Observable<PlateCodeResponse> {
+        let url_ = this.baseUrl + "/api/PlateCode/ListPlateCode";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json",
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processListPlateCode(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processListPlateCode(<any>response_);
+                } catch (e) {
+                    return <Observable<PlateCodeResponse>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<PlateCodeResponse>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processListPlateCode(response: HttpResponseBase): Observable<PlateCodeResponse> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        let _mappings: { source: any, target: any }[] = [];
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : jsonParse(_responseText, this.jsonParseReviver);
+            result200 = PlateCodeResponse.fromJS(resultData200, _mappings);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<PlateCodeResponse>(<any>null);
+    }
+
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
     listPlateType(body?: PlateTypeRequest | undefined): Observable<PlateTypeResponse> {
         let url_ = this.baseUrl + "/api/PlateType/ListPlateType";
         url_ = url_.replace(/[?&]$/, "");
@@ -2179,55 +2232,21 @@ export class Client implements IClient {
     }
 
     /**
-     * @param id (optional) 
-     * @param documentHash (optional) 
-     * @param documentName (optional) 
-     * @param documentType (optional) 
-     * @param title (optional) 
-     * @param description (optional) 
-     * @param createdAt (optional) 
-     * @param documentTypeName (optional) 
-     * @param docFile (optional) 
-     * @param docUrl (optional) 
+     * @param body (optional) 
      * @return Success
      */
-    testCDN(id?: number | undefined, documentHash?: string | null | undefined, documentName?: string | null | undefined, documentType?: number | undefined, title?: string | null | undefined, description?: string | null | undefined, createdAt?: Date | undefined, documentTypeName?: string | null | undefined, docFile?: FileParameter | null | undefined, docUrl?: string | null | undefined): Observable<string> {
+    testCDN(body?: DocumentRecord | undefined): Observable<string> {
         let url_ = this.baseUrl + "/api/Vehicle/TestCDN";
         url_ = url_.replace(/[?&]$/, "");
 
-        const content_ = new FormData();
-        if (id === null || id === undefined)
-            throw new Error("The parameter 'id' cannot be null.");
-        else
-            content_.append("Id", id.toString());
-        if (documentHash !== null && documentHash !== undefined)
-            content_.append("DocumentHash", documentHash.toString());
-        if (documentName !== null && documentName !== undefined)
-            content_.append("DocumentName", documentName.toString());
-        if (documentType === null || documentType === undefined)
-            throw new Error("The parameter 'documentType' cannot be null.");
-        else
-            content_.append("DocumentType", documentType.toString());
-        if (title !== null && title !== undefined)
-            content_.append("Title", title.toString());
-        if (description !== null && description !== undefined)
-            content_.append("Description", description.toString());
-        if (createdAt === null || createdAt === undefined)
-            throw new Error("The parameter 'createdAt' cannot be null.");
-        else
-            content_.append("CreatedAt", createdAt.toJSON());
-        if (documentTypeName !== null && documentTypeName !== undefined)
-            content_.append("DocumentTypeName", documentTypeName.toString());
-        if (docFile !== null && docFile !== undefined)
-            content_.append("DocFile", docFile.data, docFile.fileName ? docFile.fileName : "DocFile");
-        if (docUrl !== null && docUrl !== undefined)
-            content_.append("DocUrl", docUrl.toString());
+        const content_ = JSON.stringify(body);
 
         let options_ : any = {
             body: content_,
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json",
                 "Accept": "text/plain"
             })
         };
@@ -5951,6 +5970,210 @@ export interface IModelResponse {
     totalCount?: number;
 }
 
+export class PlateCodeRecord implements IPlateCodeRecord {
+    id?: number;
+    emirateId?: number;
+    plateTypeId?: number;
+    code?: string | undefined;
+
+    constructor(data?: IPlateCodeRecord) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any, _mappings?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.emirateId = _data["emirateId"];
+            this.plateTypeId = _data["plateTypeId"];
+            this.code = _data["code"];
+        }
+    }
+
+    static fromJS(data: any, _mappings?: any): PlateCodeRecord {
+        data = typeof data === 'object' ? data : {};
+        return createInstance<PlateCodeRecord>(data, _mappings, PlateCodeRecord);
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["emirateId"] = this.emirateId;
+        data["plateTypeId"] = this.plateTypeId;
+        data["code"] = this.code;
+        return data; 
+    }
+
+    clone(): PlateCodeRecord {
+        const json = this.toJSON();
+        let result = new PlateCodeRecord();
+        result.init(json);
+        return result;
+    }
+}
+
+export interface IPlateCodeRecord {
+    id?: number;
+    emirateId?: number;
+    plateTypeId?: number;
+    code?: string | undefined;
+}
+
+export class PlateCodeRequest implements IPlateCodeRequest {
+    plateCodeRecord?: PlateCodeRecord;
+    isDesc?: boolean;
+    orderByColumn?: string | undefined;
+    pageSize?: number;
+    pageIndex?: number;
+    createdBy?: number;
+    roleID?: number;
+    languageId?: number;
+    baseUrl?: string | undefined;
+    name?: string | undefined;
+    mailSender?: MailSender;
+
+    constructor(data?: IPlateCodeRequest) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+            this.plateCodeRecord = data.plateCodeRecord && !(<any>data.plateCodeRecord).toJSON ? new PlateCodeRecord(data.plateCodeRecord) : <PlateCodeRecord>this.plateCodeRecord; 
+            this.mailSender = data.mailSender && !(<any>data.mailSender).toJSON ? new MailSender(data.mailSender) : <MailSender>this.mailSender; 
+        }
+    }
+
+    init(_data?: any, _mappings?: any) {
+        if (_data) {
+            this.plateCodeRecord = _data["plateCodeRecord"] ? PlateCodeRecord.fromJS(_data["plateCodeRecord"], _mappings) : <any>undefined;
+            this.isDesc = _data["isDesc"];
+            this.orderByColumn = _data["orderByColumn"];
+            this.pageSize = _data["pageSize"];
+            this.pageIndex = _data["pageIndex"];
+            this.createdBy = _data["createdBy"];
+            this.roleID = _data["roleID"];
+            this.languageId = _data["languageId"];
+            this.baseUrl = _data["baseUrl"];
+            this.name = _data["name"];
+            this.mailSender = _data["mailSender"] ? MailSender.fromJS(_data["mailSender"], _mappings) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any, _mappings?: any): PlateCodeRequest {
+        data = typeof data === 'object' ? data : {};
+        return createInstance<PlateCodeRequest>(data, _mappings, PlateCodeRequest);
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["plateCodeRecord"] = this.plateCodeRecord ? this.plateCodeRecord.toJSON() : <any>undefined;
+        data["isDesc"] = this.isDesc;
+        data["orderByColumn"] = this.orderByColumn;
+        data["pageSize"] = this.pageSize;
+        data["pageIndex"] = this.pageIndex;
+        data["createdBy"] = this.createdBy;
+        data["roleID"] = this.roleID;
+        data["languageId"] = this.languageId;
+        data["baseUrl"] = this.baseUrl;
+        data["name"] = this.name;
+        data["mailSender"] = this.mailSender ? this.mailSender.toJSON() : <any>undefined;
+        return data; 
+    }
+
+    clone(): PlateCodeRequest {
+        const json = this.toJSON();
+        let result = new PlateCodeRequest();
+        result.init(json);
+        return result;
+    }
+}
+
+export interface IPlateCodeRequest {
+    plateCodeRecord?: IPlateCodeRecord;
+    isDesc?: boolean;
+    orderByColumn?: string | undefined;
+    pageSize?: number;
+    pageIndex?: number;
+    createdBy?: number;
+    roleID?: number;
+    languageId?: number;
+    baseUrl?: string | undefined;
+    name?: string | undefined;
+    mailSender?: IMailSender;
+}
+
+export class PlateCodeResponse implements IPlateCodeResponse {
+    data?: PlateCodeRecord[] | undefined;
+    message?: string | undefined;
+    success?: boolean;
+    totalCount?: number;
+
+    constructor(data?: IPlateCodeResponse) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+            if (data.data) {
+                this.data = [];
+                for (let i = 0; i < data.data.length; i++) {
+                    let item = data.data[i];
+                    this.data[i] = item && !(<any>item).toJSON ? new PlateCodeRecord(item) : <PlateCodeRecord>item;
+                }
+            }
+        }
+    }
+
+    init(_data?: any, _mappings?: any) {
+        if (_data) {
+            if (Array.isArray(_data["Data"])) {
+                this.data = [] as any;
+                for (let item of _data["Data"])
+                    this.data!.push(PlateCodeRecord.fromJS(item, _mappings));
+            }
+            this.message = _data["message"];
+            this.success = _data["success"];
+            this.totalCount = _data["totalCount"];
+        }
+    }
+
+    static fromJS(data: any, _mappings?: any): PlateCodeResponse {
+        data = typeof data === 'object' ? data : {};
+        return createInstance<PlateCodeResponse>(data, _mappings, PlateCodeResponse);
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        if (Array.isArray(this.data)) {
+            data["Data"] = [];
+            for (let item of this.data)
+                data["Data"].push(item.toJSON());
+        }
+        data["message"] = this.message;
+        data["success"] = this.success;
+        data["totalCount"] = this.totalCount;
+        return data; 
+    }
+
+    clone(): PlateCodeResponse {
+        const json = this.toJSON();
+        let result = new PlateCodeResponse();
+        result.init(json);
+        return result;
+    }
+}
+
+export interface IPlateCodeResponse {
+    data?: IPlateCodeRecord[] | undefined;
+    message?: string | undefined;
+    success?: boolean;
+    totalCount?: number;
+}
+
 export class PlateTypeRecord implements IPlateTypeRecord {
     id?: number;
     name?: string | undefined;
@@ -7068,6 +7291,7 @@ export class ImageRecord implements IImageRecord {
     storeId?: number | undefined;
     imageTypeName?: string | undefined;
     imageFile?: string | undefined;
+    imageFileMime?: string | undefined;
     imageUrl?: string | undefined;
 
     constructor(data?: IImageRecord) {
@@ -7089,6 +7313,7 @@ export class ImageRecord implements IImageRecord {
             this.storeId = _data["storeId"];
             this.imageTypeName = _data["imageTypeName"];
             this.imageFile = _data["imageFile"];
+            this.imageFileMime = _data["imageFileMime"];
             this.imageUrl = _data["imageUrl"];
         }
     }
@@ -7108,6 +7333,7 @@ export class ImageRecord implements IImageRecord {
         data["storeId"] = this.storeId;
         data["imageTypeName"] = this.imageTypeName;
         data["imageFile"] = this.imageFile;
+        data["imageFileMime"] = this.imageFileMime;
         data["imageUrl"] = this.imageUrl;
         return data; 
     }
@@ -7129,6 +7355,7 @@ export interface IImageRecord {
     storeId?: number | undefined;
     imageTypeName?: string | undefined;
     imageFile?: string | undefined;
+    imageFileMime?: string | undefined;
     imageUrl?: string | undefined;
 }
 
@@ -7328,6 +7555,7 @@ export class DocumentRecord implements IDocumentRecord {
     description?: string | undefined;
     documentTypeName?: string | undefined;
     docFile?: string | undefined;
+    docFileMime?: string | undefined;
     docUrl?: string | undefined;
 
     constructor(data?: IDocumentRecord) {
@@ -7349,6 +7577,7 @@ export class DocumentRecord implements IDocumentRecord {
             this.description = _data["description"];
             this.documentTypeName = _data["documentTypeName"];
             this.docFile = _data["docFile"];
+            this.docFileMime = _data["docFileMime"];
             this.docUrl = _data["docUrl"];
         }
     }
@@ -7368,6 +7597,7 @@ export class DocumentRecord implements IDocumentRecord {
         data["description"] = this.description;
         data["documentTypeName"] = this.documentTypeName;
         data["docFile"] = this.docFile;
+        data["docFileMime"] = this.docFileMime;
         data["docUrl"] = this.docUrl;
         return data; 
     }
@@ -7389,6 +7619,7 @@ export interface IDocumentRecord {
     description?: string | undefined;
     documentTypeName?: string | undefined;
     docFile?: string | undefined;
+    docFileMime?: string | undefined;
     docUrl?: string | undefined;
 }
 
@@ -10307,11 +10538,6 @@ function createInstance<T>(data: any, mappings: any, type: any): T {
     mappings.push({ source: data, target: result });
     result.init(data, mappings);
     return result;
-}
-
-export interface FileParameter {
-    data: any;
-    fileName: string;
 }
 
 export class ApiException extends Error {

@@ -317,7 +317,7 @@
         </mat-card-content>
     
         <mat-card-actions>
-            <button mat-button *ngIf="!data.onlyView" type="submit">Save</button>
+            <button mat-button *ngIf="!data.onlyView" type="submit" [disabled]="oneClick">Save</button>
             <button mat-button color="warn" [mat-dialog-close]="false">
                 {{data.onlyView?'Close':'Cancel'}}
             </button>

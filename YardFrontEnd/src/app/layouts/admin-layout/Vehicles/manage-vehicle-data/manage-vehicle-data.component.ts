@@ -44,6 +44,7 @@ export class ManageVehicleDataComponent extends BaseManagementClass implements O
     imagesData:string[];
     docfiles: string[]=[];
     imagefiles: string[]=[];
+    oneClick = false;
 
 
     constructor(private fb: FormBuilder,
@@ -55,7 +56,7 @@ export class ManageVehicleDataComponent extends BaseManagementClass implements O
 
     ngOnInit(): void {
         this.reactiveForm();
-      
+      this.oneClick = false;
         if (this.data.id) {
             this.appService.listVehicle(new VehicleRequest({
                 vehicleRecord: { id: this.data.id }})).subscribe(data => {
@@ -121,6 +122,7 @@ export class ManageVehicleDataComponent extends BaseManagementClass implements O
     }
 
     submitForm = () => {
+        this.oneClick = true;
         if (this.form.valid) {
             let vehicle: IVehicleRecord = this.form.value;
            vehicle.images=  this.data.imagesData;

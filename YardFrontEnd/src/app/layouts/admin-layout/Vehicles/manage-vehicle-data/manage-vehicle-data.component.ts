@@ -539,6 +539,7 @@ export class ManageVehicleDataComponent extends BaseManagementClass implements O
     }
 
     fileChange(event) {
+        
         this.fileList = event.target.files;
         if(this.fileList.length > 0) {
             let file: File;

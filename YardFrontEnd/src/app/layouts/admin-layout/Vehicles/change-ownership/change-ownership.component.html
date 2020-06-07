@@ -1,0 +1,86 @@
+<mat-card>
+    <mat-card-header>
+        <mat-card-title mat-dialog-title>
+            <div>
+                {{'change Ownership'}}
+            </div>
+        </mat-card-title>
+        <mat-card-subtitle></mat-card-subtitle>
+    </mat-card-header>
+    <form class="example-form" [formGroup]="form" (ngSubmit)="submitForm()" novalidate>
+        <mat-card-content>
+            <div mat-dialog-content>
+                <input type="hidden" value="0" formControlName="id">
+
+                <table class="example-full-width" cellspacing="0">
+                    <tr>
+                        <td>
+                            <mat-form-field class="example-full-width">
+                                <mat-label>Select a provider</mat-label>
+                                <mat-select formControlName="providerId">
+                                    <mat-option>None</mat-option>
+                                    <mat-option [value]="provider.id" *ngFor="let provider of providers">
+                                        {{provider.name}}
+                                    </mat-option>
+                                </mat-select>
+                                <mat-error *ngIf="errorHandling('providerId','required')">
+                                    You must provide a<strong> provider </strong>
+                                </mat-error>
+                            </mat-form-field>
+                        </td>
+
+                        <td>
+                            <mat-form-field class="example-full-width">
+                                <mat-label>Select a beneficiary</mat-label>
+                                <mat-select formControlName="beneficiaryId">
+                                    <mat-option>None</mat-option>
+                                    <mat-option [value]="Beneficiary.id" *ngFor="let Beneficiary of Beneficiaries">
+                                        {{Beneficiary.name}}
+                                    </mat-option>
+                                </mat-select>
+                                <mat-error *ngIf="errorHandling('beneficiaryId','required')">
+                                    You must provide a<strong> beneficiary</strong>
+                                </mat-error>
+                            </mat-form-field>
+                        </td>
+                    </tr>
+                </table>
+
+                <table class="example-full-width" cellspacing="0">
+                    <tr>
+                        <td>
+                            <mat-form-field class="example-full-width">
+                                <input matInput placeholder="Current QR code" formControlName="currentQrCode">
+                                <mat-error *ngIf="errorHandling('currentQrCode', 'required')">
+                                    You must provide a<strong> Current QR code </strong>
+                                </mat-error>
+                            </mat-form-field>
+                        </td>
+                        <td>
+                            <mat-form-field class="example-full-width">
+                                <mat-label>Choose a start date</mat-label>
+                                <input matInput [min]="minDate" formControlName="ownershipStartDate" [matDatepicker]="picker">
+                                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                <mat-datepicker #picker></mat-datepicker>
+                                <!-- error -->
+                                <mat-error *ngIf="errorHandling('ownershipStartDate', 'required')">
+                                    You must provide a<strong> Start date</strong>
+                                </mat-error>
+                            </mat-form-field>
+                        </td>
+                    </tr>
+                </table>
+
+
+
+            </div>
+        </mat-card-content>
+        <mat-card-actions>
+            <button mat-button *ngIf="!data.onlyView" type="submit">Save</button>
+            <button mat-button color="warn" [mat-dialog-close]="false">
+                {{data.onlyView?'Close':'Cancel'}}
+            </button>
+        </mat-card-actions>
+    </form>
+
+</mat-card>

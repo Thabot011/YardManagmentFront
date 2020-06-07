@@ -22,6 +22,7 @@ export class ManageYardDataComponent extends BaseManagementClass implements OnIn
     countries: CountryRecord[];
     emirates: EmirateRecord[];
     points: Array<string> = new Array<string>();
+    otherYards: IYardRecord[];
     statusArray: Array<any> = [{ statusId: 1, statusName: "Pending Review" },
     { statusId: 2, statusName: "Approved" }];
 
@@ -78,7 +79,7 @@ export class ManageYardDataComponent extends BaseManagementClass implements OnIn
                         yard.statusId = 1;
                         yard.statusName = 'Approved'
                         this.dialogRef.close({
-                            data: {},
+                            data: null,
                             isSuccess: true,
                             message: "Yard Edited successfully and pending review"
                         });
@@ -108,7 +109,7 @@ export class ManageYardDataComponent extends BaseManagementClass implements OnIn
                         data.data[0].statusId = 1;
                         data.data[0].statusName = 'Pending Review';
                         this.dialogRef.close({
-                            data: {},
+                            data: null,
                             isSuccess: data.success,
                             message: "Yard added successfully and pending review"
                         });
@@ -183,13 +184,28 @@ export class ManageYardDataComponent extends BaseManagementClass implements OnIn
         else {
             yard.yardBoundaries = new Array<IYardBoundaryRecord>();
         }
-        this.dialogRef.close();
-        this.router.navigate(['manageMap'], {
-            state: {
-                data:
-                    { yard: yard }
+
+        this.appService.listYard(new YardRequest()).subscribe(res => {
+            this.otherYards = res.data;
+            if (yard.id) {
+                this.otherYards = this.otherYards.filter((value, key) => {
+                    return value.id != yard.id;
+                });
             }
+
+            this.dialogRef.close();
+            this.router.navigate(['manageMap'], {
+                state: {
+                    data:
+                    {
+                        yard: yard,
+                        otherYards: this.otherYards
+                    }
+                }
+            });
         });
+
+        
     }
 
 }

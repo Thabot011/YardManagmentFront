@@ -1,0 +1,71 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <mat-accordion>
+                <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            Ownership history search
+                        </mat-panel-title>
+                        <mat-panel-description>
+                            Click to search
+                            <mat-icon>search</mat-icon>
+                        </mat-panel-description>
+                    </mat-expansion-panel-header>
+
+                    <mat-card>
+                        <mat-card-header>
+                            <mat-card-title mat-dialog-title>
+                                <div>
+                                    Search
+                                </div>
+                            </mat-card-title>
+                            <mat-card-subtitle></mat-card-subtitle>
+                        </mat-card-header>
+                        <form #formDir="ngForm" class="example-form" [formGroup]="form" (ngSubmit)="submitForm()" novalidate>
+                            <mat-card-content>
+                                <div mat-dialog-content>
+
+                                    <table class="example-full-width" cellspacing="0">
+                                        <tr>
+                                            <td>
+                                                <mat-form-field class="example-full-width">
+                                                    <mat-label>Select an action</mat-label>
+                                                    <mat-select formControlName="actionId">
+                                                        <mat-option>None</mat-option>
+                                                        <mat-option [value]="action.id" *ngFor="let action of actions">
+                                                            {{action.action}}
+                                                        </mat-option>
+                                                    </mat-select>
+
+                                                </mat-form-field>
+                                            </td>
+                                        </tr>
+                                    </table>
+
+                                    <mat-error *ngIf="(!form.valid && formDir.submitted)||(!form.valid && form.touched)">
+                                        You must provide at least one field
+                                    </mat-error>
+                                </div>
+                            </mat-card-content>
+                            <mat-card-actions>
+                                <button mat-raised-button type="submit">Search</button>
+                                <button mat-raised-button color="warn" (click)="cancelSearch()">Reset</button>
+                            </mat-card-actions>
+                        </form>
+
+                    </mat-card>
+
+                </mat-expansion-panel>
+
+            </mat-accordion>
+        </div>
+        <br />
+        <app-table [inputColumns]="displayColumns"
+                   [getAll]="getAll"
+                   [filter]="filter"
+                   [hasAddLink]="false"
+                   [hasActiveStatus]="false"
+                   [hasEdit]="false"></app-table>
+    </div>
+</div>

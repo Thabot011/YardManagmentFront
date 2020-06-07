@@ -17,6 +17,7 @@ import { ConfirmComponent } from '../confirm/confirm.component';
 import { Confirm } from '../../enum/Confirm';
 import { DisplayColumns } from 'app/shared/Entity/displayColumns';
 import { ImagesDialog } from '../ImageDialog/image.component';
+import { ChangeOwnershipComponent } from '../../../layouts/admin-layout/Vehicles/change-ownership/change-ownership.component';
 
 @Component({
     selector: 'app-table',
@@ -46,6 +47,10 @@ export class TableComponent implements AfterViewInit {
 
     @Input() AddOrEditComponent: ComponentType<any>;
 
+    @Input() ListPopupComponent: ComponentType<any>;
+
+    @Input() ActionsPopupListComponent: ComponentType<any>;
+
     @Input() detailsLink: string;
 
     @Input() zoneLink: string;
@@ -74,6 +79,8 @@ export class TableComponent implements AfterViewInit {
     @Input() hasActivateToggle: boolean = true;
 
     @Input() hasView: boolean = true;
+    @Input() hasChangeOwnership: boolean = false;
+    @Input() hasEdit: boolean = true;
 
 
     color: ThemePalette = 'warn';
@@ -128,7 +135,7 @@ export class TableComponent implements AfterViewInit {
                     }
                     return data.data;
                 }),
-                catchError(() => {
+                catchError((selector) => {
                     return observableOf([]);
                 })
             ).subscribe(data => this.dataSource = data);
@@ -175,8 +182,8 @@ export class TableComponent implements AfterViewInit {
 
                 dialogRef.afterClosed().subscribe((result: IDialogResult) => {
                     if (result?.isSuccess) {
-                        this.hasResults = true;
                         if (result.data) {
+                            this.hasResults = true;
                             this.dataSource.push(result.data);
                             this.resultsLength++;
                             this.ref.detectChanges();
@@ -203,6 +210,7 @@ export class TableComponent implements AfterViewInit {
                 dialogRef.afterClosed().subscribe((result: IDialogResult) => {
                     if (result?.isSuccess) {
                         if (result.data) {
+                            this.hasResults = true;
                             this.dataSource.push(result.data);
                             this.resultsLength++;
                             this.table.renderRows();
@@ -233,6 +241,7 @@ export class TableComponent implements AfterViewInit {
         dialogRef.afterClosed().subscribe((result: IDialogResult) => {
             if (result?.isSuccess) {
                 if (result.data) {
+                    this.hasResults = true;
                     this.dataSource.push(result.data);
                     this.resultsLength++;
                     this.table.renderRows();
@@ -375,7 +384,6 @@ export class TableComponent implements AfterViewInit {
     }
 
     openImagesDialog = (row: any) => {
-        debugger;
         const dialogRef = this.dialog.open(ImagesDialog, {
             data: row.imagesData,
             autoFocus: true,
@@ -386,6 +394,66 @@ export class TableComponent implements AfterViewInit {
         });
         dialogRef.afterClosed().subscribe(result => {
             console.log(`Dialog result: ${result}`);
+        });
+    }
+
+    openChangeOwnershipDialog = (row: any) => {
+        const dialogRef = this.dialog.open(ChangeOwnershipComponent, {
+            data: row,
+            autoFocus: true,
+            maxWidth: '50%',
+            maxHeight: '90%',
+            height: '90%',
+            width: '50%',
+            closeOnNavigation: true
+        });
+        dialogRef.afterClosed().subscribe((result: IDialogResult) => {
+            if (result?.isSuccess) {
+                if (result.data) {
+                    this.dataSource = this.dataSource.filter((value, key) => {
+                        if (value.id == result.data.id) {
+                            for (var prop in result.data) {
+                                value[prop] = result.data[prop];
+                            }
+                        }
+                        return true;
+                    });
+                    this.notify(result.message, "Change ownership");
+                }
+            }
+
+        });
+    }
+
+    openOwnershipHistoryDialog = (row: any) => {
+        const dialogRef = this.dialog.open(this.ListPopupComponent, {
+            data: row,
+            autoFocus: true,
+            maxWidth: '70%',
+            maxHeight: '90%',
+            height: '90%',
+            width: '70%',
+            closeOnNavigation: true
+        });
+        dialogRef.afterClosed().subscribe((result: IDialogResult) => {
+
+
+        });
+    }
+
+    openActionsHistoryDialog = (row: any) => {
+        const dialogRef = this.dialog.open(this.ActionsPopupListComponent, {
+            data: row,
+            autoFocus: true,
+            maxWidth: '70%',
+            maxHeight: '90%',
+            height: '90%',
+            width: '70%',
+            closeOnNavigation: true
+        });
+        dialogRef.afterClosed().subscribe((result: IDialogResult) => {
+
+
         });
     }
 
@@ -410,6 +478,10 @@ export class TableComponent implements AfterViewInit {
 
     capitalizeFirstLetter = (propertyName: string) => {
         return propertyName.charAt(0).toUpperCase() + propertyName.slice(1);
+    }
+
+    isDate = (date) => {
+        return date instanceof Date;
     }
 
 }

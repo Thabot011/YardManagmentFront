@@ -2,16 +2,15 @@
   "ExpandedNodes": [
     "",
     "\\src",
+    "\\src\\app",
     "\\src\\app\\layouts",
     "\\src\\app\\layouts\\admin-layout",
+    "\\src\\app\\layouts\\admin-layout\\Vehicles\\actions-history",
+    "\\src\\app\\layouts\\admin-layout\\Vehicles\\ownership-history",
     "\\src\\app\\layouts\\admin-layout\\yards",
-    "\\src\\app\\layouts\\admin-layout\\yards\\yard-managent",
-    "\\src\\app\\shared",
-    "\\src\\app\\shared\\navbar",
-    "\\src\\app\\sidebar",
-    "\\src\\assets",
-    "\\src\\assets\\sass",
-    "\\src\\assets\\sass\\lbd"
+    "\\src\\app\\layouts\\admin-layout\\yards\\manage-zone-data",
+    "\\src\\app\\layouts\\admin-layout\\yards\\yard-managent"
   ],
+  "SelectedNode": "\\src\\app\\layouts\\admin-layout\\yards\\yard-managent\\yard-managent.component.ts",
   "PreviewInSolutionExplorer": false
 }

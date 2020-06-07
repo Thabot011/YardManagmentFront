@@ -29,7 +29,7 @@
                 <ng-container *ngFor="let column of coulmns" matColumnDef="{{column.key}}">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header style="padding-right: 25px;">{{column.value}}</th>
                     <td mat-cell *matCellDef="let row" style="padding-right: 25px;">
-                        <span *ngIf="column.key!='vehicleImages'"> {{row[column.key]}} </span>
+                        <span *ngIf="column.key!='vehicleImages'"> {{ isDate(row[column.key]) ? (row[column.key] | date): row[column.key] }} </span>
                         <div *ngIf="column.key=='vehicleImages'">
                             <img src={{row[column.key]}} height="80" width="100" />
                             <div>
@@ -78,14 +78,14 @@
                             <mat-icon>remove_red_eye</mat-icon>
                         </button>
 
-                        <button *ngIf="!(hasApprove || element.statusId && element.statusId==1)" matTooltip="Edit"
+                        <button *ngIf="!(hasApprove || element.statusId && element.statusId==1) && hasEdit" matTooltip="Edit"
                                 [matTooltipPosition]="position"
                                 mat-button
                                 (click)="openEditDialog(element)">
                             <mat-icon>edit</mat-icon>
                         </button>
 
-                        <a *ngIf="hasApprove || (element.statusId && element.statusId==1)" matTooltip="approve"
+                        <a *ngIf="hasApprove && (element.statusId && element.statusId==1)" matTooltip="approve"
                            [matTooltipPosition]="position"
                            mat-button
                            (click)="approve(element)">
@@ -112,15 +112,35 @@
                            [routerLink]="['/'+detailsLink]">
                             <mat-icon>info</mat-icon>
                         </a>
-                        
-                        <a *ngIf="element.dataStatusName == 'Pending Data Completion'" matTooltip="Complete Vehicle Data"
-                        [matTooltipPosition]="position"
-                        mat-button
-                        (click)="openEditDialog(element)">
-                         <mat-icon>check_box</mat-icon>
-                     </a>
 
-                        <mat-slide-toggle  *ngIf="hasActiveStatus" matTooltip="{{element.isActive?'De activate':'Activate'}}"
+                        <a *ngIf="element.dataStatusName && element.dataStatusName == 'Pending Data Completion'" matTooltip="Complete Vehicle Data"
+                           [matTooltipPosition]="position"
+                           mat-button
+                           (click)="openEditDialog(element)">
+                            <mat-icon>check_box</mat-icon>
+                        </a>
+
+                        <a *ngIf="hasChangeOwnership &&  element.statusId == 0" matTooltip="Change ownership"
+                           [matTooltipPosition]="position"
+                           mat-button
+                           (click)="openChangeOwnershipDialog(element)">
+                            <mat-icon>person_outline</mat-icon>
+                        </a>
+                        <a *ngIf="hasChangeOwnership" matTooltip="Ownership history"
+                           [matTooltipPosition]="position"
+                           mat-button
+                           (click)="openOwnershipHistoryDialog(element)">
+                            <mat-icon>history</mat-icon>
+                        </a>
+
+                        <a *ngIf="hasChangeOwnership" matTooltip="Actions history"
+                           [matTooltipPosition]="position"
+                           mat-button
+                           (click)="openActionsHistoryDialog(element)">
+                            <mat-icon>change_history</mat-icon>
+                        </a>
+
+                        <mat-slide-toggle *ngIf="hasActiveStatus" matTooltip="{{element.isActive?'De activate':'Activate'}}"
                                           [matTooltipPosition]="position"
                                           (toggleChange)="changeActivationStatus(element)"
                                           [color]="color"

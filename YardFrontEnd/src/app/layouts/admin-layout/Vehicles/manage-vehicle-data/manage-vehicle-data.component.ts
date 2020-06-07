@@ -88,25 +88,25 @@ export class ManageVehicleDataComponent extends BaseManagementClass implements O
         if (this.form.valid) {
             let vehicle: IVehicleRecord = this.form.value;
             if (this.data.id) {
-                this.appService.editVehicle(new VehicleRequest({
-                    vehicleRecord: vehicle
-                })).subscribe(data => {
-                    if (data.success) {
+                //this.appService.editVehicle(new VehicleRequest({
+                //    vehicleRecord: vehicle
+                //})).subscribe(data => {
+                //    if (data.success) {
 
-                        this.dialogRef.close({
-                            data: vehicle,
-                            isSuccess: true,
-                            message: "Vehicle Edited successfully"
-                        });
-                    }
-                    else {
-                        this.dialogRef.close({
-                            data: {},
-                            isSuccess: data.success,
-                            message: data.message
-                        });
-                    }
-                });
+                //        this.dialogRef.close({
+                //            data: vehicle,
+                //            isSuccess: true,
+                //            message: "Vehicle Edited successfully"
+                //        });
+                //    }
+                //    else {
+                //        this.dialogRef.close({
+                //            data: {},
+                //            isSuccess: data.success,
+                //            message: data.message
+                //        });
+                //    }
+                //});
             }
         }
     }

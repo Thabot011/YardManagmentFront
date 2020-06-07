@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { IYardRecord, IYardBoundaryRecord, IZoneRecord, IZoneBoundaryRecord, VehicleActionHistoryRecord } from '../../../../shared/service/appService';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { IYardRecord, IYardBoundaryRecord, IZoneRecord, IZoneBoundaryRecord } from '../../../../shared/service/appService';
+import { MatSnackBar, MatSnackBarRef, SimpleSnackBar } from '@angular/material/snack-bar';
 declare const google: any;
+declare var jsts: any;
 
 @Component({
     selector: 'app-yard-managent',
@@ -11,12 +12,14 @@ declare const google: any;
 })
 export class YardManagentComponent implements OnInit {
     yard: IYardRecord;
+    otherYards: IYardRecord[];
     zone: IZoneRecord;
     otherZones: IZoneRecord[];
     lat: number;
     lng: number;
     rectangle: any;
     rectArray: Array<any> = new Array<any>();
+    rectYardArray: Array<any> = new Array<any>();
     zonerect: any;
     map: any;
     dm: any;
@@ -24,7 +27,9 @@ export class YardManagentComponent implements OnInit {
     isZoneRectangleExists: boolean = false;
     isDeleted: boolean = true;
     isZoneDeleted: boolean = true;
-
+    snackObject: MatSnackBarRef<SimpleSnackBar>;
+    successfulDrawing: boolean = true;
+    dragging: boolean = false
     constructor(private activatedRoute: ActivatedRoute,
         private router: Router, private _snackBar: MatSnackBar) {
 
@@ -45,6 +50,15 @@ export class YardManagentComponent implements OnInit {
         else if (JSON.parse(localStorage.getItem("zone"))) {
             this.zone = JSON.parse(localStorage.getItem("zone"));
         }
+
+        if (history.state.data?.otherYards) {
+            this.otherYards = history.state.data.otherYards;
+            localStorage.setItem("otherYards", JSON.stringify(this.otherYards))
+        }
+        else if (JSON.parse(localStorage.getItem("otherYards"))) {
+            this.otherYards = JSON.parse(localStorage.getItem("otherYards"));
+        }
+
         if (history.state.data?.otherZones) {
             this.otherZones = history.state.data.otherZones;
             localStorage.setItem("otherZones", JSON.stringify(this.otherZones))
@@ -76,14 +90,13 @@ export class YardManagentComponent implements OnInit {
         const options = {
             drawingControl: true,
             drawingControlOptions: {
-                drawingModes: ["rectangle"]
+                drawingModes: ["polygon"]
             },
-            streetViewControl: false,
-            rectangleOptions: {
+            polygonOptions: {
                 draggable: true,
                 editable: true
             },
-            drawingMode: google.maps.drawing.OverlayType.RECTANGLE
+            drawingMode: google.maps.drawing.OverlayType.POLYGON
         };
 
         const drawingManager = new google.maps.drawing.DrawingManager(options);
@@ -91,671 +104,18 @@ export class YardManagentComponent implements OnInit {
         drawingManager.setMap(map);
 
         google.maps.event.addListener(drawingManager, 'overlaycomplete', (e) => {
-            if (e.type === google.maps.drawing.OverlayType.RECTANGLE) {
+            if (e.type === google.maps.drawing.OverlayType.POLYGON) {
                 if (this.zone) {
-                    let bounds = e.overlay.getBounds();
-                    let point = new google.maps.LatLng(bounds.getNorthEast().lat(),
-                        bounds.getNorthEast().lng());
-                    let point2 = new google.maps.LatLng(bounds.getSouthWest().lat(),
-                        bounds.getSouthWest().lng());
-                    if (!(this.rectangle.getBounds().contains(point) && this.rectangle.getBounds().contains(point2))) {
-                        this._snackBar.open("Drawn zone should be inside yard", "Out of area", {
-                            horizontalPosition: "center",
-                            verticalPosition: "bottom",
-                            duration: 4000,
-                        });
-                        drawingManager.setOptions({
-                            drawingControl: false,
-                            drawingControlOptions: {
-                                drawingModes: ['']
-                            },
-                            drawingMode: ''
-                        });
-                        this.isZoneDeleted = false;
-                        this.isZoneRectangleExists = true;
-                        this.zonerect = e.overlay;
-
-                        if (this.zonerect) {
-                            google.maps.event.addListener(this.zonerect, 'dragend', () => {
-                                setTimeout(() => {
-                                    let bounds = this.zonerect.getBounds();
-                                    let point = new google.maps.LatLng(bounds.getNorthEast().lat(),
-                                        bounds.getNorthEast().lng());
-                                    let point2 = new google.maps.LatLng(bounds.getSouthWest().lat(),
-                                        bounds.getSouthWest().lng());
-                                    if (!(this.rectangle.getBounds().contains(point) && this.rectangle.getBounds().contains(point2))) {
-                                        this._snackBar.open("Drawn zone should be inside yard", "Out of area", {
-                                            horizontalPosition: "center",
-                                            verticalPosition: "bottom",
-                                            duration: 4000,
-                                        });
-                                        drawingManager.setOptions({
-                                            drawingControl: false,
-                                            drawingControlOptions: {
-                                                drawingModes: ['']
-                                            },
-                                            drawingMode: ''
-                                        });
-
-                                        this.isZoneDeleted = false;
-                                        this.isZoneRectangleExists = true;
-                                        return;
-                                    }
-                                    else {
-
-
-                                        for (var i = 0; i < this.rectArray.length; i++) {
-
-                                            let bounds = this.rectArray[i].getBounds();
-                                            let point = new google.maps.LatLng(bounds.getNorthEast().lat(),
-                                                bounds.getNorthEast().lng());
-                                            let point2 = new google.maps.LatLng(bounds.getSouthWest().lat(),
-                                                bounds.getSouthWest().lng());
-
-                                            if ((this.zonerect.getBounds().contains(point) || this.zonerect.getBounds().contains(point2))) {
-                                                this._snackBar.open("Drawn zone should be inside yard", "Out of area", {
-                                                    horizontalPosition: "center",
-                                                    verticalPosition: "bottom",
-                                                    duration: 4000,
-                                                });
-                                                drawingManager.setOptions({
-                                                    drawingControl: false,
-                                                    drawingControlOptions: {
-                                                        drawingModes: ['']
-                                                    },
-                                                    drawingMode: ''
-                                                });
-
-                                                this.isZoneDeleted = false;
-                                                this.isZoneRectangleExists = true;
-                                                return;
-                                            }
-                                        }
-                                        let bounds = this.zonerect.getBounds();
-                                        this.zone.zoneBoundaries = new Array<IZoneBoundaryRecord>();
-                                        this.zone.zoneBoundaries.push(...[{
-                                            latitude: bounds.getSouthWest().lng(),
-                                            longitude: bounds.getNorthEast().lng()
-                                        },
-                                        {
-                                            latitude: bounds.getSouthWest().lat(),
-                                            longitude: bounds.getNorthEast().lat()
-                                        }])
-
-                                        drawingManager.setOptions({
-                                            drawingControl: false,
-                                            drawingControlOptions: {
-                                                drawingModes: ['']
-                                            },
-                                            drawingMode: ''
-                                        });
-
-                                        this.isRectangleExists = true;
-                                        this.isZoneRectangleExists = true;
-                                        this.isDeleted = true;
-                                        this.isZoneDeleted = false;
-
-                                        this._snackBar.open("Zone dragged successfully", "Inside area", {
-                                            horizontalPosition: "center",
-                                            verticalPosition: "bottom",
-                                            duration: 4000,
-                                        });
-                                    }
-                                }, 2000)
-
+                    this.zonerect = e.overlay;
+                    let path = e.overlay.getPath();
+                    path.getArray().forEach((coord) => {
+                        let point = new google.maps.LatLng(coord.lat(), coord.lng());
+                        if (!google.maps.geometry.poly.containsLocation(point, this.rectangle)) {
+                            this.snackObject = this._snackBar.open("Drawn zone should be inside yard", "Out of area", {
+                                horizontalPosition: "center",
+                                verticalPosition: "bottom",
+                                duration: 1000
                             });
-                            this.zonerect.addListener('bounds_changed', (e) => {
-                                let bounds = this.zonerect.getBounds();
-                                let point = new google.maps.LatLng(bounds.getNorthEast().lat(),
-                                    bounds.getNorthEast().lng());
-                                let point2 = new google.maps.LatLng(bounds.getSouthWest().lat(),
-                                    bounds.getSouthWest().lng());
-                                if (!(this.rectangle.getBounds().contains(point) && this.rectangle.getBounds().contains(point2))) {
-                                    this._snackBar.open("Drawn zone should be inside yard", "Out of area", {
-                                        horizontalPosition: "center",
-                                        verticalPosition: "bottom",
-                                        duration: 4000,
-                                    });
-                                    this.isZoneDeleted = false;
-                                    this.isZoneRectangleExists = true;
-                                    return;
-                                }
-                                else {
-
-                                    for (var i = 0; i < this.rectArray.length; i++) {
-
-                                        let bounds = this.rectArray[i].getBounds();
-                                        let point = new google.maps.LatLng(bounds.getNorthEast().lat(),
-                                            bounds.getNorthEast().lng());
-                                        let point2 = new google.maps.LatLng(bounds.getSouthWest().lat(),
-                                            bounds.getSouthWest().lng());
-
-                                        if ((this.zonerect.getBounds().contains(point) || this.zonerect.getBounds().contains(point2))) {
-                                            this._snackBar.open("Drawn zone should be inside yard", "Out of area", {
-                                                horizontalPosition: "center",
-                                                verticalPosition: "bottom",
-                                                duration: 4000,
-                                            });
-                                            this.isZoneDeleted = false;
-                                            this.isZoneRectangleExists = true;
-                                            return;
-                                        }
-                                    }
-
-                                    let bounds = this.zonerect.getBounds();
-                                    this.zone.zoneBoundaries = new Array<IZoneBoundaryRecord>();
-                                    this.zone.zoneBoundaries.push(...[{
-                                        latitude: bounds.getSouthWest().lng(),
-                                        longitude: bounds.getNorthEast().lng()
-                                    },
-                                    {
-                                        latitude: bounds.getSouthWest().lat(),
-                                        longitude: bounds.getNorthEast().lat()
-                                    }])
-
-                                    drawingManager.setOptions({
-                                        drawingControl: false,
-                                        drawingControlOptions: {
-                                            drawingModes: ['']
-                                        },
-                                        drawingMode: ''
-                                    });
-
-                                    this.isRectangleExists = true;
-                                    this.isZoneRectangleExists = true;
-                                    this.isDeleted = true;
-                                    this.isZoneDeleted = false;
-
-                                    this._snackBar.open("Bounds changed successfully", "Inside area", {
-                                        horizontalPosition: "center",
-                                        verticalPosition: "bottom",
-                                        duration: 4000,
-                                    });
-                                }
-                            });
-
-                        }
-                        return;
-                    }
-
-                    else {
-
-                        for (var i = 0; i < this.rectArray.length; i++) {
-
-                            let bounds = this.rectArray[i].getBounds();
-                            let point = new google.maps.LatLng(bounds.getNorthEast().lat(),
-                                bounds.getNorthEast().lng());
-                            let point2 = new google.maps.LatLng(bounds.getSouthWest().lat(),
-                                bounds.getSouthWest().lng());
-
-                            if ((this.zonerect.getBounds().contains(point) || this.zonerect.getBounds().contains(point2))) {
-                                this._snackBar.open("Drawn zone should not be over other zones", "Zones overlap", {
-                                    horizontalPosition: "center",
-                                    verticalPosition: "bottom",
-                                    duration: 4000,
-                                });
-                                drawingManager.setOptions({
-                                    drawingControl: false,
-                                    drawingControlOptions: {
-                                        drawingModes: ['']
-                                    },
-                                    drawingMode: ''
-                                });
-                                this.isZoneDeleted = false;
-                                this.isZoneRectangleExists = true;
-                                this.zonerect = e.overlay;
-
-                                if (this.zonerect) {
-                                    google.maps.event.addListener(this.zonerect, 'dragend', () => {
-                                        setTimeout(() => {
-                                            let bounds = this.zonerect.getBounds();
-                                            let point = new google.maps.LatLng(bounds.getNorthEast().lat(),
-                                                bounds.getNorthEast().lng());
-                                            let point2 = new google.maps.LatLng(bounds.getSouthWest().lat(),
-                                                bounds.getSouthWest().lng());
-                                            if (!(this.rectangle.getBounds().contains(point) && this.rectangle.getBounds().contains(point2))) {
-                                                this._snackBar.open("Drawn zone should be inside yard", "Out of area", {
-                                                    horizontalPosition: "center",
-                                                    verticalPosition: "bottom",
-                                                    duration: 4000,
-                                                });
-                                                drawingManager.setOptions({
-                                                    drawingControl: false,
-                                                    drawingControlOptions: {
-                                                        drawingModes: ['']
-                                                    },
-                                                    drawingMode: ''
-                                                });
-
-                                                this.isZoneDeleted = false;
-                                                this.isZoneRectangleExists = true;
-                                                return;
-                                            }
-                                            else {
-
-                                                for (var i = 0; i < this.rectArray.length; i++) {
-
-                                                    let bounds = this.rectArray[i].getBounds();
-                                                    let point = new google.maps.LatLng(bounds.getNorthEast().lat(),
-                                                        bounds.getNorthEast().lng());
-                                                    let point2 = new google.maps.LatLng(bounds.getSouthWest().lat(),
-                                                        bounds.getSouthWest().lng());
-
-                                                    if ((this.zonerect.getBounds().contains(point) || this.zonerect.getBounds().contains(point2))) {
-                                                        this._snackBar.open("Drawn zone should not be over other zones", "Zones overlap", {
-                                                            horizontalPosition: "center",
-                                                            verticalPosition: "bottom",
-                                                            duration: 4000,
-                                                        });
-                                                        drawingManager.setOptions({
-                                                            drawingControl: false,
-                                                            drawingControlOptions: {
-                                                                drawingModes: ['']
-                                                            },
-                                                            drawingMode: ''
-                                                        });
-
-                                                        this.isZoneDeleted = false;
-                                                        this.isZoneRectangleExists = true;
-                                                        return;
-                                                    }
-                                                }
-
-                                                let bounds = this.zonerect.getBounds();
-                                                this.zone.zoneBoundaries = new Array<IZoneBoundaryRecord>();
-                                                this.zone.zoneBoundaries.push(...[{
-                                                    latitude: bounds.getSouthWest().lng(),
-                                                    longitude: bounds.getNorthEast().lng()
-                                                },
-                                                {
-                                                    latitude: bounds.getSouthWest().lat(),
-                                                    longitude: bounds.getNorthEast().lat()
-                                                }])
-
-                                                drawingManager.setOptions({
-                                                    drawingControl: false,
-                                                    drawingControlOptions: {
-                                                        drawingModes: ['']
-                                                    },
-                                                    drawingMode: ''
-                                                });
-
-                                                this.isRectangleExists = true;
-                                                this.isZoneRectangleExists = true;
-                                                this.isDeleted = true;
-                                                this.isZoneDeleted = false;
-
-                                                this._snackBar.open("Zone dragged successfully", "Inside area", {
-                                                    horizontalPosition: "center",
-                                                    verticalPosition: "bottom",
-                                                    duration: 4000,
-                                                });
-                                            }
-
-                                        }, 2000);
-
-                                    });
-                                    this.zonerect.addListener('bounds_changed', (e) => {
-                                        let bounds = this.zonerect.getBounds();
-                                        let point = new google.maps.LatLng(bounds.getNorthEast().lat(),
-                                            bounds.getNorthEast().lng());
-                                        let point2 = new google.maps.LatLng(bounds.getSouthWest().lat(),
-                                            bounds.getSouthWest().lng());
-                                        if (!(this.rectangle.getBounds().contains(point) && this.rectangle.getBounds().contains(point2))) {
-                                            this._snackBar.open("Drawn zone should be inside yard", "Out of area", {
-                                                horizontalPosition: "center",
-                                                verticalPosition: "bottom",
-                                                duration: 4000,
-                                            });
-                                            this.isZoneDeleted = false;
-                                            this.isZoneRectangleExists = true;
-                                            return;
-                                        }
-                                        else {
-
-                                            for (var i = 0; i < this.rectArray.length; i++) {
-
-                                                let bounds = this.rectArray[i].getBounds();
-                                                let point = new google.maps.LatLng(bounds.getNorthEast().lat(),
-                                                    bounds.getNorthEast().lng());
-                                                let point2 = new google.maps.LatLng(bounds.getSouthWest().lat(),
-                                                    bounds.getSouthWest().lng());
-
-                                                if ((this.zonerect.getBounds().contains(point) || this.zonerect.getBounds().contains(point2))) {
-                                                    this._snackBar.open("Drawn zone should not be over other zones", "Zones overlap", {
-                                                        horizontalPosition: "center",
-                                                        verticalPosition: "bottom",
-                                                        duration: 4000,
-                                                    });
-                                                    this.isZoneDeleted = false;
-                                                    this.isZoneRectangleExists = true;
-                                                    return;
-                                                }
-                                            }
-
-                                            let bounds = this.zonerect.getBounds();
-                                            this.zone.zoneBoundaries = new Array<IZoneBoundaryRecord>();
-                                            this.zone.zoneBoundaries.push(...[{
-                                                latitude: bounds.getSouthWest().lng(),
-                                                longitude: bounds.getNorthEast().lng()
-                                            },
-                                            {
-                                                latitude: bounds.getSouthWest().lat(),
-                                                longitude: bounds.getNorthEast().lat()
-                                            }])
-
-                                            drawingManager.setOptions({
-                                                drawingControl: false,
-                                                drawingControlOptions: {
-                                                    drawingModes: ['']
-                                                },
-                                                drawingMode: ''
-                                            });
-
-                                            this.isRectangleExists = true;
-                                            this.isZoneRectangleExists = true;
-                                            this.isDeleted = true;
-                                            this.isZoneDeleted = false;
-
-                                            this._snackBar.open("Bounds changed successfully", "Inside area", {
-                                                horizontalPosition: "center",
-                                                verticalPosition: "bottom",
-                                                duration: 4000,
-                                            });
-                                        }
-                                    });
-
-                                }
-                                return;
-                            }
-                        }
-
-                        this.zonerect = e.overlay;
-                        let bounds = e.overlay.getBounds();
-                        this.zone.zoneBoundaries = new Array<IZoneBoundaryRecord>();
-                        this.zone.zoneBoundaries.push(...[{
-                            latitude: bounds.getSouthWest().lng(),
-                            longitude: bounds.getNorthEast().lng()
-                        },
-                        {
-                            latitude: bounds.getSouthWest().lat(),
-                            longitude: bounds.getNorthEast().lat()
-                        }])
-
-                        drawingManager.setOptions({
-                            drawingControl: false,
-                            drawingControlOptions: {
-                                drawingModes: ['']
-                            },
-                            drawingMode: ''
-                        });
-
-                        this.isRectangleExists = true;
-                        this.isZoneRectangleExists = true;
-                        this.isDeleted = true;
-                        this.isZoneDeleted = false;
-
-                        this._snackBar.open("Zone drawn successfully", "Inside area", {
-                            horizontalPosition: "center",
-                            verticalPosition: "bottom",
-                            duration: 4000,
-                        });
-
-                        if (this.zonerect) {
-                            google.maps.event.addListener(this.zonerect, 'dragend', () => {
-                                setTimeout(() => {
-                                    let bounds = this.zonerect.getBounds();
-                                    let point = new google.maps.LatLng(bounds.getNorthEast().lat(),
-                                        bounds.getNorthEast().lng());
-                                    let point2 = new google.maps.LatLng(bounds.getSouthWest().lat(),
-                                        bounds.getSouthWest().lng());
-                                    if (!(this.rectangle.getBounds().contains(point) && this.rectangle.getBounds().contains(point2))) {
-                                        this._snackBar.open("Drawn zone should be inside yard", "Out of area", {
-                                            horizontalPosition: "center",
-                                            verticalPosition: "bottom",
-                                            duration: 4000,
-                                        });
-                                        drawingManager.setOptions({
-                                            drawingControl: false,
-                                            drawingControlOptions: {
-                                                drawingModes: ['']
-                                            },
-                                            drawingMode: ''
-                                        });
-
-                                        this.isZoneDeleted = false;
-                                        this.isZoneRectangleExists = true;
-                                        return;
-                                    }
-
-
-
-
-                                    else {
-
-                                        for (var i = 0; i < this.rectArray.length; i++) {
-
-                                            let bounds = this.rectArray[i].getBounds();
-                                            let point = new google.maps.LatLng(bounds.getNorthEast().lat(),
-                                                bounds.getNorthEast().lng());
-                                            let point2 = new google.maps.LatLng(bounds.getSouthWest().lat(),
-                                                bounds.getSouthWest().lng());
-
-                                            if ((this.zonerect.getBounds().contains(point) || this.zonerect.getBounds().contains(point2))) {
-                                                this._snackBar.open("Drawn zone should not be over other zones", "Zones overlap", {
-                                                    horizontalPosition: "center",
-                                                    verticalPosition: "bottom",
-                                                    duration: 4000,
-                                                });
-                                                drawingManager.setOptions({
-                                                    drawingControl: false,
-                                                    drawingControlOptions: {
-                                                        drawingModes: ['']
-                                                    },
-                                                    drawingMode: ''
-                                                });
-
-                                                this.isZoneDeleted = false;
-                                                this.isZoneRectangleExists = true;
-                                                return;
-                                            }
-                                        }
-
-                                        let bounds = this.zonerect.getBounds();
-                                        this.zone.zoneBoundaries = new Array<IZoneBoundaryRecord>();
-                                        this.zone.zoneBoundaries.push(...[{
-                                            latitude: bounds.getSouthWest().lng(),
-                                            longitude: bounds.getNorthEast().lng()
-                                        },
-                                        {
-                                            latitude: bounds.getSouthWest().lat(),
-                                            longitude: bounds.getNorthEast().lat()
-                                        }])
-
-                                        drawingManager.setOptions({
-                                            drawingControl: false,
-                                            drawingControlOptions: {
-                                                drawingModes: ['']
-                                            },
-                                            drawingMode: ''
-                                        });
-
-                                        this.isRectangleExists = true;
-                                        this.isZoneRectangleExists = true;
-                                        this.isDeleted = true;
-                                        this.isZoneDeleted = false;
-
-                                        this._snackBar.open("Zone dragged successfully", "Inside area", {
-                                            horizontalPosition: "center",
-                                            verticalPosition: "bottom",
-                                            duration: 4000,
-                                        });
-                                    }
-                                }, 2000)
-                               
-                            });
-                            this.zonerect.addListener('bounds_changed', (e) => {
-                                let bounds = this.zonerect.getBounds();
-                                let point = new google.maps.LatLng(bounds.getNorthEast().lat(),
-                                    bounds.getNorthEast().lng());
-                                let point2 = new google.maps.LatLng(bounds.getSouthWest().lat(),
-                                    bounds.getSouthWest().lng());
-                                if (!(this.rectangle.getBounds().contains(point) && this.rectangle.getBounds().contains(point2))) {
-                                    this._snackBar.open("Drawn zone should be inside yard", "Out of area", {
-                                        horizontalPosition: "center",
-                                        verticalPosition: "bottom",
-                                        duration: 4000,
-                                    });
-                                    this.isZoneDeleted = false;
-                                    this.isZoneRectangleExists = true;
-                                    return;
-                                }
-                                else {
-
-                                    for (var i = 0; i < this.rectArray.length; i++) {
-                                        let bounds = this.rectArray[i].getBounds();
-                                        let point = new google.maps.LatLng(bounds.getNorthEast().lat(),
-                                            bounds.getNorthEast().lng());
-                                        let point2 = new google.maps.LatLng(bounds.getSouthWest().lat(),
-                                            bounds.getSouthWest().lng());
-
-                                        if ((this.zonerect.getBounds().contains(point) || this.zonerect.getBounds().contains(point2))) {
-                                            this._snackBar.open("Drawn zone should not be over other zones", "Zones overlap", {
-                                                horizontalPosition: "center",
-                                                verticalPosition: "bottom",
-                                                duration: 4000,
-                                            });
-                                            this.isZoneDeleted = false;
-                                            this.isZoneRectangleExists = true;
-                                            return;
-                                        }
-                                    }
-
-
-                                    let bounds = this.zonerect.getBounds();
-                                    this.zone.zoneBoundaries = new Array<IZoneBoundaryRecord>();
-                                    this.zone.zoneBoundaries.push(...[{
-                                        latitude: bounds.getSouthWest().lng(),
-                                        longitude: bounds.getNorthEast().lng()
-                                    },
-                                    {
-                                        latitude: bounds.getSouthWest().lat(),
-                                        longitude: bounds.getNorthEast().lat()
-                                    }])
-
-                                    drawingManager.setOptions({
-                                        drawingControl: false,
-                                        drawingControlOptions: {
-                                            drawingModes: ['']
-                                        },
-                                        drawingMode: ''
-                                    });
-
-                                    this.isRectangleExists = true;
-                                    this.isZoneRectangleExists = true;
-                                    this.isDeleted = true;
-                                    this.isZoneDeleted = false;
-
-                                    this._snackBar.open("Bounds changed successfully", "Inside area", {
-                                        horizontalPosition: "center",
-                                        verticalPosition: "bottom",
-                                        duration: 4000,
-                                    });
-                                }
-                            });
-
-                        }
-
-                    }
-
-
-                }
-                else {
-                    this.rectangle = e.overlay;
-                    let bounds = e.overlay.getBounds();
-
-                    this.yard.area = this.calcArea(bounds);
-
-                    this.yard.zoom = this.map.getZoom();
-
-                    this.yard.yardBoundaries = new Array<IYardBoundaryRecord>();
-                    this.yard.yardBoundaries.push(...[{
-                        latitude: bounds.getSouthWest().lng(),
-                        longitude: bounds.getNorthEast().lng()
-                    },
-                    {
-                        latitude: bounds.getSouthWest().lat(),
-                        longitude: bounds.getNorthEast().lat()
-                    }])
-
-                    drawingManager.setOptions({
-                        drawingControl: false,
-                        drawingControlOptions: {
-                            drawingModes: ['']
-                        },
-                        drawingMode: ''
-                    });
-
-                    this.isRectangleExists = true;
-                    this.isDeleted = false;
-
-                    this._snackBar.open("Yard drawn successfully", "Drawing", {
-                        horizontalPosition: "center",
-                        verticalPosition: "bottom",
-                        duration: 4000,
-                    });
-
-
-                    if (this.rectangle) {
-                        google.maps.event.addListener(this.rectangle, 'dragend', () => {
-                            setTimeout(() => {
-                                let bounds = this.rectangle.getBounds();
-
-                                this.yard.area = this.calcArea(bounds);
-
-                                this.yard.yardBoundaries = new Array<IYardBoundaryRecord>();
-                                this.yard.yardBoundaries.push(...[{
-                                    latitude: bounds.getSouthWest().lng(),
-                                    longitude: bounds.getNorthEast().lng()
-                                },
-                                {
-                                    latitude: bounds.getSouthWest().lat(),
-                                    longitude: bounds.getNorthEast().lat()
-                                }])
-
-                                drawingManager.setOptions({
-                                    drawingControl: false,
-                                    drawingControlOptions: {
-                                        drawingModes: ['']
-                                    },
-                                    drawingMode: ''
-                                });
-
-                                this.isRectangleExists = true;
-                                this.isDeleted = false;
-
-                                this._snackBar.open("Yard dragged successfully", "Dragging", {
-                                    horizontalPosition: "center",
-                                    verticalPosition: "bottom",
-                                    duration: 4000,
-                                });
-                            }, 2000);    
-                        });
-                        this.rectangle.addListener('bounds_changed', (e) => {
-                            let bounds = this.rectangle.getBounds();
-
-                            this.yard.area = this.calcArea(bounds);
-
-                            this.yard.yardBoundaries = new Array<IYardBoundaryRecord>();
-                            this.yard.yardBoundaries.push(...[{
-                                latitude: bounds.getSouthWest().lng(),
-                                longitude: bounds.getNorthEast().lng()
-                            },
-                            {
-                                latitude: bounds.getSouthWest().lat(),
-                                longitude: bounds.getNorthEast().lat()
-                            }])
-
                             drawingManager.setOptions({
                                 drawingControl: false,
                                 drawingControlOptions: {
@@ -763,236 +123,69 @@ export class YardManagentComponent implements OnInit {
                                 },
                                 drawingMode: ''
                             });
-
-                            this.isRectangleExists = true;
-                            this.isDeleted = false;
-
-                            this._snackBar.open("Yard bounds changed successfully", "Changing bounds", {
-                                horizontalPosition: "center",
-                                verticalPosition: "bottom",
-                                duration: 4000,
-                            });
-                        });
-                    }
-
-                }
-            }
-
-
-        })
-
-        if (this.yard.yardBoundaries?.length > 0) {
-            let rectangle: any;
-            if (this.zone) {
-                rectangle = new google.maps.Rectangle({
-                    strokeColor: '#FF0000',
-                    strokeOpacity: 0.8,
-                    strokeWeight: 2,
-                    fillColor: '#FF0000',
-                    fillOpacity: 0.35,
-                    map: map,
-                    bounds: {
-                        north: this.yard.yardBoundaries[1].longitude,
-                        south: this.yard.yardBoundaries[1].latitude,
-                        east: this.yard.yardBoundaries[0].longitude,
-                        west: this.yard.yardBoundaries[0].latitude
-                    }
-                });
-                this.rectangle = rectangle;
-
-                map.setZoom(this.yard.zoom);;
-
-                map.setCenter({
-                    lat: this.yard.yardBoundaries[1].longitude,
-                    lng: this.yard.yardBoundaries[0].longitude
-                });
-
-                this.isRectangleExists = true;
-                this.isDeleted = true;
-                if (this.otherZones) {
-                    for (var i = 0; i < this.otherZones.length; i++) {
-
-                        let otherRecatngle = new google.maps.Rectangle({
-                            strokeColor: '#FF0000',
-                            strokeOpacity: 0.8,
-                            strokeWeight: 2,
-                            fillColor: '#FF0000',
-                            fillOpacity: 0.35,
-                            map: map,
-                            bounds: {
-                                north: this.otherZones[i].zoneBoundaries[1].longitude,
-                                south: this.otherZones[i].zoneBoundaries[1].latitude,
-                                east: this.otherZones[i].zoneBoundaries[0].longitude,
-                                west: this.otherZones[i].zoneBoundaries[0].latitude
-                            }
-                        });
-                        this.rectArray.push(otherRecatngle);
-                    }
-                }
-                if (this.zone.zoneBoundaries?.length > 0) {
-                    let zoneRect = new google.maps.Rectangle({
-                        editable: true,
-                        draggable: true,
-                        map: map,
-                        bounds: {
-                            north: this.zone.zoneBoundaries[1].longitude,
-                            south: this.zone.zoneBoundaries[1].latitude,
-                            east: this.zone.zoneBoundaries[0].longitude,
-                            west: this.zone.zoneBoundaries[0].latitude
-                        }
-                    });
-                    drawingManager.setOptions({
-                        drawingControl: false,
-                        drawingControlOptions: {
-                            drawingModes: ['']
-                        },
-                        drawingMode: ''
-                    });
-                    this.zonerect = zoneRect;
-                    this.isZoneRectangleExists = true;
-                    this.isZoneDeleted = false;
-
-
-
-                }
-                else {
-                    this.dm.setOptions({
-                        drawingControl: true,
-                        drawingControlOptions: {
-                            drawingModes: ['rectangle']
-                        },
-                        rectangleOptions: {
-                            draggable: true,
-                            editable: true
-                        },
-                        drawingMode: google.maps.drawing.OverlayType.RECTANGLE
-                    });
-                    this.isZoneRectangleExists = false;
-                    this.isZoneDeleted = true;
-                }
-                if (this.zonerect) {
-                    google.maps.event.addListener(this.zonerect, 'dragend', () => {
-
-                        setTimeout(() => {
-
-                            let bounds = this.zonerect.getBounds();
-                            let point = new google.maps.LatLng(bounds.getNorthEast().lat(),
-                                bounds.getNorthEast().lng());
-                            let point2 = new google.maps.LatLng(bounds.getSouthWest().lat(),
-                                bounds.getSouthWest().lng());
-                            if (!(this.rectangle.getBounds().contains(point) && this.rectangle.getBounds().contains(point2))) {
-                                this._snackBar.open("Drawn zone should be inside yard", "Out of area", {
-                                    horizontalPosition: "center",
-                                    verticalPosition: "bottom",
-                                    duration: 4000,
-                                });
-                                this.isZoneDeleted = false;
-                                this.isZoneRectangleExists = true;
-                                return;
-                            }
-                            else {
-
-                                for (var i = 0; i < this.rectArray.length; i++) {
-
-                                    let bounds = this.rectArray[i].getBounds();
-                                    let point = new google.maps.LatLng(bounds.getNorthEast().lat(),
-                                        bounds.getNorthEast().lng());
-                                    let point2 = new google.maps.LatLng(bounds.getSouthWest().lat(),
-                                        bounds.getSouthWest().lng());
-
-                                    if ((this.zonerect.getBounds().contains(point) || this.zonerect.getBounds().contains(point2))) {
-                                        this._snackBar.open("Drawn zone should not be over other zones", "Zones overlap", {
-                                            horizontalPosition: "center",
-                                            verticalPosition: "bottom",
-                                            duration: 4000,
-                                        });
-                                        this.isZoneDeleted = false;
-                                        this.isZoneRectangleExists = true;
-                                        return;
-                                    }
-                                }
-
-                                let bounds = this.zonerect.getBounds();
-                                this.zone.zoneBoundaries = new Array<IZoneBoundaryRecord>();
-                                this.zone.zoneBoundaries.push(...[{
-                                    latitude: bounds.getSouthWest().lng(),
-                                    longitude: bounds.getNorthEast().lng()
-                                },
-                                {
-                                    latitude: bounds.getSouthWest().lat(),
-                                    longitude: bounds.getNorthEast().lat()
-                                }])
-
-                                drawingManager.setOptions({
-                                    drawingControl: false,
-                                    drawingControlOptions: {
-                                        drawingModes: ['']
-                                    },
-                                    drawingMode: ''
-                                });
-
-                                this.isRectangleExists = true;
-                                this.isZoneRectangleExists = true;
-                                this.isDeleted = true;
-                                this.isZoneDeleted = false;
-
-                                this._snackBar.open("Zone dragged successfully", "Inside area", {
-                                    horizontalPosition: "center",
-                                    verticalPosition: "bottom",
-                                    duration: 4000,
-                                });
-                            }
-                        }, 2000);
-                        
-                    });
-                    this.zonerect.addListener('bounds_changed', (e) => {
-                        let bounds = this.zonerect.getBounds();
-                        let point = new google.maps.LatLng(bounds.getNorthEast().lat(),
-                            bounds.getNorthEast().lng());
-                        let point2 = new google.maps.LatLng(bounds.getSouthWest().lat(),
-                            bounds.getSouthWest().lng());
-                        if (!(this.rectangle.getBounds().contains(point) && this.rectangle.getBounds().contains(point2))) {
-                            this._snackBar.open("Drawn zone should be inside yard", "Out of area", {
-                                horizontalPosition: "center",
-                                verticalPosition: "bottom",
-                                duration: 4000,
-                            });
                             this.isZoneDeleted = false;
                             this.isZoneRectangleExists = true;
+                            this.zonerect = e.overlay;
+
+                            if (this.zonerect) {
+
+                                this.zonerect.addListener('dragstart', () => {
+                                    this.dragging = true;
+                                });
+                                this.zonerect.addListener('dragend', this.getZoneCoords);
+                                google.maps.event.addListener(this.zonerect.getPath(), "insert_at", this.getZoneCoordsEvent);
+                                google.maps.event.addListener(this.zonerect.getPath(), "remove_at", this.getZoneCoordsEvent);
+                                google.maps.event.addListener(this.zonerect.getPath(), "set_at", this.getZoneCoordsEvent);
+                            }
                             return;
+
                         }
+
                         else {
 
-                            for (var i = 0; i < this.rectArray.length; i++) {
-                                let bounds = this.rectArray[i].getBounds();
-                                let point = new google.maps.LatLng(bounds.getNorthEast().lat(),
-                                    bounds.getNorthEast().lng());
-                                let point2 = new google.maps.LatLng(bounds.getSouthWest().lat(),
-                                    bounds.getSouthWest().lng());
+                            if (this.otherZones?.length > 0) {
+                                if (this.calcIntersection(this.zonerect, this.otherZones)) {
 
-                                if ((this.zonerect.getBounds().contains(point) || this.zonerect.getBounds().contains(point2))) {
-                                    this._snackBar.open("Drawn zone should not be over other zones", "Zones overlap", {
+                                    this.snackObject = this._snackBar.open("Drawn zone should not be over other zones", "Zones overlap", {
                                         horizontalPosition: "center",
                                         verticalPosition: "bottom",
-                                        duration: 4000,
+                                        duration: 1000
+                                    });
+
+                                    drawingManager.setOptions({
+                                        drawingControl: false,
+                                        drawingControlOptions: {
+                                            drawingModes: ['']
+                                        },
+                                        drawingMode: ''
                                     });
                                     this.isZoneDeleted = false;
                                     this.isZoneRectangleExists = true;
+                                    this.zonerect = e.overlay;
+                                    if (this.zonerect) {
+
+                                        this.zonerect.addListener('dragstart', () => {
+                                            this.dragging = true;
+                                        });
+                                        this.zonerect.addListener('dragend', this.getZoneCoords);
+
+
+                                        google.maps.event.addListener(this.zonerect.getPath(), "insert_at", this.getZoneCoordsEvent);
+                                        google.maps.event.addListener(this.zonerect.getPath(), "remove_at", this.getZoneCoordsEvent);
+                                        google.maps.event.addListener(this.zonerect.getPath(), "set_at", this.getZoneCoordsEvent);
+                                    }
                                     return;
                                 }
                             }
 
-                            let bounds = this.zonerect.getBounds();
+                            let path = e.overlay.getPath();
                             this.zone.zoneBoundaries = new Array<IZoneBoundaryRecord>();
-                            this.zone.zoneBoundaries.push(...[{
-                                latitude: bounds.getSouthWest().lng(),
-                                longitude: bounds.getNorthEast().lng()
-                            },
-                            {
-                                latitude: bounds.getSouthWest().lat(),
-                                longitude: bounds.getNorthEast().lat()
-                            }])
-
+                            path.getArray().forEach((coord) => {
+                                this.zone.zoneBoundaries.push({
+                                    latitude: coord.lat(),
+                                    longitude: coord.lng()
+                                })
+                            });
                             drawingManager.setOptions({
                                 drawingControl: false,
                                 drawingControlOptions: {
@@ -1006,28 +199,247 @@ export class YardManagentComponent implements OnInit {
                             this.isDeleted = true;
                             this.isZoneDeleted = false;
 
-                            this._snackBar.open("Zone Bounds changed successfully", "Inside area", {
+                            this.snackObject = this._snackBar.open("Zone drawn successfully", "Inside area", {
                                 horizontalPosition: "center",
                                 verticalPosition: "bottom",
-                                duration: 4000,
+                                duration: 1000
                             });
+
+                            this.zonerect = e.overlay;
+
+                            if (this.zonerect) {
+                                this.zonerect.addListener('dragstart', () => {
+                                    this.dragging = true;
+                                });
+                                this.zonerect.addListener('dragend', this.getZoneCoords);
+
+
+                                google.maps.event.addListener(this.zonerect.getPath(), "insert_at", this.getZoneCoordsEvent);
+                                google.maps.event.addListener(this.zonerect.getPath(), "remove_at", this.getZoneCoordsEvent);
+                                google.maps.event.addListener(this.zonerect.getPath(), "set_at", this.getZoneCoordsEvent);
+
+                            }
+
+                        }
+
+
+                    });
+
+
+
+
+                }
+                else {
+                    this.rectangle = e.overlay;
+                    let path = e.overlay.getPath();
+                    if (this.otherYards?.length > 0) {
+                        if (this.calcYardsIntersection(this.rectangle, this.otherYards)) {
+
+                            this.snackObject = this._snackBar.open("Drawn yard should not be over other yards", "Yards overlap", {
+                                horizontalPosition: "center",
+                                verticalPosition: "bottom",
+                                duration: 1000
+                            });
+
+                            drawingManager.setOptions({
+                                drawingControl: false,
+                                drawingControlOptions: {
+                                    drawingModes: ['']
+                                },
+                                drawingMode: ''
+                            });
+                            this.isDeleted = false;
+                            this.isRectangleExists = true;
+                            this.rectangle = e.overlay;
+                            if (this.rectangle) {
+
+                                this.rectangle.addListener('dragstart', () => {
+                                    this.dragging = true;
+                                });
+
+                                this.rectangle.addListener('dragend', this.getYardCoords);
+                                google.maps.event.addListener(this.rectangle.getPath(), "insert_at", this.getYardCoordsEvent);
+                                google.maps.event.addListener(this.rectangle.getPath(), "remove_at", this.getYardCoordsEvent);
+                                google.maps.event.addListener(this.rectangle.getPath(), "set_at", this.getYardCoordsEvent);
+                            }
+                            return;
+                        }
+                    }
+
+
+                    this.yard.area = this.calcArea(path);
+
+                    this.yard.zoom = this.map.getZoom();
+
+                    this.yard.yardBoundaries = new Array<IYardBoundaryRecord>();
+
+                    path.getArray().forEach((coord) => {
+                        this.yard.yardBoundaries.push(
+                            {
+                                latitude: coord.lat(),
+                                longitude: coord.lng()
+                            })
+                    });
+                    drawingManager.setOptions({
+                        drawingControl: false,
+                        drawingControlOptions: {
+                            drawingModes: ['']
+                        },
+                        drawingMode: ''
+                    });
+
+                    this.isRectangleExists = true;
+                    this.isDeleted = false;
+
+                    this.snackObject = this._snackBar.open("Yard drawn successfully", "Drawing", {
+                        horizontalPosition: "center",
+                        verticalPosition: "bottom",
+                        duration: 1000
+                    });
+
+
+                    if (this.rectangle) {
+                        this.rectangle.addListener('dragstart', () => {
+                            this.dragging = true;
+                        });
+
+                        this.rectangle.addListener('dragend', this.getYardCoords);
+                        google.maps.event.addListener(this.rectangle.getPath(), "insert_at", this.getYardCoordsEvent);
+                        google.maps.event.addListener(this.rectangle.getPath(), "remove_at", this.getYardCoordsEvent);
+                        google.maps.event.addListener(this.rectangle.getPath(), "set_at", this.getYardCoordsEvent);
+
+                    }
+
+                }
+            }
+        })
+
+        if (this.yard.yardBoundaries?.length > 0) {
+            let rectangle: any;
+            if (this.zone) {
+                let yardPaths = this.yard.yardBoundaries.map((coord) => {
+                    return {
+                        lat: coord.latitude,
+                        lng: coord.longitude
+                    }
+                });
+                yardPaths.push(yardPaths[0]);
+
+                rectangle = new google.maps.Polygon({
+                    strokeColor: '#FF0000',
+                    strokeOpacity: 0.8,
+                    strokeWeight: 2,
+                    fillColor: '#FF0000',
+                    fillOpacity: 0.35,
+                    paths: yardPaths
+                });
+                rectangle.setMap(map);
+
+                this.rectangle = rectangle;
+
+                map.setZoom(this.yard.zoom);
+
+                map.setCenter({
+                    lat: this.yard.yardBoundaries[0].latitude,
+                    lng: this.yard.yardBoundaries[0].longitude
+                });
+
+                this.isRectangleExists = true;
+                this.isDeleted = true;
+                if (this.otherZones) {
+                    for (var i = 0; i < this.otherZones.length; i++) {
+
+                        let zonePaths = this.otherZones[i].zoneBoundaries.map((coord) => {
+                            return {
+                                lat: coord.latitude,
+                                lng: coord.longitude
+                            }
+                        });
+
+                        zonePaths.push(zonePaths[0]);
+                        let otherRecatngle = new google.maps.Polygon({
+                            strokeColor: '#FF0000',
+                            strokeOpacity: 0.8,
+                            strokeWeight: 2,
+                            fillColor: '#FF0000',
+                            fillOpacity: 0.35,
+                            paths: zonePaths
+                        });
+                        otherRecatngle.setMap(map);
+                        this.rectArray.push(otherRecatngle);
+                    }
+                }
+                if (this.zone.zoneBoundaries?.length > 0) {
+                    let zonePaths = this.zone.zoneBoundaries.map((coord) => {
+                        return {
+                            lat: coord.latitude,
+                            lng: coord.longitude
                         }
                     });
+                    zonePaths.push(zonePaths[0]);
+                    let zoneRect = new google.maps.Polygon({
+                        editable: true,
+                        draggable: true,
+                        paths: zonePaths
+                    });
+
+                    zoneRect.setMap(map);
+
+                    drawingManager.setOptions({
+                        drawingControl: false,
+                        drawingControlOptions: {
+                            drawingModes: ['']
+                        },
+                        drawingMode: ''
+                    });
+                    this.zonerect = zoneRect;
+                    this.isZoneRectangleExists = true;
+                    this.isZoneDeleted = false;
+                }
+                else {
+                    this.dm.setOptions({
+                        drawingControl: true,
+                        drawingControlOptions: {
+                            drawingModes: ["polygon"]
+                        },
+                        polygonOptions: {
+                            draggable: true,
+                            editable: true
+                        },
+                        drawingMode: google.maps.drawing.OverlayType.POLYGON
+                    });
+                    this.isZoneRectangleExists = false;
+                    this.isZoneDeleted = true;
+                }
+                if (this.zonerect) {
+                    this.zonerect.addListener('dragstart', () => {
+                        this.dragging = true;
+                    });
+                    this.zonerect.addListener('dragend', this.getZoneCoords);
+
+
+                    google.maps.event.addListener(this.zonerect.getPath(), "insert_at", this.getZoneCoordsEvent);
+                    google.maps.event.addListener(this.zonerect.getPath(), "remove_at", this.getZoneCoordsEvent);
+                    google.maps.event.addListener(this.zonerect.getPath(), "set_at", this.getZoneCoordsEvent);
 
                 }
             }
             else {
-                rectangle = new google.maps.Rectangle({
-                    editable: true,
-                    draggable: true,
-                    map: map,
-                    bounds: {
-                        north: this.yard.yardBoundaries[1].longitude,
-                        south: this.yard.yardBoundaries[1].latitude,
-                        east: this.yard.yardBoundaries[0].longitude,
-                        west: this.yard.yardBoundaries[0].latitude
+                let yardPaths = this.yard.yardBoundaries.map((coord) => {
+                    return {
+                        lat: coord.latitude,
+                        lng: coord.longitude
                     }
                 });
+                yardPaths.push(yardPaths[0]);
+                rectangle = new google.maps.Polygon({
+                    editable: true,
+                    draggable: true,
+                    paths: yardPaths
+                });
+
+                rectangle.setMap(map);
+
                 drawingManager.setOptions({
                     drawingControl: false,
                     drawingControlOptions: {
@@ -1040,88 +452,76 @@ export class YardManagentComponent implements OnInit {
                 map.setZoom(this.yard.zoom);
 
                 map.setCenter({
-                    lat: this.yard.yardBoundaries[1].longitude,
+                    lat: this.yard.yardBoundaries[0].latitude,
                     lng: this.yard.yardBoundaries[0].longitude
                 });
                 this.isRectangleExists = true;
                 this.isDeleted = false;
 
+                if (this.otherYards) {
+                    for (var i = 0; i < this.otherYards.length; i++) {
+
+                        let yardPaths = this.otherYards[i].yardBoundaries.map((coord) => {
+                            return {
+                                lat: coord.latitude,
+                                lng: coord.longitude
+                            }
+                        });
+
+                        yardPaths.push(yardPaths[0]);
+                        let otherYardRecatngle = new google.maps.Polygon({
+                            strokeColor: '#FF0000',
+                            strokeOpacity: 0.8,
+                            strokeWeight: 2,
+                            fillColor: '#FF0000',
+                            fillOpacity: 0.35,
+                            paths: yardPaths
+                        });
+                        otherYardRecatngle.setMap(map);
+                        this.rectYardArray.push(otherYardRecatngle);
+                    }
+                }
+
+
 
                 if (this.rectangle) {
-                    google.maps.event.addListener(this.rectangle, 'dragend', () => {
-                        setTimeout(() => {
-                            let bounds = this.rectangle.getBounds();
 
-                            this.yard.area = this.calcArea(bounds);
-
-                            this.yard.yardBoundaries = new Array<IYardBoundaryRecord>();
-                            this.yard.yardBoundaries.push(...[{
-                                latitude: bounds.getSouthWest().lng(),
-                                longitude: bounds.getNorthEast().lng()
-                            },
-                            {
-                                latitude: bounds.getSouthWest().lat(),
-                                longitude: bounds.getNorthEast().lat()
-                            }])
-
-                            drawingManager.setOptions({
-                                drawingControl: false,
-                                drawingControlOptions: {
-                                    drawingModes: ['']
-                                },
-                                drawingMode: ''
-                            });
-
-                            this.isRectangleExists = true;
-                            this.isDeleted = false;
-
-                            this._snackBar.open("Yard dragged successfully", "Dragging", {
-                                horizontalPosition: "center",
-                                verticalPosition: "bottom",
-                                duration: 4000,
-                            });
-                        },2000)
-
-                       
+                    this.rectangle.addListener('dragstart', () => {
+                        this.dragging = true;
                     });
-                    this.rectangle.addListener('bounds_changed', (e) => {
-                        let bounds = this.rectangle.getBounds();
 
-                        this.yard.area = this.calcArea(bounds);
-
-                        this.yard.yardBoundaries = new Array<IYardBoundaryRecord>();
-                        this.yard.yardBoundaries.push(...[{
-                            latitude: bounds.getSouthWest().lng(),
-                            longitude: bounds.getNorthEast().lng()
-                        },
-                        {
-                            latitude: bounds.getSouthWest().lat(),
-                            longitude: bounds.getNorthEast().lat()
-                        }])
-
-                        drawingManager.setOptions({
-                            drawingControl: false,
-                            drawingControlOptions: {
-                                drawingModes: ['']
-                            },
-                            drawingMode: ''
-                        });
-
-                        this.isRectangleExists = true;
-                        this.isDeleted = false;
-
-                        this._snackBar.open("Yard bounds changed successfully", "Changing bounds", {
-                            horizontalPosition: "center",
-                            verticalPosition: "bottom",
-                            duration: 4000,
-                        });
-                    });
+                    this.rectangle.addListener('dragend', this.getYardCoords);
+                    google.maps.event.addListener(this.rectangle.getPath(), "insert_at", this.getYardCoordsEvent);
+                    google.maps.event.addListener(this.rectangle.getPath(), "remove_at", this.getYardCoordsEvent);
+                    google.maps.event.addListener(this.rectangle.getPath(), "set_at", this.getYardCoordsEvent);
                 }
             }
         }
+        else {
+            if (this.otherYards) {
+                for (var i = 0; i < this.otherYards.length; i++) {
 
+                    let yardPaths = this.otherYards[i].yardBoundaries.map((coord) => {
+                        return {
+                            lat: coord.latitude,
+                            lng: coord.longitude
+                        }
+                    });
 
-
+                    yardPaths.push(yardPaths[0]);
+                    let otherYardRecatngle = new google.maps.Polygon({
+                        strokeColor: '#FF0000',
+                        strokeOpacity: 0.8,
+                        strokeWeight: 2,
+                        fillColor: '#FF0000',
+                        fillOpacity: 0.35,
+                        paths: yardPaths
+                    });
+                    otherYardRecatngle.setMap(map);
+                    this.rectYardArray.push(otherYardRecatngle);
+                }
+            }
+        }
     }
 
 
@@ -1136,50 +536,60 @@ export class YardManagentComponent implements OnInit {
         }
 
         if (this.zone) {
-            let bounds = this.zonerect.getBounds();
-            let point = new google.maps.LatLng(bounds.getNorthEast().lat(),
-                bounds.getNorthEast().lng());
-            let point2 = new google.maps.LatLng(bounds.getSouthWest().lat(),
-                bounds.getSouthWest().lng());
-            if (!(this.rectangle.getBounds().contains(point) && this.rectangle.getBounds().contains(point2))) {
-                this._snackBar.open("Drawn zone should be inside yard", "Out of area", {
-                    horizontalPosition: "center",
-                    verticalPosition: "bottom",
-                    duration: 4000,
-                });
+            let path = this.zonerect.getPath();
+            path.getArray().forEach((coord) => {
+                let point = new google.maps.LatLng(coord.lat(), coord.lng());
+                if (!google.maps.geometry.poly.containsLocation(point, this.rectangle)) {
+                    this.snackObject = this._snackBar.open("Drawn zone should be inside yard", "Out of area", {
+                        horizontalPosition: "center",
+                        verticalPosition: "bottom",
+                        duration: 1000
+                    });
+                    this.successfulDrawing = false;
+                }
+            })
+
+            if (!this.successfulDrawing) {
+                this.successfulDrawing = true;
                 return;
             }
-            else {
-                for (var i = 0; i < this.rectArray.length; i++) {
-                    let bounds = this.rectArray[i].getBounds();
-                    let point = new google.maps.LatLng(bounds.getNorthEast().lat(),
-                        bounds.getNorthEast().lng());
-                    let point2 = new google.maps.LatLng(bounds.getSouthWest().lat(),
-                        bounds.getSouthWest().lng());
 
-                    if ((this.zonerect.getBounds().contains(point) || this.zonerect.getBounds().contains(point2))) {
-                        this._snackBar.open("Drawn zone should not be over other zones", "Zones overlap", {
-                            horizontalPosition: "center",
-                            verticalPosition: "bottom",
-                            duration: 4000,
-                        });
-                        return;
+            if (this.otherZones?.length > 0) {
+                if (this.calcIntersection(this.zonerect, this.otherZones)) {
+                    this.snackObject = this._snackBar.open("Drawn zone should not be over other zones", "Zones overlap", {
+                        horizontalPosition: "center",
+                        verticalPosition: "bottom",
+                        duration: 1000
+                    });
+                    return;
+                }
+            }
+
+            this.router.navigate(["zoneList"], {
+                state: {
+                    data:
+                    {
+                        id: this.yard.id,
+                        name: this.yard.name,
+                        zone: this.zone
                     }
                 }
+            })
 
-                this.router.navigate(["zoneList"], {
-                    state: {
-                        data:
-                        {
-                            id: this.yard.id,
-                            name: this.yard.name,
-                            zone: this.zone
-                        }
-                    }
-                })
-            }
         }
         else {
+
+            if (this.otherYards?.length > 0) {
+                if (this.calcYardsIntersection(this.rectangle, this.otherYards)) {
+                    this.snackObject = this._snackBar.open("Drawn yard should not be over other yards", "Yards overlap", {
+                        horizontalPosition: "center",
+                        verticalPosition: "bottom",
+                        duration: 1000
+                    });
+                    return;
+                }
+            }
+
             this.router.navigate(["/yard/list"], {
                 state: {
                     data:
@@ -1238,13 +648,13 @@ export class YardManagentComponent implements OnInit {
             this.dm.setOptions({
                 drawingControl: true,
                 drawingControlOptions: {
-                    drawingModes: ['rectangle']
+                    drawingModes: ["polygon"]
                 },
-                rectangleOptions: {
+                polygonOptions: {
                     draggable: true,
                     editable: true
                 },
-                drawingMode: google.maps.drawing.OverlayType.RECTANGLE
+                drawingMode: google.maps.drawing.OverlayType.POLYGON
             });
             this.isZoneRectangleExists = false;
             this.isRectangleExists = true;
@@ -1256,13 +666,13 @@ export class YardManagentComponent implements OnInit {
             this.dm.setOptions({
                 drawingControl: true,
                 drawingControlOptions: {
-                    drawingModes: ['rectangle']
+                    drawingModes: ["polygon"]
                 },
-                rectangleOptions: {
+                polygonOptions: {
                     draggable: true,
                     editable: true
                 },
-                drawingMode: google.maps.drawing.OverlayType.RECTANGLE
+                drawingMode: google.maps.drawing.OverlayType.POLYGON
             });
             this.isRectangleExists = false;
             this.isDeleted = true;
@@ -1275,7 +685,7 @@ export class YardManagentComponent implements OnInit {
         if (this.rectangle) {
             this.map.setZoom(this.yard.zoom);
             this.map.setCenter({
-                lat: this.yard.yardBoundaries[1].longitude,
+                lat: this.yard.yardBoundaries[0].latitude,
                 lng: this.yard.yardBoundaries[0].longitude
             });
 
@@ -1284,26 +694,338 @@ export class YardManagentComponent implements OnInit {
 
     }
 
-    calcArea = (bounds) => {
-        var rectBoundsLatlng = new Array;
-        var rectBoundsLatlngPath = new Array;
-
-        rectBoundsLatlng[0] = new google.maps.LatLng(bounds.getSouthWest().lng(), bounds.getNorthEast().lng()),
-            rectBoundsLatlng[1] = new google.maps.LatLng(bounds.getSouthWest().lat(), bounds.getNorthEast().lat()),
-            rectBoundsLatlngPath[0] = new google.maps.LatLng(rectBoundsLatlng[1].lat(), rectBoundsLatlng[0].lng()),
-            rectBoundsLatlngPath[1] = new google.maps.LatLng(rectBoundsLatlng[0].lat(), rectBoundsLatlng[1].lng())
-
-        var areaPath = [
-            rectBoundsLatlng[0],
-            rectBoundsLatlngPath[0],
-            rectBoundsLatlng[1],
-            rectBoundsLatlngPath[1],
-            rectBoundsLatlng[0]
-        ];
-        return google.maps.geometry.spherical.computeArea(areaPath);
+    calcArea = (path) => {
+        return google.maps.geometry.spherical.computeArea(path);
     }
+
+
 
     ngOnDestroy() {
         localStorage.clear();
+    }
+
+
+    calcIntersection = (newOverlay, allOverlays: IZoneRecord[]) => {
+
+
+        var geometryFactory = new jsts.geom.GeometryFactory();
+        var newPolygon = this.createJstsPolygon(geometryFactory, newOverlay);
+
+        //iterate existing polygons and find if a new polygon intersects any of them
+        var result = allOverlays.filter((currentOverlay) => {
+            var curPolygon = this.createOtherJstsPolygon(geometryFactory, currentOverlay);
+            var intersection = newPolygon.intersection(curPolygon);
+            return intersection.isEmpty() == false;
+        });
+
+        //if new polygon intersects any of exiting ones, draw it with green color
+        if (result.length > 0) {
+            return true;
+        }
+    }
+
+
+
+    createJstsPolygon = (geometryFactory, overlay) => {
+        var path = overlay.getPath();
+        var coordinates = path.getArray().map((coord) => {
+            return new jsts.geom.Coordinate(coord.lat(), coord.lng());
+        });
+        coordinates.push(coordinates[0]);
+        var shell = geometryFactory.createLinearRing(coordinates);
+        return geometryFactory.createPolygon(shell);
+    }
+
+    createOtherJstsPolygon = (geometryFactory, overlay: IZoneRecord) => {
+
+        var coordinates = overlay.zoneBoundaries.map((coord) => {
+            return new jsts.geom.Coordinate(coord.latitude, coord.longitude);
+        });
+        coordinates.push(coordinates[0]);
+        var shell = geometryFactory.createLinearRing(coordinates);
+        return geometryFactory.createPolygon(shell);
+    }
+
+
+    calcYardsIntersection = (newOverlay, allOverlays: IYardRecord[]) => {
+
+
+        var geometryFactory = new jsts.geom.GeometryFactory();
+        var newPolygon = this.createYardJstsPolygon(geometryFactory, newOverlay);
+
+        //iterate existing polygons and find if a new polygon intersects any of them
+        var result = allOverlays.filter((currentOverlay) => {
+            var curPolygon = this.createOtherYardJstsPolygon(geometryFactory, currentOverlay);
+            var intersection = newPolygon.intersection(curPolygon);
+            return intersection.isEmpty() == false;
+        });
+
+        //if new polygon intersects any of exiting ones, draw it with green color
+        if (result.length > 0) {
+            return true;
+        }
+    }
+
+
+
+    createYardJstsPolygon = (geometryFactory, overlay) => {
+        var path = overlay.getPath();
+        var coordinates = path.getArray().map((coord) => {
+            return new jsts.geom.Coordinate(coord.lat(), coord.lng());
+        });
+        coordinates.push(coordinates[0]);
+        var shell = geometryFactory.createLinearRing(coordinates);
+        return geometryFactory.createPolygon(shell);
+    }
+
+    createOtherYardJstsPolygon = (geometryFactory, overlay: IYardRecord) => {
+
+        var coordinates = overlay.yardBoundaries.map((coord) => {
+            return new jsts.geom.Coordinate(coord.latitude, coord.longitude);
+        });
+        coordinates.push(coordinates[0]);
+        var shell = geometryFactory.createLinearRing(coordinates);
+        return geometryFactory.createPolygon(shell);
+    }
+
+
+
+
+    getYardCoords = () => {
+
+        if (this.otherYards?.length > 0) {
+            if (this.calcYardsIntersection(this.rectangle, this.otherYards)) {
+
+                this.snackObject = this._snackBar.open("Drawn yard should not be over other yards", "Yards overlap", {
+                    horizontalPosition: "center",
+                    verticalPosition: "bottom",
+                    duration: 1000
+                });
+                this.isDeleted = false;
+                this.isRectangleExists = true;
+                this.dragging = false;
+                return;
+            }
+        }
+        let path = this.rectangle.getPath();
+        this.yard.area = this.calcArea(path);
+
+        this.yard.yardBoundaries = new Array<IYardBoundaryRecord>();
+
+        path.getArray().forEach((coord) => {
+            this.yard.yardBoundaries.push(
+                {
+                    latitude: coord.lat(),
+                    longitude: coord.lng()
+                });
+        });
+        this.dm.setOptions({
+            drawingControl: false,
+            drawingControlOptions: {
+                drawingModes: ['']
+            },
+            drawingMode: ''
+        });
+
+        this.isRectangleExists = true;
+        this.isDeleted = false;
+
+        this.snackObject = this._snackBar.open("Yard dragged successfully", "Dragging", {
+            horizontalPosition: "center",
+            verticalPosition: "bottom",
+            duration: 1000
+        });
+
+        this.dragging = false;
+
+    }
+
+    getYardCoordsEvent = () => {
+        if (!this.dragging) {
+
+            if (this.otherYards?.length > 0) {
+                if (this.calcYardsIntersection(this.rectangle, this.otherYards)) {
+
+                    this.snackObject = this._snackBar.open("Drawn yard should not be over other yards", "Yards overlap", {
+                        horizontalPosition: "center",
+                        verticalPosition: "bottom",
+                        duration: 1000
+                    });
+                    this.isDeleted = false;
+                    this.isRectangleExists = true;
+                    return;
+                }
+            }
+            let path = this.rectangle.getPath();
+            this.yard.area = this.calcArea(path);
+
+            this.yard.yardBoundaries = new Array<IYardBoundaryRecord>();
+
+            path.getArray().forEach((coord) => {
+                this.yard.yardBoundaries.push(
+                    {
+                        latitude: coord.lat(),
+                        longitude: coord.lng()
+                    });
+            });
+            this.dm.setOptions({
+                drawingControl: false,
+                drawingControlOptions: {
+                    drawingModes: ['']
+                },
+                drawingMode: ''
+            });
+
+            this.isRectangleExists = true;
+            this.isDeleted = false;
+
+            this.snackObject = this._snackBar.open("Yard dragged successfully", "Dragging", {
+                horizontalPosition: "center",
+                verticalPosition: "bottom",
+                duration: 1000
+            });
+        }
+    }
+
+    getZoneCoords = () => {
+        this.zonerect.getPath().getArray().forEach((coord) => {
+            let point = new google.maps.LatLng(coord.lat(), coord.lng());
+            if (!google.maps.geometry.poly.containsLocation(point, this.rectangle)) {
+
+                this.snackObject = this._snackBar.open("Drawn zone should be inside yard", "Out of area", {
+                    horizontalPosition: "center",
+                    verticalPosition: "bottom",
+                    duration: 1000
+                });
+
+                this.isZoneDeleted = false;
+                this.isZoneRectangleExists = true;
+                this.successfulDrawing = false;
+            }
+        });
+
+        if (!this.successfulDrawing) {
+            this.dragging = false;
+            this.successfulDrawing = true;
+            return;
+        }
+
+        if (this.otherZones?.length > 0) {
+            if (this.calcIntersection(this.zonerect, this.otherZones)) {
+
+                this.snackObject = this._snackBar.open("Drawn zone should not be over other zones", "Zones overlap", {
+                    horizontalPosition: "center",
+                    verticalPosition: "bottom",
+                    duration: 1000
+                });
+                this.isZoneDeleted = false;
+                this.isZoneRectangleExists = true;
+                this.dragging = false;
+                return;
+            }
+        }
+
+        let path = this.zonerect.getPath();
+        this.zone.zoneBoundaries = new Array<IZoneBoundaryRecord>();
+
+        path.getArray().forEach((coord) => {
+
+            this.zone.zoneBoundaries.push(
+                {
+                    latitude: coord.lat(),
+                    longitude: coord.lng()
+                });
+        });
+        this.dm.setOptions({
+            drawingControl: false,
+            drawingControlOptions: {
+                drawingModes: ['']
+            },
+            drawingMode: ''
+        });
+
+        this.isRectangleExists = true;
+        this.isZoneRectangleExists = true;
+        this.isDeleted = true;
+        this.isZoneDeleted = false;
+
+        this.snackObject = this._snackBar.open("Zone dragged successfully", "Inside area", {
+            horizontalPosition: "center",
+            verticalPosition: "bottom",
+            duration: 1000
+        });
+
+        this.dragging = false;
+
+    }
+
+
+    getZoneCoordsEvent = () => {
+        if (!this.dragging) {
+            this.zonerect.getPath().getArray().forEach((coord) => {
+                let point = new google.maps.LatLng(coord.lat(), coord.lng());
+                if (!google.maps.geometry.poly.containsLocation(point, this.rectangle)) {
+
+                    this.snackObject = this._snackBar.open("Drawn zone should be inside yard", "Out of area", {
+                        horizontalPosition: "center",
+                        verticalPosition: "bottom",
+                        duration: 1000
+                    });
+
+                    this.isZoneDeleted = false;
+                    this.isZoneRectangleExists = true;
+                    this.successfulDrawing = false;
+                }
+            });
+
+            if (!this.successfulDrawing) {
+                this.successfulDrawing = true;
+                return;
+            }
+
+            if (this.otherZones?.length > 0) {
+                if (this.calcIntersection(this.zonerect, this.otherZones)) {
+
+                    this.snackObject = this._snackBar.open("Drawn zone should not be over other zones", "Zones overlap", {
+                        horizontalPosition: "center",
+                        verticalPosition: "bottom",
+                        duration: 1000
+                    });
+                    this.isZoneDeleted = false;
+                    this.isZoneRectangleExists = true;
+                    return;
+                }
+            }
+
+            let path = this.zonerect.getPath();
+            this.zone.zoneBoundaries = new Array<IZoneBoundaryRecord>();
+
+            path.getArray().forEach((coord) => {
+
+                this.zone.zoneBoundaries.push(
+                    {
+                        latitude: coord.lat(),
+                        longitude: coord.lng()
+                    });
+            });
+            this.dm.setOptions({
+                drawingControl: false,
+                drawingControlOptions: {
+                    drawingModes: ['']
+                },
+                drawingMode: ''
+            });
+
+            this.isRectangleExists = true;
+            this.isZoneRectangleExists = true;
+            this.isDeleted = true;
+            this.isZoneDeleted = false;
+
+            this.snackObject = this._snackBar.open("Zone dragged successfully", "Inside area", {
+                horizontalPosition: "center",
+                verticalPosition: "bottom",
+                duration: 1000
+            });
+        }
     }
 }

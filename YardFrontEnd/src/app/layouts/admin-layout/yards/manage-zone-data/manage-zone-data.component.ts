@@ -196,7 +196,7 @@ export class ManageZoneDataComponent extends BaseManagementClass implements OnIn
 
         if (index >= 0) {
             this.points.splice(index, 1);
-            this.form.patchValue({ yardBoundaries: '', distance: '' });
+            this.form.patchValue({ zoneBoundaries: '', distance: '' });
 
         }
 

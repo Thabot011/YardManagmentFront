@@ -186,161 +186,20 @@ export interface IClient {
      */
     testCDN(body?: DocumentRecord | undefined): Observable<string>;
     /**
-     * @param vehicleRecord_Id (optional) 
-     * @param vehicleRecord_Year (optional) 
-     * @param vehicleRecord_Vin (optional) 
-     * @param vehicleRecord_CreateAt (optional) 
-     * @param vehicleRecord_Deleted (optional) 
-     * @param vehicleRecord_UpdatedAt (optional) 
-     * @param vehicleRecord_HasVin (optional) 
-     * @param vehicleRecord_BeneficiaryId (optional) 
-     * @param vehicleRecord_BeneficiaryName (optional) 
-     * @param vehicleRecord_StatusId (optional) 
-     * @param vehicleRecord_StatusName (optional) 
-     * @param vehicleRecord_ProviderId (optional) 
-     * @param vehicleRecord_ProviderName (optional) 
-     * @param vehicleRecord_VehicleTypeId (optional) 
-     * @param vehicleRecord_VehicleTypeName (optional) 
-     * @param vehicleRecord_ModelId (optional) 
-     * @param vehicleRecord_ModelName (optional) 
-     * @param vehicleRecord_MakeId (optional) 
-     * @param vehicleRecord_MakeName (optional) 
-     * @param vehicleRecord_Locked (optional) 
-     * @param vehicleRecord_Images (optional) 
-     * @param vehicleRecord_Plates (optional) 
-     * @param vehicleRecord_PlateNumberFilter (optional) 
-     * @param vehicleRecord_BeneficiaryIdsFilter (optional) 
-     * @param vehicleRecord_ProviderIdsFilter (optional) 
-     * @param vehicleRecord_StatusIdsFilter (optional) 
-     * @param vehicleRecord_VehicleTypeIdsFilter (optional) 
-     * @param vehicleRecord_IdStrFilter (optional) 
-     * @param vehicleRecord_YardInDate (optional) 
-     * @param vehicleRecord_DataStatusName (optional) 
-     * @param vehicleRecord_DataStatusId (optional) 
-     * @param vehicleRecord_NoVinRationales (optional) 
-     * @param vehicleRecord_QrCodes (optional) 
-     * @param vehicleRecord_QrCodeFilter (optional) 
-     * @param vehicleRecord_CurrentQrCode (optional) 
-     * @param vehicleRecord_Documents (optional) 
-     * @param vehicleRecord_OwnershipStartDate (optional) 
-     * @param vehicleRecord_DataStatusIdsFilter (optional) 
-     * @param isDesc (optional) 
-     * @param orderByColumn (optional) 
-     * @param pageSize (optional) 
-     * @param pageIndex (optional) 
-     * @param createdBy (optional) 
-     * @param roleID (optional) 
-     * @param languageId (optional) 
-     * @param baseUrl (optional) 
-     * @param name (optional) 
-     * @param mailSender (optional) 
+     * @param body (optional) 
      * @return Success
      */
-    completeVehicle(vehicleRecord_Id?: number | undefined, vehicleRecord_Year?: number | null | undefined, vehicleRecord_Vin?: string | null | undefined, vehicleRecord_CreateAt?: Date | undefined, vehicleRecord_Deleted?: boolean | undefined, vehicleRecord_UpdatedAt?: Date | undefined, vehicleRecord_HasVin?: number | undefined, vehicleRecord_BeneficiaryId?: number | null | undefined, vehicleRecord_BeneficiaryName?: string | null | undefined, vehicleRecord_StatusId?: number | null | undefined, vehicleRecord_StatusName?: string | null | undefined, vehicleRecord_ProviderId?: number | null | undefined, vehicleRecord_ProviderName?: string | null | undefined, vehicleRecord_VehicleTypeId?: number | null | undefined, vehicleRecord_VehicleTypeName?: string | null | undefined, vehicleRecord_ModelId?: number | null | undefined, vehicleRecord_ModelName?: string | null | undefined, vehicleRecord_MakeId?: number | null | undefined, vehicleRecord_MakeName?: string | null | undefined, vehicleRecord_Locked?: boolean | null | undefined, vehicleRecord_Images?: ImageRecord[] | null | undefined, vehicleRecord_Plates?: PlateRecord[] | null | undefined, vehicleRecord_PlateNumberFilter?: string | null | undefined, vehicleRecord_BeneficiaryIdsFilter?: number[] | null | undefined, vehicleRecord_ProviderIdsFilter?: number[] | null | undefined, vehicleRecord_StatusIdsFilter?: number[] | null | undefined, vehicleRecord_VehicleTypeIdsFilter?: number[] | null | undefined, vehicleRecord_IdStrFilter?: string | null | undefined, vehicleRecord_YardInDate?: Date | null | undefined, vehicleRecord_DataStatusName?: string | null | undefined, vehicleRecord_DataStatusId?: number | null | undefined, vehicleRecord_NoVinRationales?: NoVinRationaleRecord[] | null | undefined, vehicleRecord_QrCodes?: VehicleQrCodeRecord[] | null | undefined, vehicleRecord_QrCodeFilter?: string | null | undefined, vehicleRecord_CurrentQrCode?: string | null | undefined, vehicleRecord_Documents?: DocumentRecord[] | null | undefined, vehicleRecord_OwnershipStartDate?: Date | null | undefined, vehicleRecord_DataStatusIdsFilter?: number[] | null | undefined, isDesc?: boolean | undefined, orderByColumn?: string | null | undefined, pageSize?: number | undefined, pageIndex?: number | undefined, createdBy?: number | undefined, roleID?: number | undefined, languageId?: number | undefined, baseUrl?: string | null | undefined, name?: string | null | undefined, mailSender?: MailSender | undefined): Observable<VehicleResponse>;
+    completeVehicle(body?: VehicleRequest | undefined): Observable<VehicleResponse>;
     /**
-     * @param vehicleRecord_Id (optional) 
-     * @param vehicleRecord_Year (optional) 
-     * @param vehicleRecord_Vin (optional) 
-     * @param vehicleRecord_CreateAt (optional) 
-     * @param vehicleRecord_Deleted (optional) 
-     * @param vehicleRecord_UpdatedAt (optional) 
-     * @param vehicleRecord_HasVin (optional) 
-     * @param vehicleRecord_BeneficiaryId (optional) 
-     * @param vehicleRecord_BeneficiaryName (optional) 
-     * @param vehicleRecord_StatusId (optional) 
-     * @param vehicleRecord_StatusName (optional) 
-     * @param vehicleRecord_ProviderId (optional) 
-     * @param vehicleRecord_ProviderName (optional) 
-     * @param vehicleRecord_VehicleTypeId (optional) 
-     * @param vehicleRecord_VehicleTypeName (optional) 
-     * @param vehicleRecord_ModelId (optional) 
-     * @param vehicleRecord_ModelName (optional) 
-     * @param vehicleRecord_MakeId (optional) 
-     * @param vehicleRecord_MakeName (optional) 
-     * @param vehicleRecord_Locked (optional) 
-     * @param vehicleRecord_Images (optional) 
-     * @param vehicleRecord_Plates (optional) 
-     * @param vehicleRecord_PlateNumberFilter (optional) 
-     * @param vehicleRecord_BeneficiaryIdsFilter (optional) 
-     * @param vehicleRecord_ProviderIdsFilter (optional) 
-     * @param vehicleRecord_StatusIdsFilter (optional) 
-     * @param vehicleRecord_VehicleTypeIdsFilter (optional) 
-     * @param vehicleRecord_IdStrFilter (optional) 
-     * @param vehicleRecord_YardInDate (optional) 
-     * @param vehicleRecord_DataStatusName (optional) 
-     * @param vehicleRecord_DataStatusId (optional) 
-     * @param vehicleRecord_NoVinRationales (optional) 
-     * @param vehicleRecord_QrCodes (optional) 
-     * @param vehicleRecord_QrCodeFilter (optional) 
-     * @param vehicleRecord_CurrentQrCode (optional) 
-     * @param vehicleRecord_Documents (optional) 
-     * @param vehicleRecord_OwnershipStartDate (optional) 
-     * @param vehicleRecord_DataStatusIdsFilter (optional) 
-     * @param isDesc (optional) 
-     * @param orderByColumn (optional) 
-     * @param pageSize (optional) 
-     * @param pageIndex (optional) 
-     * @param createdBy (optional) 
-     * @param roleID (optional) 
-     * @param languageId (optional) 
-     * @param baseUrl (optional) 
-     * @param name (optional) 
-     * @param mailSender (optional) 
+     * @param body (optional) 
      * @return Success
      */
-    saveReviewedVehicle(vehicleRecord_Id?: number | undefined, vehicleRecord_Year?: number | null | undefined, vehicleRecord_Vin?: string | null | undefined, vehicleRecord_CreateAt?: Date | undefined, vehicleRecord_Deleted?: boolean | undefined, vehicleRecord_UpdatedAt?: Date | undefined, vehicleRecord_HasVin?: number | undefined, vehicleRecord_BeneficiaryId?: number | null | undefined, vehicleRecord_BeneficiaryName?: string | null | undefined, vehicleRecord_StatusId?: number | null | undefined, vehicleRecord_StatusName?: string | null | undefined, vehicleRecord_ProviderId?: number | null | undefined, vehicleRecord_ProviderName?: string | null | undefined, vehicleRecord_VehicleTypeId?: number | null | undefined, vehicleRecord_VehicleTypeName?: string | null | undefined, vehicleRecord_ModelId?: number | null | undefined, vehicleRecord_ModelName?: string | null | undefined, vehicleRecord_MakeId?: number | null | undefined, vehicleRecord_MakeName?: string | null | undefined, vehicleRecord_Locked?: boolean | null | undefined, vehicleRecord_Images?: ImageRecord[] | null | undefined, vehicleRecord_Plates?: PlateRecord[] | null | undefined, vehicleRecord_PlateNumberFilter?: string | null | undefined, vehicleRecord_BeneficiaryIdsFilter?: number[] | null | undefined, vehicleRecord_ProviderIdsFilter?: number[] | null | undefined, vehicleRecord_StatusIdsFilter?: number[] | null | undefined, vehicleRecord_VehicleTypeIdsFilter?: number[] | null | undefined, vehicleRecord_IdStrFilter?: string | null | undefined, vehicleRecord_YardInDate?: Date | null | undefined, vehicleRecord_DataStatusName?: string | null | undefined, vehicleRecord_DataStatusId?: number | null | undefined, vehicleRecord_NoVinRationales?: NoVinRationaleRecord[] | null | undefined, vehicleRecord_QrCodes?: VehicleQrCodeRecord[] | null | undefined, vehicleRecord_QrCodeFilter?: string | null | undefined, vehicleRecord_CurrentQrCode?: string | null | undefined, vehicleRecord_Documents?: DocumentRecord[] | null | undefined, vehicleRecord_OwnershipStartDate?: Date | null | undefined, vehicleRecord_DataStatusIdsFilter?: number[] | null | undefined, isDesc?: boolean | undefined, orderByColumn?: string | null | undefined, pageSize?: number | undefined, pageIndex?: number | undefined, createdBy?: number | undefined, roleID?: number | undefined, languageId?: number | undefined, baseUrl?: string | null | undefined, name?: string | null | undefined, mailSender?: MailSender | undefined): Observable<VehicleResponse>;
+    saveReviewedVehicle(body?: VehicleRequest | undefined): Observable<VehicleResponse>;
     /**
-     * @param vehicleRecord_Id (optional) 
-     * @param vehicleRecord_Year (optional) 
-     * @param vehicleRecord_Vin (optional) 
-     * @param vehicleRecord_CreateAt (optional) 
-     * @param vehicleRecord_Deleted (optional) 
-     * @param vehicleRecord_UpdatedAt (optional) 
-     * @param vehicleRecord_HasVin (optional) 
-     * @param vehicleRecord_BeneficiaryId (optional) 
-     * @param vehicleRecord_BeneficiaryName (optional) 
-     * @param vehicleRecord_StatusId (optional) 
-     * @param vehicleRecord_StatusName (optional) 
-     * @param vehicleRecord_ProviderId (optional) 
-     * @param vehicleRecord_ProviderName (optional) 
-     * @param vehicleRecord_VehicleTypeId (optional) 
-     * @param vehicleRecord_VehicleTypeName (optional) 
-     * @param vehicleRecord_ModelId (optional) 
-     * @param vehicleRecord_ModelName (optional) 
-     * @param vehicleRecord_MakeId (optional) 
-     * @param vehicleRecord_MakeName (optional) 
-     * @param vehicleRecord_Locked (optional) 
-     * @param vehicleRecord_Images (optional) 
-     * @param vehicleRecord_Plates (optional) 
-     * @param vehicleRecord_PlateNumberFilter (optional) 
-     * @param vehicleRecord_BeneficiaryIdsFilter (optional) 
-     * @param vehicleRecord_ProviderIdsFilter (optional) 
-     * @param vehicleRecord_StatusIdsFilter (optional) 
-     * @param vehicleRecord_VehicleTypeIdsFilter (optional) 
-     * @param vehicleRecord_IdStrFilter (optional) 
-     * @param vehicleRecord_YardInDate (optional) 
-     * @param vehicleRecord_DataStatusName (optional) 
-     * @param vehicleRecord_DataStatusId (optional) 
-     * @param vehicleRecord_NoVinRationales (optional) 
-     * @param vehicleRecord_QrCodes (optional) 
-     * @param vehicleRecord_QrCodeFilter (optional) 
-     * @param vehicleRecord_CurrentQrCode (optional) 
-     * @param vehicleRecord_Documents (optional) 
-     * @param vehicleRecord_OwnershipStartDate (optional) 
-     * @param vehicleRecord_DataStatusIdsFilter (optional) 
-     * @param isDesc (optional) 
-     * @param orderByColumn (optional) 
-     * @param pageSize (optional) 
-     * @param pageIndex (optional) 
-     * @param createdBy (optional) 
-     * @param roleID (optional) 
-     * @param languageId (optional) 
-     * @param baseUrl (optional) 
-     * @param name (optional) 
-     * @param mailSender (optional) 
+     * @param body (optional) 
      * @return Success
      */
-    editVehicle(vehicleRecord_Id?: number | undefined, vehicleRecord_Year?: number | null | undefined, vehicleRecord_Vin?: string | null | undefined, vehicleRecord_CreateAt?: Date | undefined, vehicleRecord_Deleted?: boolean | undefined, vehicleRecord_UpdatedAt?: Date | undefined, vehicleRecord_HasVin?: number | undefined, vehicleRecord_BeneficiaryId?: number | null | undefined, vehicleRecord_BeneficiaryName?: string | null | undefined, vehicleRecord_StatusId?: number | null | undefined, vehicleRecord_StatusName?: string | null | undefined, vehicleRecord_ProviderId?: number | null | undefined, vehicleRecord_ProviderName?: string | null | undefined, vehicleRecord_VehicleTypeId?: number | null | undefined, vehicleRecord_VehicleTypeName?: string | null | undefined, vehicleRecord_ModelId?: number | null | undefined, vehicleRecord_ModelName?: string | null | undefined, vehicleRecord_MakeId?: number | null | undefined, vehicleRecord_MakeName?: string | null | undefined, vehicleRecord_Locked?: boolean | null | undefined, vehicleRecord_Images?: ImageRecord[] | null | undefined, vehicleRecord_Plates?: PlateRecord[] | null | undefined, vehicleRecord_PlateNumberFilter?: string | null | undefined, vehicleRecord_BeneficiaryIdsFilter?: number[] | null | undefined, vehicleRecord_ProviderIdsFilter?: number[] | null | undefined, vehicleRecord_StatusIdsFilter?: number[] | null | undefined, vehicleRecord_VehicleTypeIdsFilter?: number[] | null | undefined, vehicleRecord_IdStrFilter?: string | null | undefined, vehicleRecord_YardInDate?: Date | null | undefined, vehicleRecord_DataStatusName?: string | null | undefined, vehicleRecord_DataStatusId?: number | null | undefined, vehicleRecord_NoVinRationales?: NoVinRationaleRecord[] | null | undefined, vehicleRecord_QrCodes?: VehicleQrCodeRecord[] | null | undefined, vehicleRecord_QrCodeFilter?: string | null | undefined, vehicleRecord_CurrentQrCode?: string | null | undefined, vehicleRecord_Documents?: DocumentRecord[] | null | undefined, vehicleRecord_OwnershipStartDate?: Date | null | undefined, vehicleRecord_DataStatusIdsFilter?: number[] | null | undefined, isDesc?: boolean | undefined, orderByColumn?: string | null | undefined, pageSize?: number | undefined, pageIndex?: number | undefined, createdBy?: number | undefined, roleID?: number | undefined, languageId?: number | undefined, baseUrl?: string | null | undefined, name?: string | null | undefined, mailSender?: MailSender | undefined): Observable<VehicleResponse>;
+    editVehicle(body?: VehicleRequest | undefined): Observable<VehicleResponse>;
     /**
      * @param body (optional) 
      * @return Success
@@ -2429,187 +2288,21 @@ export class Client implements IClient {
     }
 
     /**
-     * @param vehicleRecord_Id (optional) 
-     * @param vehicleRecord_Year (optional) 
-     * @param vehicleRecord_Vin (optional) 
-     * @param vehicleRecord_CreateAt (optional) 
-     * @param vehicleRecord_Deleted (optional) 
-     * @param vehicleRecord_UpdatedAt (optional) 
-     * @param vehicleRecord_HasVin (optional) 
-     * @param vehicleRecord_BeneficiaryId (optional) 
-     * @param vehicleRecord_BeneficiaryName (optional) 
-     * @param vehicleRecord_StatusId (optional) 
-     * @param vehicleRecord_StatusName (optional) 
-     * @param vehicleRecord_ProviderId (optional) 
-     * @param vehicleRecord_ProviderName (optional) 
-     * @param vehicleRecord_VehicleTypeId (optional) 
-     * @param vehicleRecord_VehicleTypeName (optional) 
-     * @param vehicleRecord_ModelId (optional) 
-     * @param vehicleRecord_ModelName (optional) 
-     * @param vehicleRecord_MakeId (optional) 
-     * @param vehicleRecord_MakeName (optional) 
-     * @param vehicleRecord_Locked (optional) 
-     * @param vehicleRecord_Images (optional) 
-     * @param vehicleRecord_Plates (optional) 
-     * @param vehicleRecord_PlateNumberFilter (optional) 
-     * @param vehicleRecord_BeneficiaryIdsFilter (optional) 
-     * @param vehicleRecord_ProviderIdsFilter (optional) 
-     * @param vehicleRecord_StatusIdsFilter (optional) 
-     * @param vehicleRecord_VehicleTypeIdsFilter (optional) 
-     * @param vehicleRecord_IdStrFilter (optional) 
-     * @param vehicleRecord_YardInDate (optional) 
-     * @param vehicleRecord_DataStatusName (optional) 
-     * @param vehicleRecord_DataStatusId (optional) 
-     * @param vehicleRecord_NoVinRationales (optional) 
-     * @param vehicleRecord_QrCodes (optional) 
-     * @param vehicleRecord_QrCodeFilter (optional) 
-     * @param vehicleRecord_CurrentQrCode (optional) 
-     * @param vehicleRecord_Documents (optional) 
-     * @param vehicleRecord_OwnershipStartDate (optional) 
-     * @param vehicleRecord_DataStatusIdsFilter (optional) 
-     * @param isDesc (optional) 
-     * @param orderByColumn (optional) 
-     * @param pageSize (optional) 
-     * @param pageIndex (optional) 
-     * @param createdBy (optional) 
-     * @param roleID (optional) 
-     * @param languageId (optional) 
-     * @param baseUrl (optional) 
-     * @param name (optional) 
-     * @param mailSender (optional) 
+     * @param body (optional) 
      * @return Success
      */
-    completeVehicle(vehicleRecord_Id?: number | undefined, vehicleRecord_Year?: number | null | undefined, vehicleRecord_Vin?: string | null | undefined, vehicleRecord_CreateAt?: Date | undefined, vehicleRecord_Deleted?: boolean | undefined, vehicleRecord_UpdatedAt?: Date | undefined, vehicleRecord_HasVin?: number | undefined, vehicleRecord_BeneficiaryId?: number | null | undefined, vehicleRecord_BeneficiaryName?: string | null | undefined, vehicleRecord_StatusId?: number | null | undefined, vehicleRecord_StatusName?: string | null | undefined, vehicleRecord_ProviderId?: number | null | undefined, vehicleRecord_ProviderName?: string | null | undefined, vehicleRecord_VehicleTypeId?: number | null | undefined, vehicleRecord_VehicleTypeName?: string | null | undefined, vehicleRecord_ModelId?: number | null | undefined, vehicleRecord_ModelName?: string | null | undefined, vehicleRecord_MakeId?: number | null | undefined, vehicleRecord_MakeName?: string | null | undefined, vehicleRecord_Locked?: boolean | null | undefined, vehicleRecord_Images?: ImageRecord[] | null | undefined, vehicleRecord_Plates?: PlateRecord[] | null | undefined, vehicleRecord_PlateNumberFilter?: string | null | undefined, vehicleRecord_BeneficiaryIdsFilter?: number[] | null | undefined, vehicleRecord_ProviderIdsFilter?: number[] | null | undefined, vehicleRecord_StatusIdsFilter?: number[] | null | undefined, vehicleRecord_VehicleTypeIdsFilter?: number[] | null | undefined, vehicleRecord_IdStrFilter?: string | null | undefined, vehicleRecord_YardInDate?: Date | null | undefined, vehicleRecord_DataStatusName?: string | null | undefined, vehicleRecord_DataStatusId?: number | null | undefined, vehicleRecord_NoVinRationales?: NoVinRationaleRecord[] | null | undefined, vehicleRecord_QrCodes?: VehicleQrCodeRecord[] | null | undefined, vehicleRecord_QrCodeFilter?: string | null | undefined, vehicleRecord_CurrentQrCode?: string | null | undefined, vehicleRecord_Documents?: DocumentRecord[] | null | undefined, vehicleRecord_OwnershipStartDate?: Date | null | undefined, vehicleRecord_DataStatusIdsFilter?: number[] | null | undefined, isDesc?: boolean | undefined, orderByColumn?: string | null | undefined, pageSize?: number | undefined, pageIndex?: number | undefined, createdBy?: number | undefined, roleID?: number | undefined, languageId?: number | undefined, baseUrl?: string | null | undefined, name?: string | null | undefined, mailSender?: MailSender | undefined): Observable<VehicleResponse> {
+    completeVehicle(body?: VehicleRequest | undefined): Observable<VehicleResponse> {
         let url_ = this.baseUrl + "/api/Vehicle/CompleteVehicle";
         url_ = url_.replace(/[?&]$/, "");
 
-        const content_ = new FormData();
-        if (vehicleRecord_Id === null || vehicleRecord_Id === undefined)
-            throw new Error("The parameter 'vehicleRecord_Id' cannot be null.");
-        else
-            content_.append("VehicleRecord.Id", vehicleRecord_Id.toString());
-        if (vehicleRecord_Year !== null && vehicleRecord_Year !== undefined)
-            content_.append("VehicleRecord.Year", vehicleRecord_Year.toString());
-        if (vehicleRecord_Vin !== null && vehicleRecord_Vin !== undefined)
-            content_.append("VehicleRecord.Vin", vehicleRecord_Vin.toString());
-        if (vehicleRecord_CreateAt === null || vehicleRecord_CreateAt === undefined)
-            throw new Error("The parameter 'vehicleRecord_CreateAt' cannot be null.");
-        else
-            content_.append("VehicleRecord.CreateAt", vehicleRecord_CreateAt.toJSON());
-        if (vehicleRecord_Deleted === null || vehicleRecord_Deleted === undefined)
-            throw new Error("The parameter 'vehicleRecord_Deleted' cannot be null.");
-        else
-            content_.append("VehicleRecord.Deleted", vehicleRecord_Deleted.toString());
-        if (vehicleRecord_UpdatedAt === null || vehicleRecord_UpdatedAt === undefined)
-            throw new Error("The parameter 'vehicleRecord_UpdatedAt' cannot be null.");
-        else
-            content_.append("VehicleRecord.UpdatedAt", vehicleRecord_UpdatedAt.toJSON());
-        if (vehicleRecord_HasVin === null || vehicleRecord_HasVin === undefined)
-            throw new Error("The parameter 'vehicleRecord_HasVin' cannot be null.");
-        else
-            content_.append("VehicleRecord.HasVin", vehicleRecord_HasVin.toString());
-        if (vehicleRecord_BeneficiaryId !== null && vehicleRecord_BeneficiaryId !== undefined)
-            content_.append("VehicleRecord.BeneficiaryId", vehicleRecord_BeneficiaryId.toString());
-        if (vehicleRecord_BeneficiaryName !== null && vehicleRecord_BeneficiaryName !== undefined)
-            content_.append("VehicleRecord.BeneficiaryName", vehicleRecord_BeneficiaryName.toString());
-        if (vehicleRecord_StatusId !== null && vehicleRecord_StatusId !== undefined)
-            content_.append("VehicleRecord.StatusId", vehicleRecord_StatusId.toString());
-        if (vehicleRecord_StatusName !== null && vehicleRecord_StatusName !== undefined)
-            content_.append("VehicleRecord.StatusName", vehicleRecord_StatusName.toString());
-        if (vehicleRecord_ProviderId !== null && vehicleRecord_ProviderId !== undefined)
-            content_.append("VehicleRecord.ProviderId", vehicleRecord_ProviderId.toString());
-        if (vehicleRecord_ProviderName !== null && vehicleRecord_ProviderName !== undefined)
-            content_.append("VehicleRecord.ProviderName", vehicleRecord_ProviderName.toString());
-        if (vehicleRecord_VehicleTypeId !== null && vehicleRecord_VehicleTypeId !== undefined)
-            content_.append("VehicleRecord.VehicleTypeId", vehicleRecord_VehicleTypeId.toString());
-        if (vehicleRecord_VehicleTypeName !== null && vehicleRecord_VehicleTypeName !== undefined)
-            content_.append("VehicleRecord.VehicleTypeName", vehicleRecord_VehicleTypeName.toString());
-        if (vehicleRecord_ModelId !== null && vehicleRecord_ModelId !== undefined)
-            content_.append("VehicleRecord.ModelId", vehicleRecord_ModelId.toString());
-        if (vehicleRecord_ModelName !== null && vehicleRecord_ModelName !== undefined)
-            content_.append("VehicleRecord.ModelName", vehicleRecord_ModelName.toString());
-        if (vehicleRecord_MakeId !== null && vehicleRecord_MakeId !== undefined)
-            content_.append("VehicleRecord.MakeId", vehicleRecord_MakeId.toString());
-        if (vehicleRecord_MakeName !== null && vehicleRecord_MakeName !== undefined)
-            content_.append("VehicleRecord.MakeName", vehicleRecord_MakeName.toString());
-        if (vehicleRecord_Locked !== null && vehicleRecord_Locked !== undefined)
-            content_.append("VehicleRecord.Locked", vehicleRecord_Locked.toString());
-        if (vehicleRecord_Images !== null && vehicleRecord_Images !== undefined)
-            content_.append("VehicleRecord.Images", vehicleRecord_Images.toString());
-        if (vehicleRecord_Plates !== null && vehicleRecord_Plates !== undefined)
-            content_.append("VehicleRecord.Plates", vehicleRecord_Plates.toString());
-        if (vehicleRecord_PlateNumberFilter !== null && vehicleRecord_PlateNumberFilter !== undefined)
-            content_.append("VehicleRecord.PlateNumberFilter", vehicleRecord_PlateNumberFilter.toString());
-        if (vehicleRecord_BeneficiaryIdsFilter !== null && vehicleRecord_BeneficiaryIdsFilter !== undefined)
-            content_.append("VehicleRecord.BeneficiaryIdsFilter", vehicleRecord_BeneficiaryIdsFilter.toString());
-        if (vehicleRecord_ProviderIdsFilter !== null && vehicleRecord_ProviderIdsFilter !== undefined)
-            content_.append("VehicleRecord.ProviderIdsFilter", vehicleRecord_ProviderIdsFilter.toString());
-        if (vehicleRecord_StatusIdsFilter !== null && vehicleRecord_StatusIdsFilter !== undefined)
-            content_.append("VehicleRecord.StatusIdsFilter", vehicleRecord_StatusIdsFilter.toString());
-        if (vehicleRecord_VehicleTypeIdsFilter !== null && vehicleRecord_VehicleTypeIdsFilter !== undefined)
-            content_.append("VehicleRecord.VehicleTypeIdsFilter", vehicleRecord_VehicleTypeIdsFilter.toString());
-        if (vehicleRecord_IdStrFilter !== null && vehicleRecord_IdStrFilter !== undefined)
-            content_.append("VehicleRecord.IdStrFilter", vehicleRecord_IdStrFilter.toString());
-        if (vehicleRecord_YardInDate !== null && vehicleRecord_YardInDate !== undefined)
-            content_.append("VehicleRecord.YardInDate", vehicleRecord_YardInDate.toJSON());
-        if (vehicleRecord_DataStatusName !== null && vehicleRecord_DataStatusName !== undefined)
-            content_.append("VehicleRecord.DataStatusName", vehicleRecord_DataStatusName.toString());
-        if (vehicleRecord_DataStatusId !== null && vehicleRecord_DataStatusId !== undefined)
-            content_.append("VehicleRecord.DataStatusId", vehicleRecord_DataStatusId.toString());
-        if (vehicleRecord_NoVinRationales !== null && vehicleRecord_NoVinRationales !== undefined)
-            content_.append("VehicleRecord.NoVinRationales", vehicleRecord_NoVinRationales.toString());
-        if (vehicleRecord_QrCodes !== null && vehicleRecord_QrCodes !== undefined)
-            content_.append("VehicleRecord.QrCodes", vehicleRecord_QrCodes.toString());
-        if (vehicleRecord_QrCodeFilter !== null && vehicleRecord_QrCodeFilter !== undefined)
-            content_.append("VehicleRecord.QrCodeFilter", vehicleRecord_QrCodeFilter.toString());
-        if (vehicleRecord_CurrentQrCode !== null && vehicleRecord_CurrentQrCode !== undefined)
-            content_.append("VehicleRecord.CurrentQrCode", vehicleRecord_CurrentQrCode.toString());
-        if (vehicleRecord_Documents !== null && vehicleRecord_Documents !== undefined)
-            content_.append("VehicleRecord.Documents", vehicleRecord_Documents.toString());
-        if (vehicleRecord_OwnershipStartDate !== null && vehicleRecord_OwnershipStartDate !== undefined)
-            content_.append("VehicleRecord.OwnershipStartDate", vehicleRecord_OwnershipStartDate.toJSON());
-        if (vehicleRecord_DataStatusIdsFilter !== null && vehicleRecord_DataStatusIdsFilter !== undefined)
-            content_.append("VehicleRecord.DataStatusIdsFilter", vehicleRecord_DataStatusIdsFilter.toString());
-        if (isDesc === null || isDesc === undefined)
-            throw new Error("The parameter 'isDesc' cannot be null.");
-        else
-            content_.append("IsDesc", isDesc.toString());
-        if (orderByColumn !== null && orderByColumn !== undefined)
-            content_.append("OrderByColumn", orderByColumn.toString());
-        if (pageSize === null || pageSize === undefined)
-            throw new Error("The parameter 'pageSize' cannot be null.");
-        else
-            content_.append("PageSize", pageSize.toString());
-        if (pageIndex === null || pageIndex === undefined)
-            throw new Error("The parameter 'pageIndex' cannot be null.");
-        else
-            content_.append("PageIndex", pageIndex.toString());
-        if (createdBy === null || createdBy === undefined)
-            throw new Error("The parameter 'createdBy' cannot be null.");
-        else
-            content_.append("CreatedBy", createdBy.toString());
-        if (roleID === null || roleID === undefined)
-            throw new Error("The parameter 'roleID' cannot be null.");
-        else
-            content_.append("RoleID", roleID.toString());
-        if (languageId === null || languageId === undefined)
-            throw new Error("The parameter 'languageId' cannot be null.");
-        else
-            content_.append("LanguageId", languageId.toString());
-        if (baseUrl !== null && baseUrl !== undefined)
-            content_.append("BaseUrl", baseUrl.toString());
-        if (name !== null && name !== undefined)
-            content_.append("Name", name.toString());
-        if (mailSender === null || mailSender === undefined)
-            throw new Error("The parameter 'mailSender' cannot be null.");
-        else
-            content_.append("MailSender", mailSender.toString());
+        const content_ = JSON.stringify(body);
 
         let options_ : any = {
             body: content_,
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json",
                 "Accept": "text/plain"
             })
         };
@@ -2652,187 +2345,21 @@ export class Client implements IClient {
     }
 
     /**
-     * @param vehicleRecord_Id (optional) 
-     * @param vehicleRecord_Year (optional) 
-     * @param vehicleRecord_Vin (optional) 
-     * @param vehicleRecord_CreateAt (optional) 
-     * @param vehicleRecord_Deleted (optional) 
-     * @param vehicleRecord_UpdatedAt (optional) 
-     * @param vehicleRecord_HasVin (optional) 
-     * @param vehicleRecord_BeneficiaryId (optional) 
-     * @param vehicleRecord_BeneficiaryName (optional) 
-     * @param vehicleRecord_StatusId (optional) 
-     * @param vehicleRecord_StatusName (optional) 
-     * @param vehicleRecord_ProviderId (optional) 
-     * @param vehicleRecord_ProviderName (optional) 
-     * @param vehicleRecord_VehicleTypeId (optional) 
-     * @param vehicleRecord_VehicleTypeName (optional) 
-     * @param vehicleRecord_ModelId (optional) 
-     * @param vehicleRecord_ModelName (optional) 
-     * @param vehicleRecord_MakeId (optional) 
-     * @param vehicleRecord_MakeName (optional) 
-     * @param vehicleRecord_Locked (optional) 
-     * @param vehicleRecord_Images (optional) 
-     * @param vehicleRecord_Plates (optional) 
-     * @param vehicleRecord_PlateNumberFilter (optional) 
-     * @param vehicleRecord_BeneficiaryIdsFilter (optional) 
-     * @param vehicleRecord_ProviderIdsFilter (optional) 
-     * @param vehicleRecord_StatusIdsFilter (optional) 
-     * @param vehicleRecord_VehicleTypeIdsFilter (optional) 
-     * @param vehicleRecord_IdStrFilter (optional) 
-     * @param vehicleRecord_YardInDate (optional) 
-     * @param vehicleRecord_DataStatusName (optional) 
-     * @param vehicleRecord_DataStatusId (optional) 
-     * @param vehicleRecord_NoVinRationales (optional) 
-     * @param vehicleRecord_QrCodes (optional) 
-     * @param vehicleRecord_QrCodeFilter (optional) 
-     * @param vehicleRecord_CurrentQrCode (optional) 
-     * @param vehicleRecord_Documents (optional) 
-     * @param vehicleRecord_OwnershipStartDate (optional) 
-     * @param vehicleRecord_DataStatusIdsFilter (optional) 
-     * @param isDesc (optional) 
-     * @param orderByColumn (optional) 
-     * @param pageSize (optional) 
-     * @param pageIndex (optional) 
-     * @param createdBy (optional) 
-     * @param roleID (optional) 
-     * @param languageId (optional) 
-     * @param baseUrl (optional) 
-     * @param name (optional) 
-     * @param mailSender (optional) 
+     * @param body (optional) 
      * @return Success
      */
-    saveReviewedVehicle(vehicleRecord_Id?: number | undefined, vehicleRecord_Year?: number | null | undefined, vehicleRecord_Vin?: string | null | undefined, vehicleRecord_CreateAt?: Date | undefined, vehicleRecord_Deleted?: boolean | undefined, vehicleRecord_UpdatedAt?: Date | undefined, vehicleRecord_HasVin?: number | undefined, vehicleRecord_BeneficiaryId?: number | null | undefined, vehicleRecord_BeneficiaryName?: string | null | undefined, vehicleRecord_StatusId?: number | null | undefined, vehicleRecord_StatusName?: string | null | undefined, vehicleRecord_ProviderId?: number | null | undefined, vehicleRecord_ProviderName?: string | null | undefined, vehicleRecord_VehicleTypeId?: number | null | undefined, vehicleRecord_VehicleTypeName?: string | null | undefined, vehicleRecord_ModelId?: number | null | undefined, vehicleRecord_ModelName?: string | null | undefined, vehicleRecord_MakeId?: number | null | undefined, vehicleRecord_MakeName?: string | null | undefined, vehicleRecord_Locked?: boolean | null | undefined, vehicleRecord_Images?: ImageRecord[] | null | undefined, vehicleRecord_Plates?: PlateRecord[] | null | undefined, vehicleRecord_PlateNumberFilter?: string | null | undefined, vehicleRecord_BeneficiaryIdsFilter?: number[] | null | undefined, vehicleRecord_ProviderIdsFilter?: number[] | null | undefined, vehicleRecord_StatusIdsFilter?: number[] | null | undefined, vehicleRecord_VehicleTypeIdsFilter?: number[] | null | undefined, vehicleRecord_IdStrFilter?: string | null | undefined, vehicleRecord_YardInDate?: Date | null | undefined, vehicleRecord_DataStatusName?: string | null | undefined, vehicleRecord_DataStatusId?: number | null | undefined, vehicleRecord_NoVinRationales?: NoVinRationaleRecord[] | null | undefined, vehicleRecord_QrCodes?: VehicleQrCodeRecord[] | null | undefined, vehicleRecord_QrCodeFilter?: string | null | undefined, vehicleRecord_CurrentQrCode?: string | null | undefined, vehicleRecord_Documents?: DocumentRecord[] | null | undefined, vehicleRecord_OwnershipStartDate?: Date | null | undefined, vehicleRecord_DataStatusIdsFilter?: number[] | null | undefined, isDesc?: boolean | undefined, orderByColumn?: string | null | undefined, pageSize?: number | undefined, pageIndex?: number | undefined, createdBy?: number | undefined, roleID?: number | undefined, languageId?: number | undefined, baseUrl?: string | null | undefined, name?: string | null | undefined, mailSender?: MailSender | undefined): Observable<VehicleResponse> {
+    saveReviewedVehicle(body?: VehicleRequest | undefined): Observable<VehicleResponse> {
         let url_ = this.baseUrl + "/api/Vehicle/SaveReviewedVehicle";
         url_ = url_.replace(/[?&]$/, "");
 
-        const content_ = new FormData();
-        if (vehicleRecord_Id === null || vehicleRecord_Id === undefined)
-            throw new Error("The parameter 'vehicleRecord_Id' cannot be null.");
-        else
-            content_.append("VehicleRecord.Id", vehicleRecord_Id.toString());
-        if (vehicleRecord_Year !== null && vehicleRecord_Year !== undefined)
-            content_.append("VehicleRecord.Year", vehicleRecord_Year.toString());
-        if (vehicleRecord_Vin !== null && vehicleRecord_Vin !== undefined)
-            content_.append("VehicleRecord.Vin", vehicleRecord_Vin.toString());
-        if (vehicleRecord_CreateAt === null || vehicleRecord_CreateAt === undefined)
-            throw new Error("The parameter 'vehicleRecord_CreateAt' cannot be null.");
-        else
-            content_.append("VehicleRecord.CreateAt", vehicleRecord_CreateAt.toJSON());
-        if (vehicleRecord_Deleted === null || vehicleRecord_Deleted === undefined)
-            throw new Error("The parameter 'vehicleRecord_Deleted' cannot be null.");
-        else
-            content_.append("VehicleRecord.Deleted", vehicleRecord_Deleted.toString());
-        if (vehicleRecord_UpdatedAt === null || vehicleRecord_UpdatedAt === undefined)
-            throw new Error("The parameter 'vehicleRecord_UpdatedAt' cannot be null.");
-        else
-            content_.append("VehicleRecord.UpdatedAt", vehicleRecord_UpdatedAt.toJSON());
-        if (vehicleRecord_HasVin === null || vehicleRecord_HasVin === undefined)
-            throw new Error("The parameter 'vehicleRecord_HasVin' cannot be null.");
-        else
-            content_.append("VehicleRecord.HasVin", vehicleRecord_HasVin.toString());
-        if (vehicleRecord_BeneficiaryId !== null && vehicleRecord_BeneficiaryId !== undefined)
-            content_.append("VehicleRecord.BeneficiaryId", vehicleRecord_BeneficiaryId.toString());
-        if (vehicleRecord_BeneficiaryName !== null && vehicleRecord_BeneficiaryName !== undefined)
-            content_.append("VehicleRecord.BeneficiaryName", vehicleRecord_BeneficiaryName.toString());
-        if (vehicleRecord_StatusId !== null && vehicleRecord_StatusId !== undefined)
-            content_.append("VehicleRecord.StatusId", vehicleRecord_StatusId.toString());
-        if (vehicleRecord_StatusName !== null && vehicleRecord_StatusName !== undefined)
-            content_.append("VehicleRecord.StatusName", vehicleRecord_StatusName.toString());
-        if (vehicleRecord_ProviderId !== null && vehicleRecord_ProviderId !== undefined)
-            content_.append("VehicleRecord.ProviderId", vehicleRecord_ProviderId.toString());
-        if (vehicleRecord_ProviderName !== null && vehicleRecord_ProviderName !== undefined)
-            content_.append("VehicleRecord.ProviderName", vehicleRecord_ProviderName.toString());
-        if (vehicleRecord_VehicleTypeId !== null && vehicleRecord_VehicleTypeId !== undefined)
-            content_.append("VehicleRecord.VehicleTypeId", vehicleRecord_VehicleTypeId.toString());
-        if (vehicleRecord_VehicleTypeName !== null && vehicleRecord_VehicleTypeName !== undefined)
-            content_.append("VehicleRecord.VehicleTypeName", vehicleRecord_VehicleTypeName.toString());
-        if (vehicleRecord_ModelId !== null && vehicleRecord_ModelId !== undefined)
-            content_.append("VehicleRecord.ModelId", vehicleRecord_ModelId.toString());
-        if (vehicleRecord_ModelName !== null && vehicleRecord_ModelName !== undefined)
-            content_.append("VehicleRecord.ModelName", vehicleRecord_ModelName.toString());
-        if (vehicleRecord_MakeId !== null && vehicleRecord_MakeId !== undefined)
-            content_.append("VehicleRecord.MakeId", vehicleRecord_MakeId.toString());
-        if (vehicleRecord_MakeName !== null && vehicleRecord_MakeName !== undefined)
-            content_.append("VehicleRecord.MakeName", vehicleRecord_MakeName.toString());
-        if (vehicleRecord_Locked !== null && vehicleRecord_Locked !== undefined)
-            content_.append("VehicleRecord.Locked", vehicleRecord_Locked.toString());
-        if (vehicleRecord_Images !== null && vehicleRecord_Images !== undefined)
-            content_.append("VehicleRecord.Images", vehicleRecord_Images.toString());
-        if (vehicleRecord_Plates !== null && vehicleRecord_Plates !== undefined)
-            content_.append("VehicleRecord.Plates", vehicleRecord_Plates.toString());
-        if (vehicleRecord_PlateNumberFilter !== null && vehicleRecord_PlateNumberFilter !== undefined)
-            content_.append("VehicleRecord.PlateNumberFilter", vehicleRecord_PlateNumberFilter.toString());
-        if (vehicleRecord_BeneficiaryIdsFilter !== null && vehicleRecord_BeneficiaryIdsFilter !== undefined)
-            content_.append("VehicleRecord.BeneficiaryIdsFilter", vehicleRecord_BeneficiaryIdsFilter.toString());
-        if (vehicleRecord_ProviderIdsFilter !== null && vehicleRecord_ProviderIdsFilter !== undefined)
-            content_.append("VehicleRecord.ProviderIdsFilter", vehicleRecord_ProviderIdsFilter.toString());
-        if (vehicleRecord_StatusIdsFilter !== null && vehicleRecord_StatusIdsFilter !== undefined)
-            content_.append("VehicleRecord.StatusIdsFilter", vehicleRecord_StatusIdsFilter.toString());
-        if (vehicleRecord_VehicleTypeIdsFilter !== null && vehicleRecord_VehicleTypeIdsFilter !== undefined)
-            content_.append("VehicleRecord.VehicleTypeIdsFilter", vehicleRecord_VehicleTypeIdsFilter.toString());
-        if (vehicleRecord_IdStrFilter !== null && vehicleRecord_IdStrFilter !== undefined)
-            content_.append("VehicleRecord.IdStrFilter", vehicleRecord_IdStrFilter.toString());
-        if (vehicleRecord_YardInDate !== null && vehicleRecord_YardInDate !== undefined)
-            content_.append("VehicleRecord.YardInDate", vehicleRecord_YardInDate.toJSON());
-        if (vehicleRecord_DataStatusName !== null && vehicleRecord_DataStatusName !== undefined)
-            content_.append("VehicleRecord.DataStatusName", vehicleRecord_DataStatusName.toString());
-        if (vehicleRecord_DataStatusId !== null && vehicleRecord_DataStatusId !== undefined)
-            content_.append("VehicleRecord.DataStatusId", vehicleRecord_DataStatusId.toString());
-        if (vehicleRecord_NoVinRationales !== null && vehicleRecord_NoVinRationales !== undefined)
-            content_.append("VehicleRecord.NoVinRationales", vehicleRecord_NoVinRationales.toString());
-        if (vehicleRecord_QrCodes !== null && vehicleRecord_QrCodes !== undefined)
-            content_.append("VehicleRecord.QrCodes", vehicleRecord_QrCodes.toString());
-        if (vehicleRecord_QrCodeFilter !== null && vehicleRecord_QrCodeFilter !== undefined)
-            content_.append("VehicleRecord.QrCodeFilter", vehicleRecord_QrCodeFilter.toString());
-        if (vehicleRecord_CurrentQrCode !== null && vehicleRecord_CurrentQrCode !== undefined)
-            content_.append("VehicleRecord.CurrentQrCode", vehicleRecord_CurrentQrCode.toString());
-        if (vehicleRecord_Documents !== null && vehicleRecord_Documents !== undefined)
-            content_.append("VehicleRecord.Documents", vehicleRecord_Documents.toString());
-        if (vehicleRecord_OwnershipStartDate !== null && vehicleRecord_OwnershipStartDate !== undefined)
-            content_.append("VehicleRecord.OwnershipStartDate", vehicleRecord_OwnershipStartDate.toJSON());
-        if (vehicleRecord_DataStatusIdsFilter !== null && vehicleRecord_DataStatusIdsFilter !== undefined)
-            content_.append("VehicleRecord.DataStatusIdsFilter", vehicleRecord_DataStatusIdsFilter.toString());
-        if (isDesc === null || isDesc === undefined)
-            throw new Error("The parameter 'isDesc' cannot be null.");
-        else
-            content_.append("IsDesc", isDesc.toString());
-        if (orderByColumn !== null && orderByColumn !== undefined)
-            content_.append("OrderByColumn", orderByColumn.toString());
-        if (pageSize === null || pageSize === undefined)
-            throw new Error("The parameter 'pageSize' cannot be null.");
-        else
-            content_.append("PageSize", pageSize.toString());
-        if (pageIndex === null || pageIndex === undefined)
-            throw new Error("The parameter 'pageIndex' cannot be null.");
-        else
-            content_.append("PageIndex", pageIndex.toString());
-        if (createdBy === null || createdBy === undefined)
-            throw new Error("The parameter 'createdBy' cannot be null.");
-        else
-            content_.append("CreatedBy", createdBy.toString());
-        if (roleID === null || roleID === undefined)
-            throw new Error("The parameter 'roleID' cannot be null.");
-        else
-            content_.append("RoleID", roleID.toString());
-        if (languageId === null || languageId === undefined)
-            throw new Error("The parameter 'languageId' cannot be null.");
-        else
-            content_.append("LanguageId", languageId.toString());
-        if (baseUrl !== null && baseUrl !== undefined)
-            content_.append("BaseUrl", baseUrl.toString());
-        if (name !== null && name !== undefined)
-            content_.append("Name", name.toString());
-        if (mailSender === null || mailSender === undefined)
-            throw new Error("The parameter 'mailSender' cannot be null.");
-        else
-            content_.append("MailSender", mailSender.toString());
+        const content_ = JSON.stringify(body);
 
         let options_ : any = {
             body: content_,
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json",
                 "Accept": "text/plain"
             })
         };
@@ -2875,187 +2402,21 @@ export class Client implements IClient {
     }
 
     /**
-     * @param vehicleRecord_Id (optional) 
-     * @param vehicleRecord_Year (optional) 
-     * @param vehicleRecord_Vin (optional) 
-     * @param vehicleRecord_CreateAt (optional) 
-     * @param vehicleRecord_Deleted (optional) 
-     * @param vehicleRecord_UpdatedAt (optional) 
-     * @param vehicleRecord_HasVin (optional) 
-     * @param vehicleRecord_BeneficiaryId (optional) 
-     * @param vehicleRecord_BeneficiaryName (optional) 
-     * @param vehicleRecord_StatusId (optional) 
-     * @param vehicleRecord_StatusName (optional) 
-     * @param vehicleRecord_ProviderId (optional) 
-     * @param vehicleRecord_ProviderName (optional) 
-     * @param vehicleRecord_VehicleTypeId (optional) 
-     * @param vehicleRecord_VehicleTypeName (optional) 
-     * @param vehicleRecord_ModelId (optional) 
-     * @param vehicleRecord_ModelName (optional) 
-     * @param vehicleRecord_MakeId (optional) 
-     * @param vehicleRecord_MakeName (optional) 
-     * @param vehicleRecord_Locked (optional) 
-     * @param vehicleRecord_Images (optional) 
-     * @param vehicleRecord_Plates (optional) 
-     * @param vehicleRecord_PlateNumberFilter (optional) 
-     * @param vehicleRecord_BeneficiaryIdsFilter (optional) 
-     * @param vehicleRecord_ProviderIdsFilter (optional) 
-     * @param vehicleRecord_StatusIdsFilter (optional) 
-     * @param vehicleRecord_VehicleTypeIdsFilter (optional) 
-     * @param vehicleRecord_IdStrFilter (optional) 
-     * @param vehicleRecord_YardInDate (optional) 
-     * @param vehicleRecord_DataStatusName (optional) 
-     * @param vehicleRecord_DataStatusId (optional) 
-     * @param vehicleRecord_NoVinRationales (optional) 
-     * @param vehicleRecord_QrCodes (optional) 
-     * @param vehicleRecord_QrCodeFilter (optional) 
-     * @param vehicleRecord_CurrentQrCode (optional) 
-     * @param vehicleRecord_Documents (optional) 
-     * @param vehicleRecord_OwnershipStartDate (optional) 
-     * @param vehicleRecord_DataStatusIdsFilter (optional) 
-     * @param isDesc (optional) 
-     * @param orderByColumn (optional) 
-     * @param pageSize (optional) 
-     * @param pageIndex (optional) 
-     * @param createdBy (optional) 
-     * @param roleID (optional) 
-     * @param languageId (optional) 
-     * @param baseUrl (optional) 
-     * @param name (optional) 
-     * @param mailSender (optional) 
+     * @param body (optional) 
      * @return Success
      */
-    editVehicle(vehicleRecord_Id?: number | undefined, vehicleRecord_Year?: number | null | undefined, vehicleRecord_Vin?: string | null | undefined, vehicleRecord_CreateAt?: Date | undefined, vehicleRecord_Deleted?: boolean | undefined, vehicleRecord_UpdatedAt?: Date | undefined, vehicleRecord_HasVin?: number | undefined, vehicleRecord_BeneficiaryId?: number | null | undefined, vehicleRecord_BeneficiaryName?: string | null | undefined, vehicleRecord_StatusId?: number | null | undefined, vehicleRecord_StatusName?: string | null | undefined, vehicleRecord_ProviderId?: number | null | undefined, vehicleRecord_ProviderName?: string | null | undefined, vehicleRecord_VehicleTypeId?: number | null | undefined, vehicleRecord_VehicleTypeName?: string | null | undefined, vehicleRecord_ModelId?: number | null | undefined, vehicleRecord_ModelName?: string | null | undefined, vehicleRecord_MakeId?: number | null | undefined, vehicleRecord_MakeName?: string | null | undefined, vehicleRecord_Locked?: boolean | null | undefined, vehicleRecord_Images?: ImageRecord[] | null | undefined, vehicleRecord_Plates?: PlateRecord[] | null | undefined, vehicleRecord_PlateNumberFilter?: string | null | undefined, vehicleRecord_BeneficiaryIdsFilter?: number[] | null | undefined, vehicleRecord_ProviderIdsFilter?: number[] | null | undefined, vehicleRecord_StatusIdsFilter?: number[] | null | undefined, vehicleRecord_VehicleTypeIdsFilter?: number[] | null | undefined, vehicleRecord_IdStrFilter?: string | null | undefined, vehicleRecord_YardInDate?: Date | null | undefined, vehicleRecord_DataStatusName?: string | null | undefined, vehicleRecord_DataStatusId?: number | null | undefined, vehicleRecord_NoVinRationales?: NoVinRationaleRecord[] | null | undefined, vehicleRecord_QrCodes?: VehicleQrCodeRecord[] | null | undefined, vehicleRecord_QrCodeFilter?: string | null | undefined, vehicleRecord_CurrentQrCode?: string | null | undefined, vehicleRecord_Documents?: DocumentRecord[] | null | undefined, vehicleRecord_OwnershipStartDate?: Date | null | undefined, vehicleRecord_DataStatusIdsFilter?: number[] | null | undefined, isDesc?: boolean | undefined, orderByColumn?: string | null | undefined, pageSize?: number | undefined, pageIndex?: number | undefined, createdBy?: number | undefined, roleID?: number | undefined, languageId?: number | undefined, baseUrl?: string | null | undefined, name?: string | null | undefined, mailSender?: MailSender | undefined): Observable<VehicleResponse> {
+    editVehicle(body?: VehicleRequest | undefined): Observable<VehicleResponse> {
         let url_ = this.baseUrl + "/api/Vehicle/EditVehicle";
         url_ = url_.replace(/[?&]$/, "");
 
-        const content_ = new FormData();
-        if (vehicleRecord_Id === null || vehicleRecord_Id === undefined)
-            throw new Error("The parameter 'vehicleRecord_Id' cannot be null.");
-        else
-            content_.append("VehicleRecord.Id", vehicleRecord_Id.toString());
-        if (vehicleRecord_Year !== null && vehicleRecord_Year !== undefined)
-            content_.append("VehicleRecord.Year", vehicleRecord_Year.toString());
-        if (vehicleRecord_Vin !== null && vehicleRecord_Vin !== undefined)
-            content_.append("VehicleRecord.Vin", vehicleRecord_Vin.toString());
-        if (vehicleRecord_CreateAt === null || vehicleRecord_CreateAt === undefined)
-            throw new Error("The parameter 'vehicleRecord_CreateAt' cannot be null.");
-        else
-            content_.append("VehicleRecord.CreateAt", vehicleRecord_CreateAt.toJSON());
-        if (vehicleRecord_Deleted === null || vehicleRecord_Deleted === undefined)
-            throw new Error("The parameter 'vehicleRecord_Deleted' cannot be null.");
-        else
-            content_.append("VehicleRecord.Deleted", vehicleRecord_Deleted.toString());
-        if (vehicleRecord_UpdatedAt === null || vehicleRecord_UpdatedAt === undefined)
-            throw new Error("The parameter 'vehicleRecord_UpdatedAt' cannot be null.");
-        else
-            content_.append("VehicleRecord.UpdatedAt", vehicleRecord_UpdatedAt.toJSON());
-        if (vehicleRecord_HasVin === null || vehicleRecord_HasVin === undefined)
-            throw new Error("The parameter 'vehicleRecord_HasVin' cannot be null.");
-        else
-            content_.append("VehicleRecord.HasVin", vehicleRecord_HasVin.toString());
-        if (vehicleRecord_BeneficiaryId !== null && vehicleRecord_BeneficiaryId !== undefined)
-            content_.append("VehicleRecord.BeneficiaryId", vehicleRecord_BeneficiaryId.toString());
-        if (vehicleRecord_BeneficiaryName !== null && vehicleRecord_BeneficiaryName !== undefined)
-            content_.append("VehicleRecord.BeneficiaryName", vehicleRecord_BeneficiaryName.toString());
-        if (vehicleRecord_StatusId !== null && vehicleRecord_StatusId !== undefined)
-            content_.append("VehicleRecord.StatusId", vehicleRecord_StatusId.toString());
-        if (vehicleRecord_StatusName !== null && vehicleRecord_StatusName !== undefined)
-            content_.append("VehicleRecord.StatusName", vehicleRecord_StatusName.toString());
-        if (vehicleRecord_ProviderId !== null && vehicleRecord_ProviderId !== undefined)
-            content_.append("VehicleRecord.ProviderId", vehicleRecord_ProviderId.toString());
-        if (vehicleRecord_ProviderName !== null && vehicleRecord_ProviderName !== undefined)
-            content_.append("VehicleRecord.ProviderName", vehicleRecord_ProviderName.toString());
-        if (vehicleRecord_VehicleTypeId !== null && vehicleRecord_VehicleTypeId !== undefined)
-            content_.append("VehicleRecord.VehicleTypeId", vehicleRecord_VehicleTypeId.toString());
-        if (vehicleRecord_VehicleTypeName !== null && vehicleRecord_VehicleTypeName !== undefined)
-            content_.append("VehicleRecord.VehicleTypeName", vehicleRecord_VehicleTypeName.toString());
-        if (vehicleRecord_ModelId !== null && vehicleRecord_ModelId !== undefined)
-            content_.append("VehicleRecord.ModelId", vehicleRecord_ModelId.toString());
-        if (vehicleRecord_ModelName !== null && vehicleRecord_ModelName !== undefined)
-            content_.append("VehicleRecord.ModelName", vehicleRecord_ModelName.toString());
-        if (vehicleRecord_MakeId !== null && vehicleRecord_MakeId !== undefined)
-            content_.append("VehicleRecord.MakeId", vehicleRecord_MakeId.toString());
-        if (vehicleRecord_MakeName !== null && vehicleRecord_MakeName !== undefined)
-            content_.append("VehicleRecord.MakeName", vehicleRecord_MakeName.toString());
-        if (vehicleRecord_Locked !== null && vehicleRecord_Locked !== undefined)
-            content_.append("VehicleRecord.Locked", vehicleRecord_Locked.toString());
-        if (vehicleRecord_Images !== null && vehicleRecord_Images !== undefined)
-            content_.append("VehicleRecord.Images", vehicleRecord_Images.toString());
-        if (vehicleRecord_Plates !== null && vehicleRecord_Plates !== undefined)
-            content_.append("VehicleRecord.Plates", vehicleRecord_Plates.toString());
-        if (vehicleRecord_PlateNumberFilter !== null && vehicleRecord_PlateNumberFilter !== undefined)
-            content_.append("VehicleRecord.PlateNumberFilter", vehicleRecord_PlateNumberFilter.toString());
-        if (vehicleRecord_BeneficiaryIdsFilter !== null && vehicleRecord_BeneficiaryIdsFilter !== undefined)
-            content_.append("VehicleRecord.BeneficiaryIdsFilter", vehicleRecord_BeneficiaryIdsFilter.toString());
-        if (vehicleRecord_ProviderIdsFilter !== null && vehicleRecord_ProviderIdsFilter !== undefined)
-            content_.append("VehicleRecord.ProviderIdsFilter", vehicleRecord_ProviderIdsFilter.toString());
-        if (vehicleRecord_StatusIdsFilter !== null && vehicleRecord_StatusIdsFilter !== undefined)
-            content_.append("VehicleRecord.StatusIdsFilter", vehicleRecord_StatusIdsFilter.toString());
-        if (vehicleRecord_VehicleTypeIdsFilter !== null && vehicleRecord_VehicleTypeIdsFilter !== undefined)
-            content_.append("VehicleRecord.VehicleTypeIdsFilter", vehicleRecord_VehicleTypeIdsFilter.toString());
-        if (vehicleRecord_IdStrFilter !== null && vehicleRecord_IdStrFilter !== undefined)
-            content_.append("VehicleRecord.IdStrFilter", vehicleRecord_IdStrFilter.toString());
-        if (vehicleRecord_YardInDate !== null && vehicleRecord_YardInDate !== undefined)
-            content_.append("VehicleRecord.YardInDate", vehicleRecord_YardInDate.toJSON());
-        if (vehicleRecord_DataStatusName !== null && vehicleRecord_DataStatusName !== undefined)
-            content_.append("VehicleRecord.DataStatusName", vehicleRecord_DataStatusName.toString());
-        if (vehicleRecord_DataStatusId !== null && vehicleRecord_DataStatusId !== undefined)
-            content_.append("VehicleRecord.DataStatusId", vehicleRecord_DataStatusId.toString());
-        if (vehicleRecord_NoVinRationales !== null && vehicleRecord_NoVinRationales !== undefined)
-            content_.append("VehicleRecord.NoVinRationales", vehicleRecord_NoVinRationales.toString());
-        if (vehicleRecord_QrCodes !== null && vehicleRecord_QrCodes !== undefined)
-            content_.append("VehicleRecord.QrCodes", vehicleRecord_QrCodes.toString());
-        if (vehicleRecord_QrCodeFilter !== null && vehicleRecord_QrCodeFilter !== undefined)
-            content_.append("VehicleRecord.QrCodeFilter", vehicleRecord_QrCodeFilter.toString());
-        if (vehicleRecord_CurrentQrCode !== null && vehicleRecord_CurrentQrCode !== undefined)
-            content_.append("VehicleRecord.CurrentQrCode", vehicleRecord_CurrentQrCode.toString());
-        if (vehicleRecord_Documents !== null && vehicleRecord_Documents !== undefined)
-            content_.append("VehicleRecord.Documents", vehicleRecord_Documents.toString());
-        if (vehicleRecord_OwnershipStartDate !== null && vehicleRecord_OwnershipStartDate !== undefined)
-            content_.append("VehicleRecord.OwnershipStartDate", vehicleRecord_OwnershipStartDate.toJSON());
-        if (vehicleRecord_DataStatusIdsFilter !== null && vehicleRecord_DataStatusIdsFilter !== undefined)
-            content_.append("VehicleRecord.DataStatusIdsFilter", vehicleRecord_DataStatusIdsFilter.toString());
-        if (isDesc === null || isDesc === undefined)
-            throw new Error("The parameter 'isDesc' cannot be null.");
-        else
-            content_.append("IsDesc", isDesc.toString());
-        if (orderByColumn !== null && orderByColumn !== undefined)
-            content_.append("OrderByColumn", orderByColumn.toString());
-        if (pageSize === null || pageSize === undefined)
-            throw new Error("The parameter 'pageSize' cannot be null.");
-        else
-            content_.append("PageSize", pageSize.toString());
-        if (pageIndex === null || pageIndex === undefined)
-            throw new Error("The parameter 'pageIndex' cannot be null.");
-        else
-            content_.append("PageIndex", pageIndex.toString());
-        if (createdBy === null || createdBy === undefined)
-            throw new Error("The parameter 'createdBy' cannot be null.");
-        else
-            content_.append("CreatedBy", createdBy.toString());
-        if (roleID === null || roleID === undefined)
-            throw new Error("The parameter 'roleID' cannot be null.");
-        else
-            content_.append("RoleID", roleID.toString());
-        if (languageId === null || languageId === undefined)
-            throw new Error("The parameter 'languageId' cannot be null.");
-        else
-            content_.append("LanguageId", languageId.toString());
-        if (baseUrl !== null && baseUrl !== undefined)
-            content_.append("BaseUrl", baseUrl.toString());
-        if (name !== null && name !== undefined)
-            content_.append("Name", name.toString());
-        if (mailSender === null || mailSender === undefined)
-            throw new Error("The parameter 'mailSender' cannot be null.");
-        else
-            content_.append("MailSender", mailSender.toString());
+        const content_ = JSON.stringify(body);
 
         let options_ : any = {
             body: content_,
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json",
                 "Accept": "text/plain"
             })
         };

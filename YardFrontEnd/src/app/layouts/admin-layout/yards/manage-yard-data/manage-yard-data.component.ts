@@ -192,6 +192,9 @@ export class ManageYardDataComponent extends BaseManagementClass implements OnIn
                     return value.id != yard.id;
                 });
             }
+            this.otherYards = this.otherYards.filter((value, key) => {
+                return value.yardBoundaries?.length > 0;
+            });
 
             this.dialogRef.close();
             this.router.navigate(['manageMap'], {
@@ -205,7 +208,7 @@ export class ManageYardDataComponent extends BaseManagementClass implements OnIn
             });
         });
 
-        
+
     }
 
 }

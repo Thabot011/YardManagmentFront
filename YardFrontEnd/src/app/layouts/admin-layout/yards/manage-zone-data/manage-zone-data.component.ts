@@ -237,6 +237,9 @@ export class ManageZoneDataComponent extends BaseManagementClass implements OnIn
                     return value.id != zone.id;
                 });
             }
+            this.otherZones = this.otherZones.filter((value, key) => {
+                return value.zoneBoundaries?.length > 0;
+            });
 
             this.dialogRef.close();
             this.router.navigate(['manageMap'], {

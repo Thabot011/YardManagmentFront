@@ -1,9 +1,14 @@
 <mat-card>
     <mat-card-header>
         <mat-card-title mat-dialog-title>
-            <div>
+            <div *ngIf="!data.onlyView">
                 {{data.id==null?'Add beneficiarie':'Edit beneficiarie'}}
             </div>
+
+            <div *ngIf="data.onlyView">
+                {{'View beneficiarie'}}
+            </div>
+
         </mat-card-title>
         <mat-card-subtitle></mat-card-subtitle>
     </mat-card-header>
@@ -142,7 +147,7 @@
         <mat-card-actions>
             <button mat-button *ngIf="!data.onlyView" type="submit">Save</button>
             <button mat-button color="warn" [mat-dialog-close]="false">
-            {{data.onlyView?'Close':'Cancel'}}
+                {{data.onlyView?'Close':'Cancel'}}
             </button>
         </mat-card-actions>
     </form>

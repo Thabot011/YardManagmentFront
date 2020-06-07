@@ -1,8 +1,11 @@
 <mat-card>
     <mat-card-header>
         <mat-card-title mat-dialog-title>
-            <div>
+            <div *ngIf="!data.onlyView">
                 {{data.id==null?'Add yard employee':'Edit yard employee'}}
+            </div>
+            <div *ngIf="data.onlyView">
+                {{'View yard employee'}}
             </div>
         </mat-card-title>
         <mat-card-subtitle></mat-card-subtitle>

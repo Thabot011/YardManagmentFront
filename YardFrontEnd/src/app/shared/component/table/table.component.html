@@ -106,19 +106,19 @@
                             <mat-icon>layers</mat-icon>
                         </a>
 
-                         <a *ngIf="VehicleDetails" matTooltip="View Vehicle Details"
+                         <!-- <a *ngIf="VehicleDetails" matTooltip="View Vehicle Details"
                            [matTooltipPosition]="position"
                            mat-button
                            [routerLink]="['/'+detailsLink]">
                             <mat-icon>info</mat-icon>
-                        </a>
+                        </a> -->
 
-                        <a *ngIf="element.dataStatusName && element.dataStatusName == 'Pending Data Completion'" matTooltip="Complete Vehicle Data"
+                        <!-- <a *ngIf="element.dataStatusName && element.dataStatusName == 'Pending Data Completion'" matTooltip="Complete Vehicle Data"
                            [matTooltipPosition]="position"
                            mat-button
                            (click)="openEditDialog(element)">
                             <mat-icon>check_box</mat-icon>
-                        </a>
+                        </a> -->
 
                         <a *ngIf="hasChangeOwnership &&  element.statusId == 0" matTooltip="Change ownership"
                            [matTooltipPosition]="position"

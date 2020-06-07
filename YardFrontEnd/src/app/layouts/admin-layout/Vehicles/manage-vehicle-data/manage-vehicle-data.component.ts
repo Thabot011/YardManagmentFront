@@ -124,8 +124,8 @@ export class ManageVehicleDataComponent extends BaseManagementClass implements O
     }
 
     submitForm = () => {
-        this.oneClick = true;
         if (this.form.valid) {
+            this.oneClick = true;
             let vehicle: IVehicleRecord = this.form.value;
             vehicle.images = this.data.imagesData;
             vehicle.documents = this.dataRecord[0].documents;

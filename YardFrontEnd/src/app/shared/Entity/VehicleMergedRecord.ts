@@ -1,4 +1,4 @@
-import { IVehicleRecord, IVehicleResponse, VehicleResponse, VehicleRecord, VehicleQrCodeRecord, ImageRecord } from "../service/appService";
+import { IVehicleRecord, IVehicleResponse, VehicleResponse, VehicleRecord, VehicleQrCodeRecord, ImageRecord, PlateRecord, IDocumentRecord, DocumentRecord } from "../service/appService";
 
 export class VehicleMergedRecord extends VehicleRecord  {
      
@@ -15,11 +15,14 @@ export class VehicleMergedRecord extends VehicleRecord  {
     code?: string | undefined;
     plateCodeId?: number | undefined;
     number?: string | undefined;
-   // plateType?: number;
+    plateId?: number;
     plateTypeId?: number | undefined;   
     plateTypeName?: string | undefined;
-     checkEditOrComplete:boolean;
+    documenttype?: number | undefined;
+    imagetype?: number | undefined;
+
 }
+
 
 export class VehicleMergedResponse {
      data?: VehicleMergedRecord[] | undefined;

@@ -2,8 +2,8 @@ import { Component, OnInit, ChangeDetectorRef, ViewChild } from '@angular/core';
 import { Paging } from '../../../../shared/Entity/Paging';
 import { ManageVehicleDataComponent } from '../manage-vehicle-data/manage-vehicle-data.component';
 import { ComponentType } from '@angular/cdk/portal';
-import { Client, VehicleRequest, VehicleRecord, ProviderRequest, ProviderRecord, BeneficiaryRecord, BeneficiaryRequest, VehicleTypeRecord, VehicleTypeRequest, VehicleStatusRecord, VehicleStatusRequest, VehicleDataStatusRecord, VehicleDataStatusRequest, VehicleResponse, ImageRecord } from '../../../../shared/service/appService';
-import { DatePipe } from '@angular/common';
+import { Client, VehicleRequest, VehicleRecord, ProviderRequest, ProviderRecord, BeneficiaryRecord, BeneficiaryRequest, VehicleTypeRecord,VehicleTypeRequest, VehicleStatusRecord , VehicleStatusRequest, VehicleDataStatusRecord, VehicleDataStatusRequest, VehicleResponse, ImageRecord, PlateRecord, DocumentRecord} from '../../../../shared/service/appService';
+import {  DatePipe } from '@angular/common';
 import { FormBuilder, Validators, FormControl, FormGroup } from '@angular/forms';
 import { BaseListClass } from '../../../../shared/class/base/base-list-class';
 import { DisplayColumns } from 'app/shared/Entity/displayColumns';
@@ -28,15 +28,18 @@ export class ListComponent extends BaseListClass implements OnInit {
     displayColumns: DisplayColumns[] = [
         { key: "assetId", value: "AssetId" },
         { key: "QRCodes", value: "QR Code" },
-        // { key: "yardInDateStr", value: "yard In Date" },  
+        { key: "yardInDateStr", value: "yard In Date" },  
         { key: "statusName", value: "Status" },
         { key: "dataStatusName", value: "DataStatus" },
-        { key: "vehicleData", value: "Make/Model" },
-        { key: "vin", value: "Vin" },
+        { key: "makeName", value: "Make"},
+        { key: "modelName", value: "Model"},
+        { key:"year",value:"Year"},
+        { key: "vin", value: "Vin"},
         { key: "vehicleTypeName", value: "Vehicle Type" },
-        { key: "platesData", value: "plates" },
-        { key: "vehicleImages", value: "Images" }
-
+        { key: "platesData", value: "plates"},
+        { key: "vehicleImages", value: "Images"} 
+        //{ key: "providerName", value: "provider"} 
+        
     ];
 
 
@@ -82,81 +85,104 @@ export class ListComponent extends BaseListClass implements OnInit {
                 debugger;
                 let vehicleMergedRecords: Array<VehicleMergedRecord> = new Array<VehicleMergedRecord>();
 
-                for (let i = 0; i < res.data.length; i++) {
-                    let index = res.data[i];
+        for (let i = 0; i < res.data.length; i++) {         
+        let index = res.data[i];        
+        let vehicleMergedRecord:VehicleMergedRecord = new VehicleMergedRecord();  
+        
+        vehicleMergedRecord.platesData = [];
+        vehicleMergedRecord.imagesData= [];
+        vehicleMergedRecord.QRCodes= [];
+        vehicleMergedRecord.documents= [];
+        vehicleMergedRecord.id= index.id;
+        vehicleMergedRecord.statusId = index.statusId;
+        vehicleMergedRecord.dataStatusId = index.dataStatusId;
+        vehicleMergedRecord.makeId= index.makeId;
+        vehicleMergedRecord.makeName=index.makeName;
+        vehicleMergedRecord.modelId= index.modelId;
+        vehicleMergedRecord.modelName=index.modelName;
+        vehicleMergedRecord.year= index.year;
+        vehicleMergedRecord.providerId=index.providerId;
+        vehicleMergedRecord.providerName= index.providerName;
+        vehicleMergedRecord.beneficiaryId=index.beneficiaryId;
+        vehicleMergedRecord.beneficiaryName= index.beneficiaryName;  
+        vehicleMergedRecord.currentQrCode=index.currentQrCode;
+       
+        vehicleMergedRecord.plateId= index.plates[index.plates.length-1]?.id;
+        vehicleMergedRecord.emirateId=index.plates[index.plates.length-1]?.emirateId;
+        vehicleMergedRecord.emirateName=index.plates[index.plates.length-1]?.emirateName;
+        vehicleMergedRecord.plateCodeId=index.plates[index.plates.length-1]?.plateCodeId;
+        vehicleMergedRecord.code=index.plates[index.plates.length-1]?.code;
+        vehicleMergedRecord.plateTypeId=index.plates[index.plates.length-1]?.plateTypeId;
+        vehicleMergedRecord.plateTypeName=index.plates[index.plates.length-1]?.plateTypeName;
+        vehicleMergedRecord.number=index.plates[index.plates.length-1]?.number;
+            
+        vehicleMergedRecord.plates = index.plates;
+        vehicleMergedRecord.vin = index.vin;
+        vehicleMergedRecord.vehicleTypeId = index.vehicleTypeId;
+        vehicleMergedRecord.vehicleTypeName = index.vehicleTypeName;
+        let dateString = (this.datepipe.transform(index.yardInDate, 'yyyy/MM/dd'));
+        vehicleMergedRecord.yardInDateStr = dateString;
+        vehicleMergedRecord.statusName = index.statusName;
+        vehicleMergedRecord.dataStatusName = index.dataStatusName;
+        //vehicleMergedRecord.statusName = ((index.statusName)?index.statusName : " ").concat(((index.dataStatusName)? ' / '+ index.dataStatusName : " "));
+        vehicleMergedRecord.assetId =  ((index.id)? index.id:0);
+       // vehicleMergedRecord.vehicleData = ((index.makeName)? index.makeName: "")+' '+((index.modelName)? index.modelName: "")+' '+((index.year)? index.year: "");
+       vehicleMergedRecord.makeName = index.makeName;
+       vehicleMergedRecord.modelName = index.modelName;
+        for (let j = 0; j < index.plates.length; j++) {              
+        this.plateItem =  ((index.plates[j]?.code)? index.plates[j]?.code:"") 
+         +' - '+ ((index.plates[j]?.emirateName)? index.plates[j]?.emirateName:"") 
+         +' - '+ ((index.plates[j]?.number)? index.plates[j]?.number:"")
+         +' - '+ ((index.plates[j]?.plateTypeName)? index.plates[j]?.plateTypeName:""); 
+         vehicleMergedRecord.platesData.push(this.plateItem);
+        }
+                    
+        vehicleMergedRecord.vehicleImages = ((index.images[0]?.imageUrl)? index.images[0]?.imageUrl:"");
 
-                    let vehicleMergedRecord: VehicleMergedRecord = new VehicleMergedRecord();
-                    if (index.dataStatusName == "Pending Data Completion" && index.dataStatusId == 1) {
-                        vehicleMergedRecord.checkEditOrComplete = true;
-                    }
-                    else { vehicleMergedRecord.checkEditOrComplete = false; }
-                    vehicleMergedRecord.platesData = [];
-                    vehicleMergedRecord.imagesData = [];
-                    vehicleMergedRecord.QRCodes = [];
-                    vehicleMergedRecord.id = index.id;
-                    vehicleMergedRecord.statusId = index.statusId;
-                    vehicleMergedRecord.dataStatusId = index.dataStatusId;
-                    vehicleMergedRecord.makeId = index.makeId;
-                    vehicleMergedRecord.makeName = index.makeName;
-                    vehicleMergedRecord.modelId = index.modelId;
-                    vehicleMergedRecord.modelName = index.modelName;
-                    vehicleMergedRecord.year = index.year;
-                    vehicleMergedRecord.providerId = index.providerId;
-                    vehicleMergedRecord.providerName = index.providerName;
-                    vehicleMergedRecord.ownershipStartDate = index.ownershipStartDate;
-                    vehicleMergedRecord.beneficiaryId = index.beneficiaryId;
-                    vehicleMergedRecord.beneficiaryName = index.beneficiaryName;
-                    vehicleMergedRecord.emirateId = index.plates[0]?.emirateId;
-                    vehicleMergedRecord.emirateName = index.plates[0]?.emirateName;
-                    vehicleMergedRecord.plateCodeId = index.plates[0]?.plateCodeId;
-                    vehicleMergedRecord.code = index.plates[0]?.code;
-                    vehicleMergedRecord.plateTypeId = index.plates[0]?.plateTypeId;
-                    vehicleMergedRecord.plateTypeName = index.plates[0]?.plateTypeName;
-                    vehicleMergedRecord.number = index.plates[0]?.number;
-                    vehicleMergedRecord.currentQrCode = index.currentQrCode;
+        for (let k = 0; k < index.images.length; k++) {  
+            let imageRecord: ImageRecord = new ImageRecord();
+            this.imageItem = ((index.images[k]?.imageUrl)? index.images[k]?.imageUrl:"");
+            imageRecord.imageUrl= this.imageItem;
+            imageRecord.id = index.images[k]?.id;
+            imageRecord.fileName = index.images[k]?.fileName;
+            imageRecord.imageType = index.images[k]?.imageType;
+            imageRecord.imageTypeName = index.images[k]?.imageTypeName;
+            imageRecord.path = index.images[k]?.path;
+            imageRecord.imageFile = index.images[k]?.imageFile;
+            imageRecord.carId = index.images[k]?.carId;
+            imageRecord.storeId = index.images[k]?.storeId;
+            vehicleMergedRecord.imagesData.push(imageRecord);
+         }
+         if(index.documents != undefined){       
+         for (let z = 0; z < index.documents.length; z++) {  
+            let documentRecord: DocumentRecord = new DocumentRecord();
+            documentRecord.id= index.documents[z]?.id;
+            documentRecord.documentHash = index.documents[z]?.documentHash;
+            documentRecord.documentName = index.documents[z]?.documentName;
+            documentRecord.documentType = index.documents[z]?.documentType;
+            documentRecord.title = index.documents[z]?.title;
+            documentRecord.description = index.documents[z]?.description;
+            documentRecord.documentTypeName = index.documents[z]?.documentTypeName;
+            documentRecord.docFile = index.documents[z]?.docFile;
+            documentRecord.docUrl = index.documents[z]?.docUrl;
+            vehicleMergedRecord.documents.push(documentRecord);
+         }
+        }
 
-
-                    vehicleMergedRecord.vin = index.vin;
-                    vehicleMergedRecord.vehicleTypeName = index.vehicleTypeName;
-                    let dateString = (this.datepipe.transform(index.yardInDate, 'yyyy/MM/dd'));
-                    vehicleMergedRecord.yardInDateStr = dateString;
-                    vehicleMergedRecord.statusName = index.statusName;
-                    vehicleMergedRecord.dataStatusName = index.dataStatusName;
-                    //vehicleMergedRecord.statusName = ((index.statusName)?index.statusName : " ").concat(((index.dataStatusName)? ' / '+ index.dataStatusName : " "));
-                    vehicleMergedRecord.assetId = ((index.id) ? index.id : 0);
-                    vehicleMergedRecord.vehicleData = ((index.makeName) ? index.makeName : "") + ' ' + ((index.modelName) ? index.modelName : "") + ' ' + ((index.year) ? index.year : "");
-
-                    for (let j = 0; j < index.plates.length; j++) {
-                        this.plateItem = ((index.plates[j]?.code) ? index.plates[j]?.code : "")
-                            + ' - ' + ((index.plates[j]?.emirateName) ? index.plates[j]?.emirateName : "")
-                            + ' - ' + ((index.plates[j]?.number) ? index.plates[j]?.number : "")
-                            + ' - ' + ((index.plates[j]?.plateTypeName) ? index.plates[j]?.plateTypeName : "");
-                        vehicleMergedRecord.platesData.push(this.plateItem);
-                    }
-
-                    vehicleMergedRecord.vehicleImages = ((index.images[0]?.imageUrl) ? index.images[0]?.imageUrl : "");
-
-                    for (let k = 0; k < index.images.length; k++) {
-                        let imageRecord: ImageRecord = new ImageRecord();
-                        this.imageItem = ((index.images[k]?.imageUrl) ? index.images[k]?.imageUrl : "");
-                        imageRecord.imageUrl = this.imageItem;
-                        vehicleMergedRecord.imagesData.push(imageRecord);
-                    }
-                    for (let m = 0; m < index.qrCodes.length; m++) {
-                        this.qrCode = ((index.qrCodes[m]?.qrCode) ? index.qrCodes[m]?.qrCode : "");
-                        vehicleMergedRecord.QRCodes.push(this.qrCode);
-                    }
-                    vehicleMergedRecords.push(vehicleMergedRecord);
-                }
-                let vehicleMergedResponse: VehicleMergedResponse = new VehicleMergedResponse();
-                vehicleMergedResponse.data = vehicleMergedRecords;
-                vehicleMergedResponse.success = res.success;
-                vehicleMergedResponse.totalCount = res.totalCount;
-                vehicleMergedResponse.message = res.message;
-                return subscriber.next(vehicleMergedResponse);
-            })
-        })
-
+        for (let m = 0; m < index.qrCodes.length; m++) {               
+            this.qrCode = ((index.qrCodes[m]?.qrCode)? index.qrCodes[m]?.qrCode:"");
+            vehicleMergedRecord.QRCodes.push(this.qrCode);
+           }
+           vehicleMergedRecords.push(vehicleMergedRecord);
+    }
+    let vehicleMergedResponse:VehicleMergedResponse = new VehicleMergedResponse();
+    vehicleMergedResponse.data = vehicleMergedRecords;
+    vehicleMergedResponse.success = res.success;
+    vehicleMergedResponse.totalCount = res.totalCount;
+    vehicleMergedResponse.message = res.message;
+    return subscriber.next(vehicleMergedResponse);
+ })})
+                                       
     }
 
     reactiveForm = () => {

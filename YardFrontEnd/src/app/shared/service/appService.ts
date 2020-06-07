@@ -181,19 +181,10 @@ export interface IClient {
      */
     listVehicle(body?: VehicleRequest | undefined): Observable<VehicleResponse>;
     /**
-     * @param id (optional) 
-     * @param documentHash (optional) 
-     * @param documentName (optional) 
-     * @param documentType (optional) 
-     * @param title (optional) 
-     * @param description (optional) 
-     * @param createdAt (optional) 
-     * @param documentTypeName (optional) 
-     * @param docFile (optional) 
-     * @param docUrl (optional) 
+     * @param body (optional) 
      * @return Success
      */
-    testCDN(id?: number | undefined, documentHash?: string | null | undefined, documentName?: string | null | undefined, documentType?: number | undefined, title?: string | null | undefined, description?: string | null | undefined, createdAt?: Date | undefined, documentTypeName?: string | null | undefined, docFile?: FileParameter | null | undefined, docUrl?: string | null | undefined): Observable<string>;
+    testCDN(body?: DocumentRecord | undefined): Observable<string>;
     /**
      * @param vehicleRecord_Id (optional) 
      * @param vehicleRecord_Year (optional) 
@@ -2382,55 +2373,21 @@ export class Client implements IClient {
     }
 
     /**
-     * @param id (optional) 
-     * @param documentHash (optional) 
-     * @param documentName (optional) 
-     * @param documentType (optional) 
-     * @param title (optional) 
-     * @param description (optional) 
-     * @param createdAt (optional) 
-     * @param documentTypeName (optional) 
-     * @param docFile (optional) 
-     * @param docUrl (optional) 
+     * @param body (optional) 
      * @return Success
      */
-    testCDN(id?: number | undefined, documentHash?: string | null | undefined, documentName?: string | null | undefined, documentType?: number | undefined, title?: string | null | undefined, description?: string | null | undefined, createdAt?: Date | undefined, documentTypeName?: string | null | undefined, docFile?: FileParameter | null | undefined, docUrl?: string | null | undefined): Observable<string> {
+    testCDN(body?: DocumentRecord | undefined): Observable<string> {
         let url_ = this.baseUrl + "/api/Vehicle/TestCDN";
         url_ = url_.replace(/[?&]$/, "");
 
-        const content_ = new FormData();
-        if (id === null || id === undefined)
-            throw new Error("The parameter 'id' cannot be null.");
-        else
-            content_.append("Id", id.toString());
-        if (documentHash !== null && documentHash !== undefined)
-            content_.append("DocumentHash", documentHash.toString());
-        if (documentName !== null && documentName !== undefined)
-            content_.append("DocumentName", documentName.toString());
-        if (documentType === null || documentType === undefined)
-            throw new Error("The parameter 'documentType' cannot be null.");
-        else
-            content_.append("DocumentType", documentType.toString());
-        if (title !== null && title !== undefined)
-            content_.append("Title", title.toString());
-        if (description !== null && description !== undefined)
-            content_.append("Description", description.toString());
-        if (createdAt === null || createdAt === undefined)
-            throw new Error("The parameter 'createdAt' cannot be null.");
-        else
-            content_.append("CreatedAt", createdAt.toJSON());
-        if (documentTypeName !== null && documentTypeName !== undefined)
-            content_.append("DocumentTypeName", documentTypeName.toString());
-        if (docFile !== null && docFile !== undefined)
-            content_.append("DocFile", docFile.data, docFile.fileName ? docFile.fileName : "DocFile");
-        if (docUrl !== null && docUrl !== undefined)
-            content_.append("DocUrl", docUrl.toString());
+        const content_ = JSON.stringify(body);
 
         let options_ : any = {
             body: content_,
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json",
                 "Accept": "text/plain"
             })
         };
@@ -7973,6 +7930,7 @@ export class ImageRecord implements IImageRecord {
     storeId?: number | undefined;
     imageTypeName?: string | undefined;
     imageFile?: string | undefined;
+    imageFileMime?: string | undefined;
     imageUrl?: string | undefined;
 
     constructor(data?: IImageRecord) {
@@ -7994,6 +7952,7 @@ export class ImageRecord implements IImageRecord {
             this.storeId = _data["storeId"];
             this.imageTypeName = _data["imageTypeName"];
             this.imageFile = _data["imageFile"];
+            this.imageFileMime = _data["imageFileMime"];
             this.imageUrl = _data["imageUrl"];
         }
     }
@@ -8013,6 +7972,7 @@ export class ImageRecord implements IImageRecord {
         data["storeId"] = this.storeId;
         data["imageTypeName"] = this.imageTypeName;
         data["imageFile"] = this.imageFile;
+        data["imageFileMime"] = this.imageFileMime;
         data["imageUrl"] = this.imageUrl;
         return data; 
     }
@@ -8034,6 +7994,7 @@ export interface IImageRecord {
     storeId?: number | undefined;
     imageTypeName?: string | undefined;
     imageFile?: string | undefined;
+    imageFileMime?: string | undefined;
     imageUrl?: string | undefined;
 }
 
@@ -8233,6 +8194,7 @@ export class DocumentRecord implements IDocumentRecord {
     description?: string | undefined;
     documentTypeName?: string | undefined;
     docFile?: string | undefined;
+    docFileMime?: string | undefined;
     docUrl?: string | undefined;
 
     constructor(data?: IDocumentRecord) {
@@ -8254,6 +8216,7 @@ export class DocumentRecord implements IDocumentRecord {
             this.description = _data["description"];
             this.documentTypeName = _data["documentTypeName"];
             this.docFile = _data["docFile"];
+            this.docFileMime = _data["docFileMime"];
             this.docUrl = _data["docUrl"];
         }
     }
@@ -8273,6 +8236,7 @@ export class DocumentRecord implements IDocumentRecord {
         data["description"] = this.description;
         data["documentTypeName"] = this.documentTypeName;
         data["docFile"] = this.docFile;
+        data["docFileMime"] = this.docFileMime;
         data["docUrl"] = this.docUrl;
         return data; 
     }
@@ -8294,6 +8258,7 @@ export interface IDocumentRecord {
     description?: string | undefined;
     documentTypeName?: string | undefined;
     docFile?: string | undefined;
+    docFileMime?: string | undefined;
     docUrl?: string | undefined;
 }
 
@@ -11212,11 +11177,6 @@ function createInstance<T>(data: any, mappings: any, type: any): T {
     mappings.push({ source: data, target: result });
     result.init(data, mappings);
     return result;
-}
-
-export interface FileParameter {
-    data: any;
-    fileName: string;
 }
 
 export class ApiException extends Error {

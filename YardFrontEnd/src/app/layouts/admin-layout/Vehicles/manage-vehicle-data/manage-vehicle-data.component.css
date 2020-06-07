@@ -1,6 +1,59 @@
-.example-card {
-    max-width: 700px;
+ /* .example-card {
+    width: 100%;
+}  */
+
+
+.example-form {
+  min-width: 150px;
+  max-width: 500px;
+  width: 100%;
 }
+
+.example-full-width {
+  width: 100%;
+}
+
 td {
-    padding-right: 30px;
+  padding-right: 15px;
 }
+
+
+.imgcontent {
+    width: 150px;
+    height: 150px;
+    margin-top: 20px; 
+    padding: 5px;
+    transition: transform .2s;
+ }
+   
+   .imgcontent:hover {
+     -ms-transform: scale(2); /* IE 9 */
+     -webkit-transform: scale(2); /* Safari 3-8 */
+     transform: scale(2); 
+   }
+
+   .img-wrap {
+    position: relative;
+    display: inline-block;
+    /* border: 1px red solid; */
+    font-size: 0;
+  }
+  .img-wrap .close {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    z-index: 100;
+    background-color: #FFF;
+    padding: 5px 2px 2px;
+    color: #000;
+    font-weight: bold;
+    cursor: pointer;
+    opacity: .2;
+    text-align: center;
+    font-size: 22px;
+    line-height: 10px;
+    border-radius: 50%;
+  }
+  .img-wrap:hover .close {
+    opacity: 1;
+  }

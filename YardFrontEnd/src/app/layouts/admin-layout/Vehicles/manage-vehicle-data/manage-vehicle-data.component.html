@@ -99,7 +99,7 @@
 
                         <td>
                             <mat-form-field>
-                                <mat-label>Select a emirate</mat-label>
+                                <mat-label>Select an emirate</mat-label>
                                 <mat-select formControlName="emirateId">
                                     <mat-option>None</mat-option>
                                     <mat-option [value]="emirate.id" *ngFor="let emirate of emirates">
@@ -236,12 +236,12 @@
                     </tr>
                 </table>
                 <hr *ngIf="data.onlyView == false">
-                <!-- <label class="control-label">Images</label> -->
                 <table class="example-full-width" cellspacing="0">
 
                     <tr *ngIf="data.onlyView == false">
                         <td *ngIf="data.dataStatusId != 1">
-                            <input type="file" multiple="multiple" placeholder="Upload Image" (change)="imageChange($event)" accept="image/*" name="ChooseImage" class="example-full-width">
+                          <div><strong> Images:</strong></div> <br>
+                           <input type="file" multiple="multiple" placeholder="Upload Image" (change)="imageChange($event)" accept="image/*" name="ChooseImage" class="example-full-width">
                         </td>
                         <td *ngIf="data.dataStatusId != 1 && imageChanged == true">
                             <mat-form-field class="example-full-width">
@@ -262,7 +262,7 @@
                         </td> -->
                     </tr>
                 </table>
-                <br>
+                <!-- <br> -->
                 <hr *ngIf="data.onlyView == true">
                 <div *ngIf="data.dataStatusId != 1 || data.onlyView == true" style="align-content: center;">
                     <span class="img-wrap" *ngFor="let img of data.imagesData">
@@ -277,6 +277,7 @@
 
                     <tr *ngIf="data.onlyView == false">
                         <td>
+                           <div> <strong> Documents:</strong> </div> <br>
                             <input type="file" multiple="multiple" placeholder="Upload file" (change)="fileChange($event)" accept="*" class="example-full-width">
                         </td>
                         <td *ngIf=" fileChanged == true">

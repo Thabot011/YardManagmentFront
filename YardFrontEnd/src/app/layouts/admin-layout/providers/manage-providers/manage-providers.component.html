@@ -21,7 +21,7 @@
                                 <input matInput placeholder="Arabic name" formControlName="nameAr">
                                 <!-- error -->
                                 <mat-error *ngIf="errorHandling('nameAr', 'required')">
-                                    You must provide a<strong>arabic name</strong>
+                                    You must provide an <strong>arabic name</strong>
                                 </mat-error>
                             </mat-form-field>
                         </td>
@@ -30,7 +30,7 @@
                                 <input matInput placeholder="English name" formControlName="nameEn">
                                 <!-- error -->
                                 <mat-error *ngIf="errorHandling('nameEn', 'required')">
-                                    You must provide a<strong>english name</strong>
+                                    You must provide an <strong>english name</strong>
                                 </mat-error>
                             </mat-form-field>
                         </td>
@@ -49,7 +49,7 @@
                                     </mat-option>
                                 </mat-select>
                                 <mat-error *ngIf="errorHandling('typeId','required')">
-                                    You must provide a<strong>provider type</strong>
+                                    You must provide a <strong>provider type</strong>
                                 </mat-error>
                             </mat-form-field>
                         </td>
@@ -63,7 +63,7 @@
                                     </mat-option>
                                 </mat-select>
                                 <mat-error *ngIf="errorHandling('countryId','required')">
-                                    You must provide a<strong>country</strong>
+                                    You must provide a <strong>country</strong>
                                 </mat-error>
                             </mat-form-field>
                         </td>
@@ -74,7 +74,7 @@
                     <tr>
                         <td>
                             <mat-form-field class="example-full-width">
-                                <mat-label>Select a emirate</mat-label>
+                                <mat-label>Select an emirate</mat-label>
                                 <mat-select formControlName="emirateId">
                                     <mat-option>None</mat-option>
                                     <mat-option [value]="emirate.id" *ngFor="let emirate of emirates">
@@ -105,10 +105,10 @@
                                 <input type="email" matInput placeholder="Email" formControlName="email">
                                 <!-- error -->
                                 <mat-error *ngIf="errorHandling('email', 'required')">
-                                    You must provide a<strong>email</strong>
+                                    You must provide an <strong>email</strong>
                                 </mat-error>
                                 <mat-error *ngIf="errorHandling('email', 'email')">
-                                    You must provide a<strong>valid email</strong>
+                                    You must provide a <strong>valid email</strong>
                                 </mat-error>
                             </mat-form-field>
                         </td>
@@ -127,7 +127,7 @@
                                 <input type="tel" matInput placeholder="Mobile" formControlName="mobile">
                                 <!-- error -->
                                 <mat-error *ngIf="errorHandling('mobile', 'required')">
-                                    You must provide a<strong>mobile</strong>
+                                    You must provide a <strong>mobile</strong>
                                 </mat-error>
                             </mat-form-field>
                         </td>
@@ -145,7 +145,7 @@
                                 <input matInput placeholder="TRN" formControlName="trn">
                                 <!-- error -->
                                 <mat-error *ngIf="errorHandling('trn', 'required')">
-                                    You must provide a<strong>TRN</strong>
+                                    You must provide a <strong>TRN</strong>
                                 </mat-error>
                             </mat-form-field>
                         </td>

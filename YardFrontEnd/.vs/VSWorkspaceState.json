@@ -5,12 +5,12 @@
     "\\src\\app",
     "\\src\\app\\layouts",
     "\\src\\app\\layouts\\admin-layout",
-    "\\src\\app\\layouts\\admin-layout\\Vehicles\\actions-history",
-    "\\src\\app\\layouts\\admin-layout\\Vehicles\\ownership-history",
-    "\\src\\app\\layouts\\admin-layout\\yards",
     "\\src\\app\\layouts\\admin-layout\\yards\\manage-zone-data",
-    "\\src\\app\\layouts\\admin-layout\\yards\\yard-managent"
+    "\\src\\app\\layouts\\admin-layout\\yards\\yard-managent",
+    "\\src\\app\\shared",
+    "\\src\\app\\shared\\component",
+    "\\src\\app\\shared\\component\\table"
   ],
-  "SelectedNode": "\\src\\app\\layouts\\admin-layout\\yards\\yard-managent\\yard-managent.component.ts",
+  "SelectedNode": "\\src\\app\\shared\\component\\table\\table.component.css",
   "PreviewInSolutionExplorer": false
 }

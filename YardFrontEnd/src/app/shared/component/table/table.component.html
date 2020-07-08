@@ -106,13 +106,12 @@
                             <mat-icon>layers</mat-icon>
                         </a>
 
-                         <!-- <a *ngIf="VehicleDetails" matTooltip="View Vehicle Details"
+                        <!-- <a *ngIf="VehicleDetails" matTooltip="View Vehicle Details"
                            [matTooltipPosition]="position"
                            mat-button
                            [routerLink]="['/'+detailsLink]">
                             <mat-icon>info</mat-icon>
                         </a> -->
-
                         <!-- <a *ngIf="element.dataStatusName && element.dataStatusName == 'Pending Data Completion'" matTooltip="Complete Vehicle Data"
                            [matTooltipPosition]="position"
                            mat-button
@@ -158,10 +157,10 @@
         <mat-paginator [pageSize]="viewResultsSize" [length]="resultsLength" [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
     </div>
 </div>
-<div class="row d-flex justify-content-center">
+<div class="row d-flex justify-content-center text-center">
     <div *ngIf="!hasResults" class="d-flex align-items-center" id="noResults">
-        <div class="thumbnail w-50 p-3 h-50 d-inline-block">
-            <img src="/assets/img/noresults.jpg" class="img-thumbnail img-rounded" style="width:100%">
+        <div class="w-50 p-3 h-50 d-inline-block">
+            <img width="800" height="600" src="/assets/img/noresults.jpg" class="img-thumbnail rounded img-rounded">
         </div>
     </div>
 </div>

@@ -150,8 +150,8 @@ export class TableComponent implements AfterViewInit {
             autoFocus: true,
             maxWidth: '50%',
             maxHeight: '90%',
-            height: '90%',
-            width: '50%',
+            minHeight: '30%',
+            minWidth: '40%',
             closeOnNavigation: true
         });
 
@@ -170,8 +170,8 @@ export class TableComponent implements AfterViewInit {
                 let dialogRef = this.dialog.open(this.AddOrEditComponent, {
                     maxWidth: '50%',
                     maxHeight: '90%',
-                    height: '90%',
-                    width: '50%',
+                    minHeight: '30%',
+                    minWidth: '40%',
                     autoFocus: true,
                     closeOnNavigation: true,
                     data: {
@@ -200,8 +200,8 @@ export class TableComponent implements AfterViewInit {
                 let dialogRef = this.dialog.open(this.AddOrEditComponent, {
                     maxWidth: '50%',
                     maxHeight: '90%',
-                    height: '90%',
-                    width: '50%',
+                    minHeight: '30%',
+                    minWidth: '40%',
                     autoFocus: true,
                     closeOnNavigation: true,
                     data: {}
@@ -233,8 +233,8 @@ export class TableComponent implements AfterViewInit {
             autoFocus: true,
             maxWidth: '50%',
             maxHeight: '90%',
-            height: '90%',
-            width: '50%',
+            minHeight: '30%',
+            minWidth: '40%',
             closeOnNavigation: true
         });
 
@@ -263,8 +263,8 @@ export class TableComponent implements AfterViewInit {
                     autoFocus: true,
                     maxWidth: '50%',
                     maxHeight: '90%',
-                    height: '90%',
-                    width: '50%',
+                    minHeight: '30%',
+                    minWidth: '40%',
                     closeOnNavigation: true
                 });
 
@@ -298,8 +298,8 @@ export class TableComponent implements AfterViewInit {
                     autoFocus: true,
                     maxWidth: '50%',
                     maxHeight: '90%',
-                    height: '90%',
-                    width: '50%',
+                    minHeight: '30%',
+                    minWidth: '40%',
                     closeOnNavigation: true
                 });
 
@@ -336,8 +336,8 @@ export class TableComponent implements AfterViewInit {
         let dialogRef = this.dialog.open(ConfirmComponent, {
             maxWidth: '30%',
             maxHeight: '55%',
-            height: '55%',
-            width: '30%',
+            minHeight: '22%',
+            minWidth: '10%',
             autoFocus: true,
             closeOnNavigation: true,
             data: { message: "Yard Confirm" }
@@ -389,8 +389,8 @@ export class TableComponent implements AfterViewInit {
             autoFocus: true,
             maxWidth: '100%',
             maxHeight: '100%',
-            height: '90%',
-            width: '70%'
+            minHeight: '90%',
+            minWidth: '70%'
         });
         dialogRef.afterClosed().subscribe(result => {
             console.log(`Dialog result: ${result}`);
@@ -403,8 +403,8 @@ export class TableComponent implements AfterViewInit {
             autoFocus: true,
             maxWidth: '50%',
             maxHeight: '90%',
-            height: '90%',
-            width: '50%',
+            minHeight: '30%',
+            minWidth: '40%',
             closeOnNavigation: true
         });
         dialogRef.afterClosed().subscribe((result: IDialogResult) => {
@@ -429,10 +429,10 @@ export class TableComponent implements AfterViewInit {
         const dialogRef = this.dialog.open(this.ListPopupComponent, {
             data: row,
             autoFocus: true,
-            maxWidth: '70%',
+            maxWidth: '50%',
             maxHeight: '90%',
-            height: '90%',
-            width: '70%',
+            minHeight: '30%',
+            minWidth: '40%',
             closeOnNavigation: true
         });
         dialogRef.afterClosed().subscribe((result: IDialogResult) => {
@@ -445,10 +445,10 @@ export class TableComponent implements AfterViewInit {
         const dialogRef = this.dialog.open(this.ActionsPopupListComponent, {
             data: row,
             autoFocus: true,
-            maxWidth: '70%',
+            maxWidth: '50%',
             maxHeight: '90%',
-            height: '90%',
-            width: '70%',
+            minHeight: '30%',
+            minWidth: '40%',
             closeOnNavigation: true
         });
         dialogRef.afterClosed().subscribe((result: IDialogResult) => {

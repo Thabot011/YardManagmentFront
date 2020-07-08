@@ -52,6 +52,7 @@ export class ManageZoneDataComponent extends BaseManagementClass implements OnIn
             enableSearchFilter: true,
             classes: "myclass custom-class",
             lazyLoading: true,
+            searchAutofocus: true,
             disabled: this.data.onlyView
         };
 

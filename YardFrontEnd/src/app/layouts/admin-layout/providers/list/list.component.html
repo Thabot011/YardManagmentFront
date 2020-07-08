@@ -22,7 +22,7 @@
                             </mat-card-title>
                             <mat-card-subtitle></mat-card-subtitle>
                         </mat-card-header>
-                        <form #formDir="ngForm" class="example-form" [formGroup]="form" (ngSubmit)="submitForm()" novalidate>
+                        <form #formDir="ngForm" [formGroup]="form" (ngSubmit)="submitForm()" novalidate>
                             <mat-card-content>
                                 <div mat-dialog-content>
 
@@ -114,15 +114,18 @@
 
                                     <table class="example-full-width" cellspacing="0">
                                         <tr>
-                                            <td>
+                                            <td style="width:33.3%">
                                                 <mat-form-field class="example-full-width">
                                                     <input matInput placeholder="TRN" formControlName="trn">
 
                                                 </mat-form-field>
                                             </td>
+
                                             <td>
+
                                                 <mat-checkbox formControlName="isActive" class="example-margin example-full-width">Is active</mat-checkbox>
                                             </td>
+
                                         </tr>
                                     </table>
 

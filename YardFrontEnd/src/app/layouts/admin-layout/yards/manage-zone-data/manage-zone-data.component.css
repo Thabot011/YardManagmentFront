@@ -12,6 +12,10 @@
     width: 100%;
 }
 
+.example-half-width {
+    width: 50%;
+}
+
 td {
-    padding-right: 8px;
+    padding-right: 15px;
 }

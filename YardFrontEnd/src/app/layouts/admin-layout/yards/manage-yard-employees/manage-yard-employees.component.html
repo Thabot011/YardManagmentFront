@@ -10,7 +10,7 @@
         </mat-card-title>
         <mat-card-subtitle></mat-card-subtitle>
     </mat-card-header>
-    <form class="example-form" [formGroup]="form" (ngSubmit)="submitForm()" novalidate>
+    <form [formGroup]="form" (ngSubmit)="submitForm()" novalidate>
         <mat-card-content>
             <div mat-dialog-content>
                 <input type="hidden" value="0" formControlName="id">
@@ -65,7 +65,7 @@
                 <table class="example-full-width" cellspacing="0">
                     <tr>
                         <td>
-                            <mat-form-field class="example-full-width">
+                            <mat-form-field class="example-half-width">
                                 <input type="text" matInput placeholder="Position" formControlName="position">
                                 <!-- error -->
                                 <mat-error *ngIf="errorHandling('position', 'required')">

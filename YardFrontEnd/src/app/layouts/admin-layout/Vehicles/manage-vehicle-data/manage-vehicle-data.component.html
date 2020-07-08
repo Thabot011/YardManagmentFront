@@ -240,8 +240,8 @@
 
                     <tr *ngIf="data.onlyView == false">
                         <td *ngIf="data.dataStatusId != 1">
-                          <div><strong> Images:</strong></div> <br>
-                           <input type="file" multiple="multiple" placeholder="Upload Image" (change)="imageChange($event)" accept="image/*" name="ChooseImage" class="example-full-width">
+                            <div><strong> Images:</strong></div> <br>
+                            <input type="file" multiple="multiple" placeholder="Upload Image" (change)="imageChange($event)" accept="image/*" name="ChooseImage" class="example-full-width">
                         </td>
                         <td *ngIf="data.dataStatusId != 1 && imageChanged == true">
                             <mat-form-field class="example-full-width">
@@ -277,7 +277,7 @@
 
                     <tr *ngIf="data.onlyView == false">
                         <td>
-                           <div> <strong> Documents:</strong> </div> <br>
+                            <div> <strong> Documents:</strong> </div> <br>
                             <input type="file" multiple="multiple" placeholder="Upload file" (change)="fileChange($event)" accept="*" class="example-full-width">
                         </td>
                         <td *ngIf=" fileChanged == true">

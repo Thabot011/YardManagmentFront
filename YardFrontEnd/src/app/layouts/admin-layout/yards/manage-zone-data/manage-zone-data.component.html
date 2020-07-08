@@ -10,7 +10,7 @@
         </mat-card-title>
         <mat-card-subtitle></mat-card-subtitle>
     </mat-card-header>
-    <form class="example-form" [formGroup]="form" (ngSubmit)="submitForm()" novalidate>
+    <form [formGroup]="form" (ngSubmit)="submitForm()" novalidate>
         <mat-card-content>
             <div mat-dialog-content>
                 <input type="hidden" value="0" formControlName="id">
@@ -51,22 +51,25 @@
 
                 <table class="example-full-width" cellspacing="0">
                     <tr>
-                        <td>
-                            <mat-form-field class="example-full-width">
-                                <input matInput placeholder="Capacity" formControlName="capacity">
-                                <!-- error -->
-                                <mat-error *ngIf="errorHandling('capacity', 'required')">
-                                    You must provide a <strong>capacity</strong>
-                                </mat-error>
-                            </mat-form-field>
-                        </td>
 
-                        <td>
+
+                        <td style="width:50%">
                             <div class="example-full-width">
                                 <label>Select providers</label>
                                 <angular2-multiselect [data]="providersDropdown"
-                                                      [settings]="dropdownSettings "
+                                                      [settings]="dropdownSettings"
                                                       formControlName="zoneProviders">
+                                </angular2-multiselect>
+
+                            </div>
+                        </td>
+
+                        <td style="width:50%">
+                            <div class="example-full-width">
+                                <label>Select beneficiaries</label>
+                                <angular2-multiselect [data]="BeneficiariesDropdown"
+                                                      [settings]="dropdownSettings"
+                                                      formControlName="zoneBeneficiarys">
                                 </angular2-multiselect>
 
                             </div>
@@ -77,14 +80,13 @@
                 <table class="example-full-width" cellspacing="0">
                     <tr>
                         <td>
-                            <div class="example-full-width">
-                                <label>Select beneficiaries</label>
-                                <angular2-multiselect [data]="BeneficiariesDropdown"
-                                                      [settings]="dropdownSettings "
-                                                      formControlName="zoneBeneficiarys">
-                                </angular2-multiselect>
-
-                            </div>
+                            <mat-form-field class="example-half-width">
+                                <input matInput placeholder="Capacity" formControlName="capacity">
+                                <!-- error -->
+                                <mat-error *ngIf="errorHandling('capacity', 'required')">
+                                    You must provide a <strong>capacity</strong>
+                                </mat-error>
+                            </mat-form-field>
                         </td>
                     </tr>
                 </table>

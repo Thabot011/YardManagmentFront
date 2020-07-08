@@ -10,7 +10,7 @@
         </mat-card-title>
         <mat-card-subtitle></mat-card-subtitle>
     </mat-card-header>
-    <form class="example-form" [formGroup]="form" (ngSubmit)="submitForm()" novalidate>
+    <form [formGroup]="form" (ngSubmit)="submitForm()" novalidate>
         <mat-card-content>
             <div mat-dialog-content>
                 <input type="hidden" value="0" formControlName="id">
@@ -137,7 +137,7 @@
                             </mat-form-field>
                         </td>
                         <td>
-                            <mat-form-field>
+                            <mat-form-field class="example-full-width">
                                 <input matInput type="time" placeholder="Working hours to" formControlName="workingTo">
                             </mat-form-field>
                         </td>
